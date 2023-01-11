@@ -264,9 +264,7 @@ main → develop → feature/내용, fix/내용, refactor/내용
 
 ```bash
 주석은 설명하려는 구문에 맞춰 들여쓰기 합니다.
-```
 
-```jsx
 // Good
 function someFunction() {
   ...
@@ -280,9 +278,7 @@ function someFunction() {
 
 ```bash
 연산자 사이에는 공백을 추가하여 가독성을 높입니다
-```
 
-```jsx
 a+b+c+d // bad
 a + b + c + d // good
 ```
@@ -291,33 +287,26 @@ a + b + c + d // good
 
 ```bash
 ☝ 콤마 다음에 값이 올 경우 공백을 추가하여 가독성을 높입니다.
-```
 
-```jsx
 var arr = [1,2,3,4]; //bad
 var arr = [1, 2, 3, 4]; //good
 ```
 
 ```bash
 🔠 생성자 함수명의 맨 앞글자는 대문자로 합니다.
-```
 
-```jsx
 function Person(){}
 ```
 
 ```bash
 🔠 ENUM이나 상수는 대문자로 합니다.
-```
-```jsx
+
 NORMAL_STATUS = 10;
 ```
 
 ```bash
 🔠 함수명은 소문자로 시작하고 동사로 합니다.
-```
 
-```jsx
 function getUserId(){}
 ```
 
