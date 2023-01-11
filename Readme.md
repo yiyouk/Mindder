@@ -27,6 +27,155 @@
 </div>
 <div align="left">
 
+# 깃 컨벤션 (커밋, 깃 플로우 전략)
+
+## 🖤 커밋 메시지 컨벤션
+
+<aside>
+✅
+
+### 1. 커밋 유형 지정
+
+- 커밋 유형은 영어 대문자로 작성하기
+    
+    
+    | 커밋 유형 | 의미 |
+    | --- | --- |
+    | Feat | 새로운 기능 추가 |
+    | Fix | 버그 수정 |
+    | Add | Feat 이외의 부수적인 코드 추가/라이브러리 추가/ 새로운 View나 Activity 생성 |
+    | Docs | 문서 수정 |
+    | Style | 코드 formatting, 세미콜론 누락, 코드 자체의 변경이 없는 경우 |
+    | Refactor | 코드 리팩토링 |
+    | Test | 테스트 코드, 리팩토링 테스트 코드 추가 |
+    | Chore | 패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore |
+    | Design | CSS 등 사용자 UI 디자인 변경 |
+    | Comment | 필요한 주석 추가 및 변경 |
+    | Rename | 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우 |
+    | Remove | 파일을 삭제하는 작업만 수행한 경우 |
+    | !BREAKING CHANGE | 커다란 API 변경의 경우 |
+    | !HOTFIX | 급하게 치명적인 버그를 고쳐야 하는 경우 |
+
+### 2. 제목과 본문을 빈행으로 분리
+
+- 커밋 유형 이후 제목과 본문은 한글로 작성하여 내용이 잘 전달될 수 있도록 할 것
+- 본문에는 변경한 내용과 이유 설명 (어떻게 보다는 무엇 & 왜를 설명)
+
+### 3. 제목 첫 글자는 대문자로, 끝에는 `.` 금지
+
+### 4. 제목은 영문 기준 50자 이내로 할 것
+
+### 5. 자신의 코드가 직관적으로 바로 파악할 수 있다고 생각하지 말자
+
+### 6. 여러가지 항목이 있다면 글머리 기호를 통해 가독성 높이기
+
+```
+- 변경 내용 1
+- 변경 내용 2
+- 변경 내용 3
+```
+
+</aside>
+
+### 🖤 규칙에 맞는 좋은 커밋메시지를 작성해야 하는 이유
+
+- 팀원과의 소통
+- 편리하게 과거 추적 가능
+- 나중에 실무에서 익숙해지기 위해
+
+<aside>
+☝ 안 지킨 사례
+
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4b8b9937-a26c-4f16-8de2-d4fbfbd97094%2FUntitled.png?id=224056b5-95ac-4d54-bd45-da14f98476de&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2"/>
+
+</aside>
+
+### 🖤 한 커밋에는 한 가지 문제만!
+
+- 추적 가능하게 유지해주기
+- 너무 많은 문제를 한 커밋에 담으면 추적하기 어렵다.
+
+### 🖤 CLI에서 커밋 메시지 여러 줄로 작성하는 방법
+
+<aside>
+✅ 쌍따옴표를 닫지 말고 개행하며 작성 → 다 작성한 후에 쌍따옴표를 닫으면 작성 완료
+
+```bash
+git commit -m "FEAT: 회원가입 기능 추가
+
+- 회원가입 기능 추가"
+```
+
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F335eb35f-5297-403d-8fde-2343a41a5c66%2FUntitled.png?id=21f7b1e3-8fd1-46fd-b20f-decea1f401b1&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+
+</aside>
+
+## 📌 issue convention
+
+---
+
+- 제목은 영어로 작성한다.
+- 내용은 다른 사람이 알아볼 수 있게 본인이 작업할 내용을 적는다.
+- 라벨을 설정한다.
+- EX
+    
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa4f7708b-28cf-444b-beca-ad4525115f3b%2FUntitled.png?id=6518dc8a-a6bc-48bd-be0b-d5996423284b&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9bc518c2-2da3-4d1d-bce8-c2ab5bf59941%2FUntitled.png?id=a6f70dfa-a44d-48fe-a7eb-8fec526a69d3&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+
+## 📌 pr convention
+
+---
+
+- 제목은 영어로 작성한다. (이슈 컨벤션과 같음)
+- [영어 대문자] #이슈번호 - 해당 이슈 내용 (꼭 이슈랑 동일하지는 않아도 된다. 이슈 번호만 신경써서 적기)
+- 내용에는 변경 사항을 적는다.
+- 해당 이슈의 `closed #이슈`를 단다.
+- assignees를 본인으로 설정한다.
+- reviewers를 설정한다.
+- 라벨을 설정한다.
+- 코드 리뷰를 받는다.
+- 변경 request 단 경우 확인 후 resolve를 한다.
+- 스쿼시 머지를 한다.
+- EX
+    
+<img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364d175a-fea4-4a86-8e71-83f830552dba%2FUntitled.png?id=60a1eedc-7d04-4608-b98a-30c91e8ecfe4&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+
+## 📌 git flow
+
+---
+
+작업하는 동안 default branch를 develop으로 바꿔 놓을게요.
+
+- **pr 날릴 때 어디로 날리는 건지 체크 한 번 씩 더 해주세요!**
+
+### **main → develop → eunji_feature/#3**
+
+main은 모든 작업이 끝난 후 develop에서 merge 시킨다.
+
+—————————————————————————
+
+- main - 초기 세팅 존재
+- develop - local 작업 완료 후 merge 브랜치
+- minji - 민지 local 브랜치
+- eunji - 은지 local 브랜치
+- minsik - 민식 local 브랜치
+- localdevelop_feature/#issue - 각자의 기능 추가 브랜치 → ex) eunji_feature/#3
+
+—————————————————————————
+
+1. `local - feature` 에서 각자 기능 작업
+2. 작업 완료 후 `remote - develop` 에 PR
+3. **코드 리뷰 후 Confirm 받고 Merge**
+4. remote - develop 에 Merge 될 때 마다 **모든 팀원 remote - develop pull** 받아 최신 상태 유지
+
+main → develop → feature/내용, fix/내용, refactor/내용
+
+1. local에서 각자 작업
+2. 작업 완료 후 remote - develop으로 pr
+3. 코드 리뷰 후 merge
+
 # 코딩 컨벤션
 
 ### ☑️ 코드 컨벤션이 필요한 이유
@@ -85,7 +234,6 @@
 참고 : [https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/](https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/)
 
 # BackEnd
-
 ## ☑️ 코드 컨벤션
 
 ```bash
