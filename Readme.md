@@ -83,12 +83,7 @@
 - 편리하게 과거 추적 가능
 - 나중에 실무에서 익숙해지기 위해
 
-<aside>
-☝ 안 지킨 사례
 
-<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4b8b9937-a26c-4f16-8de2-d4fbfbd97094%2FUntitled.png?id=224056b5-95ac-4d54-bd45-da14f98476de&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2"/>
-
-</aside>
 
 ### 🖤 한 커밋에는 한 가지 문제만!
 
@@ -105,9 +100,6 @@ git commit -m "FEAT: 회원가입 기능 추가
 
 - 회원가입 기능 추가"
 ```
-
-<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F335eb35f-5297-403d-8fde-2343a41a5c66%2FUntitled.png?id=21f7b1e3-8fd1-46fd-b20f-decea1f401b1&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
-
 </aside>
 
 ## 📌 issue convention
@@ -117,12 +109,6 @@ git commit -m "FEAT: 회원가입 기능 추가
 - 제목은 영어로 작성한다.
 - 내용은 다른 사람이 알아볼 수 있게 본인이 작업할 내용을 적는다.
 - 라벨을 설정한다.
-- EX
-    
-<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa4f7708b-28cf-444b-beca-ad4525115f3b%2FUntitled.png?id=6518dc8a-a6bc-48bd-be0b-d5996423284b&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
-    
-<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9bc518c2-2da3-4d1d-bce8-c2ab5bf59941%2FUntitled.png?id=a6f70dfa-a44d-48fe-a7eb-8fec526a69d3&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
-
 ## 📌 pr convention
 
 ---
@@ -137,10 +123,6 @@ git commit -m "FEAT: 회원가입 기능 추가
 - 코드 리뷰를 받는다.
 - 변경 request 단 경우 확인 후 resolve를 한다.
 - 스쿼시 머지를 한다.
-- EX
-    
-<img src = "https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F364d175a-fea4-4a86-8e71-83f830552dba%2FUntitled.png?id=60a1eedc-7d04-4608-b98a-30c91e8ecfe4&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
-    
 
 ## 📌 git flow
 
