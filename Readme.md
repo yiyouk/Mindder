@@ -1,0 +1,240 @@
+<div align="center">
+    <h3>😄 웃조 😄</h3>
+    <p>⭐️ Platforms & Languages ⭐️</p>
+<div>
+<div align="center">
+    <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
+	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
+	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
+	<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" />
+	<br>
+	<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white" />
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/>
+	<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white" />
+	<img src="https://img.shields.io/badge/Mybatis-000000?style=flat&logo=Fluentd&logoColor=white" />
+</div>
+<br>
+<div align=center>
+	<p>🛠 Tools 🛠</p>
+</div>
+<div align=center>
+	<img src="https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=flat&logo=EclipseIDE&logoColor=white" />
+	<img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=flat&logo=VisualStudioCode&logoColor=white" />
+	<br>
+	<img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=ApacheTomcat&logoColor=white" />
+	<img src="https://img.shields.io/badge/AWS-232F3E?style=flat&logo=AmazonAWS&logoColor=white" />
+	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
+</div>
+<div align="left">
+
+# 코딩 컨벤션
+
+### ☑️ 코드 컨벤션이 필요한 이유
+
+- 팀원끼리 코드를 공유하기 때문에 일관성 있는 코드를 작성하면 서로 이해하기 쉽다.
+- 나중에 입사 지원 시 프로젝트를 하며 코드 컨벤션을 만들어 진행했다고 하면 협업 면에서 유리하게 작용할 수 있다.
+
+### 참고
+
+[코딩컨벤션](https://ui.toast.com/fe-guide/ko_CODING-CONVENTION)
+
+# FrontEnd
+
+## 1. **NAMING CONVENTIONS**
+
+- **components 이름은 Pascal Case로 작성한다.**
+- **Non-components 이름은 Camel Case로 작성한다.**
+
+## 2. **BUG AVOIDANCE**
+
+- null **또는 undefined일 수 있는 값은 optional chaining 연산자 (?.)를 사용한다.**
+
+## 3. **ARCHITECTURE & CLEAN CODE**
+
+- **유틸리티 파일을 만들어 중복된 코드를 피한다.**
+- **Presentational 컴포넌트와 Container 컴포넌트를 분리하여 사용한다.**
+- **고차 컴포넌트(Higher Order Components, HOC)는 적절하게 사용한다.**
+- **JS, test, css로 파일을 분리한다.**
+- **불필요한 주석을 사용하지 않는다.**
+- **현재 화면보다 긴 코드는 더 작은 단위의 코드로 리팩토링 한다.**
+- **주석 처리된 코드는 커밋하지 말고 삭제한다.**
+
+## 4. **ES6**
+
+- **class component가 아닌 function component를 사용한다.**
+- **JSX 문법을 사용한다.**
+- **spread 연산자를 사용한다.**
+- **구조 분해 할당을 사용한다. let과 const만 사용한다. (var 사용금지)**
+- **되도록 화살표 함수를 사용한다.**
+- **직접 null을 체크하기 보다 optional chaining 연산자 (?.)를 사용한다.**
+
+## 5. **TESTING**
+
+- **테스트를 작성한다.**
+- **적정 수준의 테스트 커버리지를 유지한다.**
+- **하나의 테스트 파일에서 하나만 테스트 한다.**
+- **테스트 코드안에서 로직을 사용하지 않는다.**
+- **테스트 클래스는 하나의 클래스만 테스트 한다.**
+- **네트워크, 데이터 베이스와 직접 통신하지말고 가짜 함수를 사용한다.**
+
+## 6. **CSS**
+
+- **inline css를 사용하지 않는다.**
+- **명명 규칙을 지킨다.**
+
+참고 : [https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/](https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/)
+
+# BackEnd
+
+## ☑️ 코드 컨벤션
+
+```bash
+문자열을 처리할 때는 쌍따옴표를 사용하도록 합니다.
+```
+
+```bash
+문장이 종료될 때는 세미콜론을 붙여줍니다.
+```
+
+```bash
+🐫 함수명, 변수명은 카멜케이스로 작성합니다.
+```
+
+
+```bash
+🥙 URL, 파일명은 케밥케이스로 작성합니다.
+```
+
+
+```bash
+☝ 가독성을 위해 한 줄에 하나의 문장만 작성합니다.
+```
+
+```bash
+주석은 설명하려는 구문에 맞춰 들여쓰기 합니다.
+```
+
+```jsx
+// Good
+function someFunction() {
+  ...
+
+  // statement에 관한 주석
+  statements
+}
+```
+
+
+
+```bash
+연산자 사이에는 공백을 추가하여 가독성을 높입니다
+```
+
+```jsx
+a+b+c+d // bad
+a + b + c + d // good
+```
+
+</aside>
+
+```bash
+☝ 콤마 다음에 값이 올 경우 공백을 추가하여 가독성을 높입니다.
+```
+
+```jsx
+var arr = [1,2,3,4]; //bad
+var arr = [1, 2, 3, 4]; //good
+```
+
+```bash
+🔠 생성자 함수명의 맨 앞글자는 대문자로 합니다.
+```
+
+```jsx
+function Person(){}
+```
+
+```bash
+🔠 ENUM이나 상수는 대문자로 합니다.
+```
+```jsx
+NORMAL_STATUS = 10;
+```
+
+```bash
+🔠 함수명은 소문자로 시작하고 동사로 합니다.
+```
+
+```jsx
+function getUserId(){}
+```
+
+---
+
+### ☑️ **Structure**
+
+1. **패키지는 목적별로 묶는다.**
+    - common(공통기능 관련 패키지), user(User 관련 패키지), coupon(쿠폰 관련 패키지)
+2. **Controller에서는 최대한 어떤 Service를 호출할지 결정하는 역할과 Exception처리만을 담당하자.**
+    - Controller 단에서 로직을 구현하는 것을 지양한다.
+3. **하나의 메소드와 클래스는 하나의 목적을 두게 만든다.**
+    - 하나의 메소드 안에서 한가지 일만 해야한다.
+    - 하나의 클래스 안에서는 같은 목적을 둔 코드들의 집합이여야한다.
+4. **메소드와 클래스는 최대한 작게 만든다.**
+    - 메소드와 클래스가 커진다면 하나의 클래스나 메소드 안에서 여러 동작을 하고 있을 확률이 크다.
+    - 수많은 책임을 떠안은 클래스를 피한다. 큰 클래스 몇 개가 아니라 작은 클래스 여럿으로 이뤄진 시스템이 더욱 바람직하다.
+    - 클래스 나누는 것을 두려워하지 말자.
+5. **도메인 서비스를 만들어지는 것을 피하자.**
+    - User라는 도메인이 있을 때, UserService로 만드는 것을 피한다.
+    - 이렇게 도메인 네이밍을 딴 서비스가 만들어지면 자연스레 수많은 책임을 떠안은 큰 클래스로 발전될 가능성이 높다.
+    - 기능 별로 세분화해서 만들어보자. (UserRegisterService, UserEmailService 등...)
+6. **에러 검출(try - catch)**
+    - 최상단에서 에러 검출 하기
+    - ex) 컨트롤러 서비스 DAO가 있으면  컨트롤러에서 try -catch문 작성
+
+## 🍃 스프링부트 네이밍 컨벤션
+
+<aside>
+✅
+
+### ▶ Controller
+
+- 컨트롤러 클래스 안에서 메서드 명을 작성 할 때는 아래와 같은 접미사를 붙인다.
+    
+    
+    | 메서드명 | 의미 |
+    | --- | --- |
+    | orderList() | 목록 조회 유형의 서비스 |
+    | orderDetails() | 단 건 상세 조회 유형의 controller 메서드 |
+    | orderSave() | 등록/수정/삭제 가 동시에 일어나는 유형의 controller 메서드 |
+    | orderAdd() | 등록만 하는 유형의 controller 메서드 |
+    | orderModify() | 수정만 하는 유형의 controller 메서드 |
+    | orderRemove() | 삭제만 하는 유형의 controller 메서드 |
+
+### ▶ ****Service****
+
+- 서비스 클래스 안에서 메서드 명을 작성 할 때는 아래와 같은 접두사를 붙인다.
+    
+    
+    | 메서드명 | 의미 |
+    | --- | --- |
+    | findOrder() | 조회 유형의 service 메서드 |
+    | addOrder() | 등록 유형의 service 메서드 |
+    | modifyOrder() | 변경 유형의 service 메서드 |
+    | removeOrder() | 삭제 유형의 service 메서드 |
+    | saveOrder() | 등록/수정/삭제 가 동시에 일어나는 유형의 service 메서드 |
+
+### ▶ Mapper
+
+- Mapper 클래스 안에서 메서드 명을 작성 할 때는 아래와 같은 접두사를 붙인다.
+    
+    
+    | 메서드명 | 의미 |
+    | --- | --- |
+    | selectOrder() | 조회 유형의 mapper 메서드 |
+    | insertOrder() | 등록 유형의 mapper 메서드 |
+    | updateOrder() | 변경 유형의 mapper 메서드 |
+    | deleteOrder() | 삭제 유형의 mapper 메서드 |
+
+</aside>
+</div>
