@@ -1,3 +1,4 @@
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F30b605fd-d9cc-4f52-8d73-6210b40b0cff%2FUntitled.png?id=eafdd3c4-ee45-4aff-a075-1b5cc5b6d8ce&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=2000&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
 <div align="center">
     <h3>😄 웃조 😄</h3>
     <p>⭐️ Platforms & Languages ⭐️</p>
@@ -26,6 +27,61 @@
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
 </div>
 <div align="left">
+
+<br>
+<br>
+
+# 서론
+
+1. 문제인식
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://www.seoul.co.kr/news/newsView.php?id=20210825017006](https://www.seoul.co.kr/news/newsView.php?id=20210825017006)
+    
+    - 현대인들 심리적 피로도가 매우 높다 → 우리 모두가 공유하고 있는 문제
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://www.donga.com/news/Economy/article/all/20210308/105765714/1](https://www.donga.com/news/Economy/article/all/20210308/105765714/1)
+    
+    - 이러한 심리적 피로에 효과적으로 대처하지 못하고 있다 → 일상에서 이를 다룰만한 기회가 많이 없다
+    
+2. 문제의 원인분석
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2e50964b-a934-4f55-aaad-e6e94512b9b2%2FUntitled.png?id=60ee682f-1413-4b64-901c-02dc7286617c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA](https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA)
+    
+    - 많은 사람들은 감정을 억압하고 있다
+    - 감정을 직접드러내지 않고 감성콘텐츠를 소비하며 표현한다.
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F91430db4-ec49-4fd2-a017-31ce983179db%2FUntitled.png?id=1f68b9e5-5e86-4200-8afd-c28eb92b02bf&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5edc23fb-cb5f-4df8-91d3-bb459a0348cd%2FUntitled.png?id=4f8c2e83-8d8c-477c-b9e8-cdbf21bc3885&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://m.hankookilbo.com/News/Read/A2020102213120003759](https://m.hankookilbo.com/News/Read/A2020102213120003759)
+    
+    - 감정(마음)을 표현하고 이를 바라보는 것의 중요성
+
+1. 솔루션
+    - 일상생활에서 쉽고 자연스럽게 감정을 표현하고 공유하고 공감받을 수 있다면 도움이 될 것이다.
+    - 그림은 감정을 자연스럽게 표현하는 데 가장 효과적인 수단이다.
+        
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1a6fafd2-3817-422d-8f5b-3fe9bed27b00%2FUntitled.png?id=64ff6b0b-a707-4e3b-be66-6f5a282712fc&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F88de42d1-2664-43ca-92bf-487c455b1514%2FUntitled.png?id=1451ec7d-8716-4ac3-ae55-23a5077e964c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    - 그림을 통해 감정을 표현하고 공유하는 서비스
+    - mind draw together MINDDER~
+
+1. 솔루션의 이유
+    - 그림으로 감정을 표현하는 것의 효과는 입증되어 있지만 일상생활에서 쉽게 접할 기회가 적다.
+    - 따라서 사람들에게 친숙한 SNS와 접목한 서비스를 기획했다.
+
+1. 타켓층 설정
+    - 일상생활에서 감정소모를 많이 느끼는, 심리적 피로감을 많이 느끼는, 모바일에 친숙한 **MZ세대**
+
+---
+<br>
+<br>
 
 # 깃 컨벤션 (커밋, 깃 플로우 전략)
 
