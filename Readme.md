@@ -1,3 +1,4 @@
+<img src ="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F30b605fd-d9cc-4f52-8d73-6210b40b0cff%2FUntitled.png?id=eafdd3c4-ee45-4aff-a075-1b5cc5b6d8ce&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=2000&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
 <div align="center">
     <h3>😄 웃조 😄</h3>
     <p>⭐️ Platforms & Languages ⭐️</p>
@@ -26,6 +27,196 @@
 	<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white" />
 </div>
 <div align="left">
+
+<br>
+<br>
+
+# 서비스 개요
+
+1. 문제인식
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://www.seoul.co.kr/news/newsView.php?id=20210825017006](https://www.seoul.co.kr/news/newsView.php?id=20210825017006)
+    
+    - 현대인들 심리적 피로도가 매우 높다 → 우리 모두가 공유하고 있는 문제
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://www.donga.com/news/Economy/article/all/20210308/105765714/1](https://www.donga.com/news/Economy/article/all/20210308/105765714/1)
+    
+    - 이러한 심리적 피로에 효과적으로 대처하지 못하고 있다 → 일상에서 이를 다룰만한 기회가 많이 없다
+    
+2. 문제의 원인분석
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2e50964b-a934-4f55-aaad-e6e94512b9b2%2FUntitled.png?id=60ee682f-1413-4b64-901c-02dc7286617c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA](https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA)
+    
+    - 많은 사람들은 감정을 억압하고 있다
+    - 감정을 직접드러내지 않고 감성콘텐츠를 소비하며 표현한다.
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F91430db4-ec49-4fd2-a017-31ce983179db%2FUntitled.png?id=1f68b9e5-5e86-4200-8afd-c28eb92b02bf&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5edc23fb-cb5f-4df8-91d3-bb459a0348cd%2FUntitled.png?id=4f8c2e83-8d8c-477c-b9e8-cdbf21bc3885&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    [https://m.hankookilbo.com/News/Read/A2020102213120003759](https://m.hankookilbo.com/News/Read/A2020102213120003759)
+    
+    - 감정(마음)을 표현하고 이를 바라보는 것의 중요성
+
+1. 솔루션
+    - 일상생활에서 쉽고 자연스럽게 감정을 표현하고 공유하고 공감받을 수 있다면 도움이 될 것이다.
+    - 그림은 감정을 자연스럽게 표현하는 데 가장 효과적인 수단이다.
+        
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1a6fafd2-3817-422d-8f5b-3fe9bed27b00%2FUntitled.png?id=64ff6b0b-a707-4e3b-be66-6f5a282712fc&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F88de42d1-2664-43ca-92bf-487c455b1514%2FUntitled.png?id=1451ec7d-8716-4ac3-ae55-23a5077e964c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    
+    - 그림을 통해 감정을 표현하고 공유하는 서비스
+    - mind draw together MINDDER~
+
+1. 솔루션의 이유
+    - 그림으로 감정을 표현하는 것의 효과는 입증되어 있지만 일상생활에서 쉽게 접할 기회가 적다.
+    - 따라서 사람들에게 친숙한 SNS와 접목한 서비스를 기획했다.
+
+1. 타켓층 설정
+    - 일상생활에서 감정소모를 많이 느끼는, 심리적 피로감을 많이 느끼는, 모바일에 친숙한 **MZ세대**
+
+---
+<br>
+<br>
+
+# 깃 컨벤션 (커밋, 깃 플로우 전략)
+
+## 🖤 커밋 메시지 컨벤션
+
+<aside>
+✅
+
+### 1. 커밋 유형 지정
+
+- 커밋 유형은 영어 대문자로 작성하기
+    
+    
+    | 커밋 유형 | 의미 |
+    | --- | --- |
+    | Feat | 새로운 기능 추가 |
+    | Fix | 버그 수정 |
+    | Add | Feat 이외의 부수적인 코드 추가/라이브러리 추가/ 새로운 View나 Activity 생성 |
+    | Docs | 문서 수정 |
+    | Style | 코드 formatting, 세미콜론 누락, 코드 자체의 변경이 없는 경우 |
+    | Refactor | 코드 리팩토링 |
+    | Test | 테스트 코드, 리팩토링 테스트 코드 추가 |
+    | Chore | 패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore |
+    | Design | CSS 등 사용자 UI 디자인 변경 |
+    | Comment | 필요한 주석 추가 및 변경 |
+    | Rename | 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우 |
+    | Remove | 파일을 삭제하는 작업만 수행한 경우 |
+    | !BREAKING CHANGE | 커다란 API 변경의 경우 |
+    | !HOTFIX | 급하게 치명적인 버그를 고쳐야 하는 경우 |
+
+### 2. 제목과 본문을 빈행으로 분리
+
+- 커밋 유형 이후 제목과 본문은 한글로 작성하여 내용이 잘 전달될 수 있도록 할 것
+- 본문에는 변경한 내용과 이유 설명 (어떻게 보다는 무엇 & 왜를 설명)
+
+### 3. 제목 첫 글자는 대문자로, 끝에는 `.` 금지
+
+### 4. 제목은 영문 기준 50자 이내로 할 것
+
+### 5. 자신의 코드가 직관적으로 바로 파악할 수 있다고 생각하지 말자
+
+### 6. 여러가지 항목이 있다면 글머리 기호를 통해 가독성 높이기
+
+```
+- 변경 내용 1
+- 변경 내용 2
+- 변경 내용 3
+```
+
+</aside>
+
+### 🖤 규칙에 맞는 좋은 커밋메시지를 작성해야 하는 이유
+
+- 팀원과의 소통
+- 편리하게 과거 추적 가능
+- 나중에 실무에서 익숙해지기 위해
+
+
+
+### 🖤 한 커밋에는 한 가지 문제만!
+
+- 추적 가능하게 유지해주기
+- 너무 많은 문제를 한 커밋에 담으면 추적하기 어렵다.
+
+### 🖤 CLI에서 커밋 메시지 여러 줄로 작성하는 방법
+
+<aside>
+✅ 쌍따옴표를 닫지 말고 개행하며 작성 → 다 작성한 후에 쌍따옴표를 닫으면 작성 완료
+
+```bash
+git commit -m "FEAT: 회원가입 기능 추가
+
+- 회원가입 기능 추가"
+```
+</aside>
+
+## 📌 issue convention
+
+---
+
+- 제목은 영어로 작성한다.
+- 내용은 다른 사람이 알아볼 수 있게 본인이 작업할 내용을 적는다.
+- 라벨을 설정한다.
+## 📌 pr convention
+
+---
+
+- 제목은 영어로 작성한다. (이슈 컨벤션과 같음)
+- [영어 대문자] #이슈번호 - 해당 이슈 내용 (꼭 이슈랑 동일하지는 않아도 된다. 이슈 번호만 신경써서 적기)
+- 내용에는 변경 사항을 적는다.
+- 해당 이슈의 `closed #이슈`를 단다.
+- assignees를 본인으로 설정한다.
+- reviewers를 설정한다.
+- 라벨을 설정한다.
+- 코드 리뷰를 받는다.
+- 변경 request 단 경우 확인 후 resolve를 한다.
+- 스쿼시 머지를 한다.
+
+## 📌 git flow
+
+---
+
+작업하는 동안 default branch를 develop으로 바꿔 놓을게요.
+
+- **pr 날릴 때 어디로 날리는 건지 체크 한 번 씩 더 해주세요!**
+
+### **main → develop → eunji_feature/#3**
+
+main은 모든 작업이 끝난 후 develop에서 merge 시킨다.
+
+—————————————————————————
+
+- main - 초기 세팅 존재
+- develop - local 작업 완료 후 merge 브랜치
+- minji - 민지 local 브랜치
+- eunji - 은지 local 브랜치
+- minsik - 민식 local 브랜치
+- localdevelop_feature/#issue - 각자의 기능 추가 브랜치 → ex) eunji_feature/#3
+
+—————————————————————————
+
+1. `local - feature` 에서 각자 기능 작업
+2. 작업 완료 후 `remote - develop` 에 PR
+3. **코드 리뷰 후 Confirm 받고 Merge**
+4. remote - develop 에 Merge 될 때 마다 **모든 팀원 remote - develop pull** 받아 최신 상태 유지
+
+main → develop → feature/내용, fix/내용, refactor/내용
+
+1. local에서 각자 작업
+2. 작업 완료 후 remote - develop으로 pr
+3. 코드 리뷰 후 merge
+
+
+<br>
+<br>
 
 # 코딩 컨벤션
 
@@ -85,7 +276,6 @@
 참고 : [https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/](https://www.jondjones.com/frontend/react/react-tutorials/react-coding-standards-and-practices-to-level-up-your-code/)
 
 # BackEnd
-
 ## ☑️ 코드 컨벤션
 
 ```bash
@@ -112,9 +302,7 @@
 
 ```bash
 주석은 설명하려는 구문에 맞춰 들여쓰기 합니다.
-```
 
-```jsx
 // Good
 function someFunction() {
   ...
@@ -128,9 +316,7 @@ function someFunction() {
 
 ```bash
 연산자 사이에는 공백을 추가하여 가독성을 높입니다
-```
 
-```jsx
 a+b+c+d // bad
 a + b + c + d // good
 ```
@@ -139,33 +325,26 @@ a + b + c + d // good
 
 ```bash
 ☝ 콤마 다음에 값이 올 경우 공백을 추가하여 가독성을 높입니다.
-```
 
-```jsx
 var arr = [1,2,3,4]; //bad
 var arr = [1, 2, 3, 4]; //good
 ```
 
 ```bash
 🔠 생성자 함수명의 맨 앞글자는 대문자로 합니다.
-```
 
-```jsx
 function Person(){}
 ```
 
 ```bash
 🔠 ENUM이나 상수는 대문자로 합니다.
-```
-```jsx
+
 NORMAL_STATUS = 10;
 ```
 
 ```bash
 🔠 함수명은 소문자로 시작하고 동사로 합니다.
-```
 
-```jsx
 function getUserId(){}
 ```
 
