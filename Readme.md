@@ -4,7 +4,7 @@
     <p>⭐️ Platforms & Languages ⭐️</p>
 <div>
 <div align="center">
-    <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white" />
+    <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=Conda-Forge&logoColor=white"/>
 	<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" />
 	<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />
 	<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" />
@@ -48,13 +48,13 @@
     
 2. 문제의 원인분석
     
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2e50964b-a934-4f55-aaad-e6e94512b9b2%2FUntitled.png?id=60ee682f-1413-4b64-901c-02dc7286617c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F2e50964b-a934-4f55-aaad-e6e94512b9b2%2FUntitled.png?id=60ee682f-1413-4b64-901c-02dc7286617c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="300" height="300">
     
     [https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA](https://trendmonitor.co.kr/tmweb/trend/allTrend/detail.do?bIdx=2159&code=0303&trendType=CKOREA)
     
     - 많은 사람들은 감정을 억압하고 있다
     - 감정을 직접드러내지 않고 감성콘텐츠를 소비하며 표현한다.
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F91430db4-ec49-4fd2-a017-31ce983179db%2FUntitled.png?id=1f68b9e5-5e86-4200-8afd-c28eb92b02bf&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F91430db4-ec49-4fd2-a017-31ce983179db%2FUntitled.png?id=1f68b9e5-5e86-4200-8afd-c28eb92b02bf&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="180" height="250">
     <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5edc23fb-cb5f-4df8-91d3-bb459a0348cd%2FUntitled.png?id=4f8c2e83-8d8c-477c-b9e8-cdbf21bc3885&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
     
     [https://m.hankookilbo.com/News/Read/A2020102213120003759](https://m.hankookilbo.com/News/Read/A2020102213120003759)
@@ -65,9 +65,9 @@
     - 일상생활에서 쉽고 자연스럽게 감정을 표현하고 공유하고 공감받을 수 있다면 도움이 될 것이다.
     - 그림은 감정을 자연스럽게 표현하는 데 가장 효과적인 수단이다.
         
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1a6fafd2-3817-422d-8f5b-3fe9bed27b00%2FUntitled.png?id=64ff6b0b-a707-4e3b-be66-6f5a282712fc&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1a6fafd2-3817-422d-8f5b-3fe9bed27b00%2FUntitled.png?id=64ff6b0b-a707-4e3b-be66-6f5a282712fc&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="180" height="250">
     
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F88de42d1-2664-43ca-92bf-487c455b1514%2FUntitled.png?id=1451ec7d-8716-4ac3-ae55-23a5077e964c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F88de42d1-2664-43ca-92bf-487c455b1514%2FUntitled.png?id=1451ec7d-8716-4ac3-ae55-23a5077e964c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="300" height="250">
     
     - 그림을 통해 감정을 표현하고 공유하는 서비스
     - mind draw together MINDDER~
