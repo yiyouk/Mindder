@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
+import styled from "styled-components";
+// Pages
+import MainPage from './component/page/MainPage';
+import PostDrawPage from './component/page/PostDrawPage';
+import MyPage from './component/page/MyPage';
+import NaviBar from './component/bar/NaviBar';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const MainTitleText = styled.p`
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+`;
+
+function App(props) {
+    return (
+        <BrowserRouter>
+            <MainTitleText>Mindder</MainTitleText>
+            <Routes>
+                <Route path="" element={<MainPage />} />
+                <Route path="post-draw-page" element={<PostDrawPage />} />
+                <Route path="my-page" element={<MyPage />} />
+            </Routes>
+            <NaviBar></NaviBar>
+        </BrowserRouter>
+    );
 }
 
 export default App;
