@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css';
 import {
     BrowserRouter,
     Routes,
@@ -11,16 +12,10 @@ import PostDrawPage from './component/page/PostDrawPage';
 import MyPage from './component/page/MyPage';
 import NaviBar from './component/bar/NaviBar';
 
-const MainTitleText = styled.p`
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-`;
 
 function App(props) {
     return (
         <BrowserRouter>
-            <MainTitleText>Mindder</MainTitleText>
             <Routes>
                 <Route path="" element={<MainPage />} />
                 <Route path="post-draw-page" element={<PostDrawPage />} />
