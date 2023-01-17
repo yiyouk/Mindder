@@ -15,7 +15,7 @@ const Wrapper = styled.nav`
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 80px;
+    height: 60px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
 

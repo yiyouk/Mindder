@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate} from "react-router-dom";
-import Button from "../ui/Button";
+import Button from "../components/ui/Button";
 
 const Wrapper = styled.div`
     padding: 16px;

@@ -1,20 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../ui/Button";
-import DrawList from "../list/DrawList";
-import TodayCanvasImg from "../../images/TodayCanvas.png"
-import TopBar from "../bar/TopBar";
+import TodayCanvasImg from "../images/TodayCanvas.png"
+import RecoCanvasList from "../components/list/RecoCanvasList";
 
 const Wrapper = styled.div`
-    padding: 16px;
+    /* padding: 16px; */
     /* width: 100vw; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
-
 
 // 오늘의 캔버스
 const Container = styled.div`
@@ -34,7 +31,6 @@ const Container = styled.div`
     justify-content: center;
     flex-direction:column;
 `;
-
 const TodayCanvas = styled.div`
     width:265px;
     height:151px;
@@ -43,34 +39,30 @@ const TodayCanvas = styled.div`
     border-radius:15px;
     background-image:url(${TodayCanvasImg});
     background-size:cover;
-    
 `
-
-
 const TodayCanvasHeader = styled.h4`
     font-size:16px;
     /* font-weight:bold; */
     color:white;
     position:relative;
-    right:80px;
+    right:110px;
     margin: 0;
-    
 `
 
 
 
 function MainPage(props) {
     const navigate = useNavigate();
-
     return (
         <Wrapper>
-            <TopBar/>
             <Container>
                 <TodayCanvasHeader>
                     오늘의 캔버스
                 </TodayCanvasHeader>
                 <TodayCanvas/>
             </Container>
+            <RecoCanvasList/>
+            
         </Wrapper>
     );
 }
