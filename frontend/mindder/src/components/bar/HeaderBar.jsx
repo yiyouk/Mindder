@@ -5,13 +5,14 @@ import LogoImg from "../../images/Logo.png"
 
 // 상단 로고랑 알림창
 const Wrapper = styled.div`
-    padding-bottom: 15px;
+    padding: 15px 0;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
     /* border: 1px solid black; */
 `;
+
 const Logo = styled.div`
     width: 110px;
     height: 32px;

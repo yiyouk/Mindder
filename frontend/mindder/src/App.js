@@ -7,21 +7,22 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 // Pages
-import MainPage from './component/page/MainPage';
-import PostDrawPage from './component/page/PostDrawPage';
-import MyPage from './component/page/MyPage';
-import NaviBar from './component/bar/NaviBar';
-
+import MainPage from './pages/MainPage';
+import PostDrawPage from './pages/PostDrawPage';
+import MyPage from './pages/MyPage';
+import NaviBar from './components/bar/NaviBar';
+import HeaderBar from "./components/bar/HeaderBar";
 
 function App(props) {
     return (
         <BrowserRouter>
+            <HeaderBar/>
             <Routes>
                 <Route path="" element={<MainPage />} />
                 <Route path="post-draw-page" element={<PostDrawPage />} />
                 <Route path="my-page" element={<MyPage />} />
             </Routes>
-            <NaviBar></NaviBar>
+            <NaviBar/>
         </BrowserRouter>
     );
 }
