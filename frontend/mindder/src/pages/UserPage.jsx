@@ -13,13 +13,13 @@ const Wrapper = styled.div`
 `;
 
 
-function SearchPage(props) {
+function UserPage(props) {
     const navigate = useNavigate();
 
     return (
         <Wrapper>
                <Button
-                    title="여기는 검색페이지"
+                    title="여기는 마이페이지"
                     onClick={() => {
                         navigate("/");
                     }}
@@ -28,4 +28,4 @@ function SearchPage(props) {
     );
 }
 
-export default SearchPage;
+export default UserPage;
