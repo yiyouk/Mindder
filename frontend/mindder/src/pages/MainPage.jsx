@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodayCanvasImg from "../images/TodayCanvas.png"
 import RecoCanvasList from "../components/list/RecoCanvasList";
+import EmotionChart from "../components/ui/EmotionChart"
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -62,7 +63,7 @@ function MainPage(props) {
                 <TodayCanvas/>
             </Container>
             <RecoCanvasList/>
-            
+            <EmotionChart/>
         </Wrapper>
     );
 }

@@ -32,6 +32,7 @@ const RecoHeader = styled.h4`
     right:120px;
     margin: 0;
 `
+
 const RecoCanvasItemContainer = styled.div`
     /* border : 1px solid black; */
     width:100%;
