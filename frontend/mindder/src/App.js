@@ -8,8 +8,10 @@ import {
 import styled from "styled-components";
 // Pages
 import MainPage from './pages/MainPage';
-import PostDrawPage from './pages/PostDrawPage';
-import MyPage from './pages/MyPage';
+import PostPage from './pages/PostPage';
+import UserPage from './pages/UserPage';
+import FeedPage from './pages/FeedPage';
+import SearchPage from './pages/SearchPage';
 import NaviBar from './components/bar/NaviBar';
 import HeaderBar from "./components/bar/HeaderBar";
 
@@ -19,8 +21,10 @@ function App(props) {
             <HeaderBar/>
             <Routes>
                 <Route path="" element={<MainPage />} />
-                <Route path="post-draw-page" element={<PostDrawPage />} />
-                <Route path="my-page" element={<MyPage />} />
+                <Route path="post" element={<PostPage />} />
+                <Route path="user" element={<UserPage />} />
+                <Route path="feeds" element={<FeedPage />} />
+                <Route path="search" element={<SearchPage />} />
             </Routes>
             <NaviBar/>
         </BrowserRouter>

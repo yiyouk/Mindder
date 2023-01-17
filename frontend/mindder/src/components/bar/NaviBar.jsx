@@ -38,14 +38,14 @@ function NaviBar(props) {
         <Wrapper>
             <NavMenu
                 onClick={() => {
-                    navigate("/post-write");
+                    navigate("/search");
                 }}>
                 <img src={SearchImg} alt="" />
             </NavMenu>
         
             <NavMenu
                 onClick={() => {
-                    navigate("/post-write");
+                    navigate("/feeds");
                 }}>        
                 <img src={FeedImg} alt="" />
             </NavMenu>
@@ -59,14 +59,14 @@ function NaviBar(props) {
                         
             <NavMenu
                 onClick={() => {
-                    navigate("/my-page");
+                    navigate("/user");
                 }}>   
                 <img src={MyPageImg} alt="" />
             </NavMenu>
             
             <NavMenu
                 onClick={() => {
-                    navigate("/post-draw-page");
+                    navigate("/post");
                 }}>
                 <img src={PostImg} alt="" />
             </NavMenu>
