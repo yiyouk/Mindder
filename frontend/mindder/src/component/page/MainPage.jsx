@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../ui/Button";
-import data from '../../data.json';
 import DrawList from "../list/DrawList";
 
 const Wrapper = styled.div`
@@ -15,15 +14,20 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-    width: 100%;
+    width: 360px;
+    height: 232px;
     max-width: 720px;
-
     & > * {
         :not(:last-child) {
             margin-bottom: 16px;
         }
     }
+    border : 1px solid black;
+    background-color:#7767FD;
+    border-radius:20px;
 `;
+
+// const TodayCanvas =
 
 function MainPage(props) {
     const navigate = useNavigate();
