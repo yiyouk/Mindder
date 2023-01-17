@@ -97,8 +97,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mindder`.`mainFeed` (
   `feed_idx` INT NOT NULL AUTO_INCREMENT,
-  `update_date` DATE NOT NULL DEFAULT curdate(),
-  `update_time` TIME NOT NULL DEFAULT curtime(),
+  `update_date` DATE NOT NULL DEFAULT (curdate()),
+  `update_time` TIME NOT NULL DEFAULT (curtime()),
   `is_public` TINYINT NOT NULL,
   `main_text` TEXT NOT NULL,
   `normal_tag` TEXT NOT NULL,
