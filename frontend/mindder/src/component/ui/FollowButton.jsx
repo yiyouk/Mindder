@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+const StyledFollowButton = styled.button`
     background-color: white;
     color: black;
     padding: 8px 16px;
@@ -13,10 +13,10 @@ const StyledButton = styled.button`
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3);
 `;
 
-function Button(props) {
+function FollowButton(props) {
     const { title, onClick } = props;
 
-    return <StyledButton onClick={onClick}>{title || "button"}</StyledButton>;
+    return <StyledFollowButton onClick={onClick}>{title || "button"}</StyledFollowButton>;
 }
 
-export default Button;
+export default FollowButton;
