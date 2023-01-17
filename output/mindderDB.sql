@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `mindder`.`mainFeed` (
   `user_idx` INT NOT NULL,
   `emote_idx` INT NOT NULL,
   `emote_color_idx` INT NOT NULL,
+  `feed_hit` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`feed_idx`),
   INDEX `fk_mainFeed_mainUser_idx` (`user_idx` ASC) VISIBLE,
   INDEX `fk_mainFeed_feedEmote1_idx` (`emote_idx` ASC) VISIBLE,
