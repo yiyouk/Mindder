@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../ui/Button";
 import DrawList from "../list/DrawList";
+import TodayCanvasImg from "../../images/TodayCanvas.png"
+import TopBar from "../bar/TopBar";
 
 const Wrapper = styled.div`
     padding: 16px;
-    width: calc(100% - 32px);
+    /* width: 100vw; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
+
+// 오늘의 캔버스
 const Container = styled.div`
     width: 360px;
     height: 232px;
@@ -22,25 +26,50 @@ const Container = styled.div`
             margin-bottom: 16px;
         }
     }
-    border : 1px solid black;
+    /* border : 1px solid black; */
     background-color:#7767FD;
     border-radius:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
 `;
 
-// const TodayCanvas =
+const TodayCanvas = styled.div`
+    width:265px;
+    height:151px;
+    background-color:white;
+    /* border: 1px solid black; */
+    border-radius:15px;
+    background-image:url(${TodayCanvasImg});
+    background-size:cover;
+    
+`
+
+
+const TodayCanvasHeader = styled.h4`
+    font-size:16px;
+    /* font-weight:bold; */
+    color:white;
+    position:relative;
+    right:80px;
+    margin: 0;
+    
+`
+
+
 
 function MainPage(props) {
     const navigate = useNavigate();
 
     return (
         <Wrapper>
+            <TopBar/>
             <Container>
-                <Button
-                    title="메인페이지다."
-                    onClick={() => {
-                        navigate("/main-page");
-                    }}
-                />
+                <TodayCanvasHeader>
+                    오늘의 캔버스
+                </TodayCanvasHeader>
+                <TodayCanvas/>
             </Container>
         </Wrapper>
     );
