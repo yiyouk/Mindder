@@ -4,18 +4,18 @@ import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 
 // -- 아이콘 이미지 import -- 
-import SearchImg from "../../images/icon1.png"
-import FeedImg from "../../images/icon2.png"
-import HomeImg from "../../images/icon3.png"
-import MyPageImg from "../../images/icon4.png"
-import PostImg from "../../images/icon5.png"
+import SearchImg from "../../assets/images/icon1.png"
+import FeedImg from "../../assets/images/icon2.png"
+import HomeImg from "../../assets/images/icon3.png"
+import MyPageImg from "../../assets/images/icon4.png"
+import PostImg from "../../assets/images/icon5.png"
 
 
 const Wrapper = styled.nav`
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 80px;
+    height: 60px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
 
@@ -38,14 +38,14 @@ function NaviBar(props) {
         <Wrapper>
             <NavMenu
                 onClick={() => {
-                    navigate("/post-write");
+                    navigate("/search");
                 }}>
                 <img src={SearchImg} alt="" />
             </NavMenu>
         
             <NavMenu
                 onClick={() => {
-                    navigate("/post-write");
+                    navigate("/feeds");
                 }}>        
                 <img src={FeedImg} alt="" />
             </NavMenu>
@@ -59,14 +59,14 @@ function NaviBar(props) {
                         
             <NavMenu
                 onClick={() => {
-                    navigate("/my-page");
+                    navigate("/user");
                 }}>   
                 <img src={MyPageImg} alt="" />
             </NavMenu>
             
             <NavMenu
                 onClick={() => {
-                    navigate("/post-draw-page");
+                    navigate("/post");
                 }}>
                 <img src={PostImg} alt="" />
             </NavMenu>
