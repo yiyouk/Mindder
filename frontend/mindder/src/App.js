@@ -7,13 +7,13 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 // Pages
-import MainPage from './pages/MainPage';
-import PostPage from './pages/PostPage';
-import UserPage from './pages/UserPage';
-import FeedPage from './pages/FeedPage';
-import SearchPage from './pages/SearchPage';
-import NaviBar from './components/bar/NaviBar';
-import HeaderBar from "./components/bar/HeaderBar";
+import MainPage from './components/main/Home';
+import PostPage from './components/post/post_emotag';
+import UserPage from './components/user/user_calendar';
+import FeedPage from './components/feeds/feeds';
+import SearchPage from './components/search/search_home';
+import NaviBar from './commons/bar/NaviBar';
+import HeaderBar from "./commons/bar/HeaderBar";
 
 function App(props) {
     return (

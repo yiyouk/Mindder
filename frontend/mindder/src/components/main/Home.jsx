@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TodayCanvasImg from "../images/TodayCanvas.png"
-import RecoCanvasList from "../components/list/RecoCanvasList";
-import EmotionChart from "../components/ui/EmotionChart"
+import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
+import RecoCanvasList from "./recoCanvasList";
+import EmotionChart from "./emotionChart"
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -52,7 +52,7 @@ const TodayCanvasHeader = styled.h4`
 
 
 
-function MainPage(props) {
+function Home(props) {
     const navigate = useNavigate();
     return (
         <Wrapper>
@@ -68,4 +68,4 @@ function MainPage(props) {
     );
 }
 
-export default MainPage;
+export default Home;

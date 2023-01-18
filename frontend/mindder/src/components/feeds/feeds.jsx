@@ -1,7 +1,7 @@
+// 실시간 맞춤 피드 페이지
 import React from "react";
 import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import Button from "../components/ui/Button";
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -18,12 +18,6 @@ function UserPage(props) {
 
     return (
         <Wrapper>
-               <Button
-                    title="여기는 마이페이지"
-                    onClick={() => {
-                        navigate("/");
-                    }}
-                />
         </Wrapper>
     );
 }

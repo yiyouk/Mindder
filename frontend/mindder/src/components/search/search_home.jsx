@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import Button from "../components/ui/Button";
+
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -18,12 +18,7 @@ function SearchPage(props) {
 
     return (
         <Wrapper>
-               <Button
-                    title="여기는 검색페이지"
-                    onClick={() => {
-                        navigate("/");
-                    }}
-                />
+
         </Wrapper>
     );
 }
