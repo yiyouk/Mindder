@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import Button from "../ui/Button";
+
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -13,19 +13,14 @@ const Wrapper = styled.div`
 `;
 
 
-function MyMage(props) {
+function SearchPage(props) {
     const navigate = useNavigate();
 
     return (
         <Wrapper>
-               <Button
-                    title="여기는 마이페이지"
-                    onClick={() => {
-                        navigate("/");
-                    }}
-                />
+
         </Wrapper>
     );
 }
 
-export default MyMage;
+export default SearchPage;

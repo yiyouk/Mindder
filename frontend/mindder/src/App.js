@@ -7,21 +7,26 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 // Pages
-import MainPage from './component/page/MainPage';
-import PostDrawPage from './component/page/PostDrawPage';
-import MyPage from './component/page/MyPage';
-import NaviBar from './component/bar/NaviBar';
-
+import MainPage from './components/main/Home';
+import PostPage from './components/post/post_emotag';
+import UserPage from './components/user/user_calendar';
+import FeedPage from './components/feeds/feeds';
+import SearchPage from './components/search/search_home';
+import NaviBar from './commons/bar/NaviBar';
+import HeaderBar from "./commons/bar/HeaderBar";
 
 function App(props) {
     return (
         <BrowserRouter>
+            <HeaderBar/>
             <Routes>
                 <Route path="" element={<MainPage />} />
-                <Route path="post-draw-page" element={<PostDrawPage />} />
-                <Route path="my-page" element={<MyPage />} />
+                <Route path="post" element={<PostPage />} />
+                <Route path="user" element={<UserPage />} />
+                <Route path="feeds" element={<FeedPage />} />
+                <Route path="search" element={<SearchPage />} />
             </Routes>
-            <NaviBar></NaviBar>
+            <NaviBar/>
         </BrowserRouter>
     );
 }
