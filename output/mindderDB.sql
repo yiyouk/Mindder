@@ -227,6 +227,18 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
+-- -----------------------------------------------------
+-- Table `mindder`.`feedEmoteComplete`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mindder`.`feedEmoteComplete` (
+  `emote_complete_idx` INT NOT NULL AUTO_INCREMENT,
+  `emote_idx` INT NOT NULL,
+  `emote_color_idx` INT NOT NULL,
+  `emote_complete_url` TEXT NOT NULL,
+  PRIMARY KEY (`emote_complete_idx`))
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
