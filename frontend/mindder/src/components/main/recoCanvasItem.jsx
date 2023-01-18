@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CanvasSample from "../../images/CanvasSample.png"
+import CanvasSample from "../../assets/images/CanvasSample.png"
 
 const RecoCanvas = styled.div`
   /* position: absolute; */

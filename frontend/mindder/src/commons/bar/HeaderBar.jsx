@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import LogoImg from "../../images/Logo.png"
+import LogoImg from "../../assets/images/Logo.png"
 
 // 상단 로고랑 알림창
 const Wrapper = styled.div`

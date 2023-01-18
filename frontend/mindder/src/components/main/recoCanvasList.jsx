@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import RecoCanvasItem from "./RecoCanvasItem";
+import RecoCanvasItem from "./recoCanvasItem";
 
 // 추천 캔버스
 const RecoContainer = styled.div`

@@ -4,11 +4,11 @@ import Button from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 
 // -- 아이콘 이미지 import -- 
-import SearchImg from "../../images/icon1.png"
-import FeedImg from "../../images/icon2.png"
-import HomeImg from "../../images/icon3.png"
-import MyPageImg from "../../images/icon4.png"
-import PostImg from "../../images/icon5.png"
+import SearchImg from "../../assets/images/icon1.png"
+import FeedImg from "../../assets/images/icon2.png"
+import HomeImg from "../../assets/images/icon3.png"
+import MyPageImg from "../../assets/images/icon4.png"
+import PostImg from "../../assets/images/icon5.png"
 
 
 const Wrapper = styled.nav`
