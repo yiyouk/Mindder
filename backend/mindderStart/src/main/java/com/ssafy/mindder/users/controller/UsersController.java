@@ -1,12 +1,16 @@
 package com.ssafy.mindder.users.controller;
 
 
+import javax.websocket.server.PathParam;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +63,26 @@ public class UsersController {
     		return new ResponseEntity<String>(FAIL,HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
-		
+	}
+	@ApiOperation(value = "닉네임 중복 여부를 반환한다.", response = String.class)
+	@GetMapping("/{nickname}")
+	ResponseEntity<String> checkNickname(@PathVariable("nickname") String nickname){
 
+		logger.debug("checkNickname - 호출");
+		try {
+			int check = 1;
+			check = usersService.checkNickname(nickname);
+			if(check == 1) {
+	    		return new ResponseEntity<String>("false",HttpStatus.OK);
+			}else {
+	    		return new ResponseEntity<String>("true",HttpStatus.OK);
+			}
+				
+		} catch (Exception e) {
+            e.printStackTrace();
+    		logger.debug("checkNickname - 닉네임 체크 중 에러");
+    		return new ResponseEntity<String>(FAIL,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 }
