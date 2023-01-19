@@ -35,11 +35,22 @@ public class UsersController {
 	@ApiOperation(value = "회원가입 성공 여부를 반환한다.", response = String.class)
 	@PostMapping
 	public ResponseEntity<String> join(@RequestBody UsersDto usersDto){
-
 		logger.debug("join - 호출");
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
+			
+			if(temp!=null) {//deleted 체크 회원만 반환
+				//usersService.updateMember(usersDto);
+				//수정 구현 후 추가
+        	}
+        	else {
+        		usersDto.setPassword(encryPassword);
+        		usersService.joinUser(usersDto);
+        	}
+			System.out.println(usersDto);
+			
+    		return new ResponseEntity<String>(SUCCESS,HttpStatus.OK);
 
 
 		} catch (Exception e) {
@@ -48,8 +59,6 @@ public class UsersController {
     		return new ResponseEntity<String>(FAIL,HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
-		
-		return null;
 		
 
 	}

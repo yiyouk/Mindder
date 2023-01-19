@@ -15,4 +15,9 @@ public class UsersServiceImpl implements UsersService {
 	public UsersDto searchUser(String email)throws Exception {
 		return usersMapper.searchUser(email);
 	}
+	@Override
+	public void joinUser(UsersDto usersdto) throws Exception {
+		usersMapper.joinUser(usersdto);
+		
+	}
 }
