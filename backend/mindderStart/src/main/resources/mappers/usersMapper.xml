@@ -14,6 +14,11 @@
 		from mainuser
 		where email = #{email}
 	</select>
+	<select id="checkUser" parameterType="int" resultMap="user">
+		select *
+		from mainuser
+		where user_idx = #{userIdx}
+	</select>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
 		from mainuser
