@@ -8,4 +8,5 @@ import com.ssafy.mindder.users.model.UsersDto;
 public interface UsersMapper {
 	UsersDto searchUser(String email)throws Exception;
 	void joinUser(UsersDto usersdto) throws Exception;
+	int checkNickname(String nickname) throws Exception;
 }
