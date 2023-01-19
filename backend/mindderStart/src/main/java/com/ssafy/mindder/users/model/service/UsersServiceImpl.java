@@ -20,4 +20,8 @@ public class UsersServiceImpl implements UsersService {
 		usersMapper.joinUser(usersdto);
 		
 	}
+	@Override
+	public int checkNickname(String nickname) throws Exception {
+		return usersMapper.checkNickname(nickname);
+	}
 }
