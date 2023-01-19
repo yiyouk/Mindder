@@ -18,11 +18,11 @@ const Wrapper = styled.nav`
     height: 60px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
-
+    background-color:white;
     align-items: center;
     display: flex;
     /* box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.3); */
-    box-shadow: 0 -5px 5px 2px rgba(119, 103, 253, 0.2);
+    box-shadow: 0 -2px 2px 1px rgba(119, 103, 253, 0.15);
 `;
 
 const NavMenu = styled.div`
