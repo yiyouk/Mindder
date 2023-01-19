@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer{
 	
+	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 //		System.out.println("CORS Setting");
 //		default 설정.
@@ -27,7 +28,7 @@ public class WebConfiguration implements WebMvcConfigurer{
 //			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
 			.maxAge(1800);
 	}
-	
+	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
