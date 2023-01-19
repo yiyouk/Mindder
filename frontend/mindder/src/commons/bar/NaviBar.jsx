@@ -23,6 +23,7 @@ const Wrapper = styled.nav`
     display: flex;
     /* box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.3); */
     box-shadow: 0 -2px 2px 1px rgba(119, 103, 253, 0.15);
+    /* border:1px solid green; */
 `;
 
 const NavMenu = styled.div`

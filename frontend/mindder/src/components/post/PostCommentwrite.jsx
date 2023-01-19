@@ -11,6 +11,8 @@ const Wrapper = styled.div`
     
 `
 
+
+
 function PostCommentwrite(props){
   return (
     <Wrapper>
