@@ -9,4 +9,5 @@ public interface UsersMapper {
 	UsersDto searchUser(String email)throws Exception;
 	void joinUser(UsersDto usersdto) throws Exception;
 	int checkNickname(String nickname) throws Exception;
+	UsersDto checkUser(int userIdx) throws Exception;
 }
