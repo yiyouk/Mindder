@@ -24,4 +24,9 @@ public class UsersServiceImpl implements UsersService {
 	public int checkNickname(String nickname) throws Exception {
 		return usersMapper.checkNickname(nickname);
 	}
+	@Override
+	public UsersDto checkUser(int userIdx) throws Exception {
+		// TODO Auto-generated method stub
+		return usersMapper.checkUser(userIdx);
+	}
 }
