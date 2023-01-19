@@ -9,10 +9,12 @@ import PostCommentwrite from "../components/post/PostCommentwrite";
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* border:1px solid red; */
 `;
 
 function PostPage(props) {
