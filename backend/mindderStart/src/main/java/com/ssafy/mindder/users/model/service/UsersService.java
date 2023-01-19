@@ -6,4 +6,5 @@ import com.ssafy.mindder.users.model.UsersDto;
 
 public interface UsersService {
 	UsersDto searchUser(String email)throws Exception;
+	void joinUser(UsersDto usersdto) throws Exception;
 }
