@@ -83,6 +83,20 @@ public class UsersController {
     		logger.debug("checkNickname - 닉네임 체크 중 에러");
     		return new ResponseEntity<String>(FAIL,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 	}
+	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
+	@GetMapping("/information/{userIdx}")
+	ResponseEntity<?> checkUser(@PathVariable("userIdx") int userIdx){
+
+		logger.debug("checkNickname - 호출");
+		try {
+			UsersDto userDto = usersService.checkUser(userIdx);
+	    	return new ResponseEntity<UsersDto>(userDto,HttpStatus.OK);
+		} catch (Exception e) {
+            e.printStackTrace();
+    		logger.debug("checkNickname - 닉네임 체크 중 에러");
+    		return new ResponseEntity<String>(FAIL,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }
