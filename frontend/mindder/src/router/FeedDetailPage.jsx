@@ -1,8 +1,6 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Home from "../components/main/Home";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -13,13 +11,12 @@ const Wrapper = styled.div`
     justify-content: center;
 `;
 
-function MainPage(props) {
-    const navigate = useNavigate();
+function FeedDetailPage(props) {
     return (
         <Wrapper>
-            <Home/>
+            여기는 피드상세페이지
         </Wrapper>
     );
 }
 
-export default MainPage;
+export default FeedDetailPage;
