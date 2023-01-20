@@ -10,22 +10,28 @@ import com.ssafy.mindder.feeds.model.FeedsDto;
 @Mapper
 public interface FeedsMapper {
 	// 피드 작성
-	public int writeFeeds(FeedsDto feedsDto) throws SQLException;
+	public int writeFeed(FeedsDto feedsDto) throws SQLException;
 
 	// 피드 삭제
-	public void deleteFeeds(int feedIdx) throws SQLException;
+	public int deleteMainFeed(int feedIdx) throws SQLException;
+
+	public int deleteFeedLike(int feedIdx) throws SQLException;
+
+	public int deleteFeedComment(int feedIdx) throws SQLException;
+
+	public int deleteFeedScrap(int feedIdx) throws SQLException;
 
 	// 피드 수정
-	public int modifyFeeds(FeedsDto boardDto) throws SQLException;
+	public int modifyFeed(FeedsDto boardDto) throws SQLException;
 
 	// 추천피드 목록 조회
-	public List<FeedsDto> recommendationFeeds(FeedsDto boardDto) throws SQLException;
+	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws SQLException;
 
 	// 유사감정 태그 피드 조회
-	public List<FeedsDto> similarityTagFeeds(FeedsDto boardDto) throws SQLException;
+	public List<FeedsDto> similarityTagFeed(FeedsDto boardDto) throws SQLException;
 
 	// 유사 감정 색상 태그 피드 조회
-	public List<FeedsDto> similarityColorFeeds(FeedsDto boardDto) throws SQLException;
+	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws SQLException;
 
 	// 사용자 이웃 피드 목록 조회
 	public List<FeedsDto> recommendationNeighbors(FeedsDto boardDto) throws SQLException;
