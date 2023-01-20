@@ -20,9 +20,9 @@ const Wrapper = styled.div`
 function PostPage(props) {
     return (
         <Wrapper>
-          {/* <PostEmoTag/>
-          <PostEmocolor/> */}
-          <PostDraw/>
+          {/* <PostEmoTag/> */}
+          {/* <PostEmocolor/> */}
+          {/* <PostDraw/> */}
           {/* <PostCommentwrite/> */}
         </Wrapper>
     );
