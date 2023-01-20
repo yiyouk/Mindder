@@ -16,37 +16,39 @@ public class FeedsServiceImpl implements FeedsService {
 	private SqlSession sqlSession;
 
 	@Override
-	public boolean writeFeeds(FeedsDto feedsDto) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).writeFeeds(feedsDto) == 1;
+	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
 
 	}
 
 	@Override
-	public boolean deleteFeeds(int feedIdx) throws Exception {
+	public boolean deleteFeed(int feedIdx) throws Exception {
+		sqlSession.getMapper(FeedsMapper.class).deleteFeedScrap(feedIdx);
+		sqlSession.getMapper(FeedsMapper.class).deleteFeedComment(feedIdx);
+		sqlSession.getMapper(FeedsMapper.class).deleteFeedLike(feedIdx);
+		return sqlSession.getMapper(FeedsMapper.class).deleteMainFeed(feedIdx) == 1;
+	}
+
+	@Override
+	public boolean modifyFeed(FeedsDto boardDto) throws Exception {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean modifyFeeds(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<FeedsDto> recommendationFeeds(FeedsDto boardDto) throws Exception {
+	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FeedsDto> similarityTagFeeds(FeedsDto boardDto) throws Exception {
+	public List<FeedsDto> similarityTagFeed(FeedsDto boardDto) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FeedsDto> similarityColorFeeds(FeedsDto boardDto) throws Exception {
+	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
