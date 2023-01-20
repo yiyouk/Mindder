@@ -26,7 +26,15 @@ public class UsersServiceImpl implements UsersService {
 	}
 	@Override
 	public UsersDto checkUser(int userIdx) throws Exception {
-		// TODO Auto-generated method stub
 		return usersMapper.checkUser(userIdx);
+	}
+	@Override
+	public UsersDto login(UsersDto usersdto) throws Exception {
+		return usersMapper.login(usersdto);
+	}
+	@Override
+	public void addToken(UsersDto usersdto) throws Exception {
+		usersMapper.addToken(usersdto);
+		
 	}
 }
