@@ -1,0 +1,17 @@
+canvas {
+  width:inherit;
+  height: inherit;
+  /* border: 1px solid black; */
+}
+
+.menu-container {
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+/* 
+.reset, .palette {
+  width: 20px;
+  height: 10px;
+} */
+
