@@ -25,6 +25,11 @@
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
+	<select id="findSocialID" parameterType="String" resultMap="user">
+		select *
+		from mainuser
+		where social_id = #{id}
+	</select>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
 		from mainuser
