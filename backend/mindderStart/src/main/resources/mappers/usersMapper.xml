@@ -49,4 +49,9 @@
 		set nickname = #{nickname}, password = #{password}
 		where user_idx = #{userIdx};
 	</update>
+	<update id="deleteUser" parameterType="int" >
+		update mainuser
+		set is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+	</update>
 </mapper>
