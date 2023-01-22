@@ -40,8 +40,13 @@
 		value(#{email},#{nickname},#{password},now(),#{emoteColor})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
-		UPDATE mainuser
-		SET refresh_token = #{refreshToken}
-		WHERE user_idx = #{userIdx}
+		update mainuser
+		set refresh_token = #{refreshToken}
+		where user_idx = #{userIdx}
+	</update>
+	<update id="updateUser" parameterType="UsersDto" >
+		update mainuser
+		set nickname = #{nickname}, password = #{password}
+		where user_idx = #{userIdx};
 	</update>
 </mapper>

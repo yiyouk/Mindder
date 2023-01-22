@@ -25,6 +25,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +55,22 @@ public class UsersController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	@PatchMapping
+	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,@RequestBody UsersDto usersDto){
+		try {
+			int idx = jwtService.getUserIdx(accessToken);
+			System.out.println(idx);
+			usersDto.setUserIdx(idx);
+			if(usersDto.getPassword().length()<30) {
+				usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
+			}
+			usersService.updateUser(usersDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@GetMapping("/social")
 	public ResponseEntity<?> social(@RequestParam String code) {
 		Map<String, String> token;
@@ -74,7 +91,7 @@ public class UsersController {
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
 				return new ResponseEntity<String>(token.get("access_token"), HttpStatus.ACCEPTED);
-				
+				//엑세스 토큰 받고 소셜 회원가입 진행
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,6 +117,7 @@ public class UsersController {
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", accessToken);
+				System.out.println(jwtService.getUserIdx(accessToken));
 
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			} else {

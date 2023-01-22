@@ -54,7 +54,10 @@ public class UsersServiceImpl implements UsersService {
 	public UsersDto findSocialID(String userid) throws Exception {
 		return usersMapper.findSocialID(userid);
 	}
-
+	@Override
+	public void updateUser(UsersDto usersdto) throws Exception {
+		usersMapper.updateUser(usersdto);
+	}
 	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
@@ -154,6 +157,7 @@ public class UsersServiceImpl implements UsersService {
         
 		return rt;
 	}
+	
 
 	
 }

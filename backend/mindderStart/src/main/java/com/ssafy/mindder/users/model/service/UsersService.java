@@ -17,4 +17,5 @@ public interface UsersService {
 	Map<String, String> getUserInfo(String access_token) throws Exception;
 	Map<String, String> getToken(String code) throws Exception;
 	UsersDto findSocialID(String userid) throws Exception;
+	void updateUser(UsersDto usersdto)throws Exception;
 }
