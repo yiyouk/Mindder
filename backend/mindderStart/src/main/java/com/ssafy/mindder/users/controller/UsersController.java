@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,7 +55,20 @@ public class UsersController {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	@DeleteMapping
+	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken){
+		try {
+			int idx = jwtService.getUserIdx(accessToken);
+			usersService.deleteUser(idx);
 
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("updateUser - 정보수정 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@PatchMapping
 	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,@RequestBody UsersDto usersDto){
 
@@ -72,7 +86,7 @@ public class UsersController {
 			return new ResponseEntity<Map>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("updateUser - 정보 수정 중 에러");
+			logger.debug("updateUser - 정보수정 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

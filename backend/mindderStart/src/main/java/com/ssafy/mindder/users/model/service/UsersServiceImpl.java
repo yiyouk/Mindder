@@ -59,6 +59,11 @@ public class UsersServiceImpl implements UsersService {
 		usersMapper.updateUser(usersdto);
 	}
 	@Override
+	public void deleteUser(int userIdx) throws Exception {
+		usersMapper.deleteUser(userIdx);
+	}
+	
+	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, String> result = new HashMap<>();
@@ -157,7 +162,7 @@ public class UsersServiceImpl implements UsersService {
         
 		return rt;
 	}
-	
+
 
 	
 }
