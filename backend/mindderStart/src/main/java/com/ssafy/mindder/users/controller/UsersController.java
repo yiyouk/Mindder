@@ -57,6 +57,8 @@ public class UsersController {
 
 	@PatchMapping
 	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,@RequestBody UsersDto usersDto){
+
+		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			System.out.println(idx);
@@ -65,11 +67,14 @@ public class UsersController {
 				usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 			}
 			usersService.updateUser(usersDto);
+
+			user.put("nickname", usersDto.getNickname());
+			return new ResponseEntity<Map>(user, HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.debug("updateUser - 정보 수정 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 	@GetMapping("/social")
 	public ResponseEntity<?> social(@RequestParam String code) {
@@ -79,12 +84,12 @@ public class UsersController {
 		try {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
-			UsersDto userDto = usersService.findSocialID(userIO.get("id")); 
-			if(userDto!=null) {
-				userDto.setRefreshToken(token.get("refresh_token"));
-				usersService.addToken(userDto);
-				user.put("userIdx", userDto.getUserIdx() + "");
-				user.put("nickname", userDto.getNickname());
+			UsersDto usersDto = usersService.findSocialID(userIO.get("id")); 
+			if(usersDto!=null) {
+				usersDto.setRefreshToken(token.get("refresh_token"));
+				usersService.addToken(usersDto);
+				user.put("userIdx", usersDto.getUserIdx() + "");
+				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", token.get("access_token"));
 
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
@@ -186,8 +191,8 @@ public class UsersController {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto userDto = usersService.checkUser(userIdx);
-			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
+			UsersDto usersDto = usersService.checkUser(userIdx);
+			return new ResponseEntity<UsersDto>(usersDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("checkNickname - 닉네임 체크 중 에러");
