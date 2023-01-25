@@ -90,7 +90,9 @@ public class UsersController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@GetMapping("/social")
+	
+	@ApiOperation(value = "카카오 로그인 성공 여부를 반환한다.", response = String.class)
+	@GetMapping("/social/kakao")
 	public ResponseEntity<?> social(@RequestParam String code) {
 		Map<String, String> token;
 		Map<String, String> userIO;
@@ -98,17 +100,24 @@ public class UsersController {
 		try {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
-			UsersDto usersDto = usersService.findSocialID(userIO.get("id")); 
+			UsersDto usersDto = null;
+			usersDto.setSocialId(userIO.get("id")+"@Kakao");
+			usersDto.setNickname(userIO.get("nickname"));
+			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
 			if(usersDto!=null) {
 				usersDto.setRefreshToken(token.get("refresh_token"));
+				//회원가입 이후 DB조회 후 우리 idx로 변환
 				usersService.addToken(usersDto);
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", token.get("access_token"));
+				user.put("isNewUser", "false");
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
-				return new ResponseEntity<String>(token.get("access_token"), HttpStatus.ACCEPTED);
+				user.put("isNewUser", "true");
+				user.put("accessToken", token.get("access_token"));
+				return new ResponseEntity<Map>(user, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,6 +153,18 @@ public class UsersController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("login - 로그인 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@GetMapping("/logout")
+	public ResponseEntity<?> logout(@RequestParam("access_token") String accessToken){
+		logger.debug("logout - 호출");
+		try {
+			usersService.logout(jwtService.getUserIdx(accessToken));
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("logout - 로그아웃 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -197,12 +218,12 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
-	@GetMapping("/information/{userIdx}")
-	ResponseEntity<?> checkUser(@PathVariable("userIdx") int userIdx) {
+	@GetMapping("/information")
+	ResponseEntity<?> checkUser(@RequestParam("access_token") String accessToken) {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto userDto = usersService.checkUser(userIdx);
+			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken));
 			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
