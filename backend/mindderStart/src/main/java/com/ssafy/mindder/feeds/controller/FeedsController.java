@@ -47,9 +47,9 @@ public class FeedsController {
 
 	@ApiOperation(value = "피드글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
-	public ResponseEntity<String> modifyArticle(
+	public ResponseEntity<String> modifyFeed(
 			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsDto feedsDto) throws Exception {
-		logger.info("modifyArticle - 호출 {}", feedsDto);
+		logger.info("modifyFeed - 호출 {}", feedsDto);
 
 		if (feedsService.modifyFeed(feedsDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -74,6 +74,7 @@ public class FeedsController {
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		return new ResponseEntity<FeedsParameterDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
+
 	}
 
 }
