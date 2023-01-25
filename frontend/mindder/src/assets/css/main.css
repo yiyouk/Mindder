@@ -1,0 +1,196 @@
+#main > header{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(67, 67, 67);
+    border-bottom: solid 4px #7767FD;
+    margin: 2rem 3rem 0.5rem 3rem;
+}
+
+.headerLogo{
+    width: 8rem;
+    height: 2.5rem;
+    background-image:url("../images/LogoP.png");
+    background-size: 8rem;
+}
+
+.col-12{
+    display: flex;
+    flex-direction: column;
+    margin: 3vh 0vw 3vh 0vw;
+}
+
+.box{
+    max-width: 100%;
+    margin: 2em;
+    overflow-x: hidden;
+    background: #fff;
+    border-radius: 6px;
+    vertical-align: baseline;
+    -webkit-text-size-adjust: none;
+}
+
+.form-label{
+    font-weight: 600;
+}
+
+.form-label-center{
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-weight: 600;
+}
+
+.warning{
+    font-size: small;
+    text-align: right;
+}
+
+.right-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+input {
+    margin: 1em 0 1em 0;
+    padding: 0 1em;
+    border: 0;
+    box-sizing: border-box;
+    height: 3em;
+    appearance: none;
+    background-color: #f8f8f8;
+    border-radius: 6px;
+    border: solid 1px #e5e5e5;
+    color: inherit;
+    display: block;
+    outline: 0;
+    text-decoration: none;
+}
+
+
+.center-container {
+    margin: 0.5rem 0 0.25rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-screen {
+    background-color: #7767FD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* width: 100vw;
+    height: 90vh; */
+}
+
+.maincolor-white-btn{
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    background-color: #7767FD;
+    border-radius: 6px;
+    border: 0;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1.05em;
+    height: 3em;
+    line-height: 3em;
+    padding: 0 2em;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.white-black-btn{
+    width: 70vw;
+    height: 3em;
+    color: black;
+    font-size: 16px;
+    font-style: normal;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 6px;
+}
+
+.white-black-line-btn{
+    width: 50vw;
+    height: 2.5em;
+    color: black;
+    font-size: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-color: rgb(146, 145, 145);
+    border-width: 0.02em;
+    margin: 0.5em;
+}
+
+.text-white{
+    color: white;
+    margin:3px;
+}
+
+.text-black{
+    color: black;
+    margin:3px;
+}
+
+.logo{
+    width : 200px;
+}
+
+.logoText{
+    width : 300px;
+}
+
+.snslogos{
+    width : 50px;
+    margin: 0 1em;
+}
+
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1em 0;
+}
+
+
+.line-box{
+    text-align: center;
+    font-weight: bold;
+    border-bottom: solid 4px #7767FD;
+    border-top: solid 4px #7767FD;
+    padding: 2.5em 1em;
+    margin: 8vh 0 8vh 0;
+}
+
+#remove{
+    font-size: 2.5em;
+    color: rgb(0, 0, 0);
+    text-align: start;
+    margin: 0 0 12vh 0;
+}
+
+#remove2{
+    font-size: 1.1em;
+    color: rgb(67, 67, 67);
+    margin: 0 0 3vh 0;
+}
+
+.removeText{
+    margin: 0 0 0 0;
+}
+
+.email-logo{
+    width : 120px;
+    margin: 1em 1em;
+}
+
+.line-bottom{
+    text-align: center;
+    font-weight: bold;
+    border-bottom: solid 2px #7767FD;
+}
