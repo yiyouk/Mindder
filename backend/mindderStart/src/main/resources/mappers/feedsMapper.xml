@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.feeds.model.mapper.FeedsMapper">
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="user_idx" property="userIdx" />
@@ -11,14 +9,12 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>	
 	
-	
 	<!-- 공개여부 -> 어캐해야하지..? -->
-	<!-- 공개여부 -> default값은 공개로 --> 
-	<insert id="writeFeed" parameterType="FeedsDto" >
+	<!-- 공개여부 -> default값은 공개로 -->
+	<insert id="writeFeed" parameterType="FeedsDto">
 		insert into mainfeed 
 		(update_date, update_time,is_public, main_text, normal_tag,is_deleted,user_idx,emote_idx,emote_color_idx,feed_hit)
-		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)
-		
+		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)		
 	</insert>
 	
 	<!-- 피드글 삭제-->
@@ -36,13 +32,13 @@
 	</update>
 	
 	<update id="deleteFeedComment" parameterType="int">
-	update  feedcomment 
+	update feedcomment 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
 	
 	<update id="deleteFeedScrap" parameterType="int">
-	update  feedscrap 
+	update feedscrap 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
@@ -53,7 +49,7 @@
 	set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
 	where feed_idx=#{feedIdx} and is_deleted!='1'
 	</update>
-	
+
 	<!-- 피드글 상세보기 -->
 	<select id="getFeed" parameterType="int" resultMap="feed">
 	<!-- 이미지 URL 은 제외한 코드 -->
@@ -64,9 +60,6 @@
 	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.like_type=3) as 'sadCount'
 	from mainfeed f, mainuser u
 	where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx ;
-	
 	</select>
 
-
-	
 </mapper>

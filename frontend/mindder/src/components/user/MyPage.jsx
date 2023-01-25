@@ -1,9 +1,15 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
-import FollowButton from "../commons/ui/FollowButton";
-import MyPage from "../components/user/MyPage";
-import UserFeedsList from "../components/user/UserFeedsList";
+
+
+// user
+import UserFollow from "./UserFollow";
+import UserProfile from "./UserProfile";
+import UserFeedsList from "./UserFeedsList";
+import UserMenu from "./UserMenu"
+import Calendar from "./Calendar";
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -16,10 +22,10 @@ const Wrapper = styled.div`
 function UserPage(props) {
     return (
         <Wrapper>
-            {/* 여기는 유저페이지 */}
-            <MyPage></MyPage>
-            <UserFeedsList></UserFeedsList>
-
+            <UserProfile></UserProfile>
+            <UserFollow></UserFollow>
+            {/* 내 페이지일 경우 */}
+                <UserMenu></UserMenu>
         </Wrapper>
     );
 }
