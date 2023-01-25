@@ -13,6 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UsersDto {
 	int userIdx;
+	String socialId = null;
 	String email;
 	String password;
 	String nickname;
