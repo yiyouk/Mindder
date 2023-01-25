@@ -26,6 +26,11 @@
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
+	<select id="findpassword" parameterType="int" resultType="String">
+		select password
+		from mainuser
+		where user_idx = #{userIdx}
+	</select>
 	<select id="findSocialKakaoID" parameterType="String" resultMap="user">
 		select *
 		from mainuser
