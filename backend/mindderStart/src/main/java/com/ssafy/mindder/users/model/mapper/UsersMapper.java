@@ -13,4 +13,6 @@ public interface UsersMapper {
 	UsersDto login(UsersDto usersdto)throws Exception;
 	void addToken(UsersDto usersdto) throws Exception;
 	UsersDto findSocialID(String userid) throws Exception;
+	void updateUser(UsersDto usersdto)throws Exception;
+	void deleteUser(int userIdx) throws Exception;
 }

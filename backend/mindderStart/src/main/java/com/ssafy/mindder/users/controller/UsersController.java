@@ -24,7 +24,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +55,41 @@ public class UsersController {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	@DeleteMapping
+	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken){
+		try {
+			int idx = jwtService.getUserIdx(accessToken);
+			usersService.deleteUser(idx);
 
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("updateUser - 정보수정 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PatchMapping
+	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,@RequestBody UsersDto usersDto){
+
+		Map<String, String> user = new HashMap<String, String>();
+		try {
+			int idx = jwtService.getUserIdx(accessToken);
+			System.out.println(idx);
+			usersDto.setUserIdx(idx);
+			if(usersDto.getPassword().length()<30) {
+				usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
+			}
+			usersService.updateUser(usersDto);
+
+			user.put("nickname", usersDto.getNickname());
+			return new ResponseEntity<Map>(user, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("updateUser - 정보수정 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	@GetMapping("/social")
 	public ResponseEntity<?> social(@RequestParam String code) {
 		Map<String, String> token;
@@ -62,19 +98,17 @@ public class UsersController {
 		try {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
-			UsersDto userDto = usersService.findSocialID(userIO.get("id")); 
-			if(userDto!=null) {
-				userDto.setRefreshToken(token.get("refresh_token"));
-				usersService.addToken(userDto);
-				user.put("userIdx", userDto.getUserIdx() + "");
-				user.put("nickname", userDto.getNickname());
+			UsersDto usersDto = usersService.findSocialID(userIO.get("id")); 
+			if(usersDto!=null) {
+				usersDto.setRefreshToken(token.get("refresh_token"));
+				usersService.addToken(usersDto);
+				user.put("userIdx", usersDto.getUserIdx() + "");
+				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", token.get("access_token"));
-
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
 				return new ResponseEntity<String>(token.get("access_token"), HttpStatus.ACCEPTED);
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
