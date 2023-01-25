@@ -2,16 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import ToggleBtn from "./ToggleBtn";
 import styles from './style.css'
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-    padding: 16px;
-    /* width: calc(100% - 32px); */
-    height:100vh;
+    /* padding: 0; */
+    width: calc(100% - 2rem);
+    height:31.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    /* border: 1px solid red; */
+    /* border:3px solid blue; */
     
 `
 
@@ -66,13 +67,16 @@ const PostBtn = styled.button`
 
 
 function PostCommentwrite(props){
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <CanvasDiv/>
       <CommentDiv>오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)</CommentDiv>
       <BottomDiv>
         <ToggleBtn/>
-        <PostBtn>작성</PostBtn>
+        <PostBtn
+        onClick={()=>{navigate("/feeds")}}
+        >작성</PostBtn>
       </BottomDiv>
     </Wrapper>
   );

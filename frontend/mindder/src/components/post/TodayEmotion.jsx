@@ -5,7 +5,7 @@ const TodayEmotionDiv = styled.div`
     width: 140px;
     height: 140px;
     border: 1px solid black;
-    margin: 18px auto;
+    margin: auto;
 `
 
 function TodayEmotion(props){
