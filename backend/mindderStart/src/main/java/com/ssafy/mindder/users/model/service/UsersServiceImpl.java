@@ -67,6 +67,11 @@ public class UsersServiceImpl implements UsersService {
 		usersMapper.logout(userIdx);
 	}
 	@Override
+	public String findpassword(int userIdx) throws Exception {
+		return usersMapper.findpassword(userIdx);
+	}
+
+	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, String> result = new HashMap<>();
