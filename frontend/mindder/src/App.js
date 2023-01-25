@@ -35,33 +35,36 @@ const keyword = ''
 
 
 function App(props) {
-    return (
-        <BrowserRouter>
-            <HeaderBar/>
-            <Routes>
-                <Route path="" element={<MainPage />} />
-                <Route path="user" element={<UserPage />} />
-                <Route path="feeds" element={<FeedPage />} />
-                <Route path="search" element={<SearchPage />} />
-                <Route path={`${userId}/calendar`} element={<CalendarPage />} />
-                <Route path={`f/${idx}`} element={<FeedDetailPage />} />
-                <Route path={`${userId}/followers`} element={<FollowersPage />} />
-                <Route path={`${userId}/following`} element={<FollowingPage />} />
-                <Route path="join" element={<JoinPage />} />
-                <Route path="login" element={<LoginPage />} />
-                <Route path="accounts/edit" element={<ModifyPage />} />
-                <Route path="post" element={<PostPage />} />
-                <Route path="accounts/password/change" element={<PwChangePage />} />
-                <Route path="accounts/password/find" element={<PwFindPage />} />
-                <Route path="accounts/remove" element={<RemovePage />} />
-                <Route path={`${userId}/saved`} element={<SavedPage />} />
-                <Route path={`search/${keyword}/nickname`} element={<SearchNamePage />} />
-                <Route path={`search/${keyword}`} element={<SearchResPage />} />
-                <Route path={`search/${keyword}/canvas`} element={<SearchTagPage />} />
-            </Routes>
-            <NaviBar/>
-        </BrowserRouter>
-    );
+        return (
+            <BrowserRouter>
+                <HeaderBar/>
+                <div id = "bodysuit">
+                    <Routes>
+                        <Route path="" element={<MainPage />} />
+                        <Route path="user" element={<UserPage />} />
+                        <Route path="feeds" element={<FeedPage />} />
+                        <Route path="search" element={<SearchPage />} />
+                        <Route path={`${userId}/calendar`} element={<CalendarPage />} />
+                        <Route path={`f/${idx}`} element={<FeedDetailPage />} />
+                        <Route path={`${userId}/followers`} element={<FollowersPage />} />
+                        <Route path={`${userId}/following`} element={<FollowingPage />} />
+                        <Route path="join" element={<JoinPage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="accounts/edit" element={<ModifyPage />} />
+                        <Route path="post" element={<PostPage />} />
+                        <Route path="accounts/password/change" element={<PwChangePage />} />
+                        <Route path="accounts/password/find" element={<PwFindPage />} />
+                        <Route path="accounts/remove" element={<RemovePage />} />
+                        <Route path={`${userId}/saved`} element={<SavedPage />} />
+                        <Route path={`search/${keyword}/nickname`} element={<SearchNamePage />} />
+                        <Route path={`search/${keyword}`} element={<SearchResPage />} />
+                        <Route path={`search/${keyword}/canvas`} element={<SearchTagPage />} />
+                    </Routes>
+                </div>
+                <NaviBar/>
+            </BrowserRouter>
+        );
+
 }
 
 export default App;
