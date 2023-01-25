@@ -23,5 +23,5 @@ public class FeedsDto {
 	private String normalTag;
 	private int hit;
 	private boolean isDeleted;
-	
+
 }
