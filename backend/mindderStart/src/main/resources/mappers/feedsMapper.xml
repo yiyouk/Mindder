@@ -46,21 +46,4 @@
 	where feed_idx=#{feedIdx} and is_deleted!='1'
 	</update>
 	
-	<!-- 피드글 상세보기 -->
-	<select id="getArticle" parameterType="int" resultType="boardDto">
-			"feedIdx": 1,
-					"userNickname" : "김민식",
-					"updateDate" : "2023-01-18",
-					"imageURI" : "이미지 url",
-					"commentCount": 3,
-					"likeCount":3,
-					"cheerupCount":2,
-					"sadCount": 2,
-		
-		
-	<!-- 이미지 URL 은 제외한 코드 -->
-	select f.feed_idx, u.nickname, f.update_date, c.count(*)
-	from mainfeed f, mainuser u, feedcomment c, feedlike l 
-	where  f.feed_idx= #{feedIdx} and f.user_idx=u.user_idx
-	</select>
 </mapper>

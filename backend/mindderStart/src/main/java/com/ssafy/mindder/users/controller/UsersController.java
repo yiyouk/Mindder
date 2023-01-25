@@ -55,8 +55,9 @@ public class UsersController {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+
 	@DeleteMapping
-	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken){
+	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken) {
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			usersService.deleteUser(idx);
@@ -68,16 +69,17 @@ public class UsersController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PatchMapping
-	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,@RequestBody UsersDto usersDto){
+	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,
+			@RequestBody UsersDto usersDto) {
 
 		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			System.out.println(idx);
 			usersDto.setUserIdx(idx);
-			if(usersDto.getPassword().length()<30) {
+			if (usersDto.getPassword().length() < 30) {
 				usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 			}
 			usersService.updateUser(usersDto);
@@ -90,7 +92,7 @@ public class UsersController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@ApiOperation(value = "카카오 로그인 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/social/kakao")
 	public ResponseEntity<?> social(@RequestParam String code) {
@@ -101,19 +103,19 @@ public class UsersController {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
 			UsersDto usersDto = null;
-			usersDto.setSocialId(userIO.get("id")+"@Kakao");
+			usersDto.setSocialId(userIO.get("id") + "@Kakao");
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
-			if(usersDto!=null) {
+			if (usersDto != null) {
 				usersDto.setRefreshToken(token.get("refresh_token"));
-				//회원가입 이후 DB조회 후 우리 idx로 변환
+				// 회원가입 이후 DB조회 후 우리 idx로 변환
 				usersService.addToken(usersDto);
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", token.get("access_token"));
 				user.put("isNewUser", "false");
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
-			}else {
+			} else {
 				logger.debug("socialLogin - 회원정보 없음");
 				user.put("isNewUser", "true");
 				user.put("accessToken", token.get("access_token"));
@@ -156,15 +158,40 @@ public class UsersController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@ApiOperation(value = "로그아웃 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/logout")
-	public ResponseEntity<?> logout(@RequestParam("access_token") String accessToken){
+	public ResponseEntity<?> logout(@RequestParam("access_token") String accessToken) {
 		logger.debug("logout - 호출");
 		try {
 			usersService.logout(jwtService.getUserIdx(accessToken));
+
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("logout - 로그아웃 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@ApiOperation(value = "비밀번호 일치 여부를 반환한다.", response = String.class)
+	@PostMapping("/password")
+	public ResponseEntity<?> findpassword(@RequestParam("access_token") String accessToken, @RequestBody String pwd) {
+		logger.debug("findpassword - 호출");
+		try {
+			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
+
+			System.out.println(pwd);
+			pwd = SHA256.encrypt(pwd);
+			System.out.println(tempPwd);
+			if (pwd.equals(tempPwd)) {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("findpassword - 비밀번호 찾기 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
