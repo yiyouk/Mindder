@@ -5,14 +5,14 @@ import './style.css'
 // import './mycanvas'
 
 const Wrapper = styled.div`
-    padding: 16px;
-    /* width: calc(100% - 32px); */
-    height:100vh;
+    /* padding: 0; */
+    /* width: calc(100% - 2rem); */
+    height:31.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    /* border:1px solid red; */
+    /* border:1px solid blue; */
 `
 
 const CrawlingsHere = styled.div`
@@ -36,11 +36,11 @@ function PostDraw(props){
       <CrawlingsHere>여기에 크롤링 결과 출력할거에요</CrawlingsHere>
       <CanvasDiv>
         <canvas></canvas>
-        <div class="menu-container">
+        {/* <div class="menu-container">
           <button id="mode-btn">채우기</button>
           <button class="reset">지우기</button>
           <button class="palette">팔레트</button>
-        </div>
+        </div> */}
         {/* <script src="mycanvas.js"></script> */}
       </CanvasDiv>
     </Wrapper>

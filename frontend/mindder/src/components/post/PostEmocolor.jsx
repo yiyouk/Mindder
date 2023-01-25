@@ -5,12 +5,14 @@ import TodayEmotion from "./TodayEmotion";
 import EmotionColorList from "./EmoColorList";
 
 const Wrapper = styled.div`
-    padding: 16px;
-    width: calc(100% - 32px);
+    /* padding: 0; */
+    width: calc(100% - 2rem);
+    height:31.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* border:1px solid blue; */
     
 `;
 
