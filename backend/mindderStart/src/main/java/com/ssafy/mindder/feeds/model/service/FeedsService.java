@@ -6,22 +6,22 @@ import com.ssafy.mindder.feeds.model.FeedsDto;
 
 public interface FeedsService {
 
-	public boolean writeFeeds(FeedsDto feedsDto) throws Exception;
+	public boolean writeFeed(FeedsDto feedsDto) throws Exception;
 
 	// 피드 삭제
-	public boolean deleteFeeds(int feedIdx) throws Exception;
+	public boolean deleteFeed(int feedIdx) throws Exception;
 
 	// 피드 수정
-	public boolean modifyFeeds(FeedsDto boardDto) throws Exception;
+	public boolean modifyFeed(FeedsDto boardDto) throws Exception;
 
 	// 추천피드 목록 조회
-	public List<FeedsDto> recommendationFeeds(FeedsDto boardDto) throws Exception;
+	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws Exception;
 
 	// 유사감정 태그 피드 조회
-	public List<FeedsDto> similarityTagFeeds(FeedsDto boardDto) throws Exception;
+	public List<FeedsDto> similarityTagFeed(FeedsDto boardDto) throws Exception;
 
 	// 유사 감정 색상 태그 피드 조회
-	public List<FeedsDto> similarityColorFeeds(FeedsDto boardDto) throws Exception;
+	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws Exception;
 
 	// 사용자 이웃 피드 목록 조회
 	public List<FeedsDto> recommendationNeighbors(FeedsDto boardDto) throws Exception;
