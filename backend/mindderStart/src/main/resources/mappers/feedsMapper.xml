@@ -57,13 +57,12 @@
 	<!-- 피드글 상세보기 -->
 	<select id="getFeed" parameterType="int" resultMap="feed">
 	<!-- 이미지 URL 은 제외한 코드 -->
-	select f.feed_idx, u.nickname,
-	 f.update_date,
-      (select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx )as 'commentCount',
-     (select count(like_type) from feedlike l, mainfeed f where l.feed_idx= f.feed_idx and l.like_type=1)as 'likeCount',
-     (select count(like_type) from feedlike l, mainfeed f where l.feed_idx= f.feed_idx and l.like_type=2)as 'cheerupCount',
-     (select count(like_type) from feedlike l, mainfeed f where l.feed_idx= f.feed_idx and l.like_type=3)as 'sadCount'
-	from mainfeed f, mainuser u, feedlike l
+	select f.feed_idx, u.nickname,f.update_date,
+    (select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx )as 'commentCount',
+   	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.like_type=1) as 'likeCount',
+	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.like_type=2) as 'cheerupCount',
+	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.like_type=3) as 'sadCount'
+	from mainfeed f, mainuser u
 	where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx ;
 	
 	</select>
