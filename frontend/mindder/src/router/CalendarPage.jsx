@@ -2,6 +2,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import MyPage from "../components/user/MyPage"
+import Calendar from "../components/user/Calendar";
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -14,7 +17,8 @@ const Wrapper = styled.div`
 function CalendarPage(props) {
     return (
         <Wrapper>
-            여기는 캘린더
+            <MyPage></MyPage>
+            <Calendar></Calendar>
         </Wrapper>
     );
 }
