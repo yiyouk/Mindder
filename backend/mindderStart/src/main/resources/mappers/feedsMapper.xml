@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.feeds.model.mapper.FeedsMapper">
 	
 	<!-- 공개여부 -> 어캐해야하지..? -->
-	<!-- 공개여부 -> default값은 공개로 --> 
-	<insert id="writeFeed" parameterType="FeedsDto" >
+	<!-- 공개여부 -> default값은 공개로 -->
+	<insert id="writeFeed" parameterType="FeedsDto">
 		insert into mainfeed 
 		(update_date, update_time,is_public, main_text, normal_tag,is_deleted,user_idx,emote_idx,emote_color_idx,feed_hit)
-		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)
-		
+		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)		
 	</insert>
 	
 	<!-- 피드글 삭제-->
@@ -28,39 +25,22 @@
 	</update>
 	
 	<update id="deleteFeedComment" parameterType="int">
-	update  feedcomment 
+	update feedcomment 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
 	
 	<update id="deleteFeedScrap" parameterType="int">
-	update  feedscrap 
+	update feedscrap 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
 	
 	<!-- 피드글 수정-->
-	<update id ="modifyFeed  " parameterType="FeedsDto">
+	<update id="modifyFeed  " parameterType="FeedsDto">
 	update mainfeed 
 	set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
 	where feed_idx=#{feedIdx} and is_deleted!='1'
 	</update>
 	
-	<!-- 피드글 상세보기 -->
-	<select id="getArticle" parameterType="int" resultType="boardDto">
-			"feedIdx": 1,
-					"userNickname" : "김민식",
-					"updateDate" : "2023-01-18",
-					"imageURI" : "이미지 url",
-					"commentCount": 3,
-					"likeCount":3,
-					"cheerupCount":2,
-					"sadCount": 2,
-		
-		
-	<!-- 이미지 URL 은 제외한 코드 -->
-	select f.feed_idx, u.nickname, f.update_date, c.count(*)
-	from mainfeed f, mainuser u, feedcomment c, feedlike l 
-	where  f.feed_idx= #{feedIdx} and f.user_idx=u.user_idx
-	</select>
 </mapper>

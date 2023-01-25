@@ -1,4 +1,4 @@
-package com.ssafy.mindder.users.model;
+package com.ssafy.mindder.feeds.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,12 +11,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersDto {
-	int userIdx;
-	String email;
-	String password;
-	String nickname;
-	String refreshToken;
-	boolean isDeleted;
-	int emoteColor;
+public class FeedListDto {
+
+	int feedIdx;
+	int commentCount;
+	int likeTotalCount;
+	
 }
