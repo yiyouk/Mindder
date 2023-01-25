@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.7</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ssafy.mindder</groupId>
 	<artifactId>mindder</artifactId>
@@ -26,7 +26,6 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -36,7 +35,6 @@
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -68,7 +66,10 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
 		<!-- JSON Converter(컨트롤러에서 전달한 VO데이터를 JSON으로 변경하기 위해 사용) -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -118,10 +119,7 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.15.3</version>
 		</dependency>
-
 	</dependencies>
-
-
 	<build>
 		<plugins>
 			<plugin>
@@ -138,5 +136,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
