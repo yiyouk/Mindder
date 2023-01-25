@@ -2,21 +2,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import RecoCanvasItem from "./recoCanvasItem";
+import RecoCanvasItem from "./CanvasItem";
 
 // 추천 캔버스
 const RecoContainer = styled.div`
-    margin-top:10px;
-    width: 360px;
-    height: 152px;
-    max-width: 720px;
+    margin-top:1rem;
+    width: 22rem;
+    height: 10rem;
     & > * {
         :not(:last-child) {
-            margin-bottom: 16px;
+            margin-bottom: 0.5rem;
         }
     }
-    /* border : 1px solid black; */
-    /* background-color:#7767FD; */
     border-radius:20px;
     display: flex;
     align-items: center;
@@ -25,9 +22,8 @@ const RecoContainer = styled.div`
 `;
 
 const RecoHeader = styled.h4`
-    font-size:16px;
-    font-weight:900;
-    /* color:white; */
+    font-size: 1rem;
+    font-weight: 900;
     position:relative;
     right:120px;
     margin: 0;
@@ -35,14 +31,14 @@ const RecoHeader = styled.h4`
 
 const RecoCanvasItemContainer = styled.div`
     /* border : 1px solid black; */
-    width:100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
 
 `
 
-function RecoCanvasList(props){
+function CanvasList(props){
   return (
     <RecoContainer>
       <RecoHeader>추천 캔버스</RecoHeader>
@@ -56,4 +52,4 @@ function RecoCanvasList(props){
   );
 }
 
-export default RecoCanvasList;
+export default CanvasList;
