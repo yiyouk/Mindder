@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -67,12 +68,13 @@ public class FeedsController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
-	@ApiOperation(value = "피드 상세글 보기", notes = "글번호에 해당하는 피드의 정보를 반환한다.", response = FeedsDto.class)
+	@ApiOperation(value = "피드글 상세 보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
-	public ResponseEntity<FeedsDto> getArticle(
+	public ResponseEntity<FeedsParameterDto> getFeed(
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx) throws Exception {
-		logger.info("getArticle - 호출 : " + feedIdx);
-		return new ResponseEntity<FeedsDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
+		logger.info("getFeed - 호출 : " + feedIdx);
+		return new ResponseEntity<FeedsParameterDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
+
 	}
 
 }

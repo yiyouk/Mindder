@@ -3,6 +3,7 @@ package com.ssafy.mindder.feeds.model.service;
 import java.util.List;
 
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 
 public interface FeedsService {
 
@@ -27,7 +28,7 @@ public interface FeedsService {
 	public List<FeedsDto> recommendationNeighbors(FeedsDto boardDto) throws Exception;
 
 	// 피드 상세 조회
-	public FeedsDto getFeed(int feedIdx) throws Exception;
+	public FeedsParameterDto getFeed(int feedIdx) throws Exception;
 
 	//////////////////////////////////////////////////////////////////
 
