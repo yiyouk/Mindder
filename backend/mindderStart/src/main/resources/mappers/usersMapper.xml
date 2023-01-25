@@ -25,6 +25,11 @@
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
+	<select id="findSocialID" parameterType="String" resultMap="user">
+		select *
+		from mainuser
+		where social_id = #{id}
+	</select>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
 		from mainuser
@@ -35,8 +40,18 @@
 		value(#{email},#{nickname},#{password},now(),#{emoteColor})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
-		UPDATE mainuser
-		SET refresh_token = #{refreshToken}
-		WHERE user_idx = #{userIdx}
+		update mainuser
+		set refresh_token = #{refreshToken}
+		where user_idx = #{userIdx}
+	</update>
+	<update id="updateUser" parameterType="UsersDto" >
+		update mainuser
+		set nickname = #{nickname}, password = #{password}
+		where user_idx = #{userIdx};
+	</update>
+	<update id="deleteUser" parameterType="int" >
+		update mainuser
+		set is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
 	</update>
 </mapper>
