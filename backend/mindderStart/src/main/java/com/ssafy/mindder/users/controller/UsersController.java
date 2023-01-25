@@ -197,12 +197,12 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
-	@GetMapping("/information/{userIdx}")
-	ResponseEntity<?> checkUser(@PathVariable("userIdx") int userIdx) {
+	@GetMapping("/information")
+	ResponseEntity<?> checkUser(@RequestParam("access_token") String accessToken) {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto userDto = usersService.checkUser(userIdx);
+			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken));
 			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
