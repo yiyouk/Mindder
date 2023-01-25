@@ -20,4 +20,5 @@ public interface UsersService {
 	void updateUser(UsersDto usersdto)throws Exception;
 	void deleteUser(int userIdx) throws Exception;
 	void logout(int userIdx) throws Exception;
+	String findpassword(int userIdx) throws Exception;
 }
