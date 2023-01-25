@@ -9,6 +9,7 @@
 		<result column="refresh_token" property="refreshToken" />
 		<result column="is_deleted" property="isDeleted" />
 		<result column="emote_color_idx" property="emoteColor" />
+		<result column="social_id" property="socialId" />
 	</resultMap>
 	<select id="login" parameterType="UsersDto" resultMap="user">
 		select *
@@ -25,18 +26,43 @@
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
+	<select id="findpassword" parameterType="int" resultType="String">
+		select password
+		from mainuser
+		where user_idx = #{userIdx}
+	</select>
+	<select id="findSocialKakaoID" parameterType="String" resultMap="user">
+		select *
+		from mainuser
+		where social_id = #{id}
+	</select>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
 		from mainuser
 		where nickname =#{nickname}
 	</select>
 	<insert id="joinUser" parameterType="UsersDto">
-		insert into mainuser(email,nickname,password,create_date,emote_color_idx)
-		value(#{email},#{nickname},#{password},now(),#{emoteColor})
+		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id)
+		value(#{email},#{nickname},#{password},now(),#{emoteColor},#{socialId})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
-		UPDATE mainuser
-		SET refresh_token = #{refreshToken}
-		WHERE user_idx = #{userIdx}
+		update mainuser
+		set refresh_token = #{refreshToken}
+		where user_idx = #{userIdx}
+	</update>
+	<update id="updateUser" parameterType="UsersDto" >
+		update mainuser
+		set nickname = #{nickname}, password = #{password}
+		where user_idx = #{userIdx}
+	</update>
+	<update id="deleteUser" parameterType="int" >
+		update mainuser
+		set is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx}
+	</update>
+	<update id="logout" parameterType="int" >
+		update mainuser
+		set refresh_token=null
+		where user_idx = #{userIdx}
 	</update>
 </mapper>

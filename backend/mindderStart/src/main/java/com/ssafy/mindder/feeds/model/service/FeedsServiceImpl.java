@@ -32,8 +32,7 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean modifyFeed(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto) == 1;
 	}
 
 	@Override
