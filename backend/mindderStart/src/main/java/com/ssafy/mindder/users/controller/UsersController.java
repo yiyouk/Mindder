@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -128,16 +130,15 @@ public class UsersController {
 			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
-			if (usersDto != null) {
+			if (usersDto !=null) {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
-				Map<String, String> user = new HashMap<String, String>();
-				user.put("userIdx", usersDto.getUserIdx() + "");
-				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
-				System.out.println(jwtService.getUserIdx(accessToken));
-
+				Map<String,String> user = new HashMap<String, String>();
+				user.put("userIdx",usersDto.getUserIdx()+"");
+				user.put("nickname",usersDto.getNickname());
+				user.put("accessToken",accessToken);
+				
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			} else {
 				logger.debug("login - 로그인 실패");
@@ -205,8 +206,8 @@ public class UsersController {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto usersDto = usersService.checkUser(userIdx);
-			return new ResponseEntity<UsersDto>(usersDto, HttpStatus.OK);
+			UsersDto userDto = usersService.checkUser(userIdx);
+			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("checkNickname - 닉네임 체크 중 에러");

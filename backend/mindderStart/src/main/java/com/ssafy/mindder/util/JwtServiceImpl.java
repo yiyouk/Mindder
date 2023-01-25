@@ -129,6 +129,7 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
+	
 	public int getUserIdx(String token) {
 		return (int) Jwts.parser()
 		        .setSigningKey(this.generateKey())
