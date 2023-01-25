@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import LogoW from "../../assets/images/LogoW.png"
-import Logo from "../../assets/images/Logo.PNG";
+import Logo from "../../assets/images/Logo.png";
 import Never from "../../assets/images/Never.png";
 import Kakao from "../../assets/images/Kakao.png";
 
