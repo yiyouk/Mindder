@@ -51,8 +51,8 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	@Override
-	public UsersDto findSocialID(String userid) throws Exception {
-		return usersMapper.findSocialID(userid);
+	public UsersDto findSocialKakaoID(String userid) throws Exception {
+		return usersMapper.findSocialKakaoID(userid);
 	}
 	@Override
 	public void updateUser(UsersDto usersdto) throws Exception {
@@ -62,7 +62,10 @@ public class UsersServiceImpl implements UsersService {
 	public void deleteUser(int userIdx) throws Exception {
 		usersMapper.deleteUser(userIdx);
 	}
-	
+	@Override
+	public void logout(int userIdx) throws Exception {
+		usersMapper.logout(userIdx);
+	}
 	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
@@ -127,7 +130,7 @@ public class UsersServiceImpl implements UsersService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=dc63597430966307c80d8e0e8c0d9b8a"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:9999/users/social"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:9999/users/social/kakao"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
@@ -162,5 +165,6 @@ public class UsersServiceImpl implements UsersService {
         
 		return rt;
 	}
+
 
 }
