@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,9 +46,9 @@ public class FeedsController {
 
 	@ApiOperation(value = "피드글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
-	public ResponseEntity<String> modifyArticle(
+	public ResponseEntity<String> modifyFeed(
 			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsDto feedsDto) throws Exception {
-		logger.info("modifyArticle - 호출 {}", feedsDto);
+		logger.info("modifyFeed - 호출 {}", feedsDto);
 
 		if (feedsService.modifyFeed(feedsDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -64,6 +65,14 @@ public class FeedsController {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "피드 상세글 보기", notes = "글번호에 해당하는 피드의 정보를 반환한다.", response = FeedsDto.class)
+	@GetMapping("/{feedIdx}")
+	public ResponseEntity<FeedsDto> getArticle(
+			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx) throws Exception {
+		logger.info("getArticle - 호출 : " + feedIdx);
+		return new ResponseEntity<FeedsDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
 	}
 
 }

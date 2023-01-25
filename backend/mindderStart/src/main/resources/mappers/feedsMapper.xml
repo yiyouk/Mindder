@@ -62,10 +62,5 @@
 	select f.feed_idx, u.nickname, f.update_date, c.count(*)
 	from mainfeed f, mainuser u, feedcomment c, feedlike l 
 	where  f.feed_idx= #{feedIdx} and f.user_idx=u.user_idx
-	
-	
 	</select>
-
-	
-	
 </mapper>
