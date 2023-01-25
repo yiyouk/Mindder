@@ -6,12 +6,39 @@
 	
 	<!-- 공개여부 -> 어캐해야하지..? -->
 	<!-- 공개여부 -> default값은 공개로 --> 
-	<insert id="writeFeeds" parameterType="FeedsDto" >
+	<insert id="writeFeed" parameterType="FeedsDto" >
 		insert into mainfeed 
 		(update_date, update_time,is_public, main_text, normal_tag,is_deleted,user_idx,emote_idx,emote_color_idx,feed_hit)
 		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)
 		
 	</insert>
+	
+	<!-- 피드 스크랩은 어케하지...? -->
+	<!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
+	<update id="deleteMainFeed" parameterType="int">
+	update  mainfeed 
+	set is_deleted = 1
+	where feed_idx = #{feedIdx};
+	</update>
+	
+	<update id="deleteFeedLike" parameterType="int">
+	update  feedlike 
+	set is_deleted = 1
+	where feed_idx = #{feedIdx};
+	</update>
+	
+	<update id="deleteFeedComment" parameterType="int">
+	update  feedcomment 
+	set is_deleted = 1
+	where feed_idx = #{feedIdx};
+	</update>
+	
+	<update id="deleteFeedScrap" parameterType="int">
+	update  feedscrap 
+	set is_deleted = 1
+	where feed_idx = #{feedIdx};
+	</update>
+
 	
 	
 </mapper>
