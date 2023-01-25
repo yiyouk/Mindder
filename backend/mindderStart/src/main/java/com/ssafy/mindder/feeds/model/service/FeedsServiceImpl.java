@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
 
 @Service
@@ -54,12 +55,11 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public List<FeedsDto> recommendationNeighbors(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FeedsDto getFeed(int feedIdx) throws Exception {
+	public FeedsParameterDto getFeed(int feedIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx);
 	}
 

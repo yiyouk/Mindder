@@ -12,7 +12,9 @@ public interface UsersMapper {
 	UsersDto checkUser(int userIdx) throws Exception;
 	UsersDto login(UsersDto usersdto)throws Exception;
 	void addToken(UsersDto usersdto) throws Exception;
-	UsersDto findSocialID(String userid) throws Exception;
+	UsersDto findSocialKakaoID(String userid) throws Exception;
 	void updateUser(UsersDto usersdto)throws Exception;
 	void deleteUser(int userIdx) throws Exception;
+	void logout(int userIdx) throws Exception;
+	String findpassword(int userIdx) throws Exception;
 }
