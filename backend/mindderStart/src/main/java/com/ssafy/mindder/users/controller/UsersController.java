@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -33,7 +32,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -107,12 +105,10 @@ public class UsersController {
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", token.get("access_token"));
-
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
 				return new ResponseEntity<String>(token.get("access_token"), HttpStatus.ACCEPTED);
-				//엑세스 토큰 받고 소셜 회원가입 진행
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,15 +126,15 @@ public class UsersController {
 			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
-			if (usersDto !=null) {
+			if (usersDto != null) {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
-				Map<String,String> user = new HashMap<String, String>();
-				user.put("userIdx",usersDto.getUserIdx()+"");
-				user.put("nickname",usersDto.getNickname());
-				user.put("accessToken",accessToken);
-				
+				Map<String, String> user = new HashMap<String, String>();
+				user.put("userIdx", usersDto.getUserIdx() + "");
+				user.put("nickname", usersDto.getNickname());
+				user.put("accessToken", accessToken);
+
 				return new ResponseEntity<Map>(user, HttpStatus.OK);
 			} else {
 				logger.debug("login - 로그인 실패");
