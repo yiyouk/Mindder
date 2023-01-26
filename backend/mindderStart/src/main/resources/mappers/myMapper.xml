@@ -1,20 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.my.model.mapper.MyMapper">
-	<resultMap type="FeedListDto" id="my">
+	<resultMap type="FeedListDto" id="myFeeds">
 		<result column="feed_idx" property="feedIdx" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
+	<resultMap type="FeedsParameterDto" id="myScraps">
+		<result column="feed_idx" property="feedIdx" />
+		<result column="update_date" property="updateDate" />
+		<result column="comment_count" property="commentCount" />
+		<result column="like_count" property="likeCount" />
+		<result column="cheerup_count" property="cheerupCount" />
+		<result column="sad_count" property="sadCount" />
+		<result column="like_total_count" property="likeTotalCount" />
+	</resultMap>
 	<!-- 내가 쓴 피드 목록 조회 -->
 	<!-- @fixme: 이미지 url 추가 필요 -->
-	<select id="selectMyFeeds" parameterType="int" resultMap="my">
+	<select id="selectMyFeeds" parameterType="int" resultMap="myFeeds">
 		select f.feed_idx, c.comment_count, l.like_total_count 
 		from mainfeed f 
-		left join (select feed_idx, count(*) as comment_count from feedcomment group by feed_idx) as c 
+		left join 
+		(select feed_idx, count(*) as comment_count 
+		from feedcomment 
+		where is_deleted = 0 
+		group by feed_idx) as c 
 		on f.feed_idx = c.feed_idx 
-		left join (select feed_idx, sum(like_count) as like_total_count from feedlike group by feed_idx) as l 
+		left join 
+		(select feed_idx, sum(like_count) as like_total_count 
+		from feedlike 
+		where is_deleted = 0 
+		group by feed_idx) as l 
 		on f.feed_idx = l.feed_idx 
-		where user_idx = #{userIdx};
+		where user_idx = #{userIdx} and is_deleted = 0;
+	</select>
+	<!-- 스크랩 목록 조회 -->
+	<!-- @fixme: 이미지 url 추가 필요 -->
+	<select id="selectMyScraps" parameterType="int" resultMap="myScraps">
+		select s.feed_idx, c.comment_count, u.nickname, f.update_date, l.like_total_count 
+		from feedscrap s 
+		left join 
+		(select feed_idx, count(*) as comment_count 
+		from feedcomment 
+		where is_deleted = 0 
+		group by feed_idx) 
+		as c
+		on s.feed_idx = c.feed_idx 
+		left join mainfeed f 
+		on s.feed_idx = f.feed_idx 
+		left join mainuser u 
+		on f.user_idx = u.user_idx 
+		left join 
+		(select feed_idx, sum(like_count) as like_total_count 
+		from feedlike 
+		where is_deleted = 0 
+		group by feed_idx) 
+		as l
+		on s.feed_idx = l.feed_idx
+		where s.user_idx = #{userIdx} and s.is_deleted = 0;
 	</select>
 </mapper>
