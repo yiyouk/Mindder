@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 
-import Face11 from "../../assets/images/face11.PNG"
+import Face11 from "../../assets/images/face11.png"
 
 const Wrapper = styled.div`
   width:360px;
