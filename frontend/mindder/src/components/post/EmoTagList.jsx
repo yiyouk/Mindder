@@ -17,6 +17,13 @@ const EmotionTag = styled.div`
   height: 51px;
   border: 1px solid black;
 `
+// const Face = styled.div`
+//   background-color:yellow;
+//   width:30px; 
+//   height:30px;
+//   background-image:"../../assets/images/face${props}.png";
+// `
+
 
 function EmotionTagList(props){
   const line = props.line
@@ -25,7 +32,7 @@ function EmotionTagList(props){
   return (
     <Container>
       <EmotionTag>
-        {num}
+        {/* <Face/> */}
       </EmotionTag>
       <EmotionTag>
         {num+1}
