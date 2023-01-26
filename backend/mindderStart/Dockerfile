@@ -5,4 +5,7 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 ENV TZ=Asia/Seoul
-RUN apt-get install -y tzdata
+RUN apk --no-cache add tzdata && \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone \
+    apk del tzdata
