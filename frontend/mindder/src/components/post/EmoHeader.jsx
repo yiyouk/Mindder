@@ -8,6 +8,8 @@ const Header = styled.h2`
     font-size: 30px;
     line-height: 36px;
     margin:auto;
+    position:relative;
+    /* top:6rem; */
     /* border:1px solid red; */
 `;
 
