@@ -32,4 +32,9 @@ public class MyServiceImpl implements MyService {
 		return sqlSession.getMapper(MyMapper.class).selectMyFollowers(userIdx);
 	}
 	
+	@Override
+	public List<UsersDto> findMyFollowings(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectMyFollowings(userIdx);
+	}
+	
 }
