@@ -13,9 +13,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class FollowsDto {
 
-	private int followIdx;
+	private int followerIdx;
 	private int userIdx;
-	private int nickname;
+	private String nickname;
 	private int targetUserIdx;
 
 }
