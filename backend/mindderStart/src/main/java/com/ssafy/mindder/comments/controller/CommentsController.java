@@ -33,7 +33,7 @@ public class CommentsController {
 
 	@ApiOperation(value = "피드 댓글 작성", notes = "댓글을 작성한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> writeFeeds(
+	public ResponseEntity<String> writeCommnet(
 			@RequestBody @ApiParam(value = "피드 정보.", required = true) CommentsDto commentsDto) throws Exception {
 		logger.info("writeComment - 호출");
 		if (commentsService.writeComment(commentsDto)) {
@@ -43,15 +43,17 @@ public class CommentsController {
 	}
 
 	@ApiOperation(value = "피드 댓글 삭제", notes = "댓글 번호에 해당하는 댓글을 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@DeleteMapping("/{feedIdx}")
-	public ResponseEntity<String> deleteFeed(
+	@DeleteMapping("/{commentIdx}")
+	public ResponseEntity<String> deleteComment(
 			@PathVariable("commentIdx") @ApiParam(value = "삭제할 댓글 번호.", required = true) int commentIdx)
 			throws Exception {
-		logger.info("deleteFeed - 호출");
+		logger.info("deleteComment - 호출");
 		if (commentsService.deleteComment(commentIdx)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+
+	// 댓글 리스트 조회에에에에에엥
 
 }
