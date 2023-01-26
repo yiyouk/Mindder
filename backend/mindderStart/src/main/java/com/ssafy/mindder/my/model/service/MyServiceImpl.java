@@ -48,4 +48,9 @@ public class MyServiceImpl implements MyService {
 		sqlSession.getMapper(MyMapper.class).insertMyFollow(userIdx, targetUserIdx);
 	}
 	
+	@Override
+	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception {
+		sqlSession.getMapper(MyMapper.class).deleteMyFollow(userIdx, targetUserIdx);
+	}
+	
 }

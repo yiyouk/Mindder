@@ -31,4 +31,7 @@ public interface MyMapper {
 	// 팔로우 등록
 	public void insertMyFollow(int userIdx, int targetUserIdx) throws SQLException;
 
+	// 팔로우 취소
+	public void deleteMyFollow(int userIdx, int targetUserIdx) throws SQLException;
+
 }
