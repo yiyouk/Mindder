@@ -1,8 +1,8 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import Modify from "../components/account/Modify";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Remove = styled.div`
     margin: 1rem;
