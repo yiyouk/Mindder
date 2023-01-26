@@ -27,4 +27,7 @@ public interface MyService {
 	// 팔로우 등록
 	public void addMyFollow(int userIdx, int targetUserIdx) throws Exception;
 
+	// 팔로우 취소
+	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception;
+
 }

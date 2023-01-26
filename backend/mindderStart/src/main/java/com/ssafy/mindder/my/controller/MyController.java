@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -137,6 +138,25 @@ public class MyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("followAdd - 팔로우 등록 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@ApiOperation(value = "팔로우 취소", notes = "유저 번호에 해당하는 유저를 언팔로우한다.")
+	@DeleteMapping("/follows/{userIdx}")
+	public ResponseEntity<?> followRemove(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx) {
+		
+		logger.debug("followRemove - 호출 : " + targetUserIdx);
+		try {
+			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
+			int userIdx = 7;
+			
+			myService.removeMyFollow(userIdx, targetUserIdx);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("followRemove - 팔로우 취소 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
