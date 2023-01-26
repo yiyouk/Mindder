@@ -63,9 +63,7 @@ public class CommentsController {
 	public ResponseEntity<List<CommentsDto>> commentList(
 			@PathVariable("feedIdx") @ApiParam(value = "해당 피드글 번호.", required = true) int feedIdx) throws Exception {
 		logger.info("feedIdx - 호출");
-		List<CommentsDto> tmep = commentsService.commentList(feedIdx);
-		System.out.println(tmep);
-		return new ResponseEntity<List<CommentsDto>>(tmep, HttpStatus.OK);
+		return new ResponseEntity<List<CommentsDto>>(commentsService.commentList(feedIdx), HttpStatus.OK);
 	}
 
 }
