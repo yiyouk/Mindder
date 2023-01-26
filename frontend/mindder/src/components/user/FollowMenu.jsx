@@ -7,11 +7,20 @@ import Following from "../../commons/ui/Following";
 
 
 const Wrapper = styled.div`
-
-    display: flex;
+    width:100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
+    @media (max-width: 992x) {
+      width:90vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      justify-content: center;
+    }
 `;
 
 function Follow(props) {
