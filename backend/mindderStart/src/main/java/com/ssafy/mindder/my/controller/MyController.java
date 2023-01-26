@@ -82,5 +82,21 @@ public class MyController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 팔로잉의 목록을 반환한다.", response = UsersDto.class)
+	@GetMapping("/followings/{userIdx}")
+	public ResponseEntity<?> findMyFollowings(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+
+		logger.debug("findMyFollowings - 호출 : " + userIdx);
+		try {
+			List<UsersDto> followingList = myService.findMyFollowings(userIdx);
+			return new ResponseEntity<List<UsersDto>>(followingList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("findMyFollowings - 팔로잉 목록 조회 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
