@@ -2,6 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import ScrapFeedsList from "../components/user/ScrapFeedsList";
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -14,7 +16,7 @@ const Wrapper = styled.div`
 function SavedPage(props) {
     return (
         <Wrapper>
-            여기는 스크랩글페이지
+            <ScrapFeedsList></ScrapFeedsList>
         </Wrapper>
     );
 }

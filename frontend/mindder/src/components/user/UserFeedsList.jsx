@@ -4,32 +4,31 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import UserFeedsItem from "./UserFeedsItem";
 
+
 const Wrapper = styled.div`
-    width: 360px;
-    max-width: 720px;
-    /* & > * {
-        :not(:last-child) {
-            margin-bottom: 16px;
-        }
-    } */
-    /* border : 1px solid black; */
-    /* background-color:#7767FD; */
-    border-radius:20px;
+    margin: 0.5rem 0 0.25rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction:column;
-`;
-
+    flex-direction: column;
+`
 
 const UserFeedsItemContainer = styled.div`
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      justify-content: center;
+      
     /* border : 1px solid black; */
-    width:100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    justify-content: center;
 
+    @media (max-width: 992x) {
+      width:90vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      justify-content: center;
+    }
 `
 
 function UserFeedsList(props){
