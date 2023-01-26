@@ -1,5 +1,7 @@
 package com.ssafy.mindder.comments.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,5 +58,14 @@ public class CommentsController {
 	}
 
 	// 댓글 리스트 조회에에에에에엥
+	@ApiOperation(value = "피드 댓글 조회", notes = "피드에 달린 모든 댓글을 반환한다.", response = List.class)
+	@GetMapping("/{feedIdx}")
+	public ResponseEntity<List<CommentsDto>> commentList(
+			@PathVariable("feedIdx") @ApiParam(value = "해당 피드글 번호.", required = true) int feedIdx) throws Exception {
+		logger.info("feedIdx - 호출");
+		List<CommentsDto> tmep = commentsService.commentList(feedIdx);
+		System.out.println(tmep);
+		return new ResponseEntity<List<CommentsDto>>(tmep, HttpStatus.OK);
+	}
 
 }
