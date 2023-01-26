@@ -25,4 +25,10 @@
 		<result column="sad_count" property="sadCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
+	<resultMap type="CommentsDto" id="comment">
+		<result column="comment_idx" property="commentIdx" />
+		<result column="nickname" property="nickname" />
+		<result column="text" property="feedComment" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
 </mapper>
