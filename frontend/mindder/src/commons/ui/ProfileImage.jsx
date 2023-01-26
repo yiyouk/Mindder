@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 // 임시 user Img
-import UserImg from "../../assets/images/face1.png"
+import UserImg from "../../assets/images/CanvasSample.png"
 
 
 const Wrapper = styled.div`
@@ -13,14 +13,17 @@ const Wrapper = styled.div`
     align-items: center;
     & > span {
         font-size: 1rem;
-        color: grey;
+        color: #999999;
     }
 `;
 
 const ProfileImg = styled.img`
-    margin-right: 1rem;
-    width: 4rem;
-    height: 4rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid #c0c0c0;
+    border-radius: 50px;
+    /* box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3); */
 
 `;
 
