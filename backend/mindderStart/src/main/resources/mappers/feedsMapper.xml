@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.feeds.model.mapper.FeedsMapper">
-	<resultMap type="FeedsParameterDto" id="feed">
-		<result column="user_idx" property="userIdx" />
-		<result column="nickname" property="nickname" />
-		<result column="is_deleted" property="isDeleted" />
-		<result column="feed_idx" property="feedIdx" />
-		<result column="update_date" property="updateDate" />
-	</resultMap>	
-	
 	<!-- 공개여부 -> 어캐해야하지..? -->
 	<!-- 공개여부 -> default값은 공개로 -->
 	<insert id="writeFeed" parameterType="FeedsDto">
@@ -51,7 +43,7 @@
 	</update>
 
 	<!-- 피드글 상세보기 -->
-	<select id="getFeed" parameterType="int" resultMap="feed">
+	<select id="getFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
 	<!-- 이미지 URL 은 제외한 코드 -->
 	select f.feed_idx, u.nickname,
 	 f.update_date,
