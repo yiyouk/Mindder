@@ -17,6 +17,7 @@ import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.my.model.service.MyService;
+import com.ssafy.mindder.users.model.UsersDto;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,15 +40,15 @@ public class MyController {
 
 		logger.debug("findMyFeeds - 호출 : " + userIdx);
 		try {
-			List<FeedListDto> feedsList = myService.findMyFeeds(userIdx);
-			return new ResponseEntity<List<FeedListDto>>(feedsList, HttpStatus.OK);
+			List<FeedListDto> feedList = myService.findMyFeeds(userIdx);
+			return new ResponseEntity<List<FeedListDto>>(feedList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("findMyFeeds - 내가 쓴 피드 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/scraps")
 	public ResponseEntity<?> findMyScraps() {
@@ -56,12 +57,28 @@ public class MyController {
 		try {
 			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
 			int userIdx = 7;
-			
-			List<FeedsParameterDto> feedsList = myService.findMyScraps(userIdx);
-			return new ResponseEntity<List<FeedsParameterDto>>(feedsList, HttpStatus.OK);
+
+			List<FeedsParameterDto> scrapList = myService.findMyScraps(userIdx);
+			return new ResponseEntity<List<FeedsParameterDto>>(scrapList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("findMyFeeds - 스크랩 목록 조회 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 팔로워의 목록을 반환한다.", response = UsersDto.class)
+	@GetMapping("/followers/{userIdx}")
+	public ResponseEntity<?> findMyFollowers(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+
+		logger.debug("findMyFollowers - 호출 : " + userIdx);
+		try {
+			List<UsersDto> followerList = myService.findMyFollowers(userIdx);
+			return new ResponseEntity<List<UsersDto>>(followerList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("findMyFollowers - 팔로워 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
