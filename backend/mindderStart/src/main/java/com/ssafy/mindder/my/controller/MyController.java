@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.my.model.service.MyService;
 
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +44,24 @@ public class MyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("findMyFeeds - 내가 쓴 피드 목록 조회 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedsParameterDto.class)
+	@GetMapping("/scraps")
+	public ResponseEntity<?> findMyScraps() {
+
+		logger.debug("findMyScraps - 호출 : ");
+		try {
+			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
+			int userIdx = 7;
+			
+			List<FeedsParameterDto> feedsList = myService.findMyScraps(userIdx);
+			return new ResponseEntity<List<FeedsParameterDto>>(feedsList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("findMyFeeds - 스크랩 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
