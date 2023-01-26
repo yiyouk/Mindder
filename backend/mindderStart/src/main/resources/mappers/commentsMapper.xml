@@ -12,9 +12,9 @@
 	
 	<!--댓글 삭제 -->
 	<update id="deleteComment" parameterType="int">
-	update  mainfeed 
+	update  feedcomment 
 	set is_deleted = 1
-	where feed_idx = #{feedIdx};
+	where comment_idx = #{commentIdx};
 	</update>
 	
 	
