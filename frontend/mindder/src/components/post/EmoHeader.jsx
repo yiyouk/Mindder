@@ -7,7 +7,8 @@ const Header = styled.h2`
     font-weight: 600;
     font-size: 30px;
     line-height: 36px;
-    margin-bottom:5px;
+    margin:auto;
+    /* border:1px solid red; */
 `;
 
 function EmoHeader(props){
