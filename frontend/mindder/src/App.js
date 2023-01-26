@@ -45,7 +45,8 @@ function App(props) {
                         <Route path="feeds" element={<FeedPage />} />
                         <Route path="search" element={<SearchPage />} />
                         <Route path={`${userId}/calendar`} element={<CalendarPage />} />
-                        <Route path={`f/${idx}`} element={<FeedDetailPage />} />
+                        {/* <Route path={`f/${idx}`} element={<FeedDetailPage />} /> */}
+                        <Route path="f" element={<FeedDetailPage />} />
                         <Route path={`${userId}/followers`} element={<FollowersPage />} />
                         <Route path={`${userId}/following`} element={<FollowingPage />} />
                         <Route path="join" element={<JoinPage />} />

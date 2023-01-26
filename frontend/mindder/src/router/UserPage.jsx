@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import FollowButton from "../commons/ui/FollowButton";
-import MyPage from "../components/user/MyPage";
+import UserMenu from "../components/user/UserMenu";
 import UserFeedsList from "../components/user/UserFeedsList";
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -17,9 +17,8 @@ function UserPage(props) {
     return (
         <Wrapper>
             {/* 여기는 유저페이지 */}
-            <MyPage></MyPage>
+            <UserMenu></UserMenu>
             <UserFeedsList></UserFeedsList>
-
         </Wrapper>
     );
 }

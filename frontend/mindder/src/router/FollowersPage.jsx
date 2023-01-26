@@ -1,7 +1,7 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
-import Follow from "../components/user/Follow";
+import FollowMenu from "../components/user/FollowMenu";
 import FollowItem from "../components/user/FollowItem";
 
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ function FollowersPage(props) {
     return (
         <Wrapper>
             여기는 팔로워페이지
-            <Follow></Follow>
+            <FollowMenu></FollowMenu>
             <FollowItem></FollowItem>
         </Wrapper>
     );

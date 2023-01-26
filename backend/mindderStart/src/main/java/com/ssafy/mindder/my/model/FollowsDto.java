@@ -1,4 +1,4 @@
-package com.ssafy.mindder.follows.model;
+package com.ssafy.mindder.my.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowDto {
+public class FollowsDto {
 
 	private int followIdx;
 	private int userIdx;
+	private int nickname;
 	private int targetUserIdx;
-	private boolean isDeleted;
 
 }
