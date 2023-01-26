@@ -16,7 +16,7 @@ public class CommentsDto {
 	private int commentIdx;
 	private int feedIdx;
 	private int userIdx;
-	private String text;
+	private String feedComment;
 	private String updateDate;
 	private boolean isDeleted;
 
