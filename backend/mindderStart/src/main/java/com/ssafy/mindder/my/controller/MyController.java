@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.my.model.CalendarDto;
+import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.service.MyService;
 import com.ssafy.mindder.users.model.UsersDto;
 
@@ -74,8 +76,8 @@ public class MyController {
 
 		logger.debug("findMyFollowers - 호출 : " + userIdx);
 		try {
-			List<UsersDto> followerList = myService.findMyFollowers(userIdx);
-			return new ResponseEntity<List<UsersDto>>(followerList, HttpStatus.OK);
+			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
+			return new ResponseEntity<List<FollowsDto>>(followerList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("findMyFollowers - 팔로워 목록 조회 중 에러");
@@ -90,11 +92,30 @@ public class MyController {
 
 		logger.debug("findMyFollowings - 호출 : " + userIdx);
 		try {
-			List<UsersDto> followingList = myService.findMyFollowings(userIdx);
-			return new ResponseEntity<List<UsersDto>>(followingList, HttpStatus.OK);
+			List<FollowsDto> followingList = myService.findMyFollowings(userIdx);
+			return new ResponseEntity<List<FollowsDto>>(followingList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("findMyFollowings - 팔로잉 목록 조회 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@ApiOperation(value = "월별 캘린더 조회", notes = "월에 해당하는 캘린더 정보를 반환한다.", response = CalendarDto.class)
+	@GetMapping("/calendars/{month}")
+	public ResponseEntity<?> findMyCalendars(
+			@PathVariable("month") @ApiParam(value = "월", required = true) int month) {
+		
+		logger.debug("findMyCalendars - 호출 : " + month);
+		try {
+			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
+			int userIdx = 7;
+			
+			List<CalendarDto> calendarList = myService.findMyCalendars(month, userIdx);
+			return new ResponseEntity<List<CalendarDto>>(calendarList, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("findMyCalendars - 월별 캘린더 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.ssafy.mindder.calendar.model;
+package com.ssafy.mindder.my.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
