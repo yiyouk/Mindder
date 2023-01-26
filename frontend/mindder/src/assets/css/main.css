@@ -194,3 +194,12 @@ input {
     font-weight: bold;
     border-bottom: solid 2px #7767FD;
 }
+
+.img_btn{
+    background-color: rgb(255, 255, 255);
+    border: none;
+}
+
+#back_btn{
+    width: 2.5rem;
+}
