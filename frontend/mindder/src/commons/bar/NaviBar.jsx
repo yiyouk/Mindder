@@ -21,6 +21,7 @@ const Wrapper = styled.nav`
     align-items: center;
     display: flex;
     box-shadow: 0 -2px 2px 1px rgba(119, 103, 253, 0.15);
+    /* border:1px solid green; */
 `;
 
 const NavMenu = styled.div`
