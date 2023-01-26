@@ -1,7 +1,7 @@
 FROM openjdk:8-alpine
-VOLUME /tmp
+CMD["./mvnw","clean","package"]
 EXPOSE 9999
-ARG JAR_FILE=mindderStart-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ENV TZ=Asia/Seoul
