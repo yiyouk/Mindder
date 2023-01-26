@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 // 임시 user Img
-import UserImg from "../../assets/images/face01.PNG"
+import UserImg from "../../assets/images/face1.png"
 
 
 const Wrapper = styled.div`
