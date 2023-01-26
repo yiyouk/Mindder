@@ -73,4 +73,8 @@
 	<insert id="insertMyFollow" parameterType="int">
 		insert into userfollower(target_user_idx, user_idx) values(#{targetUserIdx}, #{userIdx});	
 	</insert>
+	<!-- 팔로우 취소 -->
+	<delete id="deleteMyFollow" parameterType="int">
+		delete from userfollower where target_user_idx = #{targetUserIdx} and user_idx = #{userIdx};	
+	</delete>
 </mapper>
