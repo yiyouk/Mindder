@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Follow from "./Follow";
+import FollowMenu from "./FollowMenu";
 import FollowButton from "../../commons/ui/FollowButton";
 
 import BookMarkImg from "../../assets/images/bookmark.png"
@@ -36,7 +36,7 @@ function UserFollow(props) {
                 </SavedButton>
             {/* 유저가 다른 사람일 경우 보이는 버튼 */}
                 {/* <FollowButton/> */}
-            <Follow></Follow>
+            <FollowMenu></FollowMenu>
 
         </Wrapper>
     );

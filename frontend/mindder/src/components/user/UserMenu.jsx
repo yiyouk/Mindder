@@ -1,54 +1,31 @@
+// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
 
-import Follow from "./Follow";
-import FollowButton from "../../commons/ui/FollowButton";
 
-import BookMarkImg from "../../assets/images/bookmark.png"
-import { useNavigate } from "react-router-dom";
+// user
+import UserFollow from "./UserFollow";
+import UserProfile from "./UserProfile";
+import UserMenuSub from "./UserMenuSub"
 
 const Wrapper = styled.div`
-    width: calc(100% - 40px);
+    /* padding: 16px; */
+    /* width: 100vw; */
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    
-
+    justify-content: center;
 `;
 
-const CalendarBtn = styled.a`
-    align-self: end;
-    margin: 10px;
-    border-width: 1px;
-    cursor: pointer;
-    
-`;
-
-const MyFeedBtn = styled.a`
-    align-self: end;
-    margin: 10px;
-    border-width: 1px;
-    cursor: pointer;
-
-`;
-
-
-function UserMenu(props) {
-    const navigate = useNavigate();
+function UserPage(props) {
     return (
         <Wrapper>
-            <MyFeedBtn onClick={() => {
-                navigate("../user/")}}>
-                    내 피드
-            </MyFeedBtn>
-            
-            <CalendarBtn onClick={() => {
-                navigate("../0/calendar")}}>
-                    감정달력
-            </CalendarBtn>
-
+            <UserProfile></UserProfile>
+            <UserFollow></UserFollow>
+            {/* 내 페이지일 경우 */}
+                <UserMenuSub></UserMenuSub>
         </Wrapper>
     );
 }
 
-export default UserMenu;
+export default UserPage;
