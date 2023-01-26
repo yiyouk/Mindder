@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import MyPage from "../components/user/MyPage"
+import UserMenu from "../components/user/UserMenu"
 import Calendar from "../components/user/Calendar";
 
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 function CalendarPage(props) {
     return (
         <Wrapper>
-            <MyPage></MyPage>
+            <UserMenu></UserMenu>
             <Calendar></Calendar>
         </Wrapper>
     );
