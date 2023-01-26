@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.comments.model.mapper.CommentsMapper">
+	<resultMap type="CommentsDto" id="comment">
+		<result column="comment_idx" property="commentIdx" />
+		<result column="nickname" property="nickname" />
+		<result column="text" property="feedComment" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>	
+
+
+
 
 	<!--댓글 입력 -->
 	<insert id="writeComment" parameterType="CommentsDto">
@@ -17,9 +26,12 @@
 	where comment_idx = #{commentIdx};
 	</update>
 	
-	
-	
 	<!--댓글 리스트 조회 -->
+	<select id="commentList" parameterType="int" resultMap="comment" >
+	select c.comment_idx, u.nickname, c.text, c.update_date
+	from mainuser u join feedcomment c on u.user_idx=c.user_idx
+	where c.is_deleted !=1 and 	c.feed_idx= #{feedIdx};
+	</select>
 
 
 
