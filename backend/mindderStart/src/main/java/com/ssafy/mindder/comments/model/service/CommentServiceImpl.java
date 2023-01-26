@@ -26,8 +26,7 @@ public class CommentServiceImpl implements CommentsService {
 
 	@Override
 	public List<CommentsDto> commentList(int feedIdx) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.getMapper(CommentsMapper.class).commentList(feedIdx);
 	}
 
 }
