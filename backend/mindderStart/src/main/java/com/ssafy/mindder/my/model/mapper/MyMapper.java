@@ -21,4 +21,7 @@ public interface MyMapper {
 	// 팔로워 목록 조회
 	public List<UsersDto> selectMyFollowers(int userIdx) throws SQLException;
 
+	// 팔로잉 목록 조회
+	public List<UsersDto> selectMyFollowings(int userIdx) throws SQLException;
+
 }
