@@ -47,8 +47,8 @@
 	</select>
 	<!-- 팔로워 목록 조회 -->
 	<!-- @fixme: 사용자 프로필 이미지 url 추가 필요 -->
-	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.user">
-		select f.user_idx, u.nickname, u.email 
+	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.follow">
+		select f.follower_idx, f.user_idx, u.nickname
 		from userfollower f 
 		join mainuser u 
 		on f.user_idx = u.user_idx
@@ -56,11 +56,17 @@
 	</select>
 	<!-- 팔로잉 목록 조회 -->
 	<!-- @fixme: 사용자 프로필 이미지 url 추가 필요 -->
-	<select id="selectMyFollowings" parameterType="int" resultMap="com.ssafy.resultmaps.user">
-		select f.target_user_idx, u.nickname, u.email 
+	<select id="selectMyFollowings" parameterType="int" resultMap="com.ssafy.resultmaps.follow">
+		select f.follower_idx, f.target_user_idx, u.nickname
 		from userfollower f 
 		join mainuser u 
 		on f.target_user_idx = u.user_idx
 		where f.user_idx = #{userIdx} and f.is_deleted = 0;
+	</select>
+	<!-- 월별 캘린더 목록 조회 -->
+	<!-- @fixme: 감정 이모지 url 추가 필요 -->
+	<select id="selectMyCalendars" parameterType="int" resultMap="com.ssafy.resultmaps.calendar">
+		select * from feedcalendar 
+		where user_idx = #{userIdx} and month(calendar_date) = #{month};	
 	</select>
 </mapper>
