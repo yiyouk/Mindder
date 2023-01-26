@@ -1,23 +1,15 @@
 FROM node:16 as builder
-
-# 작업 폴더를 만들고 npm 설치
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
 RUN npm install --silent
-RUN npm install react-scripts@2.1.3 -g --silent
-
-# 소스를 작업폴더로 복사하고 빌드
+RUN npm install react-scripts@1.1.1 -g --silent
 COPY . /usr/src/app
 RUN npm run build
 
+# production environment
 FROM nginx:1.13.9-alpine
-# nginx 의 default.conf 를 삭제
-RUN rm /etc/nginx/conf.d/default.conf
-# host pc 의 nginx.conf 를 아래 경로에 복사
-COPY ./nginx.conf /etc/nginx/conf.d
-
-# 80포트 오픈하고 nginx 실행
+COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
