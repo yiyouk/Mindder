@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.my.model.mapper.MyMapper;
+import com.ssafy.mindder.users.model.UsersDto;
 
 @Service
 public class MyServiceImpl implements MyService {
@@ -24,6 +25,11 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public List<FeedsParameterDto> findMyScraps(int userIdx) throws Exception {
 		return sqlSession.getMapper(MyMapper.class).selectMyScraps(userIdx);
+	}
+	
+	@Override
+	public List<UsersDto> findMyFollowers(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectMyFollowers(userIdx);
 	}
 	
 }
