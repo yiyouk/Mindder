@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
-import com.ssafy.mindder.users.model.UsersDto;
+import com.ssafy.mindder.my.model.CalendarDto;
+import com.ssafy.mindder.my.model.FollowsDto;
 
 @Mapper
 public interface MyMapper {
@@ -19,9 +20,12 @@ public interface MyMapper {
 	public List<FeedsParameterDto> selectMyScraps(int userIdx) throws SQLException;
 
 	// 팔로워 목록 조회
-	public List<UsersDto> selectMyFollowers(int userIdx) throws SQLException;
+	public List<FollowsDto> selectMyFollowers(int userIdx) throws SQLException;
 
 	// 팔로잉 목록 조회
-	public List<UsersDto> selectMyFollowings(int userIdx) throws SQLException;
+	public List<FollowsDto> selectMyFollowings(int userIdx) throws SQLException;
+
+	// 월별 캘린더 조회
+	public List<CalendarDto> selectMyCalendars(int month, int userIdx) throws SQLException;
 
 }
