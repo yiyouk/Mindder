@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Imgs from "../../assets/images/face1.png";
+import Imgs from "../../assets/images/happy.png";
 
 const Wrapper = styled.div`
     width: 22rem;
@@ -17,20 +17,23 @@ const ContextWrapper = styled.div`
     margin-top: 1rem;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 `;
 
 const ContextStyled = styled.div`
-    size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     align-items: start;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
 `;
 
 const TagStyled = styled.div`
-    size: 0.9rem;
+    size: 0.5rem;
+    color: #FC9CBB;
+    font-size: 0.7rem;
     font-weight: 500;
     align-items: start;
-    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
 `;
 
 const Img = styled.div`
@@ -41,9 +44,9 @@ const Img = styled.div`
 `
 
 const Date = styled.div`
-    width: 21em;
+    width: 19rem;
     display: flex;
-    font-size: 0.9rem;
+    font-size: 0.3rem;
     color: rgb(67, 67, 67);
     justify-content: flex-end !important;
     margin-bottom: 0.5rem;
@@ -54,12 +57,10 @@ function Context(props) {
         <Wrapper>
             <ContextWrapper>
                 <Img></Img>
-                <ContextStyled>&nbsp; 오늘은 좀 슬퍼이 </ContextStyled>
+                <ContextStyled>&nbsp; 오늘도 데이트 </ContextStyled>
+                <TagStyled> #행복 #핑크</TagStyled>
             </ContextWrapper>
             <Date>2022.01.26</Date>
-            {/* <ContextWrapper>
-                <TagStyled>#슬픔 #레드</TagStyled>
-            </ContextWrapper> */}
         </Wrapper>
     );
 }
