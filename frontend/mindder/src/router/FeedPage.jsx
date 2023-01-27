@@ -48,9 +48,6 @@ function FeedPage(props) {
         }
       ];
     
-    console.log(number);
-    console.log(kind);
-    
     function changeState(s) {
         setKind(s);
     }
