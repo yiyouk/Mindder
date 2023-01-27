@@ -14,7 +14,7 @@ const Wrapper = styled.nav`
     bottom: 0;
     right: 0.03rem;
     /* width: 100rem; */
-    height: 3.5rem;
+    height: 2.5rem;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     background-color:white;
@@ -26,8 +26,14 @@ const Wrapper = styled.nav`
 
 const NavMenu = styled.div`
     width: 20vw;
+    /* height: 10vh; */
     text-align: center;
     padding-left: 0px;
+`
+
+const Image = styled.img`
+    width: 1.4rem;
+    height: 1.4rem;
 `
 
 function NaviBar(props) {
@@ -39,35 +45,35 @@ function NaviBar(props) {
                 onClick={() => {
                     navigate("/search");
                 }}>
-                <img src={SearchImg} alt="" />
+                <Image src={SearchImg} alt="" />
             </NavMenu>
         
             <NavMenu
                 onClick={() => {
                     navigate("/feeds");
                 }}>        
-                <img src={FeedImg} alt="" />
+                <Image src={FeedImg} alt="" />
             </NavMenu>
 
             <NavMenu
                 onClick={() => {
                     navigate("/");
                 }}>
-                <img src={HomeImg} alt="" />
+                <Image src={HomeImg} alt="" />
             </NavMenu>
                         
             <NavMenu
                 onClick={() => {
                     navigate("/user");
                 }}>   
-                <img src={MyPageImg} alt="" />
+                <Image src={MyPageImg} alt="" />
             </NavMenu>
             
             <NavMenu
                 onClick={() => {
                     navigate("/post");
                 }}>
-                <img src={PostImg} alt="" />
+                <Image src={PostImg} alt="" />
             </NavMenu>
         
         </Wrapper>

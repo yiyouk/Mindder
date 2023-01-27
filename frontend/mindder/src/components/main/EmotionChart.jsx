@@ -9,7 +9,7 @@ const Container = styled.div`
             margin-bottom: 0.5rem;
         }
     }
-    background-color:#573d3d;
+    background-color:#ffffff;
     border-radius:20px;
     display: flex;
     align-items: center;

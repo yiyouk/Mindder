@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import Sample from "../../assets/images/pro.jpg"
 
 const Pro = styled.div`
-  width: 6rem;
-  height: 6rem;
+  width: 4rem;
+  height: 4rem;
   background-image:url(${Sample});
-  background-size:cover;
+  background-size: 4rem;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 100px;
 `
