@@ -2,8 +2,11 @@ package com.ssafy.mindder.comments.model.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.ssafy.mindder.comments.model.CommentsDto;
 
+@Service
 public interface CommentsService {
 	// 피드 댓글 삭제
 	public boolean deleteComment(int commentIdx) throws Exception;

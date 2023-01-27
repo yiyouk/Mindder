@@ -44,4 +44,10 @@
 		<result column="target_user_idx" property="targetUserIdx" />
 		<result column="is_deleted" property="isDeleted" />
 	</resultMap>
+	
+	<resultMap type="FeedsNeighborDto" id="neighbor">
+		<result column="feed_idx" property="feedIdx" />
+		<result column="comment_count" property="commentCount" />
+		<result column="like_total_count" property="likeTotalCount" />
+	</resultMap>
 </mapper>
