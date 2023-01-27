@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Sample from "../../assets/images/pro.jpg"
 
 const Pro = styled.div`
-  width: 6rem;
-  height: 6rem;
+  width: 5rem;
+  height: 5rem;
   background-image:url(${Sample});
   background-size:cover;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -15,9 +15,16 @@ const Pro = styled.div`
 `
 const Sns = styled.div`
     color: #787777;
+    font-size: 0.9rem;
     font-weight: 600;
     display: flex;
     justify-content: center;
+`;
+
+const P = styled.div`
+    color: #787777;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
 `;
 
 function ModifySNS(props) {
@@ -48,7 +55,7 @@ function ModifySNS(props) {
         </div>
         <div className="col-12">
             <label className="form-label"> 이메일</label>
-            <p> 앞에서 등록한 이멜</p>
+            <P> &nbsp; yiyo@naver.com</P>
         </div>
         <div className="col-12">
             <label className="form-label"> 닉네임</label>
