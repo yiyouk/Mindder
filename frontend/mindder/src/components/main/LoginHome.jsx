@@ -60,7 +60,7 @@ const ContainerT = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top:1rem;
+    margin-top:2rem;
     width: 22rem;
     height: 10rem;
     border-radius:20px;

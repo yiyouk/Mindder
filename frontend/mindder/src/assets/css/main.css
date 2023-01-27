@@ -1,17 +1,17 @@
 #main > header{
     text-align: center;
-    font-size: large;
+    font-size: 0.8rem;
     font-weight: bold;
     color: rgb(67, 67, 67);
     border-bottom: solid 4px #7767FD;
-    margin: 2rem 3rem 0.5rem 3rem;
+    margin: 1rem 3rem 0 3rem;
 }
 
 .headerLogo{
-    width: 8rem;
+    width: 7rem;
     height: 2.5rem;
     background-image:url("../images/LogoP.png");
-    background-size: 8rem;
+    background-size: 7rem;
 }
 
 .col-12{
@@ -32,12 +32,14 @@
 
 .form-label{
     font-weight: 600;
+    font-size: 0.8rem;
 }
 
 .form-label-center{
     display: flex;
     justify-content: center;
     font-size: large;
+    margin-top: 2rem;
     font-weight: 600;
 }
 
@@ -65,6 +67,7 @@ input {
     display: block;
     outline: 0;
     text-decoration: none;
+    font-size: 0.7rem;
 }
 
 
@@ -95,7 +98,7 @@ input {
     cursor: pointer;
     display: inline-block;
     font-weight: 600;
-    font-size: 1.05em;
+    font-size: 0.8rem;
     height: 3em;
     line-height: 3em;
     padding: 0 2em;
@@ -108,7 +111,7 @@ input {
     width: 70vw;
     height: 3em;
     color: black;
-    font-size: 16px;
+    font-size:0.8rem;
     font-style: normal;
     background-color: #ffffff;
     border: none;
@@ -116,15 +119,15 @@ input {
 }
 
 .white-black-line-btn{
-    width: 50vw;
+    width: 6rem;
     height: 2.5em;
     color: black;
-    font-size: 16px;
+    font-size: 0.8rem;
     background-color: #ffffff;
     border-radius: 8px;
     border-color: rgb(146, 145, 145);
     border-width: 0.02em;
-    margin: 0.5em;
+    /* margin: 0.5em; */
 }
 
 .text-white{
