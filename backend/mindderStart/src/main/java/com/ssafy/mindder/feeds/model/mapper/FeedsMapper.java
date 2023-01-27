@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 
 @Mapper
@@ -35,7 +36,7 @@ public interface FeedsMapper {
 	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws SQLException;
 
 	// 사용자 이웃 피드 목록 조회
-	public List<FeedsDto> recommendationNeighbors(FeedsDto boardDto) throws SQLException;
+	public List<FeedsNeighborDto> neighborFeed(int userIdx) throws SQLException;
 
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx) throws SQLException;
