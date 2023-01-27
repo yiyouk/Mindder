@@ -1,5 +1,7 @@
 package com.ssafy.mindder.feeds.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 
@@ -75,6 +78,15 @@ public class FeedsController {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		return new ResponseEntity<FeedsParameterDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
 
+	}
+
+	// 댓글 리스트 조회에에에에에엥
+	@ApiOperation(value = "팔로잉하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
+	@GetMapping("neighbors/{userIdx}")
+	public ResponseEntity<List<FeedsNeighborDto>> neighborFeed(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+		logger.info("userIdx - 호출");
+		return new ResponseEntity<List<FeedsNeighborDto>>(feedsService.neighborFeed(userIdx), HttpStatus.OK);
 	}
 
 }

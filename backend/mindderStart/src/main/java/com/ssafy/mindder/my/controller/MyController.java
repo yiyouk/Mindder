@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,29 +35,30 @@ public class MyController {
 	private MyService myService;
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
+	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
 	@ApiOperation(value = "내가 쓴 피드 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
 	@GetMapping("/feeds/{userIdx}")
-	public ResponseEntity<?> findMyFeeds(
+	public ResponseEntity<?> myFeedList(
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
-		logger.debug("findMyFeeds - 호출 : " + userIdx);
+		logger.debug("myFeedList - 호출 : " + userIdx);
 		try {
 			List<FeedListDto> feedList = myService.findMyFeeds(userIdx);
 			return new ResponseEntity<List<FeedListDto>>(feedList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("findMyFeeds - 내가 쓴 피드 목록 조회 중 에러");
+			logger.debug("myFeedList - 내가 쓴 피드 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/scraps")
-	public ResponseEntity<?> findMyScraps() {
+	public ResponseEntity<?> myScrapList() {
 
-		logger.debug("findMyScraps - 호출 : ");
+		logger.debug("myScrapList - 호출 : ");
 		try {
 			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
 			int userIdx = 7;
@@ -64,49 +67,49 @@ public class MyController {
 			return new ResponseEntity<List<FeedsParameterDto>>(scrapList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("findMyFeeds - 스크랩 목록 조회 중 에러");
+			logger.debug("myScrapList - 스크랩 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 팔로워의 목록을 반환한다.", response = UsersDto.class)
+	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로워 목록을 반환한다.", response = UsersDto.class)
 	@GetMapping("/followers/{userIdx}")
-	public ResponseEntity<?> findMyFollowers(
+	public ResponseEntity<?> myFollowerList(
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
-		logger.debug("findMyFollowers - 호출 : " + userIdx);
+		logger.debug("myFollowerList - 호출 : " + userIdx);
 		try {
 			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
 			return new ResponseEntity<List<FollowsDto>>(followerList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("findMyFollowers - 팔로워 목록 조회 중 에러");
+			logger.debug("myFollowerList - 팔로워 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 팔로잉의 목록을 반환한다.", response = UsersDto.class)
+	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로잉 목록을 반환한다.", response = UsersDto.class)
 	@GetMapping("/followings/{userIdx}")
-	public ResponseEntity<?> findMyFollowings(
+	public ResponseEntity<?> myFollowingList(
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
-		logger.debug("findMyFollowings - 호출 : " + userIdx);
+		logger.debug("myFollowingList - 호출 : " + userIdx);
 		try {
 			List<FollowsDto> followingList = myService.findMyFollowings(userIdx);
 			return new ResponseEntity<List<FollowsDto>>(followingList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("findMyFollowings - 팔로잉 목록 조회 중 에러");
+			logger.debug("myFollowingList - 팔로잉 목록 조회 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@ApiOperation(value = "월별 캘린더 조회", notes = "월에 해당하는 캘린더 정보를 반환한다.", response = CalendarDto.class)
 	@GetMapping("/calendars/{month}")
-	public ResponseEntity<?> findMyCalendars(
+	public ResponseEntity<?> myCalendarList(
 			@PathVariable("month") @ApiParam(value = "월", required = true) int month) {
 		
-		logger.debug("findMyCalendars - 호출 : " + month);
+		logger.debug("myCalendarList - 호출 : " + month);
 		try {
 			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
 			int userIdx = 7;
@@ -115,7 +118,45 @@ public class MyController {
 			return new ResponseEntity<List<CalendarDto>>(calendarList, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("findMyCalendars - 월별 캘린더 조회 중 에러");
+			logger.debug("myCalendarList - 월별 캘린더 조회 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@ApiOperation(value = "팔로우 등록", notes = "유저 번호에 해당하는 유저를 팔로우한다.")
+	@PostMapping("/follows/{userIdx}")
+	public ResponseEntity<?> followAdd(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx) {
+		
+		logger.debug("followAdd - 호출 : " + targetUserIdx);
+		try {
+			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
+			int userIdx = 7;
+			
+			myService.addMyFollow(userIdx, targetUserIdx);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("followAdd - 팔로우 등록 중 에러");
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@ApiOperation(value = "팔로우 취소", notes = "유저 번호에 해당하는 유저를 언팔로우한다.")
+	@DeleteMapping("/follows/{userIdx}")
+	public ResponseEntity<?> followRemove(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx) {
+		
+		logger.debug("followRemove - 호출 : " + targetUserIdx);
+		try {
+			// @fixme: 토큰 파싱해서 userIdx 가져오도록 수정 필요
+			int userIdx = 7;
+			
+			myService.removeMyFollow(userIdx, targetUserIdx);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("followRemove - 팔로우 취소 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.ssafy.mindder.my.model;
+package com.ssafy.mindder.feeds.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowsDto {
+public class FeedsNeighborDto {
 
-	private int followerIdx;
-	private int userIdx;
-	private String nickname;
-	private int targetUserIdx;
-
+	private int feedIdx;
+	private int commentCount;
+	private int likeTotalCount;
 }
