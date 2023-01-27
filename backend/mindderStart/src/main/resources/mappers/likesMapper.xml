@@ -5,4 +5,8 @@
 	<insert id="insertLike" parameterType="LikesDto">
 		insert into feedlike(feed_idx, user_idx, like_type) values(#{feedIdx}, #{userIdx}, #{likeType});	
 	</insert>
+	<!-- 공감 취소 -->
+	<delete id="deleteLike" parameterType="int">
+		delete from feedlike where user_idx = #{userIdx} and feed_idx = #{feedIdx};	
+	</delete>
 </mapper>
