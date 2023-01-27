@@ -24,4 +24,10 @@ public interface MyService {
 	// 월별 캘린더 조회 
 	public List<CalendarDto> findMyCalendars(int month, int userIdx) throws Exception;
 
+	// 팔로우 등록
+	public void addMyFollow(int userIdx, int targetUserIdx) throws Exception;
+
+	// 팔로우 취소
+	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception;
+
 }

@@ -43,4 +43,14 @@ public class MyServiceImpl implements MyService {
 		return sqlSession.getMapper(MyMapper.class).selectMyCalendars(month, userIdx);
 	}
 	
+	@Override
+	public void addMyFollow(int userIdx, int targetUserIdx) throws Exception {
+		sqlSession.getMapper(MyMapper.class).insertMyFollow(userIdx, targetUserIdx);
+	}
+	
+	@Override
+	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception {
+		sqlSession.getMapper(MyMapper.class).deleteMyFollow(userIdx, targetUserIdx);
+	}
+	
 }
