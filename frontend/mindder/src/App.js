@@ -31,7 +31,7 @@ import HeaderBar from "./commons/bar/HeaderBar";
 
 const userId = 0
 const idx = 0
-const keyword = ''
+const keyword = "사랑"
 
 
 function App(props) {
