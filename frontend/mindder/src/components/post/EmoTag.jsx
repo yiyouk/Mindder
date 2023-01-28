@@ -6,7 +6,7 @@ const ImgDiv = styled.img`
   position:relative;
   top:-3px;
 `
-const EmoName = styled.text`
+const EmoName = styled.div`
   font-size:x-small;
   font-weight:600;
   position:relative;
@@ -21,8 +21,15 @@ function EmoTag(props){
       <ImgDiv src={imgSrc}
       width={48}
       height={48}
+      // onClick={(e)=>{
+      // e.stopPropagation() 
+      // }}
       />
-      <EmoName>{props.emoName}</EmoName>
+      <EmoName
+      // onClick={(e)=>{
+      //   e.stopPropagation() 
+      //   }}
+      >{props.emoName}</EmoName>
     </>
   )
 }
