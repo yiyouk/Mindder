@@ -121,7 +121,8 @@ function PostEmoTag(props) {
             />
             <CardContainer>
                 {Emoticons.map((emo)=>(
-                    <EmotionTag>
+                    <EmotionTag
+                    >
                         <EmoTag
                         key={emo.id} emoId={emo.id} emoName={emo.name} 
                         />

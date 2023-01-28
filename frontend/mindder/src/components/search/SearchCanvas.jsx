@@ -23,14 +23,20 @@ const Wrapper = styled.div`
 
 
 function SearchCanvas (props){
+  const navigate = useNavigate()
+  
   return (
     <Wrapper>
       <CanvasContainer>
         <HeaderBtnContainer>
           <Header>'검색어' 태그를 포함한 캔버스</Header>
-          <button type="button" className="img_btn"><img id = "back_btn" src={BackIcon}/></button>
+          <button type="button" className="img_btn"
+          onClick={()=>{
+            navigate("/search/사랑")
+          }}
+          ><img id = "back_btn" src={BackIcon}/></button>
         </HeaderBtnContainer>
-        <FeedRecoDetail></FeedRecoDetail>>
+        <FeedRecoDetail></FeedRecoDetail>
       </CanvasContainer>
     </Wrapper>
   )
