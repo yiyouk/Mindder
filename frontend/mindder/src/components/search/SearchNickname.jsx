@@ -29,7 +29,7 @@ function SearchNickname (props){
           <Header>'검색어'를 포함한 닉네임</Header>
           <button type="button" className="img_btn"
           onClick={()=>{
-            navigate("")
+            navigate("/search/사랑")
           }}
           ><img id = "back_btn" src={BackIcon}/></button>
         </HeaderBtnContainer>

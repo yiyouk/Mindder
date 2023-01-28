@@ -74,7 +74,11 @@ function SearchResult (props){
   return (
     <Wrapper>
       <HeaderContainer>
-        <button type="button" className="img_btn"><img id = "back_btn" src={BackIcon}/></button>
+        <button type="button" className="img_btn"
+        onClick={()=>{
+          navigate("/search")
+        }}
+        ><img id = "back_btn" src={BackIcon}/></button>
         <p>검색어</p>
       </HeaderContainer>
       <RecommendContainer>
@@ -88,7 +92,11 @@ function SearchResult (props){
       <CanvasContainer>
         <HeaderBtnContainer>
           <Header>'검색어' 태그를 포함한 캔버스</Header>
-          <button type="button" className="img_btn"><img  src={PlusIcon}/></button>
+          <button type="button" className="img_btn"
+            onClick={()=>{
+              navigate("/search/사랑/canvas")
+            }}
+          ><img  src={PlusIcon}/></button>
         </HeaderBtnContainer>
         <ContentsContainer>
           <CanvasItem/>
