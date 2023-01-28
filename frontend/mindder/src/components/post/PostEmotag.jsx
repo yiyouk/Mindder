@@ -93,7 +93,7 @@ function PostEmoTag(props) {
         },
         {
             id:13,
-            name:"설렘",
+            name:"긴장",
         },
         {
             id:14,
@@ -121,7 +121,15 @@ function PostEmoTag(props) {
             />
             <CardContainer>
                 {Emoticons.map((emo)=>(
-                    <EmotionTag>
+                    <EmotionTag
+                    key={emo.id} id={emo.id}
+                    onClick={(e)=>{
+                    // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
+                    // console.log(e.currentTarget.childNodes[0].src)
+                    const selectedSrc = e.currentTarget.childNodes[0].src
+                    setImgSrc(selectedSrc)
+                    }}
+                    >
                         <EmoTag
                         key={emo.id} emoId={emo.id} emoName={emo.name} 
                         />
