@@ -9,6 +9,11 @@
 		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)		
 	</insert>
 	
+	
+	<!-- 글 작성 -> 감정 캘린더에 입력 -->
+	
+	
+	
 	<!-- 피드글 삭제-->
 	<!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
 	<update id="deleteMainFeed" parameterType="int">

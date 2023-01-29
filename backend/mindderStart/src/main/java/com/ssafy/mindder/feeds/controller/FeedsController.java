@@ -1,5 +1,11 @@
 package com.ssafy.mindder.feeds.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
@@ -75,6 +82,34 @@ public class FeedsController {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		return new ResponseEntity<FeedsParameterDto>(feedsService.getFeed(feedIdx), HttpStatus.OK);
 
+	}
+
+	// 일단 메인 페이지만 크롤링 !
+	@ApiOperation(value = "이미지 크롤링", notes = "핀터레스트의 이미지를 크롤링 한다 ", response = FeedsParameterDto.class)
+	@GetMapping("/crawl")
+	public ResponseEntity<List<FeedsCrawlDto>> crawling() throws Exception {
+		String url = "https://www.pinterest.co.kr/search/pins/?q=purple%20drawing&rs=typed";
+
+		Document doc = Jsoup.connect(url).get();
+		List<FeedsCrawlDto> list = new ArrayList<>();
+
+		Elements imgList = doc.getElementsByClass("gridCentered");
+//		
+//		Elements imgElements = imgList.select("Yl- MIw Hb7");
+//		System.out.println(4);
+//		int cnt = 1;
+//
+//		if (imgElements == null)
+//			for (Element e : imgElements) {
+//				if (cnt % 10 != 0 && cnt <= 9) {
+//					FeedsCrawlDto imgs = new FeedsCrawlDto();
+//					imgs.setImg(e.getElementsByAttribute("src").attr("src"));
+//					imgs.setUrl(e.getElementsByAttribute("a").attr("a"));
+//					list.add(imgs);
+//				}
+//				cnt++;
+//			}
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 }
