@@ -9,7 +9,7 @@ const Wrapper = styled.nav`
 `;
 
 function MainPage(props) {
-    if(false){
+    if(true){
         return (
             <Home></Home>
         );
