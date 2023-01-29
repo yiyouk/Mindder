@@ -94,7 +94,7 @@ function SearchResult (props){
           <Header>'검색어' 태그를 포함한 캔버스</Header>
           <button type="button" className="img_btn"
             onClick={()=>{
-              navigate("/search/사랑/canvas")
+              navigate("/search/:keyword/canvas")
             }}
           ><img  src={PlusIcon}/></button>
         </HeaderBtnContainer>
@@ -109,7 +109,7 @@ function SearchResult (props){
           <Header>'검색어'를 포함한 닉네임</Header>
           <button type="button" className="img_btn"
           onClick={()=>{
-            navigate("/search/사랑/nickname")
+            navigate("/search/:keyword/nickname")
           }}
           ><img  src={PlusIcon}/></button>
         </HeaderBtnContainer>
