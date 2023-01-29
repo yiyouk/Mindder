@@ -3,10 +3,58 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../assets/css/main.css'
 
+//비동기 동신
+import axios from "axios";
+import { BACKEND_URL } from '../config';
 
 function LoginPage(props) {
     const navigate = useNavigate();
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
+    const handleChangeEmail = e => {
+        setEmail(e.target.value);
+    }
+
+    const handleChangePw = e => {
+        setPassword(e.target.value);
+    }
+
+    const handleSubmit = e => {
+        console.log(email);
+        console.log(password);
+        console.log("로그인 시도")
+        if(email === ""){
+            alert("이메일을 입력해주세요.");
+        } else if(password === ""){
+            alert("비밀번호를 입력해주세요.");
+        } else{
+            getUser();                                                                                      
+        }
+    }
+
+    async function getUser(){ // async, await을 사용하는 경우
+        try {
+            const response = await axios.post(`${BACKEND_URL}/users/login`,
+            {   
+                email: email,
+                password: password
+            });
+
+            // console.log(response.data);
+
+            if(response.data==="fail"){
+                alert("로그인 정보를 다시 확인해주세요.");
+            } else{
+                alert("로그인 성공");
+                navigate("/");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+    
     return (
         <div id="main">
         <header>
@@ -14,20 +62,15 @@ function LoginPage(props) {
         </header>
         <form className="box">
             <div className="col-12">
-                <label className="form-label"> 이메일</label>
-                <input type="text" name="email" id="email" placeholder=" 이메일" />
+                <label htmlFor="email" className="form-label"> 이메일</label>
+                <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}/>
             </div>
             <div className="col-12">
-                <label className="form-label">비밀번호</label>
-                <input type="password" name="password" id="password" placeholder=" 비밀번호" />
+                <label htmlFor= "password"className="form-label">비밀번호</label>
+                <input value={password} type="password" name="password" id="password" placeholder=" 비밀번호" onChange={handleChangePw}/>
             </div>
             <div className="center-container">
-                <button className="maincolor-white-btn"
-                  onClick={() => {
-                      navigate("/");
-                  }}>
-                  로그인
-              </button>
+             <input className="maincolor-white-btn" type="button" value="로그인" onClick={handleSubmit}/>
             </div>
         </form>
         <div className="right-container">
