@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
+import searchImg from "../../assets/images/search.png"
 
 const Wrapper = styled.div`
     /* padding: 0; */
@@ -34,13 +36,29 @@ const RecentHeader = styled.h4`
   position:relative;
   margin-top:0px;
 `
+const Search = styled.div`
+  /* border:1px solid black; */
+  width:1.5rem;
+  height:1.5rem;
+  position:absolute;
+  top:5.95rem;
+  right:4.4rem;
+  background-image:url(${searchImg});
+  background-size:cover;
+`
 
 function SearchHome (props){
+  const [userInput, setUserInput] = useState("")
+  const navigate = useNavigate()
+
   return (
     <Wrapper>
       <InputContainer>
         <SearchInput
         placeholder="검색어를 입력해주세요"
+        />
+        <Search
+        onClick={()=>navigate('/search/:keyword')}
         />
       </InputContainer>
       <RecentSearch>

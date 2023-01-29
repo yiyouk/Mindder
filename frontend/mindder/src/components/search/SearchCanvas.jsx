@@ -32,7 +32,7 @@ function SearchCanvas (props){
           <Header>'검색어' 태그를 포함한 캔버스</Header>
           <button type="button" className="img_btn"
           onClick={()=>{
-            navigate("/search/사랑")
+            navigate("/search/:keyword")
           }}
           ><img id = "back_btn" src={BackIcon}/></button>
         </HeaderBtnContainer>
