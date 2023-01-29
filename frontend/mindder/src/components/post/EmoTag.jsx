@@ -21,14 +21,8 @@ function EmoTag(props){
       <ImgDiv src={imgSrc}
       width={48}
       height={48}
-      // onClick={(e)=>{
-      // e.stopPropagation() 
-      // }}
       />
       <EmoName
-      // onClick={(e)=>{
-      //   e.stopPropagation() 
-      //   }}
       >{props.emoName}</EmoName>
     </>
   )
