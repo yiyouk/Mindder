@@ -1,0 +1,1 @@
+export const BACKEND_URL ='http://mindder.me:8888';
