@@ -3,6 +3,9 @@ import React from "react";
 import Modify from "../components/account/Modify";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { removeCookie } from "../api/cookie";
+import { useDispatch } from "react-redux";
+import { tokenAction } from "../redux/store";
 
 const Remove = styled.div`
     margin: 1rem;
@@ -14,7 +17,12 @@ const Remove = styled.div`
 
 function ModifyPage(props) {
     const navigate = useNavigate();
-    
+    const dispatch = useDispatch() 
+    const logout = () => {
+        removeCookie("is_login")
+        dispatch(tokenAction.DELETE_TOKEN())
+    }   
+
     return(
         <div id="main">
             <header>
@@ -22,9 +30,17 @@ function ModifyPage(props) {
             </header>
             <Modify></Modify>
             <Remove>
-                <div onClick={() => {
-                        navigate("/accounts/remove");
-                }}>회원탈퇴 하기</div>
+                <div>
+                    <span onClick={() => {
+                    navigate("/accounts/remove");
+                    }}>회원탈퇴 하기 </span>|
+                    <span
+                    onClick={()=>{
+                    logout()
+                    navigate('/')
+                    }}
+                    > 로그아웃</span>
+                </div>
             </Remove>
         </div>
     );
