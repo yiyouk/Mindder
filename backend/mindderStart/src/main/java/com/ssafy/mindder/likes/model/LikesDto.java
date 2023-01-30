@@ -14,9 +14,8 @@ import lombok.ToString;
 public class LikesDto {
 
 	private int likeIdx;
-	private int likeType;
 	private int feedIdx;
-	private int likeCount;
-	private boolean isDeleted;
+	private int userIdx;
+	private int likeType;
 
 }
