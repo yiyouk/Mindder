@@ -1,11 +1,10 @@
 import React from "react";
-import './App.css';
 import {
     BrowserRouter,
     Routes,
     Route
 } from "react-router-dom";
-import styled from "styled-components";
+
 // Pages
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
@@ -32,7 +31,6 @@ import HeaderBar from "./commons/bar/HeaderBar";
 const userId = 0
 const idx = 0
 // const keyword = "사랑"
-
 
 function App(props) {
         return (
