@@ -41,7 +41,7 @@ const EmotionTag = styled.div`
 `
 
 function PostEmoTag(props) {
-    const selectedEmo = useSelector((state)=>state.reducer.emotagSrc)
+    const selectedEmo = useSelector((state)=>state.userState.emotagSrc)
     // console.log(selectedEmo)
 
     const dispatch = useDispatch()
