@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.nav`
     background-color:white;
@@ -9,6 +10,8 @@ const Wrapper = styled.nav`
 `;
 
 function TopBar(props) {
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <div className="headerLogo"></div>
