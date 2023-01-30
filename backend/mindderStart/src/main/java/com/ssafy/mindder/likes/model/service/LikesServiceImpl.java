@@ -13,10 +13,14 @@ public class LikesServiceImpl implements LikesService {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// 공감 등록
 	@Override
 	public void addLike(LikesDto likesDto) throws Exception {
 		sqlSession.getMapper(LikesMapper.class).insertLike(likesDto);
+	}
+	
+	@Override
+	public void removeLike(int userIdx, int feedIdx) throws Exception {
+		sqlSession.getMapper(LikesMapper.class).deleteLike(userIdx, feedIdx);
 	}
 
 }
