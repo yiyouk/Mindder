@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mindder.file.model.mapper.FileMapper">
+		<resultMap type="FileDto" id="file">
+		<result column="file_idx" property="fileIdx" />
+		<result column="save_folder" property="saveFolder" />
+		<result column="original_file" property="originalFile" />
+		<result column="save_file" property="saveFile" />
+
+	</resultMap>
+	<insert id="addFile" >
+		insert into imagefile(save_folder,original_file,save_file)
+		value(#{saveFolder},#{originalFile},#{saveFile})
+	</insert>
+	<select id="findFile" parameterType="int" resultMap="file">
+		select *
+		from imagefile
+		where file_idx =#{fileIdx}
+	</select>
+</mapper>
