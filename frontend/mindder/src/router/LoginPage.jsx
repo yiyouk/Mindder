@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {setCookie} from "../api/cookie";
+import {setCookie, getCookie} from "../api/cookie";
 
 //비동기 동신
 import api from "../api/api";
@@ -55,6 +55,7 @@ function LoginPage(props) {
 
                 //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
                 setCookie("is_login", `${accessToken}`);
+                console.log(getCookie("is_login"))
                 dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
                 navigate("/");
             }
