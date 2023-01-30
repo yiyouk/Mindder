@@ -38,9 +38,9 @@ public class LikesController {
 
 	@ApiOperation(value = "공감 등록", notes = "공감을 등록한다.")
 	@PostMapping("/likes")
-	public ApiResponse<?> LikeAdd(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
+	public ApiResponse<?> likeAdd(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
 
-		logger.debug("LikeAdd - 호출 : " + likesDto);
+		logger.debug("likeAdd - 호출 : " + likesDto);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			likesDto.setUserIdx(userIdx);
@@ -49,16 +49,16 @@ public class LikesController {
 			return ApiResponse.success(SuccessCode.CREATE_LIKE);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("LikeAdd - 공감 등록 중 에러");
+			logger.debug("likeAdd - 공감 등록 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
 	
 	@ApiOperation(value = "공감 수정", notes = "공감을 수정한다.")
 	@PatchMapping("/likes")
-	public ApiResponse<?> LikeModify(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
+	public ApiResponse<?> likeModify(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
 
-		logger.debug("LikeModify - 호출 : " + likesDto);
+		logger.debug("likeModify - 호출 : " + likesDto);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			likesDto.setUserIdx(userIdx);
@@ -67,17 +67,17 @@ public class LikesController {
 			return ApiResponse.success(SuccessCode.UPDATE_LIKE);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("LikeModify - 공감 수정 중 에러");
+			logger.debug("likeModify - 공감 수정 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
 
 	@ApiOperation(value = "공감 삭제", notes = "피드 번호에 해당하는 공감을 삭제한다.")
 	@DeleteMapping("/likes/{feedIdx}")
-	public ApiResponse<?> LikeRemove(@RequestParam("access_token") String accessToken,
+	public ApiResponse<?> likeRemove(@RequestParam("access_token") String accessToken,
 			@PathVariable("feedIdx") @ApiParam(value = "피드 번호", required = true) int feedIdx) {
 
-		logger.debug("LikeRemove - 호출 : " + feedIdx);
+		logger.debug("likeRemove - 호출 : " + feedIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			
@@ -85,7 +85,7 @@ public class LikesController {
 			return ApiResponse.success(SuccessCode.DELETE_LIKE);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("LikeRemove - 공감 삭제 중 에러");
+			logger.debug("likeRemove - 공감 삭제 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
