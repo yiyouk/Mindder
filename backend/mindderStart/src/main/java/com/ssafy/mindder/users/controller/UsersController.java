@@ -61,7 +61,7 @@ public class UsersController {
 	@DeleteMapping
 	public ResponseEntity<?> deleteUser(@RequestHeader("access_token") String accessToken) {
 		try {
-			int idx = jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1));
+			int idx = jwtService.getUserIdx(accessToken);
 			usersService.deleteUser(idx);
 
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -78,7 +78,7 @@ public class UsersController {
 
 		Map<String, String> user = new HashMap<String, String>();
 		try {
-			int idx = jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1));
+			int idx = jwtService.getUserIdx(accessToken);
 			System.out.println(idx);
 			usersDto.setUserIdx(idx);
 			if (usersDto.getPassword().length() < 30) {
@@ -167,7 +167,7 @@ public class UsersController {
 		
 		logger.debug("logout - 호출");
 		try {
-			usersService.logout(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			usersService.logout(jwtService.getUserIdx(accessToken));
 
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
@@ -182,7 +182,7 @@ public class UsersController {
 	public ResponseEntity<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody String pwd) {
 		logger.debug("findpassword - 호출");
 		try {
-			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
 
 			System.out.println(pwd);
 			pwd = SHA256.encrypt(pwd);
@@ -253,7 +253,7 @@ public class UsersController {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken));
 			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
