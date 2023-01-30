@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+
 const TodayEmotionDiv = styled.div`
-    width: 140px;
-    height: 140px;
+    width: 11rem;
+    height: 11rem;
     /* border: 1px solid black; */
     margin: auto;
     display:flex;
@@ -11,16 +12,15 @@ const TodayEmotionDiv = styled.div`
     justify-content:center;
     position:relative;
     top:5px;
+    background-image:url(${(props) => (props.bgImg)});
+    background-size:cover;
 `
 
 function TodayEmotion(props){
   return(
-    <TodayEmotionDiv>
-      <img
-      src={props.imgSrc}
-      width={180}
-      height={180}
-      />
+    <TodayEmotionDiv
+      bgImg={props.imgSrc}
+    >
     </TodayEmotionDiv>
   )
 }

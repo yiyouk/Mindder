@@ -31,7 +31,7 @@ import ErrorPage from "./router/ErrorPage";
 
 const userId = 0
 const idx = 0
-const keyword = ''
+// const keyword = "사랑"
 
 function App(props) {
         return (
@@ -57,10 +57,10 @@ function App(props) {
                         <Route path="accounts/password/find" element={<PwFindPage />} />
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path={`${userId}/saved`} element={<SavedPage />} />
-                        <Route path={`search/${keyword}/nickname`} element={<SearchNamePage />} />
-                        <Route path={`search/${keyword}`} element={<SearchResPage />} />
-                        <Route path={`search/${keyword}/canvas`} element={<SearchTagPage />} />
-                        <Route path="error" element={<ErrorPage />} />
+                        <Route path={`search/:keyword/nickname`} element={<SearchNamePage />} />
+                        <Route path={`search/:keyword`} element={<SearchResPage />} />
+                        <Route path={`search/:keyword/canvas`} element={<SearchTagPage />} />
+                        <Route path={`error`} element={<ErrorPage />} />
                     </Routes>
                 </div>
                 <NaviBar/>
