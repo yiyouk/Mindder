@@ -1,19 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import '../assets/css/main.css'
 import {setCookie} from "../api/cookie";
 
 //비동기 동신
 import api from "../api/api";
 
 //로그인 유지
-// import store from "../store/modules/userStore";
+import { useDispatch} from "react-redux";
+import {tokenAction} from "../redux/store"
+
+import '../assets/css/main.css';
 
 function LoginPage(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-
+    
     const handleChangeEmail = e => {
         setEmail(e.target.value);
     }
@@ -49,11 +52,13 @@ function LoginPage(props) {
                 alert("로그인 정보를 다시 확인해주세요.");
             } else{
                 const accessToken = response.data.accessToken;
+
                 //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
-                setCookie("is_login", `${accessToken}`); 
-                alert("로그인 성공");
+                setCookie("is_login", `${accessToken}`);
+                dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
                 navigate("/");
             }
+            
         } catch (e) {
             console.error(e);
             navigate("/error");

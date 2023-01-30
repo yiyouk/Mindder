@@ -36,7 +36,6 @@ const idx = 0
 function App(props) {
         return (
             <BrowserRouter>
-                {/* {index === "0" ? <Title/> : null} */}
                 <HeaderBar/>
                 <div id = "bodysuit">
                     <Routes>
