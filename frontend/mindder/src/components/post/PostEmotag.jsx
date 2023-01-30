@@ -5,9 +5,11 @@ import { useNavigate} from "react-router-dom";
 import TodayEmotion from "./TodayEmotion";
 import EmoHeader from "./EmoHeader";
 import EmoTag from "./EmoTag";
+import { useSelector, useDispatch } from "react-redux";
+import { Emoticons } from "../../redux/store";
+import { userAction } from "../../redux/store";
 
-const Wrapper = styled.div`
-    /* padding: 0; */
+export const Wrapper = styled.div`
     width: calc(100% - 2rem);
     height:31.5rem;
     display: grid;
@@ -15,18 +17,15 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     /* border:1px solid blue; */
+    margin-top:1rem;
 `;
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   width:330px;
-  /* height:260px; */
-  /* border: 1px solid black; */
   display:grid;
   justify-content: center;
   align-items:center;
   grid-template-columns: repeat(4, 1fr);
-  /* padding:10px; */
-  /* margin:8px auto; */
   /* border: 1px solid black; */
 `
 const EmotionTag = styled.div`
@@ -42,76 +41,12 @@ const EmotionTag = styled.div`
 `
 
 function PostEmoTag(props) {
-    const Emoticons = [
-        {
-            id:1,
-            name:"화남",
-        },
-        {
-            id:2,
-            name:"기쁜",
-        },
-        {
-            id:3,
-            name:"외로움",
-        },
-        {
-            id:4,
-            name:"우울",
-        },
-        {
-            id:5,
-            name:"피곤",
-        },
-        {
-            id:6,
-            name:"만족",
-        },
-        {
-            id:7,
-            name:"행복",
-        },
-        {
-            id:8,
-            name:"슬픔",
-        },
-        {
-            id:9,
-            name:"불안",
-        },
-        {
-            id:10,
-            name:"아픔",
-        },
-        {
-            id:11,
-            name:"불쾌",
-        },
-        {
-            id:12,
-            name:"실망",
-        },
-        {
-            id:13,
-            name:"설렘",
-        },
-        {
-            id:14,
-            name:"신남",
-        },
-        {
-            id:15,
-            name:"지루함",
-        },
-        {
-            id:16,
-            name:"?",
-        },
-      ]
+    const selectedEmo = useSelector((state)=>state.reducer.emotagSrc)
+    // console.log(selectedEmo)
 
-    const defaultSrc = require("../../assets/images/face2.png")
+    const dispatch = useDispatch()
 
-    const [imgSrc, setImgSrc] = useState(defaultSrc)
+    const [imgSrc, setImgSrc] = useState(selectedEmo)
 
     return (
         <Wrapper>
@@ -122,6 +57,14 @@ function PostEmoTag(props) {
             <CardContainer>
                 {Emoticons.map((emo)=>(
                     <EmotionTag
+                    key={emo.id} id={emo.id}
+                    onClick={(e)=>{
+                    // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
+                    const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
+                    setImgSrc(selectedSrc)
+                    dispatch(userAction.SAVE({selected:selectedSrc, case:"imgSrc"}))
+                    dispatch(userAction.SAVE({selected:emo.name, case:"emoTag"}))
+                    }}
                     >
                         <EmoTag
                         key={emo.id} emoId={emo.id} emoName={emo.name} 
@@ -132,5 +75,6 @@ function PostEmoTag(props) {
         </Wrapper>
     );
 }
+
 
 export default PostEmoTag;
