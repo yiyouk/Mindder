@@ -1,4 +1,5 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+// import {tokenSlice} from './Auth';
 
 export const Emoticons = [
   {
@@ -157,7 +158,7 @@ const initialState = {
 }
 
 const userStateSlice = createSlice({
-  name:"userState",
+  name:"user",
   initialState:initialState,
   reducers:{
     SAVE(state, action){
@@ -181,6 +182,35 @@ const userStateSlice = createSlice({
   }
 })
 
-export const store = configureStore({reducer:userStateSlice})
+const TOKEN_TIME_OUT = 60*30;
 
-export const userAction = userStateSlice.actions
+const tokenSlice = createSlice({
+    name: 'token',
+    initialState: {
+        authenticated: false,
+        accessToken: null,
+        expireTime: null
+    },
+
+    reducers: {
+        SET_TOKEN: (state, action) => {
+            state.authenticated = true;
+            state.accessToken = action.payload;
+            state.expireTime = new Date().getTime() + TOKEN_TIME_OUT;
+        },
+        
+        DELETE_TOKEN: (state) => {
+            state.authenticated = false;
+            state.accessToken = null;
+            state.expireTime = null
+        },
+    }
+})
+
+
+export const store = configureStore({reducer:{userState : userStateSlice.reducer, authToken : tokenSlice.reducer}});
+
+export const userAction = userStateSlice.actions;
+export const tokenAction = tokenSlice.actions;
+
+export default store;
