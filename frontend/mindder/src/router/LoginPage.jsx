@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {setCookie, getCookie} from "../api/cookie";
-
-//비동기 동신
-import api from "../api/api";
+import {setCookie} from "../api/cookie";
 
 //로그인 유지
 import { useDispatch} from "react-redux";
 import {tokenAction} from "../redux/store"
+
+//비동기 동신
+import api from "../api/api";
 
 import '../assets/css/main.css';
 
 function LoginPage(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const handleChangeEmail = e => {
         setEmail(e.target.value);
     }
@@ -55,7 +55,6 @@ function LoginPage(props) {
 
                 //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
                 setCookie("is_login", `${accessToken}`);
-                console.log(getCookie("is_login"))
                 dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
                 navigate("/");
             }
@@ -81,7 +80,7 @@ function LoginPage(props) {
                 <input value={password} type="password" name="password" id="password" placeholder=" 비밀번호" onChange={handleChangePw}/>
             </div>
             <div className="center-container">
-             <input className="maincolor-white-btn" type="button" value="로그인" onClick={handleSubmit}/>
+                <input className="maincolor-white-btn" type="button" value="로그인" onClick={handleSubmit}/>
             </div>
         </form>
         <div className="right-container">
