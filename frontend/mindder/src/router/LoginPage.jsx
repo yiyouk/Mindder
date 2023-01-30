@@ -1,11 +1,13 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../assets/css/main.css'
+import {setCookie} from "../api/cookie";
 
 //비동기 동신
-import axios from "axios";
-import { BACKEND_URL } from '../config';
+import api from "../api/api";
+
+//로그인 유지
+// import store from "../store/modules/userStore";
 
 function LoginPage(props) {
     const navigate = useNavigate();
@@ -35,17 +37,20 @@ function LoginPage(props) {
 
     async function getUser(){ // async, await을 사용하는 경우
         try {
-            const response = await axios.post(`${BACKEND_URL}/users/login`,
+            const response = await api.post(`/users/login`,
             {   
                 email: email,
                 password: password
             });
 
-            // console.log(response.data);
+            console.log(response.data);
 
             if(response.data==="fail"){
                 alert("로그인 정보를 다시 확인해주세요.");
             } else{
+                const accessToken = response.data.accessToken;
+                //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
+                setCookie("is_login", `${accessToken}`); 
                 alert("로그인 성공");
                 navigate("/");
             }
