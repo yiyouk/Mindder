@@ -51,7 +51,7 @@ public class FeedsController {
 		logger.info("writeArticle - 호출");
 		try {
 			feedsService.writeFeed(feedsDto);
-			return ApiResponse.success(SuccessCode.WRITE_MAIN_FEED);
+			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("writeFeeds - 메인 피드 등록 중 에러 발생");
@@ -98,7 +98,7 @@ public class FeedsController {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx);
-			return ApiResponse.success(SuccessCode.DETAIL_MAIN_FEED, feedDetail);
+			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
@@ -114,7 +114,7 @@ public class FeedsController {
 		logger.info("userIdx - 호출");
 		try {
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
-			return ApiResponse.success(SuccessCode.NEIGHBORS_FEED_LIST, neighborList);
+			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
@@ -161,7 +161,7 @@ public class FeedsController {
 				}
 				cnt++;
 			}
-			return ApiResponse.success(SuccessCode.IMAGE_CRAAWLING_COLOR, list);
+			return ApiResponse.success(SuccessCode.READ_IMAGE_CRAAWLING_COLOR, list);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(" crawling- 이미지 크롤링 중 에러");
