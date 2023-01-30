@@ -72,6 +72,11 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
+	public int checkEmail(String email) throws Exception {
+		return usersMapper.checkEmail(email);
+	}
+
+	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, String> result = new HashMap<>();
@@ -170,6 +175,5 @@ public class UsersServiceImpl implements UsersService {
         
 		return rt;
 	}
-
 
 }
