@@ -3,21 +3,30 @@ package com.ssafy.mindder.file.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,13 +36,13 @@ import com.ssafy.mindder.file.model.FileDto;
 @RestController
 @RequestMapping("/file")
 public class FileController {
-	
-	
+
 	@PostMapping
-	public String fileUpLoad(@Value("${file.path.upload-files}") String filePath ,@RequestParam("upfile") MultipartFile[] files) throws Exception{
+	public String fileUpLoad(@Value("${file.path.upload-files}") String filePath,
+			@RequestParam("upfile") MultipartFile[] files) throws Exception {
 		System.out.println(filePath);
 		if (!files[0].isEmpty()) {
-			//String realPath = servletContext.getRealPath("/upload");
+			// String realPath = servletContext.getRealPath("/upload");
 //			String realPath = servletContext.getRealPath("/resources/img");
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
 			String saveFolder = filePath + File.separator + today;
@@ -57,29 +66,29 @@ public class FileController {
 		}
 		return "!";
 	}
+
 	@GetMapping
-	public String fileDownLoad(@Value("${file.path.upload-files}") String filePath) {
-        String saveFolder = "230130";	// 파일 경로
-        String originalFile ="temp";	// 원본 파일명(화면에 표시될 파일 이름)
-        String saveFile = "445304263920684.png";    	// 암호화된 파일명(실제 저장된 파일 이름)
-        File file = new File("/img" + File.separator  + saveFolder, saveFile);
-        //OutputStream out = response.getOutputStream();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-            //FileCopyUtils.copy(fis, out);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if(fis != null) {
-                try { 
-                    fis.close(); 
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        System.out.println(fis);
-        return fis.toString();
+//	public @ResponseBody byte[]  fileDownLoad(@Value("${file.path.upload-files}") String filePath) {
+//        System.out.println(1);
+//		String saveFolder = "230130";	// 파일 경로
+//        String originalFile ="temp";	// 원본 파일명(화면에 표시될 파일 이름)
+//        String saveFile = "888854090619500.png";    	// 암호화된 파일명(실제 저장된 파일 이름)
+//        File file = new File(filePath + File.separator  + saveFolder, saveFile);
+//        InputStream in = getClass().getResourceAsStream(filePath + "/"  + saveFolder+"/"+saveFile);
+//        return IOUtils.toByteArray(in);
+	public ResponseEntity<byte[]> getFile(@Value("${file.path.upload-files}") String filePath) {
+		String saveFolder = "230130"; // 파일 경로
+		String originalFile = "temp"; // 원본 파일명(화면에 표시될 파일 이름)
+		String saveFile = "888854090619500.png"; // 암호화된 파일명(실제 저장된 파일 이름)
+		File file = new File(filePath + File.separator + saveFolder, saveFile);
+		ResponseEntity<byte[]> result = null;
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
