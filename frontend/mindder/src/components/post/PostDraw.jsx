@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Canvas from "./Canvas";
 
 import './style.css'
 // import './mycanvas'
@@ -34,15 +35,10 @@ function PostDraw(props){
   return (
     <Wrapper>
       <CrawlingsHere>여기에 크롤링 결과 출력할거에요</CrawlingsHere>
-      <CanvasDiv>
-        <canvas></canvas>
-        {/* <div class="menu-container">
-          <button id="mode-btn">채우기</button>
-          <button class="reset">지우기</button>
-          <button class="palette">팔레트</button>
-        </div> */}
-        {/* <script src="mycanvas.js"></script> */}
-      </CanvasDiv>
+      {/* <CanvasDiv> */}
+        <Canvas></Canvas>
+
+      {/* </CanvasDiv> */}
     </Wrapper>
   );
 };
