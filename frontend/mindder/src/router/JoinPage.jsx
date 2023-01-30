@@ -6,7 +6,12 @@ import ErrorPage from "./ErrorPage";
 
 function JoinPage(props) {
     const [number, setNumber] = useState(0);
+    const [email, setEmail] = useState("낫띵");
     const navigate = useNavigate();
+
+    const getData = (e) => {
+        setEmail(e);
+    }
 
     const onIncrease = () => {
         setNumber(prevNumber => prevNumber + 1);
@@ -20,7 +25,7 @@ function JoinPage(props) {
                 <header>
                     <h2>회원가입</h2>
                 </header>
-                <JoinEmail></JoinEmail>
+                <JoinEmail getData={getData}></JoinEmail>
                 <div className="center-container">
                     <button className="maincolor-white-btn" onClick={onIncrease}>다음</button>
                 </div>
@@ -32,7 +37,7 @@ function JoinPage(props) {
             <header>
                 <h2>회원가입</h2>
             </header>
-            <JoinRegister></JoinRegister>
+            <JoinRegister email = {email}></JoinRegister>
             </div>
         );
     } else{
