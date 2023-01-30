@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,9 +59,9 @@ public class UsersController {
 
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 삭제", response = String.class)
 	@DeleteMapping
-	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken) {
+	public ResponseEntity<?> deleteUser(@RequestHeader("access_token") String accessToken) {
 		try {
-			int idx = jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1));
+			int idx = jwtService.getUserIdx(accessToken);
 			usersService.deleteUser(idx);
 
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -72,12 +73,12 @@ public class UsersController {
 
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 업데이트", response = String.class)
 	@PatchMapping
-	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,
+	public ResponseEntity<?> updateUser(@RequestHeader("access_token") String accessToken,
 			@RequestBody UsersDto usersDto) {
 
 		Map<String, String> user = new HashMap<String, String>();
 		try {
-			int idx = jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1));
+			int idx = jwtService.getUserIdx(accessToken);
 			System.out.println(idx);
 			usersDto.setUserIdx(idx);
 			if (usersDto.getPassword().length() < 30) {
@@ -162,10 +163,11 @@ public class UsersController {
 
 	@ApiOperation(value = "로그아웃 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/logout")
-	public ResponseEntity<?> logout(@RequestParam("access_token") String accessToken) {
+	public ResponseEntity<?> logout(@RequestHeader("access_token") String accessToken) {
+		
 		logger.debug("logout - 호출");
 		try {
-			usersService.logout(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			usersService.logout(jwtService.getUserIdx(accessToken));
 
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
@@ -177,10 +179,10 @@ public class UsersController {
 
 	@ApiOperation(value = "비밀번호 일치 여부를 반환한다.", response = String.class)
 	@PostMapping("/password")
-	public ResponseEntity<?> findpassword(@RequestParam("access_token") String accessToken, @RequestBody String pwd) {
+	public ResponseEntity<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody String pwd) {
 		logger.debug("findpassword - 호출");
 		try {
-			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
 
 			System.out.println(pwd);
 			pwd = SHA256.encrypt(pwd);
@@ -247,11 +249,11 @@ public class UsersController {
 
 	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
 	@GetMapping("/information")
-	ResponseEntity<?> checkUser(@RequestParam("access_token") String accessToken) {
+	ResponseEntity<?> checkUser(@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("checkNickname - 호출");
 		try {
-			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken.substring(1,accessToken.length()-1)));
+			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken));
 			return new ResponseEntity<UsersDto>(userDto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
