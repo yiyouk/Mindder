@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.mindder.my.model.mapper.ScrapsMapper">
+	<!-- 스크랩 등록 -->
+	<insert id="inserScrap" parameterType="int">
+		insert into feedscrap(feed_idx, user_idx) values(#{feedIdx}, #{userIdx});	
+	</insert>
+	<!-- 스크랩 취소 -->
+	<delete id="deleteScrap" parameterType="int">
+		delete from feedscrap where user_idx = #{userIdx} and feed_idx = #{feedIdx};	
+	</delete>
+	<!-- 스크랩 목록 조회 -->
+	<!-- @fixme: 이미지 url 추가 필요 -->
+	<select id="selectMyScraps" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
+		select s.feed_idx, c.comment_count, u.nickname, f.update_date, l.like_total_count 
+		from feedscrap s 
+		left join 
+		(select feed_idx, count(*) as comment_count 
+		from feedcomment 
+		where is_deleted = 0 
+		group by feed_idx) 
+		as c
+		on s.feed_idx = c.feed_idx 
+		left join mainfeed f 
+		on s.feed_idx = f.feed_idx 
+		left join mainuser u 
+		on f.user_idx = u.user_idx 
+		left join 
+		(select feed_idx, sum(like_count) as like_total_count 
+		from feedlike 
+		where is_deleted = 0 
+		group by feed_idx) 
+		as l
+		on s.feed_idx = l.feed_idx
+		where s.user_idx = #{userIdx} and s.is_deleted = 0;
+	</select>
+</mapper>
