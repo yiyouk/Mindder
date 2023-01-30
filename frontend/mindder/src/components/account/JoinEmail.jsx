@@ -15,6 +15,7 @@ function JoinEmail(props) {
         <form>
             <div className="logo-container">
                 <input type="text" name="email" id="email" placeholder=" 이메일" />
+                <button className="white-black-line-btn">중복 확인</button>
                 <button className="white-black-line-btn">전송 요청</button>
             </div>
           </form>
