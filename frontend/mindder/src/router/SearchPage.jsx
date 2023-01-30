@@ -1,6 +1,7 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
+import SearchHome from "../components/search/SearchHome";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
 function SearchPage(props) {
     return (
         <Wrapper>
-            여기는 검색초기페이지
+            <SearchHome/>
         </Wrapper>
     );
 }
