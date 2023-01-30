@@ -12,4 +12,7 @@ public interface LikesMapper {
 	// 공감 등록
 	public void insertLike(LikesDto likesDto) throws SQLException;
 
+	// 공감 삭제
+	public void deleteLike(int userIdx, int feedIdx) throws SQLException;
+
 }
