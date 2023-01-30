@@ -17,8 +17,8 @@ const EmoColorList = styled.div`
 `
 
 function PostEmocolor(props){
-  const selectedSrc = useSelector((state)=>state.reducer.emotagSrc)
-  const selectedEmo = useSelector((state)=>state.reducer.todayEmotion)
+  const selectedSrc = useSelector((state)=>state.userState.emotagSrc)
+  const selectedEmo = useSelector((state)=>state.userState.todayEmotion)
   const dispatch = useDispatch()
 
   const [imgSrc, setImgSrc] = useState(selectedSrc)
