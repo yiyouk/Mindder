@@ -42,8 +42,10 @@ function App(props) {
     useEffect(()=>{
         console.log(test2.authToken)
         const test = () => getCookie("is_login")
-        dispatch(tokenAction.SET_TOKEN(test()));
-        console.log('실행됨')
+        if(test()!==undefined){
+            dispatch(tokenAction.SET_TOKEN(test()));
+        }
+        // console.log(test())
         console.log(test2.authToken)
     }, [])
 
