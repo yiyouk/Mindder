@@ -21,6 +21,11 @@
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
+	<select id="checkEmail" parameterType="String" resultType="int">
+		select count(email)
+		from mainuser
+		where email = #{nickname}
+	</select>
 	<select id="findSocialKakaoID" parameterType="String" resultMap="com.ssafy.resultmaps.user">
 		select *
 		from mainuser
@@ -55,4 +60,5 @@
 		set refresh_token=null
 		where user_idx = #{userIdx}
 	</update>
+	
 </mapper>
