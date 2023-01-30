@@ -14,6 +14,8 @@ public interface FeedsMapper {
 	// 피드 작성
 	public int writeFeed(FeedsDto feedsDto) throws SQLException;
 
+	public int writeCalendar(FeedsDto feedsDto) throws SQLException;
+
 	// 피드 삭제
 	public int deleteMainFeed(int feedIdx) throws SQLException;
 
