@@ -10,8 +10,20 @@ import static com.ssafy.mindder.common.StatusCode.SUCCESS;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SuccessCode {
+	
+	/*
+	 * 등록/생성: CREATE,
+	 * 조회: READ,
+	 * 수정: UPDATE,
+	 * 삭제/취소: DELETE
+	 */
+	
 	// feeds
+	
 	// likes
+	CREATE_LIKE(SUCCESS, "공감 등록 성공"),
+	UPDATE_LIKE(SUCCESS, "공감 수정 성공"),
+	DELETE_LIKE(SUCCESS, "공감 취소 성공"),
 	
 	// my
 	READ_MY_FEED_LIST(SUCCESS, "내 피드 목록 조회 성공"),

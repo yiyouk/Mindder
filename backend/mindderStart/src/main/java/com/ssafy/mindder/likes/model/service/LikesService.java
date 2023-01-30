@@ -7,6 +7,9 @@ public interface LikesService {
 	// 공감 등록
 	public void addLike(LikesDto likesDto) throws Exception;
 
+	// 공감 수정
+	public void modifyLike(LikesDto likesDto) throws Exception;
+	
 	// 공감 삭제
 	public void removeLike(int userIdx, int feedIdx) throws Exception;
 
