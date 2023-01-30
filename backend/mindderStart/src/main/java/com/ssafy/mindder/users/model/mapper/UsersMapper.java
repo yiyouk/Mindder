@@ -17,4 +17,5 @@ public interface UsersMapper {
 	void deleteUser(int userIdx) throws Exception;
 	void logout(int userIdx) throws Exception;
 	String findpassword(int userIdx) throws Exception;
+	int checkEmail(String email) throws Exception;
 }

@@ -40,6 +40,23 @@ public class UsersController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	@GetMapping("/check/{email}")
+	public ResponseEntity<?> checkEmail(@PathVariable("email") String email){
+		int temp=0;
+		try {
+			temp = usersService.checkEmail(email);
+			if(temp==0) {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@ApiOperation(value = "엑세스 토큰을 통해 유저 삭제", response = String.class)
 	@DeleteMapping
 	public ResponseEntity<?> deleteUser(@RequestParam("access_token") String accessToken) {
 		try {
@@ -49,11 +66,11 @@ public class UsersController {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("updateUser - 정보수정 중 에러");
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	@ApiOperation(value = "엑세스 토큰을 통해 유저 업데이트", response = String.class)
 	@PatchMapping
 	public ResponseEntity<?> updateUser(@RequestParam("access_token") String accessToken,
 			@RequestBody UsersDto usersDto) {
