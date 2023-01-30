@@ -27,6 +27,7 @@ import SearchResPage from "./router/SearchResPage";
 import SearchTagPage from "./router/SearchTagPage";
 import NaviBar from './commons/bar/NaviBar';
 import HeaderBar from "./commons/bar/HeaderBar";
+import ErrorPage from "./router/ErrorPage";
 
 const userId = 0
 const idx = 0
@@ -35,6 +36,7 @@ const keyword = ''
 function App(props) {
         return (
             <BrowserRouter>
+                {/* {index === "0" ? <Title/> : null} */}
                 <HeaderBar/>
                 <div id = "bodysuit">
                     <Routes>
@@ -58,6 +60,7 @@ function App(props) {
                         <Route path={`search/${keyword}/nickname`} element={<SearchNamePage />} />
                         <Route path={`search/${keyword}`} element={<SearchResPage />} />
                         <Route path={`search/${keyword}/canvas`} element={<SearchTagPage />} />
+                        <Route path="error" element={<ErrorPage />} />
                     </Routes>
                 </div>
                 <NaviBar/>
