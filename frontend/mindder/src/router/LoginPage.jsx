@@ -1,17 +1,22 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import '../assets/css/main.css'
+import {setCookie, getCookie} from "../api/cookie";
 
 //비동기 동신
-import axios from "axios";
-import { BACKEND_URL } from '../config';
+import api from "../api/api";
+
+//로그인 유지
+import { useDispatch} from "react-redux";
+import {tokenAction} from "../redux/store"
+
+import '../assets/css/main.css';
 
 function LoginPage(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-
+    
     const handleChangeEmail = e => {
         setEmail(e.target.value);
     }
@@ -35,20 +40,26 @@ function LoginPage(props) {
 
     async function getUser(){ // async, await을 사용하는 경우
         try {
-            const response = await axios.post(`${BACKEND_URL}/users/login`,
+            const response = await api.post(`/users/login`,
             {   
                 email: email,
                 password: password
             });
 
-            // console.log(response.data);
+            console.log(response.data);
 
             if(response.data==="fail"){
                 alert("로그인 정보를 다시 확인해주세요.");
             } else{
-                alert("로그인 성공");
+                const accessToken = response.data.accessToken;
+
+                //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
+                setCookie("is_login", `${accessToken}`);
+                console.log(getCookie("is_login"))
+                dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
                 navigate("/");
             }
+            
         } catch (e) {
             console.error(e);
             navigate("/error");
