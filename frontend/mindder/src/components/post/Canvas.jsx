@@ -13,7 +13,7 @@ flex-direction: column;
 // #### styled ####
 const Canva = styled.canvas`
 border-radius: 10px;
-border 1px solid #CACACA;
+border: 1px solid #CACACA;
 `
 const Colors = styled.div`
 display: flex;
