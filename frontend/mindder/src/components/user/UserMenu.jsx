@@ -5,8 +5,11 @@ import styled from "styled-components";
 
 // user
 import UserFollow from "./UserFollow";
-import UserProfile from "./UserProfile";
 import UserMenuSub from "./UserMenuSub"
+
+
+import ProfileImage from "../../commons/ui/ProfileImage";
+import ProfileName from "../../commons/ui/ProfileName";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -14,13 +17,20 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 `;
-
+export const ProfileContainer = styled.div`
+    display: flex;
+    align-items: center;
+    align-self: start;
+    padding-left: 1.2rem;
+`
 function UserPage(props) {
     return (
         <Wrapper>
-            <UserProfile></UserProfile>
+            <ProfileContainer>
+                <ProfileImage size="m"></ProfileImage>
+                <ProfileName size="m" name="닉네임"></ProfileName>
+            </ProfileContainer>
             <UserFollow></UserFollow>
             {/* 내 페이지일 경우 */}
                 <UserMenuSub></UserMenuSub>
