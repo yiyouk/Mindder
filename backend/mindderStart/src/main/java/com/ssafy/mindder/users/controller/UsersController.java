@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.mindder.common.ErrorCode;
+import com.ssafy.mindder.common.SuccessCode;
+import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.email.model.EmailService;
 import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.users.model.service.UsersService;
 import com.ssafy.mindder.util.JwtService;
@@ -36,19 +40,21 @@ public class UsersController {
 	private UsersService usersService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private EmailService emailService;
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
 	@GetMapping("/check/{email}")
-	public ResponseEntity<?> checkEmail(@PathVariable("email") String email){
-		int temp=0;
+	public ResponseEntity<?> checkEmail(@PathVariable("email") String email) {
+		int temp = 0;
 		try {
 			temp = usersService.checkEmail(email);
-			if(temp==0) {
+			if (temp == 0) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-			}else {
+			} else {
 				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
@@ -164,7 +170,7 @@ public class UsersController {
 	@ApiOperation(value = "로그아웃 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/logout")
 	public ResponseEntity<?> logout(@RequestHeader("access_token") String accessToken) {
-		
+
 		logger.debug("logout - 호출");
 		try {
 			usersService.logout(jwtService.getUserIdx(accessToken));
@@ -189,7 +195,7 @@ public class UsersController {
 			System.out.println(tempPwd);
 			if (pwd.equals(tempPwd)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-			}else {
+			} else {
 				return new ResponseEntity<String>(FAIL, HttpStatus.ACCEPTED);
 			}
 		} catch (Exception e) {
@@ -261,5 +267,20 @@ public class UsersController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@ApiOperation(value = "이메일 인증", response = String.class)
+    @GetMapping()
+    public ApiResponse<?> mailConfirm(@RequestParam String email) {
+		logger.info("mailConfirm - 호출 : " + email);
+		try {
+			String code = emailService.sendSimpleMessage(email);
+			logger.info("인증 코드 : " + code);
+			return ApiResponse.success(SuccessCode.READ_EMAIL_CONFIRM, code);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("mailConfirm - 이메일 인증 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+    }
 
 }

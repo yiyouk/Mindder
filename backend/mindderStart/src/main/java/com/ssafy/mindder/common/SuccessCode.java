@@ -39,6 +39,9 @@ public enum SuccessCode {
 	CREATE_SCRAP(SUCCESS, "스크랩 등록 성공"),
 	DELETE_SCRAP(SUCCESS, "스크랩 삭제 성공"),
 	READ_MY_SCRAP_LIST(SUCCESS, "내 스크랩 목록 조회 성공"),
+	
+	// email
+	READ_EMAIL_CONFIRM(SUCCESS, "인증 코드 발송 성공"),
 	;
 	
 	// users
