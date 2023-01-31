@@ -84,13 +84,8 @@ public class UsersController {
 			int idx = jwtService.getUserIdx(accessToken);
 			System.out.println(idx);
 			usersDto.setUserIdx(idx);
-			if (usersDto.getPassword().length() < 30) {
-				usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
-			}
 			usersService.updateUser(usersDto);
-
-			user.put("nickname", usersDto.getNickname());
-			return ApiResponse.success(SuccessCode.UPDATE_USER, user);
+			return ApiResponse.success(SuccessCode.UPDATE_USER);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("updateUser - 정보수정 중 에러");
