@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.email.model.EmailService;
 import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.users.model.service.UsersService;
 import com.ssafy.mindder.util.JwtService;
@@ -37,6 +38,8 @@ public class UsersController {
 	private UsersService usersService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private EmailService emailService;
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
 	private static final String SUCCESS = "success";
@@ -163,7 +166,6 @@ public class UsersController {
 	@ApiOperation(value = "로그아웃 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/logout")
 	public ApiResponse<?> logout(@RequestHeader("access_token") String accessToken) {
-
 		logger.debug("logout - 호출");
 		try {
 			usersService.logout(jwtService.getUserIdx(accessToken));
@@ -260,5 +262,20 @@ public class UsersController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
+
+	@ApiOperation(value = "이메일 인증", response = String.class)
+    @GetMapping()
+    public ApiResponse<?> mailConfirm(@RequestParam String email) {
+		logger.info("mailConfirm - 호출 : " + email);
+		try {
+			String code = emailService.sendSimpleMessage(email);
+			logger.info("인증 코드 : " + code);
+			return ApiResponse.success(SuccessCode.READ_EMAIL_CONFIRM, code);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("mailConfirm - 이메일 인증 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+    }
 
 }
