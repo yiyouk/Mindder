@@ -12,7 +12,7 @@
 		where email = #{email}
 	</select>
 	<select id="checkUser" parameterType="int" resultMap="com.ssafy.resultmaps.user">
-		select *
+		select email,user_idx,emote_color_idx,social_id,nickname
 		from mainuser
 		where user_idx = #{userIdx}
 	</select>
