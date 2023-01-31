@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import org.springframework.util.FileCopyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -76,11 +78,11 @@ public class FileController {
 		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
 		String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
 		File file = new File(filePath + saveFolder, saveFile);
-		ResponseEntity<byte[]> result = null;
+		ResponseEntity<String> result = null;
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+			result = new ResponseEntity<String>(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)), headers, HttpStatus.OK);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
