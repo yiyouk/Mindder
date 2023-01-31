@@ -75,7 +75,7 @@ public class FileController {
 		String saveFolder = temp.getSaveFolder(); // 파일 경로
 		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
 		String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
-		File file = new File(filePath + File.separator + saveFolder, saveFile);
+		File file = new File(filePath + saveFolder, saveFile);
 		ResponseEntity<byte[]> result = null;
 		try {
 			HttpHeaders headers = new HttpHeaders();
@@ -84,7 +84,7 @@ public class FileController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//return result;
-		return new ResponseEntity<String>(filePath+"/"+saveFolder+"/"+saveFile, HttpStatus.OK);
+		return result;
+		//return new ResponseEntity<String>(filePath+"/"+saveFolder+"/"+saveFile, HttpStatus.OK);
 	}
 }
