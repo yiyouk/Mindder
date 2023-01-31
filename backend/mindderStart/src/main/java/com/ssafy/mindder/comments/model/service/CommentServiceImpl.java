@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.mindder.comments.model.CommentsDto;
+import com.ssafy.mindder.comments.model.CommentsListDto;
 import com.ssafy.mindder.comments.model.mapper.CommentsMapper;
 
 @Service
@@ -25,7 +26,7 @@ public class CommentServiceImpl implements CommentsService {
 	}
 
 	@Override
-	public List<CommentsDto> commentList(int feedIdx) throws Exception {
+	public List<CommentsListDto> commentList(int feedIdx) throws Exception {
 		return sqlSession.getMapper(CommentsMapper.class).commentList(feedIdx);
 	}
 
