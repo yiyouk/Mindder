@@ -29,6 +29,7 @@ import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.SHA256;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -266,8 +267,8 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "이메일 인증", response = String.class)
-	@GetMapping()
-	public ApiResponse<?> mailConfirm(@RequestParam String email) {
+	@GetMapping("/email-confirm/{email}")
+	public ApiResponse<?> mailConfirm(@PathVariable @ApiParam(value = "이메일", required = true) String email) {
 		logger.info("mailConfirm - 호출 : " + email);
 		try {
 			String code = emailService.sendSimpleMessage(email);
