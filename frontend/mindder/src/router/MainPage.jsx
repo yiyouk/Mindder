@@ -5,8 +5,6 @@ import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
 import { useSelector } from "react-redux";
 
-
-
 const Wrapper = styled.nav`
     margin: 1rem 0 0 0;
 `;
@@ -14,17 +12,11 @@ const Wrapper = styled.nav`
 function MainPage(props) {
     const isLoggedIn = useSelector((state)=>state.authToken.authenticated)
 
-    if(!isLoggedIn){
-        return (
-            <Home></Home>
-        );
-    } else {
-        return (
-            <Wrapper>
-                <LoginHome></LoginHome>
-            </Wrapper>
-        );
-    }
+    return(
+        <>
+            {isLoggedIn ?   <Wrapper><LoginHome></LoginHome></Wrapper> :  <Home></Home>}
+        </>
+    );
 }
 
 export default MainPage;

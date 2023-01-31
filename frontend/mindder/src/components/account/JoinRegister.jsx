@@ -72,7 +72,7 @@ function JoinRegister({email}) {
     if(nickname === ""){
         alert("닉네임 입력해주세요.");
     } else if(!nicknameCheck){
-        alert("닉네임 확인을 완료해주세요.");                                                                             
+        alert("닉네임 중복 확인을 완료해주세요.");                                                                             
     } else if(password !== passwordCheck){
         alert("비밀번호와 확인 비밀번호가 다릅니다.");                                                                             
     } else if(myColor ===""){
