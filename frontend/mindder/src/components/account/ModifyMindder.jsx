@@ -1,28 +1,48 @@
 // 개인정보 수정
-import React from "react";
+import React, {useState, useEffect} from "react";
 import '../../assets/css/main.css';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Sample from "../../assets/images/pro.jpg"
 
-const Pro = styled.div`
-  width: 4rem;
-  height: 4rem;
-  background-image:url(${Sample});
-  background-size: 4rem;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 100px;
-`
+//비동기 동신
+import api from "../../api/api";
+
 
 function ModifyMindder(props) {
     const navigate = useNavigate();
+    // const [nickname, setNickname] = useState("");
+    // const [nicknameCheck, setNicknameCheck] = useState(true);
+    const [img, setImg] = useState("");
+    // const [myColor, setMyColor] = useState(1);
+    
+    useEffect(()=>{
+        getUserInfo();
+    }, [])
+
+    async function getUserInfo(){ // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/users/information`, null);
+            
+            console.log(response);
+            // if(response.data==="fail"){
+            //     alert("이미 존재하는 회원입니다.");
+            // } else{
+            //     // setEmailCheck(true);
+            //     alert("사용 가능한 이메일입니다.");
+            // }
+            
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+      }
 
     return(
         <form className="box">
             <div className="col-12">
             <label className="form-label"> 사진</label>
             <div className="center-container">
-                <Pro></Pro>     
+                <img scr={img}/>
             </div>
             <div className="logo-container">
               <button className="white-black-line-btn"
