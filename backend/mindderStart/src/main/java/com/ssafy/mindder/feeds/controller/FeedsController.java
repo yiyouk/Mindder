@@ -102,7 +102,7 @@ public class FeedsController {
 			if (feedDetail != null)
 				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 			else
-				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
