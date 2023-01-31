@@ -6,3 +6,4 @@ public interface FileService {
 	void addFile(FileDto fileDto);
 	FileDto findFile(int fileIdx);
 }
+
