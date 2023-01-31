@@ -52,9 +52,8 @@ function JoinRegister({email}) {
   //닉네임 중복 확인 비동기 통신
   async function getNick(){ // async, await을 사용하는 경우
     try {
-        const response = await api.get(`/users//${nickname}`, null);
-        
-        if(response.data==="fail"){
+        const response = await api.get(`/users/check-nickname/${nickname}`, null);
+        if(response.data.data.available){
             setNicknameCheck(true);
             alert("사용 가능한 닉네임입니다.");
         } else{
@@ -90,11 +89,12 @@ function JoinRegister({email}) {
                 nickname: nickname,
                 email: email,
                 password: password,
-                emoteColor: myColor,
-                socialId: "@mindder"
+                emoteColorIdx: myColor,
+                socialToken: "@mindder"
             });
             
-            if(response.data==="fail"){
+            
+            if(response.data.success){
                 alert("오류입니다. 다시 시도해주세요.");
                 navigate("/error");
             } else{
