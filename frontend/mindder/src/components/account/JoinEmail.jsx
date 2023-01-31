@@ -31,13 +31,14 @@ function JoinEmail(props) {
   //이메일 중복 확인 비동기 통신
   async function getCheckEmail(){ // async, await을 사용하는 경우
     try {
-        const response = await api.get(`/users/check/${email}`, null);
-        
-        if(response.data==="fail"){
-            alert("이미 존재하는 회원입니다.");
-        } else{
-            setEmailCheck(true);
-            alert("사용 가능한 이메일입니다.");
+        const response = await api.get(`/users/check-email/${email}`, null);
+
+        // console.log(response.data)
+        if(response.data.data.available===true){
+          setEmailCheck(true);
+          alert("사용 가능한 이메일입니다.");
+          } else{
+          alert("이미 존재하는 회원입니다.");
         }
         
     } catch (e) {
