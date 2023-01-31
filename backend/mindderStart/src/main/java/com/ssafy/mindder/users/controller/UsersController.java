@@ -142,7 +142,7 @@ public class UsersController {
 			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
-			if (usersDto != null) {
+			if (usersDto != null&& !usersDto.isDeleted()) {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
@@ -208,10 +208,7 @@ public class UsersController {
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
 
-			if (temp != null) {// deleted 체크 회원만 반환
-				// usersService.updateMember(usersDto);
-				// 수정 구현 후 추가
-			} else {
+			if (temp == null || temp.isDeleted()) {
 				usersDto.setPassword(encryPassword);
 				usersService.joinUser(usersDto);
 			}
@@ -240,7 +237,6 @@ public class UsersController {
 			} else {
 				return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("checkNickname - 닉네임 체크 중 에러");
