@@ -15,9 +15,12 @@ public enum SuccessCode {
 	 */
 
 	// feeds
-	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
-	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
-	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"),
+	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), 
+	UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
+	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), 
+	READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
+	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), 
+	READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"),
 
 	// likes
 	CREATE_LIKE(SUCCESS, "공감 등록 성공"),
