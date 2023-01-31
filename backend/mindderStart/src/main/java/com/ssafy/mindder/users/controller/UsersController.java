@@ -233,9 +233,9 @@ public class UsersController {
 			int check = 0;
 			check = usersService.checkNickname(nickname);
 			if (check == 1) {
-				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME);
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME,false);
 			} else {
-				return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME,true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
