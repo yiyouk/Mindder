@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {setCookie} from "../api/cookie";
+import {getCookie, setCookie} from "../api/cookie";
 
 //로그인 유지
 import { useDispatch} from "react-redux";
@@ -48,15 +48,16 @@ function LoginPage(props) {
 
             console.log(response.data);
 
-            if(response.data==="fail"){
-                alert("로그인 정보를 다시 확인해주세요.");
-            } else{
-                const accessToken = response.data.accessToken;
-
+            if(response.data.success===true){
+                const accessToken = response.data.data.accessToken;
                 //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
                 setCookie("is_login", `${accessToken}`);
+                console.log("오그인할떄 쿠키키")
+                console.log(getCookie("is_login"));
                 dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
                 navigate("/");
+            } else{
+                alert("로그인 정보를 다시 확인해주세요.");
             }
             
         } catch (e) {
