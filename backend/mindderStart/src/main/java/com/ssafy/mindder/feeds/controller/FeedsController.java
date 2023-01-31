@@ -27,6 +27,7 @@ import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -61,8 +62,8 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
-	public ApiResponse<?> modifyFeed(@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsDto feedsDto)
-			throws Exception {
+	public ApiResponse<?> modifyFeed(
+			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsUpdateDto feedsDto) throws Exception {
 		logger.info("modifyFeed - 호출 {}", feedsDto);
 
 		try {
@@ -98,7 +99,10 @@ public class FeedsController {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx);
-			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
+			if (feedDetail != null)
+				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
+			else
+				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
