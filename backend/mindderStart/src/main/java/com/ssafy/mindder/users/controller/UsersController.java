@@ -52,7 +52,7 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
-	@GetMapping("/check/{email}")
+	@GetMapping("/check-email/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
 		logger.debug("checkEmail - 호출");
 		try {
@@ -72,7 +72,7 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "닉네임 중복 여부를 반환한다.")
-	@GetMapping("/{nickname}")
+	@GetMapping("/check-nickname/{nickname}")
 	public ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
 		logger.debug("checkNickname - 호출");
 		try {
