@@ -1,9 +1,8 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
-import FollowButton from "../commons/ui/FollowButton";
 import UserMenu from "../components/user/UserMenu";
-import UserFeedsList from "../components/user/UserFeedsList";
+import CanvasAlbumList from "../commons/list/CanvasAlbumList";
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -18,7 +17,9 @@ function UserPage(props) {
         <Wrapper>
             {/* 여기는 유저페이지 */}
             <UserMenu></UserMenu>
-            <UserFeedsList></UserFeedsList>
+            {/* <UserFeedsList></UserFeedsList> */}
+            <CanvasAlbumList></CanvasAlbumList>
+            
         </Wrapper>
     );
 }
