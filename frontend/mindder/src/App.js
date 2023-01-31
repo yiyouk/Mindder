@@ -40,16 +40,16 @@ function App(props) {
     const dispatch = useDispatch()
     const test2 = useSelector((state)=>state)
     useEffect(()=>{
-        console.log(test2.authToken)
-        const test = () => getCookie("is_login")
-        if(test()!==undefined){
-            dispatch(tokenAction.SET_TOKEN(test()));
+        // console.log(test2.authToken)
+        // const test = () => getCookie("is_login")
+        if(getCookie("is_login") !== undefined){
+            dispatch(tokenAction.SET_TOKEN(getCookie("is_login")));
+        } else {
+            dispatch(tokenAction.DELETE_TOKEN("is_login"));
         }
-        // console.log(test())
         console.log(test2.authToken)
     }, [])
 
-    // console.log(`저장 전 : \n`)
     console.log(`저장 후 :`)
     console.log(test2.authToken)
         
