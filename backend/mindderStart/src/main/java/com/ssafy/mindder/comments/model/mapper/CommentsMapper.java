@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.mindder.comments.model.CommentsDto;
+import com.ssafy.mindder.comments.model.CommentsListDto;
 
 public interface CommentsMapper {
 	// 피드 댓글 작성
@@ -13,6 +14,6 @@ public interface CommentsMapper {
 	public int deleteComment(int commentIdx) throws SQLException;
 
 	// 피드 댓글 목록 조회 (리스트 형식 )
-	public List<CommentsDto> commentList(int feedIdx) throws SQLException;
+	public List<CommentsListDto> commentList(int feedIdx) throws SQLException;
 
 }
