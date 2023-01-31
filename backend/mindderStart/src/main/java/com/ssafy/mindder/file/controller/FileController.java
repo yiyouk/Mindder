@@ -70,7 +70,7 @@ public class FileController {
 	}
 
 	@GetMapping("/{fileIdx}")
-	public ResponseEntity<byte[]> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
+	public ResponseEntity<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
 		FileDto temp = fileService.findFile(fileIdx);
 		String saveFolder = temp.getSaveFolder(); // 파일 경로
 		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
@@ -84,6 +84,7 @@ public class FileController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return result;
+		//return result;
+		return new ResponseEntity<String>(filePath+"/"+saveFolder+"/"+saveFile, HttpStatus.OK);
 	}
 }
