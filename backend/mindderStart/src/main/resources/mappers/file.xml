@@ -8,7 +8,7 @@
 		<result column="save_file" property="saveFile" />
 
 	</resultMap>
-	<insert id="addFile" >
+	<insert id="addFile" parameterType="FileDto"  useGeneratedKeys="true" keyColumn="file_idx" keyProperty="fileIdx">
 		insert into imagefile(save_folder,original_file,save_file)
 		value(#{saveFolder},#{originalFile},#{saveFile})
 	</insert>

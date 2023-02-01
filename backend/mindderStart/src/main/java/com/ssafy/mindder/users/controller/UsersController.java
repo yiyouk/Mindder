@@ -53,7 +53,7 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "패스워드 변경 완료")
-	@PostMapping("/change-password")
+	@PatchMapping("/change-password")
 	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,@RequestBody UsersDto usersDto){
 		try {
 			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
@@ -200,17 +200,15 @@ public class UsersController {
 
 	@ApiOperation(value = "비밀번호 일치 여부를 반환한다.", response = String.class)
 	@PostMapping("/password")
-	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody String pwd) {
+	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody UsersDto userDto) {
 		logger.debug("findpassword - 호출");
 		try {
 			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
 
-			System.out.println(pwd);
-			pwd = SHA256.encrypt(pwd);
+			userDto.setPassword(SHA256.encrypt(userDto.getPassword()));
 			System.out.println(tempPwd);
-			if (pwd.equals(tempPwd)) {
-				boolean isPasswordMatched = true;
-				return ApiResponse.success(SuccessCode.READ_FIND_PWD,isPasswordMatched);
+			if (userDto.getPassword().equals(tempPwd)) {
+				return ApiResponse.success(SuccessCode.READ_FIND_PWD);
 			} else {
 				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
 			}
