@@ -8,12 +8,13 @@
 		<result column="save_file" property="saveFile" />
 
 	</resultMap>
-	<insert id="addFile" >
-		insert into imagefile(save_folder,original_file,save_file)
-		value(#{saveFolder},#{originalFile},#{saveFile})
-		<selectKey resultType="int">
-			select file_idx from imagefile where save_file = #{saveFile}
+	<insert id="addFile" parameterType="FileDto">
+		<selectKey keyProperty="idx" resultType="int" order="BEFORE">
+			select max(file_idx)+1 from imagefile
 		</selectKey>
+		insert into imagefile(file_idx,save_folder,original_file,save_file)
+		value(#{idx},#{saveFolder},#{originalFile},#{saveFile})
+		
 	</insert>
 	<select id="findFile" parameterType="int" resultMap="file">
 		select *
