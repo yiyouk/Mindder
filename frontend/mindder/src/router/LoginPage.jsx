@@ -40,9 +40,9 @@ function LoginPage(props) {
     }
 
     //닉네임 가져오기
-    const getNickName = async () =>{ // async, await을 사용하는 경우
+    const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
-            console.log("이곳은 getNickName 함수")
+            console.log("이곳은 setUserInfo 함수")
             console.log(getCookie("is_login"));
             const response = await axios.get(`http://mindder.me:8888/users/information`, {
                 headers: { access_token : `${getCookie("is_login")}` }
@@ -51,8 +51,11 @@ function LoginPage(props) {
 
             if(response.data.data !== null) {
                 const NickName = response.data.data.nickname;
+                const UserIdx = response.data.data.userIdx
+                console.log(UserIdx)
+                dispatch(userAction.SAVE({selected:UserIdx, case:"userIdx"}))
+                console.log(`유저아이디 저장`)
                 dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
-                // const NickName = useSelector((state)=>state.userState.nickname)
             }
         } catch (e) {
             alert("오류 발생!");
@@ -85,7 +88,7 @@ function LoginPage(props) {
                 console.log(getCookie("is_login"));
                 console.log("밑에서 get Name 부른다.")
 
-                getNickName();
+                setUserInfo();
 
                 navigate("/");
             } else{
