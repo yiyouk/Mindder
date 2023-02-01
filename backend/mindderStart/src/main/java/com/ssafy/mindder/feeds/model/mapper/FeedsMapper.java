@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 
 @Mapper
 public interface FeedsMapper {
@@ -26,7 +27,7 @@ public interface FeedsMapper {
 	public int deleteFeedScrap(int feedIdx) throws SQLException;
 
 	// 피드 수정
-	public int modifyFeed(FeedsDto boardDto) throws SQLException;
+	public boolean modifyFeed(FeedsUpdateDto boardDto) throws SQLException;
 
 	// 추천피드 목록 조회
 	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws SQLException;
@@ -42,10 +43,6 @@ public interface FeedsMapper {
 
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx) throws SQLException;
-
-	//////////////////////////////////////////////////////////////////
-
-	// 피드 작성 예시 크롤링
 
 	// 완성된 곰돌이 조회
 	// idx 2개 받음 -> DB에서 조회해서 이미지 URL로 보내주면 됨

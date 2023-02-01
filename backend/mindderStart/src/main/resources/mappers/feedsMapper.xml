@@ -5,17 +5,16 @@
 	<!-- 공개여부 -> default값은 공개로 -->
 	<insert id="writeFeed" parameterType="FeedsDto">
 		insert into mainfeed 
-		(update_date, update_time,is_public, main_text, normal_tag,is_deleted,user_idx,emote_idx,emote_color_idx,feed_hit)
-		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)		
+		(social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx, emote_complete_idx)
+		values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText},  #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
 	</insert>
 	
 	<!-- 글 작성 -> 감정 캘린더에 입력 -->
-		<insert id="writeCalendar" parameterType="FeedsDto">
+	<insert id="writeCalendar" parameterType="FeedsDto">
 		insert into feedcalendar 
-		(calendar_date, emote_idx,user_idx, emote_color_idx)
-		values(curdate(), #{emoteIdx}, #{userIdx}, #{emoteColorIdx})		
+		(calendar_date, emote_idx,user_idx, emote_complete_idx)
+		values(curdate(), #{emoteIdx}, #{userIdx},  #{emoteCompleteIdx})		
 	</insert>
-	
 	
 	<!-- 피드글 삭제-->
 	<!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
@@ -37,14 +36,14 @@
 	where feed_idx = #{feedIdx};
 	</update>
 	
-	<update id="deleteFeedScrap" parameterType="int">
+	<update id="deleteFeedScrap" parameterType="int" >
 	update feedscrap 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
 	
 	<!-- 피드글 수정-->
-	<update id ="modifyFeed" parameterType="FeedsDto">
+	<update id ="modifyFeed" parameterType="FeedsUpdateDto">
 	update mainfeed 
 	set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
 	where feed_idx=#{feedIdx} and is_deleted!='1'

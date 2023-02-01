@@ -27,9 +27,7 @@ function Modify() {
     // const [password, setPassword] = useState("");
     const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
-
-    // const NickName = useSelector((state)=>state.userState.nickName)
-
+ 
     useEffect(()=>{
         getUserInfo();
     }, [])

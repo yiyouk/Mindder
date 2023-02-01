@@ -5,6 +5,7 @@ import java.util.List;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 
 public interface FeedsService {
 
@@ -14,7 +15,7 @@ public interface FeedsService {
 	public boolean deleteFeed(int feedIdx) throws Exception;
 
 	// 피드 수정
-	public boolean modifyFeed(FeedsDto boardDto) throws Exception;
+	public boolean modifyFeed(FeedsUpdateDto feedsDto) throws Exception;
 
 	// 추천피드 목록 조회
 	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws Exception;
