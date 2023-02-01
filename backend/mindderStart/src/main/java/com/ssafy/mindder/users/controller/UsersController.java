@@ -86,8 +86,6 @@ public class UsersController {
 		}
 	}
 
-
-
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 삭제", response = String.class)
 	@DeleteMapping
 	public ApiResponse<?> deleteUser(@RequestHeader("access_token") String accessToken) {
@@ -296,17 +294,27 @@ public class UsersController {
 		}
 	}
 	
-	@ApiOperation(value = "임시 비밀번호 발급", response = String.class)
-	@GetMapping("/temp-password/{email}")
-	public ApiResponse<?> passwordConfirm(@PathVariable @ApiParam(value = "이메일", required = true) String email) {
-		logger.info("passwordConfirm - 호출 : " + email);
+	@ApiOperation(value = "임시 비밀번호 발급")
+	@PatchMapping("/temp-password/{email}")
+	public ApiResponse<?> tempPasswordModify(@PathVariable @ApiParam(value = "이메일", required = true) String email) {
+		logger.info("tempPasswordModify - 호출 : " + email);
 		try {
 			String tmpPw = emailService.sendSimplePwMessage(email);
 			logger.info("임시 비밀번호 : " + tmpPw);
+			UsersDto usersDto = new UsersDto();
+			String userIdx = usersService.findUserIdx(email);
+			if (userIdx == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_USER_EXCEPTION);
+			} else {
+				int idx = Integer.parseInt(userIdx);
+				usersDto.setUserIdx(idx);
+				usersDto.setPassword(SHA256.encrypt(tmpPw));
+			}
+			usersService.changePassword(usersDto);
 			return ApiResponse.success(SuccessCode.READ_TEMP_PASSWORD, tmpPw);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("passwordConfirm - 이메일 인증 중 에러");
+			logger.debug("tempPasswordModify - 임시 비밀번호 발급 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
