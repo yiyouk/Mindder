@@ -52,7 +52,6 @@ public class UsersController {
 		}
 	}
 
-
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
 	@GetMapping("/check-email/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
@@ -152,7 +151,6 @@ public class UsersController {
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
 			if (usersDto != null&& !usersDto.isDeleted()) {
-
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
