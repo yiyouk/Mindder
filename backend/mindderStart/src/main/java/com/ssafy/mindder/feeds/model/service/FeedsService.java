@@ -33,13 +33,9 @@ public interface FeedsService {
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx) throws Exception;
 
+	// 완성된 곰돌이 조회
 	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	//////////////////////////////////////////////////////////////////
-
-	// 피드 작성 예시 크롤링
-
-	// 완성된 곰돌이 조회
-	// idx 2개 받음 -> DB에서 조회해서 이미지 URL로 보내주면 됨
 
 }
