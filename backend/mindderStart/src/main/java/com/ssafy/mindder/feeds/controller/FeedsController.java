@@ -203,6 +203,9 @@ public class FeedsController {
 	}
 
 	// 메인 페이지 추천 피드 조회
+	// 유저가 최근에 선택했던 감정 색상을 기준으로 추천 페이지 제공
+	// 색상이 동일하면서 hit수가 높은 순으로 조회
+
 	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
 	@GetMapping("/recommendation")
 	public ApiResponse<?> recommendation(
