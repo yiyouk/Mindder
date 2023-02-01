@@ -19,7 +19,8 @@ public enum SuccessCode {
 	// feeds
 	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
 	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
-	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"),
+	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), READ_FIND_BEAR(SUCCESS, "완성된 곰돌이 이미지 조회"),
+	READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"),
 
 	// comment
 	DELETE_COMMNET(SUCCESS, "메인 피드 댓글 삭제 성공"), CREATE_COMMENT(SUCCESS, "메인 피드 댓글 작성 성공"),
@@ -36,23 +37,16 @@ public enum SuccessCode {
 	// scrap
 	CREATE_SCRAP(SUCCESS, "스크랩 등록 성공"), DELETE_SCRAP(SUCCESS, "스크랩 삭제 성공"),
 	READ_MY_SCRAP_LIST(SUCCESS, "내 스크랩 목록 조회 성공"),
-	
+
 	// email
 	READ_EMAIL_CONFIRM(SUCCESS, "인증 코드 발급 성공"),
 	READ_TEMP_PASSWORD(SUCCESS, "임시 비밀번호 발급 성공"),
 
 	// users
-	CREATE_USER(SUCCESS, "유저 정보 등록 성공"), 
-	READ_CHECK_EMIAL(SUCCESS, "이메일 중복 확인 성공"), 
-	DELETE_USER(SUCCESS, "유저 정보 삭제 성공"),
-	UPDATE_USER(SUCCESS, "유저 정보 수정 성공"), 
-	READ_KAKAO_LOGIN(SUCCESS, "카카오 유저 로그인 성공"), 
-	READ_LOGIN(SUCCESS, "유저 로그인 성공"),
-	READ_LOGOUT(SUCCESS, "유저 로그아웃 성공"), 
-	READ_FIND_PWD(SUCCESS, "유저 비밀번호 일치 여부 확인 성공"),
-	READ_CHECK_NICKNAME(SUCCESS, "유저 닉네임 중복 여부 확인 성공"), 
-	READ_CHECK_USER(SUCCESS, "유저 정보 반환 성공"),
-	;
+	CREATE_USER(SUCCESS, "유저 정보 등록 성공"), READ_CHECK_EMIAL(SUCCESS, "이메일 중복 확인 성공"), DELETE_USER(SUCCESS, "유저 정보 삭제 성공"),
+	UPDATE_USER(SUCCESS, "유저 정보 수정 성공"), READ_KAKAO_LOGIN(SUCCESS, "카카오 유저 로그인 성공"), READ_LOGIN(SUCCESS, "유저 로그인 성공"),
+	READ_LOGOUT(SUCCESS, "유저 로그아웃 성공"), READ_FIND_PWD(SUCCESS, "유저 비밀번호 일치 여부 확인 성공"),
+	READ_CHECK_NICKNAME(SUCCESS, "유저 닉네임 중복 여부 확인 성공"), READ_CHECK_USER(SUCCESS, "유저 정보 반환 성공"),;
 
 	private final StatusCode statusCode;
 	private final String message;
@@ -60,5 +54,5 @@ public enum SuccessCode {
 	public int getStatus() {
 		return statusCode.getStatus();
 	}
-	
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
@@ -46,4 +47,6 @@ public interface FeedsMapper {
 
 	// 완성된 곰돌이 조회
 	// idx 2개 받음 -> DB에서 조회해서 이미지 URL로 보내주면 됨
+	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
+
 }
