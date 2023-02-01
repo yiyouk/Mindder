@@ -179,5 +179,10 @@ public class UsersServiceImpl implements UsersService {
         
 		return rt;
 	}
+	
+	@Override
+	public String findUserIdx(String email) throws Exception {
+		return usersMapper.selectUserIdx(email);
+	}
 
 }
