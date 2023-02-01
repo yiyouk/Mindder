@@ -14,14 +14,18 @@ import lombok.ToString;
 public class FeedsDto {
 
 	private int feedIdx;
-	private int userIdx;
+	private String socialId;
 	private String updateDate;
+	private String updateTime;
 	private boolean isPublic;
 	private String mainText;
+	private String normalTag;
+	private boolean isDeleted;
+	private int userIdx;
 	private int emoteIdx;
 	private int emoteColorIdx;
-	private String normalTag;
-	private int hit;
-	private boolean isDeleted;
+	private int feedHit;
+	private int fileIdx;
+	private int emoteCompleteIdx;
 
 }
