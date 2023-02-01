@@ -11,14 +11,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedsParameterDto {
-	private int feedIdx;
-	private String nickname;
-	private String updateDate;
-	private int commentCount;
-	private int likeCount;
-	private int cheerupCount;
-	private int sadCount;
-	private int likeTotalCount;
+public class FeedsBearDto {
+
+	private int emoteIdx;
+	private int emoteColorIdx;
 	private int fileIdx;
+
 }

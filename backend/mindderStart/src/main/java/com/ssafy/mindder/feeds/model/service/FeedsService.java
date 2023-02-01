@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.model.service;
 
 import java.util.List;
 
+import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
@@ -31,6 +32,8 @@ public interface FeedsService {
 
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx) throws Exception;
+
+	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	//////////////////////////////////////////////////////////////////
 

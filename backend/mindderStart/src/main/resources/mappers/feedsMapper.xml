@@ -91,6 +91,16 @@
              	on f.feed_idx = l.feed_idx ;
         
 	</select>
+	
+	
+	
+	
+	<!--완성된 곰돌이 이미지 조회 -->
+	<select id="searchFile" parameterType="FeedsBearDto" resultMap="com.ssafy.resultmaps.bear">
+	select file_idx, emote_idx, emote_color_idx
+	from feedemotecomplete 
+	where emote_idx=#{emoteIdx} and emote_color_idx=#{emoteColorIdx}
+	</select>
 
 </mapper>
 
