@@ -45,6 +45,7 @@ public class UsersController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	@ApiOperation(value = "이메일 중복 확인", response = String.class)
 	@GetMapping("/check/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
 		int temp = 0;
@@ -106,7 +107,7 @@ public class UsersController {
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
-			if (usersDto != null) {
+			if (usersDto != null&&!usersDto.isDeleted()) {
 				usersDto.setRefreshToken(token.get("refresh_token"));
 				// 회원가입 이후 DB조회 후 우리 idx로 변환
 				usersService.addToken(usersDto);
@@ -184,7 +185,8 @@ public class UsersController {
 			pwd = SHA256.encrypt(pwd);
 			System.out.println(tempPwd);
 			if (pwd.equals(tempPwd)) {
-				return ApiResponse.success(SuccessCode.READ_FIND_PWD);
+				boolean isPasswordMatched = true;
+				return ApiResponse.success(SuccessCode.READ_FIND_PWD,isPasswordMatched);
 			} else {
 				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
 			}
