@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,7 @@ import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
+import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,6 +43,8 @@ public class FeedsController {
 
 	@Autowired
 	private FeedsService feedsService;
+	@Autowired
+	private JwtService jwtService;
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 	private static final String SUCCESS = "success";
@@ -113,12 +117,14 @@ public class FeedsController {
 
 	// 팔로잉 하는 이웃의 피드 리스트 조회
 	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
-	@GetMapping("/neighbors/{userIdx}")
-	public ApiResponse<?> neighborFeed(
-			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+	@GetMapping("/neighbors")
+	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("userIdx - 호출");
 		try {
+			int userIdx = jwtService.neighborFeed(accessToken);
+			System.out.println(userIdx);
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+			System.out.println(neighborList);
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,7 +133,7 @@ public class FeedsController {
 		}
 	}
 
-	// 핀터레스트 이미지 크롤링
+	// 이미지 크롤링
 	@ApiOperation(value = "이미지 크롤링 ", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/crawling/{color}")
 	public ApiResponse<?> crawling(String color) throws Exception {
@@ -195,21 +201,21 @@ public class FeedsController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-//
-//	// 팔로잉 하는 이웃의 피드 리스트 조회
-//	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
-//	@GetMapping("/recommendation")
-//	public ApiResponse<?> neighborFeed(
-//			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
-//		logger.info("userIdx - 호출");
-//		try {
-//			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
-//			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
-//			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-//		}
-//	}
+
+	// 메인 페이지 추천 피드 조회
+	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
+	@GetMapping("/recommendation")
+	public ApiResponse<?> recommendation(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+		logger.info("userIdx - 호출");
+		try {
+			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
 
 }
