@@ -25,6 +25,7 @@ function ModifyPage(props) {
         removeCookie("is_login")
         dispatch(tokenAction.DELETE_TOKEN())
         dispatch(userAction.SAVE({selected:"", case:"nickName"}))
+        dispatch(userAction.SAVE({selected:null, case:"userIdx"}))
         navigate('/')
     }
 
