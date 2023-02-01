@@ -1,8 +1,9 @@
 // 추천 캔버스 출력할 컴포넌트
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CanvasItem from "./CanvasItem";
+// import api from "../../api/api";
 
 // 추천 캔버스
 const Container = styled.div`
@@ -22,11 +23,18 @@ const CanvasItemContainer = styled.div`
 `
 
 function CanvasList(props){
+ const navigate = useNavigate()
+
+  const feedIdx = props.feedIdx
   return (
     <Container>
       <CanvasItemContainer>
-        {/* 여기서 for문 */}
-        <CanvasItem size="s"/>
+        {/* {feedList.map((feed)=>{
+          <CanvasItem
+            feed={feed} key={feed.feedIdx} size={"s"}
+          />
+        })} */}
+        <CanvasItem size="s" feedIdx={feedIdx}/>
         <CanvasItem size="s"/>
         <CanvasItem size="s"/>
       </CanvasItemContainer>
