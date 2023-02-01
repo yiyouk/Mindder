@@ -37,14 +37,14 @@
 	where feed_idx = #{feedIdx};
 	</update>
 	
-	<update id="deleteFeedScrap" parameterType="int">
+	<update id="deleteFeedScrap" parameterType="int" >
 	update feedscrap 
 	set is_deleted = 1
 	where feed_idx = #{feedIdx};
 	</update>
 	
 	<!-- 피드글 수정-->
-	<update id ="modifyFeed" parameterType="FeedsDto">
+	<update id ="modifyFeed" parameterType="FeedsUpdateDto">
 	update mainfeed 
 	set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
 	where feed_idx=#{feedIdx} and is_deleted!='1'
