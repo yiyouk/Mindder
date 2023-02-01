@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {getCookie, setCookie} from "../api/cookie";
+import {getCookie, setCookie, removeCookie} from "../api/cookie";
 
 //로그인 유지
 import { useDispatch} from "react-redux";
-import {tokenAction} from "../redux/store"
+import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
+import axios from "axios";
 import api from "../api/api";
 
 import '../assets/css/main.css';
@@ -38,6 +39,28 @@ function LoginPage(props) {
         }
     }
 
+    //닉네임 가져오기
+    const getNickName = async () =>{ // async, await을 사용하는 경우
+        try {
+            console.log("이곳은 getNickName 함수")
+            console.log(getCookie("is_login"));
+            const response = await axios.get(`http://mindder.me:8888/users/information`, {
+                headers: { access_token : `${getCookie("is_login")}` }
+            });
+            console.log(response);
+
+            if(response.data.data !== null) {
+                const NickName = response.data.data.nickname;
+                dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
+                // const NickName = useSelector((state)=>state.userState.nickname)
+            }
+        } catch (e) {
+            alert("오류 발생!");
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
     async function getUser(){ // async, await을 사용하는 경우
         try {
             const response = await api.post(`/users/login`,
@@ -46,15 +69,24 @@ function LoginPage(props) {
                 password: password
             });
 
-            console.log(response.data);
-
+            
             if(response.data.success===true){
                 const accessToken = response.data.data.accessToken;
-                //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
-                setCookie("is_login", `${accessToken}`);
-                console.log("오그인할떄 쿠키키")
+
+                if(getCookie("is_login") !== undefined){
+                    removeCookie("is_login")
+                    dispatch(tokenAction.DELETE_TOKEN("is_login"))
+                }
+                        
+                setCookie("is_login", accessToken);
+                dispatch(tokenAction.SET_TOKEN(accessToken));
+                
+                console.log("현재 setting cookie");
                 console.log(getCookie("is_login"));
-                dispatch(tokenAction.SET_TOKEN(`${accessToken}`));
+                console.log("밑에서 get Name 부른다.")
+
+                getNickName();
+
                 navigate("/");
             } else{
                 alert("로그인 정보를 다시 확인해주세요.");
