@@ -38,7 +38,8 @@ public enum SuccessCode {
 	READ_MY_SCRAP_LIST(SUCCESS, "내 스크랩 목록 조회 성공"),
 	
 	// email
-	READ_EMAIL_CONFIRM(SUCCESS, "인증 코드 발송 성공"),
+	READ_EMAIL_CONFIRM(SUCCESS, "인증 코드 발급 성공"),
+	READ_TEMP_PASSWORD(SUCCESS, "임시 비밀번호 발급 성공"),
 
 	// users
 	CREATE_USER(SUCCESS, "유저 정보 등록 성공"), 
