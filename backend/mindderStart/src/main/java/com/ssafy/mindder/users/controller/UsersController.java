@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -28,6 +29,7 @@ import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.SHA256;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -42,22 +44,51 @@ public class UsersController {
 	private EmailService emailService;
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
+	private static class Check {
+		@JsonProperty
+		boolean available;
+		public Check(boolean available) {
+			this.available = available;
+		}
+	}
 
 	@ApiOperation(value = "이메일 중복 확인", response = String.class)
 	@GetMapping("/check/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
-		int temp = 0;
+		logger.debug("checkEmail - 호출");
 		try {
-			temp = usersService.checkEmail(email);
-			if (temp == 0) {
-				return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+			int check = 0;
+			Check emailCheck = new Check(false);
+			check = usersService.checkEmail(email);
+			if (check == 0) {
+				emailCheck.available = true;
+				return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL, emailCheck);
 			} else {
-				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
+				return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL, emailCheck);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	@ApiOperation(value = "닉네임 중복 여부를 반환한다.")
+	@GetMapping("/check-nickname/{nickname}")
+	public ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
+		logger.debug("checkNickname - 호출");
+		try {
+			int check = 0;
+			Check nicknameCheck = new Check(false);
+			check = usersService.checkNickname(nickname);
+			if (check == 0) {
+				nicknameCheck.available = true;
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
+			} else {
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("checkNickname - 닉네임 체크 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
@@ -257,8 +288,8 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "이메일 인증", response = String.class)
-    @GetMapping()
-    public ApiResponse<?> mailConfirm(@RequestParam String email) {
+	@GetMapping("/email-confirm/{email}")
+	public ApiResponse<?> mailConfirm(@PathVariable @ApiParam(value = "이메일", required = true) String email) {
 		logger.info("mailConfirm - 호출 : " + email);
 		try {
 			String code = emailService.sendSimpleMessage(email);
@@ -269,6 +300,6 @@ public class UsersController {
 			logger.debug("mailConfirm - 이메일 인증 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
-    }
+	}
 
 }
