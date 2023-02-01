@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
@@ -169,6 +170,28 @@ public class FeedsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(" crawling- 이미지 크롤링 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 완성된 곰돌이 이미지 조회 -> request body
+	@ApiOperation(value = "완성된 곰돌이 이미지 조회 ", notes = "완성된 곰돌이 이미지를 조회한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping("/emote-complete")
+	public ApiResponse<?> searchFile(
+			@RequestBody @ApiParam(value = "완성된 곰돌이 이미지 ", required = true) FeedsBearDto feedsBearDto)
+			throws Exception {
+		logger.info("searchFile - 호출");
+		try {
+
+			FeedsBearDto fileIdx = feedsService.searchFile(feedsBearDto);
+			if (fileIdx != null)
+				return ApiResponse.success(SuccessCode.READ_FIND_BEAR, fileIdx);
+			else
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("searchFile - 곰돌이 이미지 불러오는 중 에러 발생");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
