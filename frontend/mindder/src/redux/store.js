@@ -154,7 +154,8 @@ export const Colors16 = [
 const initialState = {
   emotagSrc:"/static/media/face2.66e6957fbe1fd4bfad8b.png",
   todayEmotion:null,
-  todayColor:null
+  todayColor:null,
+  nickName:""
 }
 
 const userStateSlice = createSlice({
@@ -174,6 +175,10 @@ const userStateSlice = createSlice({
         case "imgSrc":
           state.emotagSrc = action.payload.selected
           console.log(`이미지url : ${state.emotagSrc}`)
+          break;
+        case "nickName":
+          state.nickName = action.payload.selected
+          console.log(`nickName : ${state.nickName}`)
           break;
         default:
           break;
