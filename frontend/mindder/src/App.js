@@ -4,6 +4,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import api from "./api/api"
 
 // Pages
 import MainPage from './router/MainPage';
@@ -19,7 +20,7 @@ import JoinPage from "./router/JoinPage";
 import LoginPage from "./router/LoginPage";
 import ModifyPage from "./router/ModifyPage";
 import PwChangePage from "./router/PwChangePage";
-import PwFindPage from "./router/PwFindPage";
+// import PwFindPage from "./router/PwFindPage";
 import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
 import SearchNamePage from "./router/SearchNamePage";
@@ -31,28 +32,38 @@ import ErrorPage from "./router/ErrorPage";
 
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenAction } from "./redux/store";
+import { tokenAction, userAction } from "./redux/store";
 const userId = 0
 const idx = 0
 // const keyword = "사랑"
 
 function App(props) {
     const dispatch = useDispatch()
-    const test2 = useSelector((state)=>state)
+
     useEffect(()=>{
-        // console.log(test2.authToken)
-        // const test = () => getCookie("is_login")
         if(getCookie("is_login") !== undefined){
             dispatch(tokenAction.SET_TOKEN(getCookie("is_login")));
         } else {
             dispatch(tokenAction.DELETE_TOKEN("is_login"));
         }
-        console.log(test2.authToken)
+        getNickName();
+        
     }, [])
 
-    console.log(`저장 후 :`)
-    console.log(test2.authToken)
-        
+        //닉네임 가져오기
+    async function getNickName(){ // async, await을 사용하는 경우
+            try {
+                const response = await api.get(`/users/information`, null);
+                if(response.data.data !== null) {
+                    const NickName = response.data.data.nickname;
+                    dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
+                    // const NickName = useSelector((state)=>state.userState.nickname)
+                }
+            } catch (e) {
+                alert("오류 발생!");
+                console.error(e);
+            }
+    }
 
         return (
         <BrowserRouter>
@@ -73,7 +84,7 @@ function App(props) {
                     <Route path="accounts/edit" element={<ModifyPage />} />
                     <Route path="post" element={<PostPage />} />
                     <Route path="accounts/password/change" element={<PwChangePage />} />
-                    <Route path="accounts/password/find" element={<PwFindPage />} />
+                    {/* <Route path="accounts/password/find" element={<PwFindPage />} /> */}
                     <Route path="accounts/remove" element={<RemovePage />} />
                     <Route path={`${userId}/saved`} element={<SavedPage />} />
                     <Route path={`search/:keyword/nickname`} element={<SearchNamePage />} />
