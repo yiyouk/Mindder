@@ -6,7 +6,7 @@ import ErrorPage from "./ErrorPage";
 
 function JoinPage(props) {
     const [number, setNumber] = useState(0);
-    const [email, setEmail] = useState("낫띵");
+    const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
     const getData = (e) => {
@@ -27,7 +27,7 @@ function JoinPage(props) {
                 </header>
                 <JoinEmail getData={getData}></JoinEmail>
                 <div className="center-container">
-                    <button className="maincolor-white-btn" onClick={onIncrease}>다음</button>
+                    {email === "" ? null :<button className="maincolor-white-btn" onClick={onIncrease}>다음</button>}
                 </div>
             </div>
         );
