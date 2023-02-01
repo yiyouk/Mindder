@@ -20,7 +20,7 @@ import JoinPage from "./router/JoinPage";
 import LoginPage from "./router/LoginPage";
 import ModifyPage from "./router/ModifyPage";
 import PwChangePage from "./router/PwChangePage";
-// import PwFindPage from "./router/PwFindPage";
+import PwFindPage from "./router/PwFindPage";
 import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
 import SearchNamePage from "./router/SearchNamePage";
@@ -84,7 +84,7 @@ function App(props) {
                     <Route path="accounts/edit" element={<ModifyPage />} />
                     <Route path="post" element={<PostPage />} />
                     <Route path="accounts/password/change" element={<PwChangePage />} />
-                    {/* <Route path="accounts/password/find" element={<PwFindPage />} /> */}
+                    <Route path="accounts/password/find" element={<PwFindPage />} />
                     <Route path="accounts/remove" element={<RemovePage />} />
                     <Route path={`${userId}/saved`} element={<SavedPage />} />
                     <Route path={`search/:keyword/nickname`} element={<SearchNamePage />} />

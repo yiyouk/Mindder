@@ -90,16 +90,16 @@ function JoinRegister({email}) {
                 email: email,
                 password: password,
                 emoteColorIdx: myColor,
-                socialToken: "@mindder"
+                socialId: "@mindder"
             });
             
             
             if(response.data.success){
-                alert("오류입니다. 다시 시도해주세요.");
-                navigate("/error");
-            } else{
                 alert("회웝가입이 완료되었습니다.");
                 navigate("/login");
+            } else{
+                alert("오류입니다. 다시 시도해주세요.");
+                navigate("/error");
             }
             
         } catch (e) {
