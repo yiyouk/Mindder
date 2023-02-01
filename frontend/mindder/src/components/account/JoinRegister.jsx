@@ -89,8 +89,8 @@ function JoinRegister({email}) {
                 nickname: nickname,
                 email: email,
                 password: password,
-                emoteColor: myColor,
-                socialId: "@mindder"
+                emoteColorIdx: myColor,
+                socialToken: "@mindder"
             });
             
             

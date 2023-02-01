@@ -11,21 +11,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedsDto {
+public class FeedsUpdateDto {
 
 	private int feedIdx;
-	private String socialId;
-	private String updateDate;
-	private String updateTime;
 	private boolean isPublic;
 	private String mainText;
 	private String normalTag;
-	private boolean isDeleted;
-	private int userIdx;
-	private int emoteIdx;
-	private int emoteColorIdx;
-	private int feedHit;
-	private int fileIdx;
-	private int emoteCompleteIdx;
 
 }

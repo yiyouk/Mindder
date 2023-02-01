@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
 
 @Service
@@ -19,9 +20,9 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
+
 		sqlSession.getMapper(FeedsMapper.class).writeCalendar(feedsDto);
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
-
 	}
 
 	@Override
@@ -33,8 +34,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public boolean modifyFeed(FeedsDto boardDto) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto) == 1;
+	public boolean modifyFeed(FeedsUpdateDto boardDto) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto);
 	}
 
 	@Override

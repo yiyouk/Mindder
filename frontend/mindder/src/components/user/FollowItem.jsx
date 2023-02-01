@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import UserInfo from '../../commons/ui/ProfileImage';
 import FollowButton from '../../commons/ui/FollowButton';
-
+import ProfileImage from '../../commons/ui/ProfileImage';
+import ProfileName from '../../commons/ui/ProfileName';
+import { ProfileContainer } from './UserMenu';
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -22,16 +22,19 @@ function FollowItem({props}) {
   const [isFollow, setIsFollow] = useState(false);
 
   const handleFollowState = () => {
-    console.log(isFollow)
     isFollow ? setIsFollow(false) : setIsFollow(true)
+    console.log(isFollow)
   };
 
   return (
     <Wrapper>
-      {/* <Link to={`/${props.userID}}`}> */}
-        <UserInfo name="양양" />
-      {/* </Link> */}
-      <FollowButton onClick={handleFollowState} active={isFollow} title={isFollow ? '팔로잉' : '팔로우'}/>
+      <ProfileContainer>
+        <ProfileImage size="s"></ProfileImage>
+        <ProfileName size="s" name="닉네임"></ProfileName>
+      </ProfileContainer>
+      <FollowButton onClick={handleFollowState} active={isFollow}>
+        {isFollow ? '팔로잉' : '팔로우'}
+      </FollowButton>
     </Wrapper>
   );
 }
