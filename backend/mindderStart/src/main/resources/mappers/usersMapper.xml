@@ -65,5 +65,10 @@
 		set refresh_token=null
 		where user_idx = #{userIdx}
 	</update>
+	<select id="selectUserIdx" parameterType="String" resultType="String">
+		select user_idx
+		from mainuser
+		where email = #{email}
+	</select>
 	
 </mapper>
