@@ -52,6 +52,20 @@ public class UsersController {
 		}
 	}
 
+	@ApiOperation(value = "패스워드 변경 완료")
+	@PostMapping("/change-password")
+	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,@RequestBody UsersDto usersDto){
+		try {
+			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
+			usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
+			usersService.changePassword(usersDto);
+			return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
 	@GetMapping("/check-email/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
