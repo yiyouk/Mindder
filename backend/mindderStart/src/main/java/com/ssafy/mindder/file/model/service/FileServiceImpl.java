@@ -12,8 +12,9 @@ public class FileServiceImpl implements FileService{
 	@Autowired
 	FileMapper fileMapper;
 	@Override
-	public void addFile(FileDto fileDto) {
+	public int addFile(FileDto fileDto) {
 		fileMapper.addFile(fileDto);
+		return fileDto.getFileIdx();
 	}
 	@Override
 	public FileDto findFile(int fileIdx) {

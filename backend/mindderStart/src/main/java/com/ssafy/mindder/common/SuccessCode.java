@@ -13,6 +13,8 @@ public enum SuccessCode {
 	/*
 	 * 등록/생성: CREATE, 조회: READ, 수정: UPDATE, 삭제/취소: DELETE
 	 */
+	//file
+	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"),
 	//password
 	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
 
