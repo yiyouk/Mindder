@@ -1,18 +1,36 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {removeCookie} from "../api/cookie";
+import {tokenAction} from "../redux/store"
+
+//비동기 동신
+import api from "../api/api";
+
 import '../assets/css/main.css';
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
 
 function RemovePage(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const goodbye = async () => {
+        try{
+            const response = await api.delete(`/users`, null);
+            if(response.data.success){                
+                
+                removeCookie("is_login")
+                dispatch(tokenAction.DELETE_TOKEN("is_login"))
+
+                alert("회원퇼퇴가 완료 되었습니다.");
+                navigate("/");
+            } else{
+                alert("회원퇼퇴 실패! 재시도 부탁드립니다.");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
 
     return (
         <div className="line-box">
@@ -26,7 +44,7 @@ function RemovePage(props) {
             </div>
             <button className="maincolor-white-btn"
                 onClick={() => {
-                    navigate("/login");
+                    goodbye();
                 }}>
                 탈퇴하기
             </button>
