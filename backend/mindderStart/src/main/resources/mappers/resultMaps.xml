@@ -49,5 +49,6 @@
 		<result column="feed_idx" property="feedIdx" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
+		<result column="emote_complete_idx" property="emoteCompleteIdx" />
 	</resultMap>
 </mapper>

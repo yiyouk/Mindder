@@ -16,5 +16,6 @@ public class FeedListDto {
 	int feedIdx;
 	int commentCount;
 	int likeTotalCount;
-	
+	private int emoteCompleteIdx;
+
 }
