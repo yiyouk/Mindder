@@ -13,7 +13,8 @@ public class FileServiceImpl implements FileService{
 	FileMapper fileMapper;
 	@Override
 	public int addFile(FileDto fileDto) {
-		return fileMapper.addFile(fileDto);
+		fileMapper.addFile(fileDto);
+		return fileDto.getFileIdx();
 	}
 	@Override
 	public FileDto findFile(int fileIdx) {
