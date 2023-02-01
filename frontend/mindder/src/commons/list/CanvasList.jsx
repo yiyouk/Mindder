@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CanvasItem from "./CanvasItem";
-// import api from "../../api/api";
+import api from "../../api/api";
 
 // 추천 캔버스
 const Container = styled.div`
@@ -25,16 +25,29 @@ const CanvasItemContainer = styled.div`
 function CanvasList(props){
  const navigate = useNavigate()
 
-  const feedIdx = props.feedIdx
+  const feedList = props.feedList
+  // emoteCompleteIdx : 완성된 곰돌이 이미지 id
+  // fileIdx : 이미지파일의 id.
+  // 이미지파일 얻으려면 이 id로 다시한번 요청보내야함
+
+  // async function getBearImg (){
+  //   try {
+  //     const response = await api.post(`/file/${fileIdx}`, null);
+  //   } catch (error) {
+      
+  //   }
+  // }
+
   return (
     <Container>
       <CanvasItemContainer>
+        {/* 서버 api 구현되면 주석 푸삼 */}
         {/* {feedList.map((feed)=>{
           <CanvasItem
-            feed={feed} key={feed.feedIdx} size={"s"}
+          size={"s"} feedIdx={feed.feedIdx} commentCount={feed.commentCount} likeTotalCount={feed.likeTotalCount}
           />
         })} */}
-        <CanvasItem size="s" feedIdx={feedIdx}/>
+        <CanvasItem size="s"/>
         <CanvasItem size="s"/>
         <CanvasItem size="s"/>
       </CanvasItemContainer>
