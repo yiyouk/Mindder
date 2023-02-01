@@ -1,4 +1,4 @@
-import React, { useState }from "react";
+import React, { useEffect, useState }from "react";
 import "../assets/css/main.css";
 import styled from "styled-components";
 import ErrorPage from "./ErrorPage";
@@ -6,19 +6,27 @@ import CanvasList from "../commons/list/CanvasList";
 import FeedRecoDetail from "../components/feed/FeedRecoDetail";
 import PlusIcon from "../assets/images/icon5.png";
 import BackIcon from "../assets/images/back.png";
+import api from "../api/api";
+import { useNavigate } from "react-router-dom"; 
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
-    margin: 2rem 0 3rem 0;
+    margin: 0 0 3rem 0;
 `;
 
 const Container = styled.div`
     display: flex;
     color: rgb(67, 67, 67);
     font-weight: 600;
+    /* border:1px solid black;  */
+    margin: 1.5rem 0 1rem 0;
 `  
 
 const ContainerT = styled.div`
-    margin-bottom: 3rem;
+    display: flex;
+    flex-direction:column;
+    margin-bottom: 2rem;
+    /* border:1px solid blue; */
 `  
 
 const Comment = styled.div`
@@ -31,76 +39,123 @@ const Comment = styled.div`
 `  
 
 function FeedPage(props) {
-    const [number, setNumber] = useState(0);
+    const navigate = useNavigate()
+    const [level, setLevel] = useState(0);
     const [kind, setKind] = useState(0);
-    const text = [
-        {
-          id: "1",
-          comment: "최근, 비슷한 감정을 공유했어요 ",
-        },
-        {
-          id: "2",
-          comment: '최근, 비슷한 감정색을 사용했어요 ',
-        },
-        {
-          id: "3",
-          comment: "동찬님이 이웃이 최근 공유했어요",
-        }
-      ];
+      
+    const onClick = (kind) => {
+        setLevel(level+1);
+        setKind(kind.id);
+    }
     
-    function changeState(s) {
-        setKind(s);
+    const userIdx = useSelector((state)=>state.userState.userIdx)
+    const [similarTagFeeds, setSimilarTagFeeds] = useState([])
+    const [similarColorFeeds, setSimilarColorFeeds] = useState([])
+    const [neighborFeeds, setNeighborFeeds] = useState([])
+
+    async function getSimilarTagFeeds(){ // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/feeds/similarity-tag`, null);
+
+            if(response.data.success===true){
+                console.log(`감정태그피드 데이터 불러오기 : ${response.data.message}`);
+                const tagFeedList = response.data.data
+                // const tempList = tagFeedList.slice(0,2)
+                console.log(tagFeedList)
+                setSimilarTagFeeds(tagFeedList)
+            } else {
+                alert("데이터를 조회하지 못했습니다.");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+    async function getSimilarColorFeeds(){ // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/feeds/similarity-color`, null);
+
+            if(response.data.success===true){
+                console.log(`감정색피드 데이터 불러오기 : ${response.data.message}`);
+                const colorFeedList = response.data.data
+                // const tempList = colorFeedList.slice(0,2)
+                console.log(colorFeedList)
+                setSimilarColorFeeds(colorFeedList)
+            } else {
+                alert("데이터를 조회하지 못했습니다.");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+    async function getNeighborFeeds(){ // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/feeds/neighbors/`, null);
+
+            if(response.data.success===true){
+                console.log(`이웃피드데이터 불러오기 : ${response.data.message}`);
+                const neighborFeedList = response.data.data
+                // const tempList = neighborFeedList.slice(0,2)
+                console.log(neighborFeedList)
+                setNeighborFeeds(neighborFeedList)
+            } else {
+                alert("데이터를 조회하지 못했습니다.");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
     }
 
-    const onIncrease = () => {
-        setNumber(prevNumber => prevNumber + 1);
-    }
+    useEffect(()=>{
+        // 서버에서 api구현되면 주석 푸삼
+        // getSimilarTagFeeds()
+        // getSimilarColorFeeds()
+        getNeighborFeeds()
+    }, [])
 
-    const onDecrease = () => {
-        setNumber(prevNumber => prevNumber - 1);
-    }
-
-    if(number == 0){
+    const recentFeedList = [
+        {
+            id: "0",
+            comment: "최근, 비슷한 감정을 공유했어요 ",
+            data:similarTagFeeds
+        },
+        {
+            id: "1",
+            comment: '최근, 비슷한 감정색을 사용했어요 ',
+            data:similarColorFeeds
+        },
+        {
+            id: "2",
+            comment: "동찬님이 이웃이 최근 공유했어요",
+            data:neighborFeeds
+        }
+    ];
+    
+    if(level == 0){
         return (
-            <Wrapper>
+            <Wrapper>   
                 <ContainerT>
-                    <Container>
-                        <div>{text[0].comment}</div>
-                        <button type="button" className="img_btn" onClick={() => {
-                  onIncrease();
-                  changeState(0);
-                  }}><img  src={PlusIcon}/></button>
-                    </Container>
-                    <CanvasList ></CanvasList>
-                </ContainerT>
-                <ContainerT>
-                    <Container>
-                        <div>{text[1].comment}</div>
-                        <button type="button" className="img_btn" onClick={() => {
-                  onIncrease();
-                  changeState(1);
-                  }}><img  src={PlusIcon}/></button>
-                    </Container>
-                    <CanvasList></CanvasList>
-                </ContainerT>
-                <ContainerT>
-                    <Container>
-                        <div>{text[2].comment}</div>
-                        <button type="button" className="img_btn" onClick={() => {
-                  onIncrease();
-                  changeState(2);
-                  }}><img  src={PlusIcon}/></button>
-                    </Container>
-                    <CanvasList></CanvasList>
+                    {recentFeedList.map((recentFeed)=>(
+                        <>
+                        <Container key={recentFeed.id}>
+                            <div>{recentFeed.comment}</div>
+                            <button type="button" className="img_btn" onClick={() => {onClick(recentFeed)}}>
+                            <img  src={PlusIcon}/></button>
+                        </Container>
+                        <CanvasList feedList={recentFeed.data.slice(0,2)}/>
+                        </>
+                    ))}
                 </ContainerT>
             </Wrapper>
         );
-    } else  if(number == 1) {
+    } else  if(level == 1) {
         return (
             <Wrapper>
-                <button type="button" className="img_btn"  onClick={onDecrease}><img id = "back_btn" src={BackIcon}/></button>
-                <Comment>{text[kind].comment}</Comment>
-                <FeedRecoDetail></FeedRecoDetail>
+                <button type="button" className="img_btn"  onClick={()=>setLevel(level-1)}><img id = "back_btn" src={BackIcon}/></button>
+                <Comment>{recentFeedList[kind].comment}</Comment>
+                <FeedRecoDetail feedList={recentFeedList[kind].data}/>
             </Wrapper>
         );
     } else{

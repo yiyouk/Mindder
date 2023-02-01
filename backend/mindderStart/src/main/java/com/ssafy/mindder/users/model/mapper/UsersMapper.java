@@ -18,4 +18,6 @@ public interface UsersMapper {
 	void logout(int userIdx) throws Exception;
 	String findpassword(int userIdx) throws Exception;
 	int checkEmail(String email) throws Exception;
+	void changePassword(UsersDto usersDto) throws Exception;
+	String selectUserIdx(String email) throws Exception;
 }

@@ -24,7 +24,7 @@
 	<select id="checkEmail" parameterType="String" resultType="int">
 		select count(email)
 		from mainuser
-		where email = #{nickname}
+		where email = #{nickname} and is_deleted = 0
 	</select>
 	<select id="findSocialKakaoID" parameterType="String" resultMap="com.ssafy.resultmaps.user">
 		select *
@@ -50,6 +50,11 @@
 		set email=#{email}, nickname = #{nickname}, emote_color_idx = #{emoteColor}
 		where user_idx = #{userIdx}
 	</update>
+	<update id="changePassword" parameterType="UsersDto">
+		update mainuser
+		set password=#{password}
+		where user_idx = #{userIdx}
+	</update>
 	<update id="deleteUser" parameterType="int" >
 		update mainuser
 		set is_deleted = 1, update_date = now()
@@ -60,5 +65,10 @@
 		set refresh_token=null
 		where user_idx = #{userIdx}
 	</update>
+	<select id="selectUserIdx" parameterType="String" resultType="String">
+		select user_idx
+		from mainuser
+		where email = #{email}
+	</select>
 	
 </mapper>

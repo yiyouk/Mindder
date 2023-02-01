@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Imag from "../../assets/images/face1.png";
+import Imag from "../../assets/images/face2.png";
 
 const Wrapper = styled.div`
     display: flex;

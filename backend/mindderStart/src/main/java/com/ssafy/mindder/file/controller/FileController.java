@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.mindder.common.SuccessCode;
+import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.file.model.FileDto;
 import com.ssafy.mindder.file.model.service.FileService;
 
@@ -45,9 +47,9 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 	@PostMapping
-	public String fileUpLoad(@Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> fileUpLoad(@Value("${file.path.upload-files}") String filePath,
 			@RequestParam("upfile") MultipartFile[] files) throws Exception {
-		System.out.println(filePath);
+		int fileIdx =0;
 		if (!files[0].isEmpty()) {
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
 			String saveFolder = filePath + File.separator + today;
@@ -65,28 +67,30 @@ public class FileController {
 					fileInfoDto.setSaveFile(saveFileName);
 					mfile.transferTo(new File(folder, saveFileName));
 				}
-				fileService.addFile(fileInfoDto);
+				fileIdx= fileService.addFile(fileInfoDto);
 			}
 		}
-		return "!";
+		return ApiResponse.success(SuccessCode.READ_FILE_IDX, fileIdx);
+
 	}
 
 	@GetMapping("/{fileIdx}")
-	public ResponseEntity<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
+	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
 		FileDto temp = fileService.findFile(fileIdx);
 		String saveFolder = temp.getSaveFolder(); // 파일 경로
 		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
 		String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
 		File file = new File(filePath + saveFolder, saveFile);
 		ResponseEntity<String> result = null;
+		String tp =null;
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<String>(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)), headers, HttpStatus.OK);
+			tp =Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return ApiResponse.success(SuccessCode.READ_FILE_BASE64, tp);
 		//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
 }
