@@ -168,13 +168,11 @@ function Modify() {
         (socialId === "@mindder")? 
         <div className="col-12">
             <label className="form-label">비밀번호</label>
-            <div className="center-container"> 
-            <button className="white-black-line-btn"
+            <div className="center-container">  
+            <input className="white-black-line-btn" type="button" value = "비밀번호 수정"
               onClick={() => {
                   navigate("/accounts/password/change");
-              }}>
-              비밀번호 수정
-              </button>
+              }}/>
           </div>
         </div>
         :
