@@ -60,8 +60,7 @@ function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
     navigate(`/f/${feedIdx}`);
   };
   return(
-    <RecoCanvas onClick={onClick} size ={size}
-    imageUrl={imageUrl}
+    <RecoCanvas onClick={onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount}
     ></RecoCanvas>
   )
 }
