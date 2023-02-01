@@ -21,4 +21,5 @@ public class FeedsParameterDto {
 	private int sadCount;
 	private int likeTotalCount;
 	private int fileIdx;
+	private int userIdx;
 }
