@@ -1,20 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+// import { tokenAction, userAction } from "./redux/store";
 
-const Wrapper = styled.nav`
+import { useSelector } from "react-redux";
+
+const Wrapper = styled.div`
     background-color:white;
-    align-items: start;
+    align-items: center;
     display: flex;
+    justify-content: space-between;
     margin: 0.25rem 0;
+`;
+
+const Nick = styled.div`
+    color: #404040;
+    padding-right: 1rem;
+    font-size: 1rem;
 `;
 
 function TopBar(props) {
   const navigate = useNavigate();
+  const NickName = useSelector((state)=>state.userState.nickName)
 
   return (
     <Wrapper>
       <div className="headerLogo"></div>
+      {NickName ==="" ? null : <Nick> {NickName} 님 </Nick>}
     </Wrapper>
   )
 }
