@@ -52,13 +52,9 @@ public class UsersController {
 		}
 	}
 
-<<<<<<< HEAD
-	@ApiOperation(value = "이메일 중복 확인", response = String.class)
-	@GetMapping("/check/{email}")
-=======
+
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
 	@GetMapping("/check-email/{email}")
->>>>>>> bd698c82f9eaf7217456daf3acb6adc8cb743850
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
 		logger.debug("checkEmail - 호출");
 		try {
@@ -77,26 +73,7 @@ public class UsersController {
 		}
 	}
 
-	@ApiOperation(value = "닉네임 중복 여부를 반환한다.")
-	@GetMapping("/check-nickname/{nickname}")
-	public ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
-		logger.debug("checkNickname - 호출");
-		try {
-			int check = 0;
-			Check nicknameCheck = new Check(false);
-			check = usersService.checkNickname(nickname);
-			if (check == 0) {
-				nicknameCheck.available = true;
-				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
-			} else {
-				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("checkNickname - 닉네임 체크 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
+
 
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 삭제", response = String.class)
 	@DeleteMapping
@@ -174,11 +151,8 @@ public class UsersController {
 			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
-<<<<<<< HEAD
 			if (usersDto != null&& !usersDto.isDeleted()) {
-=======
-			if (usersDto != null && !usersDto.isDeleted()) {
->>>>>>> bd698c82f9eaf7217456daf3acb6adc8cb743850
+
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
@@ -260,20 +234,19 @@ public class UsersController {
 
 		}
 	}
-
-<<<<<<< HEAD
-	@ApiOperation(value = "닉네임 중복 여부를 반환한다.", response = String.class)
-	@GetMapping("/{nickname}")
-	ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
-
+	@ApiOperation(value = "닉네임 중복 여부를 반환한다.")
+	@GetMapping("/check-nickname/{nickname}")
+	public ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
 		logger.debug("checkNickname - 호출");
 		try {
 			int check = 0;
+			Check nicknameCheck = new Check(false);
 			check = usersService.checkNickname(nickname);
-			if (check == 1) {
-				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME,false);
+			if (check == 0) {
+				nicknameCheck.available = true;
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
 			} else {
-				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME,true);
+				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,9 +254,6 @@ public class UsersController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-
-=======
->>>>>>> bd698c82f9eaf7217456daf3acb6adc8cb743850
 	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
 	@GetMapping("/information")
 	ApiResponse<?> checkUser(@RequestHeader("access_token") String accessToken) {
