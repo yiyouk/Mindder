@@ -152,7 +152,7 @@ export const Colors16 = [
 ]
 
 const initialState = {
-  emotagSrc:"/static/media/face2.66e6957fbe1fd4bfad8b.png",
+  emotagSrc:"/static/media/face2.f3c1c753969210027376.png",
   todayEmotion:null,
   todayColor:null,
   nickName:"",
