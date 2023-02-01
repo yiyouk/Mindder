@@ -11,6 +11,9 @@
 	<insert id="addFile" >
 		insert into imagefile(save_folder,original_file,save_file)
 		value(#{saveFolder},#{originalFile},#{saveFile})
+		<selectKey resultType="int">
+			select file_idx from imagefile
+		</selectKey>
 	</insert>
 	<select id="findFile" parameterType="int" resultMap="file">
 		select *

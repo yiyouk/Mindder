@@ -53,7 +53,7 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "패스워드 변경 완료")
-	@PostMapping("/change-password")
+	@PatchMapping("/change-password")
 	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,@RequestBody UsersDto usersDto){
 		try {
 			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
