@@ -20,9 +20,9 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
+
 		sqlSession.getMapper(FeedsMapper.class).writeCalendar(feedsDto);
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
-
 	}
 
 	@Override
