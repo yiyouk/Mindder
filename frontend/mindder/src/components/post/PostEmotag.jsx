@@ -56,6 +56,7 @@ function PostEmoTag(props) {
             />
             <CardContainer>
                 {Emoticons.map((emo)=>(
+                    
                     <EmotionTag
                     key={emo.id} id={emo.id}
                     onClick={(e)=>{
