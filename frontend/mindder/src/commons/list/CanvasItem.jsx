@@ -18,19 +18,19 @@ const sizeStyles = css`
 const sizes = {
 
     // 디테일
-    l: {
+    "l": {
         height: '22rem',
         width: '22rem'
     },
 
     // 프로필
-    m: {
+    "m": {
         height: '10rem',
         width: '10rem',
     },
 
     // 추천피드
-    s: {
+    "s": {
         height: '6.5rem',
         width: '6.5rem',
     },
@@ -44,6 +44,7 @@ CanvasItem.defaultProps = {
 
 const RecoCanvas = styled.div`
   ${sizeStyles}
+  /* background-image:url(${(props)=>props.imageUrl}); */
   background-image:url(${CanvasSample});
   background-size:cover;
   filter: drop-shadow(0px 1.5px 1.5px rgba(0, 0, 0, 0.25));
@@ -52,13 +53,15 @@ const RecoCanvas = styled.div`
 `;
 
 
-function CanvasItem({size, feedId}) {
+function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
+  console.log(size, feedIdx)
   const navigate = useNavigate();
   const onClick = () => {
-    navigate(`/f/${feedId}`);
+    navigate(`/f/${feedIdx}`);
   };
   return(
-    <RecoCanvas onClick={onClick} size ={size}></RecoCanvas>
+    <RecoCanvas onClick={onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount}
+    ></RecoCanvas>
   )
 }
 

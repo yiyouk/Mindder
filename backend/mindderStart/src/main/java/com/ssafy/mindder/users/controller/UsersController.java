@@ -52,6 +52,20 @@ public class UsersController {
 		}
 	}
 
+	@ApiOperation(value = "패스워드 변경 완료")
+	@PatchMapping("/change-password")
+	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,@RequestBody UsersDto usersDto){
+		try {
+			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
+			usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
+			usersService.changePassword(usersDto);
+			return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
 	@GetMapping("/check-email/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
@@ -71,8 +85,6 @@ public class UsersController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-
-
 
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 삭제", response = String.class)
 	@DeleteMapping
@@ -188,17 +200,15 @@ public class UsersController {
 
 	@ApiOperation(value = "비밀번호 일치 여부를 반환한다.", response = String.class)
 	@PostMapping("/password")
-	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody String pwd) {
+	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody UsersDto userDto) {
 		logger.debug("findpassword - 호출");
 		try {
 			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
 
-			System.out.println(pwd);
-			pwd = SHA256.encrypt(pwd);
+			userDto.setPassword(SHA256.encrypt(userDto.getPassword()));
 			System.out.println(tempPwd);
-			if (pwd.equals(tempPwd)) {
-				boolean isPasswordMatched = true;
-				return ApiResponse.success(SuccessCode.READ_FIND_PWD,isPasswordMatched);
+			if (userDto.getPassword().equals(tempPwd)) {
+				return ApiResponse.success(SuccessCode.READ_FIND_PWD);
 			} else {
 				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
 			}
@@ -278,6 +288,31 @@ public class UsersController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("mailConfirm - 이메일 인증 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "임시 비밀번호 발급")
+	@PatchMapping("/temp-password/{email}")
+	public ApiResponse<?> tempPasswordModify(@PathVariable @ApiParam(value = "이메일", required = true) String email) {
+		logger.info("tempPasswordModify - 호출 : " + email);
+		try {
+			String tmpPw = emailService.sendSimplePwMessage(email);
+			logger.info("임시 비밀번호 : " + tmpPw);
+			UsersDto usersDto = new UsersDto();
+			String userIdx = usersService.findUserIdx(email);
+			if (userIdx == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_USER_EXCEPTION);
+			} else {
+				int idx = Integer.parseInt(userIdx);
+				usersDto.setUserIdx(idx);
+				usersDto.setPassword(SHA256.encrypt(tmpPw));
+			}
+			usersService.changePassword(usersDto);
+			return ApiResponse.success(SuccessCode.READ_TEMP_PASSWORD, tmpPw);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("tempPasswordModify - 임시 비밀번호 발급 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}

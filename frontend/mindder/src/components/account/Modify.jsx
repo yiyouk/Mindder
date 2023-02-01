@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 //비동기 동신
@@ -16,8 +16,9 @@ const Sns = styled.div`
     justify-content: center;
 `;
 
-function Modify(props) {
+function Modify() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [profile, setProfile] = useState("");
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
@@ -96,11 +97,13 @@ function Modify(props) {
             const response = await api.get(`/users/information`, null);
             console.log(response.data);
             console.log("-------------------------------------------------------")
-            setEmail(response.data.data.email);
-            setNickname(response.data.data.nickname);
-            setnicknameOrigin(response.data.data.nickname);
-            setMyColor(response.data.data.emoteColor);
-            setSocialId(response.data.data.socialId);
+            if(response.data !== null){
+                setEmail(response.data.data.email);
+                setNickname(response.data.data.nickname);
+                setnicknameOrigin(response.data.data.nickname);
+                setMyColor(response.data.data.emoteColor);
+                setSocialId(response.data.data.socialId);
+            }
             
         } catch (e) {
             alert("오류 발생!");
@@ -115,8 +118,8 @@ function Modify(props) {
             const response = await api.patch(`/users`, {
                 profileImageUrl: profile,
                 nickname: nickname,
-                emoteColor : myColor, 
-            },null);
+                emoteColor : myColor
+            });
             console.log(response.data);
             if (response.data.success===true){
                 getUserInfo()
@@ -165,13 +168,11 @@ function Modify(props) {
         (socialId === "@mindder")? 
         <div className="col-12">
             <label className="form-label">비밀번호</label>
-            <div className="center-container"> 
-            <button className="white-black-line-btn"
+            <div className="center-container">  
+            <input className="white-black-line-btn" type="button" value = "비밀번호 수정"
               onClick={() => {
                   navigate("/accounts/password/change");
-              }}>
-              비밀번호 수정
-              </button>
+              }}/>
           </div>
         </div>
         :

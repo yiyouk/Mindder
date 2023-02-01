@@ -2,8 +2,9 @@ import React, {useEffect} from "react";
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route, useNavigate
 } from "react-router-dom";
+import api from "./api/api"
 
 // Pages
 import MainPage from './router/MainPage';
@@ -28,33 +29,49 @@ import SearchTagPage from "./router/SearchTagPage";
 import NaviBar from './commons/bar/NaviBar';
 import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
-
+import axios from "axios";
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenAction } from "./redux/store";
+import { tokenAction, userAction } from "./redux/store";
 const userId = 0
 const idx = 0
 // const keyword = "사랑"
 
 function App(props) {
     const dispatch = useDispatch()
-    const test2 = useSelector((state)=>state)
+
     useEffect(()=>{
-        // console.log(test2.authToken)
-        // const test = () => getCookie("is_login")
         if(getCookie("is_login") !== undefined){
             dispatch(tokenAction.SET_TOKEN(getCookie("is_login")));
         } else {
             dispatch(tokenAction.DELETE_TOKEN("is_login"));
         }
-        console.log(test2.authToken)
+        setUserInfo();
     }, [])
 
-    console.log(`저장 후 :`)
-    console.log(test2.authToken)
-        
+        //닉네임 가져오기
+    const setUserInfo = async () =>{ // async, await을 사용하는 경우
+        try {
+            const response = await axios.get(`http://mindder.me:8888/users/information`, {
+                headers: { access_token : `${getCookie("is_login")}` }
+            });
+            console.log(response);
 
-        return (
+            if(response.data.data !== null) {
+                const NickName = response.data.data.nickname;
+                const UserIdx = response.data.data.userIdx
+                console.log(UserIdx)
+                dispatch(userAction.SAVE({selected:UserIdx, case:"userIdx"}))
+                console.log(`유저아이디 저장`)
+                dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
+            }
+        } catch (e) {
+            alert("오류 발생!");
+            console.error(e);
+        }
+    }
+
+    return (
         <BrowserRouter>
             <HeaderBar/>
             <div id = "bodysuit">

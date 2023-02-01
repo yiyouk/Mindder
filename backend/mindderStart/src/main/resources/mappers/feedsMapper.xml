@@ -5,17 +5,16 @@
 	<!-- 공개여부 -> default값은 공개로 -->
 	<insert id="writeFeed" parameterType="FeedsDto">
 		insert into mainfeed 
-		(update_date, update_time,is_public, main_text, normal_tag,is_deleted,user_idx,emote_idx,emote_color_idx,feed_hit)
-		values(curdate(), curtime(), #{isPublic} , #{mainText}, #{normalTag}, 0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0)		
+		(social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx, emote_complete_idx)
+		values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText},  #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
 	</insert>
 	
 	<!-- 글 작성 -> 감정 캘린더에 입력 -->
-		<insert id="writeCalendar" parameterType="FeedsDto">
+	<insert id="writeCalendar" parameterType="FeedsDto">
 		insert into feedcalendar 
-		(calendar_date, emote_idx,user_idx, emote_color_idx)
-		values(curdate(), #{emoteIdx}, #{userIdx}, #{emoteColorIdx})		
+		(calendar_date, emote_idx,user_idx, emote_complete_idx)
+		values(curdate(), #{emoteIdx}, #{userIdx},  #{emoteCompleteIdx})		
 	</insert>
-	
 	
 	<!-- 피드글 삭제-->
 	<!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
@@ -54,36 +53,52 @@
 	<select id="getFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
 	<!-- 이미지 URL 은 제외한 코드 -->
 	select f.feed_idx, u.nickname,
-	 f.update_date,
+	 f.update_date,f.emote_complete_idx,f.file_idx,
    	(select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx and c.feed_idx=#{feedIdx})as 'comment_count',
-   	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=1) as 'like_count',
-	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=2 ) as 'cheerup_count',
-	(select like_count from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=3) as 'sad_count'
+   	(select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=1) as 'like_count',
+	(select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=2 ) as 'cheerup_count',
+	(select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=3) as 'sad_count',
+	 (select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} ) as 'like_total_count'
 	from mainfeed f ,mainuser u
-	where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx ;
-	</select>
+	where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx ;</select>
 	
 	
 	
 	<!-- 이웃의 게시글 리스트 -->
 	<select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
-	   select f.feed_idx, c.comment_count, l.like_total_count 
-   		from (select m.feed_idx
-   		from mainfeed m, (select  distinct  target_user_idx from userfollowing where userfollowing.user_idx=#{userIdx} ) f  
-   		where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0) f 
+		select f.feed_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l.like_total_count 
+   		from 
+        (
+			select m.feed_idx, m.file_idx ,m.emote_complete_idx
+			from mainfeed m,
+            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f  
+			where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
+		) f 
       	left join 
-      	(select feed_idx, count(*) as comment_count 
-     	 from feedcomment 
-     	 where is_deleted = 0 
-     	group by feed_idx) as c 
-      	on f.feed_idx = c.feed_idx 
+      	(
+			select feed_idx, count(*) as comment_count 
+			 from feedcomment 
+			 where is_deleted = 0 
+			group by feed_idx
+		) as c 
+			on f.feed_idx = c.feed_idx 
         left join 
-      	(select feed_idx, sum(like_count) as like_total_count 
-     	 from feedlike 
-     	 where is_deleted = 0 
-     	 group by feed_idx) as l 
-     	on f.feed_idx = l.feed_idx ;
+        (
+			select feed_idx, count(*) as like_total_count 
+			 from feedlike
+             group by feed_idx 
+        ) as l
+             	on f.feed_idx = l.feed_idx ;
+        
+	</select>
+	
+	<!--완성된 곰돌이 이미지 조회 -->
+	<select id="searchFile" parameterType="FeedsBearDto" resultMap="com.ssafy.resultmaps.bear">
+	select file_idx, emote_idx, emote_color_idx
+	from feedemotecomplete 
+	where emote_idx=#{emoteIdx} and emote_color_idx=#{emoteColorIdx}
 	</select>
 
 </mapper>
+
 
