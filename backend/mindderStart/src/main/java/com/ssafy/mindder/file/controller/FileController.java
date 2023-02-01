@@ -88,6 +88,7 @@ public class FileController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
+		return result;
+		//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
 }
