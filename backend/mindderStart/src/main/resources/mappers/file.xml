@@ -12,7 +12,7 @@
 		insert into imagefile(save_folder,original_file,save_file)
 		value(#{saveFolder},#{originalFile},#{saveFile})
 		<selectKey resultType="int">
-			select file_idx from imagefile
+			select file_idx from imagefile where save_file = #{saveFile}
 		</selectKey>
 	</insert>
 	<select id="findFile" parameterType="int" resultMap="file">
