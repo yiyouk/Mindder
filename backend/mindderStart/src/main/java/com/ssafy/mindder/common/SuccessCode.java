@@ -13,6 +13,8 @@ public enum SuccessCode {
 	/*
 	 * 등록/생성: CREATE, 조회: READ, 수정: UPDATE, 삭제/취소: DELETE
 	 */
+	//password
+	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
 
 	// feeds
 	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),

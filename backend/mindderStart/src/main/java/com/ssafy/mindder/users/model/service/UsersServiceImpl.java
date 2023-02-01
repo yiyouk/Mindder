@@ -77,6 +77,10 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
+	public void changePassword(UsersDto usersDto) throws Exception {
+		usersMapper.changePassword(usersDto);
+	}
+	@Override
 	public Map<String, String> getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, String> result = new HashMap<>();
