@@ -17,6 +17,7 @@ public enum ErrorCode {
 
 	// 404 NOT FOUND
 	NOT_FOUND_FEED_EXCEPTION(NOT_FOUND, "존재하지 않는 피드입니다."),
+	NOT_FOUND_USER_EXCEPTION(NOT_FOUND, "존재하지 않는 유저입니다."),
 
 	// 500 Internal Server Exception
 	INTERNAL_SERVER_EXCEPTION(INTERNAL_SERVER, "예상치 못한 서버 에러가 발생하였습니다.");
