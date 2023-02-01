@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.mindder.common.SuccessCode;
+import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.file.model.FileDto;
 import com.ssafy.mindder.file.model.service.FileService;
 
@@ -45,9 +47,9 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 	@PostMapping
-	public String fileUpLoad(@Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> fileUpLoad(@Value("${file.path.upload-files}") String filePath,
 			@RequestParam("upfile") MultipartFile[] files) throws Exception {
-		System.out.println(filePath);
+		int reint=0;
 		if (!files[0].isEmpty()) {
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
 			String saveFolder = filePath + File.separator + today;
@@ -65,10 +67,10 @@ public class FileController {
 					fileInfoDto.setSaveFile(saveFileName);
 					mfile.transferTo(new File(folder, saveFileName));
 				}
-				fileService.addFile(fileInfoDto);
+				reint= fileService.addFile(fileInfoDto);
 			}
 		}
-		return "!";
+		return ApiResponse.success(SuccessCode.READ_FILE_IDX,reint);
 	}
 
 	@GetMapping("/{fileIdx}")
