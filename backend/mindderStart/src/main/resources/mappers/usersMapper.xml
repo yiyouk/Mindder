@@ -24,7 +24,7 @@
 	<select id="checkEmail" parameterType="String" resultType="int">
 		select count(email)
 		from mainuser
-		where email = #{nickname}
+		where email = #{nickname} and is_deleted = 0
 	</select>
 	<select id="findSocialKakaoID" parameterType="String" resultMap="com.ssafy.resultmaps.user">
 		select *
