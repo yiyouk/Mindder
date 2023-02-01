@@ -113,7 +113,7 @@ public class FeedsController {
 
 	// 팔로잉 하는 이웃의 피드 리스트 조회
 	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
-	@GetMapping("neighbors/{userIdx}")
+	@GetMapping("/neighbors/{userIdx}")
 	public ApiResponse<?> neighborFeed(
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
 		logger.info("userIdx - 호출");
@@ -195,5 +195,21 @@ public class FeedsController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
+//
+//	// 팔로잉 하는 이웃의 피드 리스트 조회
+//	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
+//	@GetMapping("/recommendation")
+//	public ApiResponse<?> neighborFeed(
+//			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+//		logger.info("userIdx - 호출");
+//		try {
+//			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+//			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
+//			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+//		}
+//	}
 
 }
