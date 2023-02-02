@@ -109,7 +109,6 @@ public class UsersController {
 		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
-			System.out.println(idx);
 			usersDto.setUserIdx(idx);
 			usersService.updateUser(usersDto);
 			return ApiResponse.success(SuccessCode.UPDATE_USER);
