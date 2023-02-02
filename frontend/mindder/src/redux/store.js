@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 // import {tokenSlice} from './Auth';
-
+import '../assets/images/face16.png'
 export const Emoticons = [
   {
       id:1,
@@ -89,102 +89,103 @@ export const Colors16 = [
     id:1,
     name:"빨강",
     code:"#F56161",
-    en:"Red",
+    en:"red",
   },
   {
     id:2,
     name:"파랑",
     code:"#82AAE3",
-    en:"Blue",
+    en:"blue",
   },
   {
     id:3,
     name:"연두",
     code:"#B6E2A1",
-    en:"Green",
+    en:"green",
   },
   {
     id:4,
     name:"베이지",
     code:"#F8EDE3",
-    en:"Beige",
+    en:"beige",
   },
   {
     id:5,
     name:"갈색",
     code:"#AD8270",
-    en:"Brown",
+    en:"brown",
   },
   {
     id:6,
     name:"회색",
     code:"#B2B2B2",
-    en:"Gray",
+    en:"gray",
   },
   {
     id:7,
     name:"분홍",
     code:"#FC9CBB",
-    en:"Pink",
+    en:"pink",
   },
   {
     id:8,
     name:"남색",
     code:"#3A4F7A",
-    en:"Navy",
+    en:"navy",
   },
   {
     id:9,
     name:"연분홍",
     code:"#FFC7C7",
-    en:"Peach",
+    en:"peach",
   },
   {
     id:10,
     name:"노랑",
     code:"#F8F388",
-    en:"Yellow",
+    en:"yellow",
   },
   {
     id:11,
     name:"주황",
     code:"#FFCC80",
-    en:"Orange",
+    en:"orange",
   },
   {
     id:12,
     name:"연보라",
     code:"#BA94D1",
-    en:"Purple",
+    en:"purple",
   },
   {
     id:13,
     name:"하양",
     code:"#FFFFFF",
-    en:"White",
+    en:"white",
   },
   {
     id:14,
     name:"하늘",
     code:"#7FE9DE",
-    en:"Mint",
+    en:"mint",
   },
   {
     id:15,
     name:"보라",
     code:"#863A6F",
-    en:"Mauve",
+    en:"mauve",
   },
   {
     id:16,
     name:"검정",
     code:"#000000",
-    en:"Black",
+    en:"black",
   },
 ]
 
 const initialState = {
-  emotagSrc:"/static/media/face2.f3c1c753969210027376.png",
+  // emotagSrc:"/static/media/face16.f3c1c753969210027376.png",
+  emotagSrc:'../assets/images/face16.png',
   todayEmotion:null,
   todayColor:null,
   nickName:"",
