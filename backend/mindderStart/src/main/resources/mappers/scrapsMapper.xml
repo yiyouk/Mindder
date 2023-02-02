@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.scraps.model.mapper.ScrapsMapper">
+	<!-- 스크랩 검색 -->
+	<select id="selectScrap" parameterType="int" resultType="String">
+		select scrap_idx
+		from feedscrap 
+		where user_idx = #{userIdx} and feed_idx = #{feedIdx};
+	</select>
 	<!-- 스크랩 등록 -->
 	<insert id="inserScrap" parameterType="int">
 		insert into feedscrap(feed_idx, user_idx) values(#{feedIdx}, #{userIdx});	

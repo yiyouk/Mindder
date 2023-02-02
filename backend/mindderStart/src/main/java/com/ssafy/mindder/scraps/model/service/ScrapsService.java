@@ -5,6 +5,9 @@ import java.util.List;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 
 public interface ScrapsService {
+	
+	// 스크랩 검색
+	public String findScrap(int userIdx, int feedIdx) throws Exception;
 
 	// 스크랩 등록
 	public void addScrap(int userIdx, int feedIdx) throws Exception;
