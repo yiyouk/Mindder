@@ -51,10 +51,20 @@
 		where user_idx = #{userIdx}
 	</update>
 	<update id="deleteUser" parameterType="int">
-		update mainuser
-		set is_deleted = 1, update_date = now()
-		where user_idx = #{userIdx}
+		update mainuser 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+		update mainfeed 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+		update feedcomment 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
 	</update>
+	<delete id="deletedHard" parameterType="int">
+		delete from feedlike where user_idx =#{userIdx};
+		delete from feedscrap where user_idx =#{userIdx};
+	</delete>
 	<update id="logout" parameterType="int">
 		update mainuser
 		set refresh_token=null

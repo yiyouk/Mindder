@@ -62,6 +62,8 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void deleteUser(int userIdx) throws Exception {
+		usersMapper.deletedHard(userIdx);
+		System.out.println("11111");
 		usersMapper.deleteUser(userIdx);
 	}
 
