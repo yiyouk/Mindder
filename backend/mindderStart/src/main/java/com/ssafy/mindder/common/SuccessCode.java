@@ -13,9 +13,8 @@ public enum SuccessCode {
 	/*
 	 * 등록/생성: CREATE, 조회: READ, 수정: UPDATE, 삭제/취소: DELETE
 	 */
-	//file
-	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"),
-	READ_FILE_BEAR(SUCCESS,"곰돌이파일 조회 성공"),
+	// file
+	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"), READ_FILE_BEAR(SUCCESS, "곰돌이파일 조회 성공"),
 	READ_FILE_BASE64(SUCCESS, "파일 Base64 조회 성공"),
 
 	// password
@@ -25,7 +24,7 @@ public enum SuccessCode {
 	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
 	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
 	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), READ_FIND_BEAR(SUCCESS, "완성된 곰돌이 이미지 조회"),
-	READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"),
+	READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"), READ_RECOMMENDATION_FEED(SUCCESS, "추천 리스트 불러오기 성공"),
 
 	// comment
 	DELETE_COMMNET(SUCCESS, "메인 피드 댓글 삭제 성공"), CREATE_COMMENT(SUCCESS, "메인 피드 댓글 작성 성공"),
