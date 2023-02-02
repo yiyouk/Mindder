@@ -54,7 +54,6 @@ const RecoCanvas = styled.div`
 
 
 function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
-  console.log(size, feedIdx)
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/f/${feedIdx}`);
