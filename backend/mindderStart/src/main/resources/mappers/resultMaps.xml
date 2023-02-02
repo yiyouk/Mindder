@@ -51,8 +51,7 @@
 		<result column="calendar_idx" property="calendarIdx" />
 		<result column="calendar_date" property="calendarDate" />
 		<result column="user_idx" property="userIdx" />
-		<result column="emote_idx" property="emoteIdx" />
-		<result column="emote_color_idx" property="emoteColorIdx" />
+		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="FollowsDto" id="follow">
 		<result column="follower_idx" property="followerIdx" />
