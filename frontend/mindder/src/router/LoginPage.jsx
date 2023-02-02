@@ -7,7 +7,6 @@ import { useDispatch} from "react-redux";
 import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
-import axios from "axios";
 import api from "../api/api";
 
 import '../assets/css/main.css';
@@ -44,9 +43,7 @@ function LoginPage(props) {
         try {
             console.log("이곳은 setUserInfo 함수")
             console.log(getCookie("is_login"));
-            const response = await axios.get(`http://mindder.me:8888/users/information`, {
-                headers: { access_token : `${getCookie("is_login")}` }
-            });
+            const response = await api.get(`/users/information`);
             console.log(response);
 
             if(response.data.data !== null) {
