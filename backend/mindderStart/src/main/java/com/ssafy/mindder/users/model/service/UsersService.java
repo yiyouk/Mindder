@@ -20,4 +20,5 @@ public interface UsersService {
 	int checkEmail(String email) throws Exception;
 	void changePassword(UsersDto usersDto) throws Exception;
 	String findUserIdx(String email) throws Exception;
+	void deletedJoinUser(UsersDto usersdto) throws Exception;
 }
