@@ -216,8 +216,9 @@ public class FeedsController {
 		logger.info("recommendation - 호출");
 		try {
 			int userIdx = jwtService.neighborFeed(accessToken);
-			List<FeedListDto> neighborList = feedsService.recommendation(userIdx);
-			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, neighborList);
+			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
+			System.out.println(recommendation);
+			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("recommendation - 추천 글 불러오기 실패");
