@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas";
-import { Wrapper } from "./PostEmotag";
 import api from '../../api/api'
 import CanvasItem from "../../commons/list/CanvasItem";
 import { useSelector } from "react-redux";
 import {ScrollMenu} from 'react-horizontal-scrolling-menu'
-import { Colors16 } from "../../redux/store";
+import { Colors16 } from "../../redux/reducers";
+
+export const Wrapper = styled.div`
+    height:31rem;
+    display: grid;
+    grid-template-rows: 1fr 5fr;
+    margin-top:1rem;
+`;
 
 const CrawlingsHere = styled.div`
   height: 71px;
@@ -35,13 +41,10 @@ function PostDraw(props){
     try {
       const response = await api.get(`/feeds/crawling/${todayColor}`, null)
       console.log(response.data)
-      console.log(todayColor)
   
       if (response.data.success===true){
         const imgSrc = response.data.data
-        console.log(imgSrc)
         setCrawlingList(imgSrc)
-        console.log(crawlingList)
       }
   
     } catch (error) {
@@ -50,9 +53,10 @@ function PostDraw(props){
   }
 
   const [crawlingList, setCrawlingList] = useState([])
-  const todayColor = useSelector((state)=>state.userState.todayColor)
-  const findEn = Colors16.find(color=>color.name===todayColor).en
-  console.log(findEn)  
+  const todayColor = useSelector((state)=>state.USER.todayColor)
+  console.log(todayColor)
+  //오늘의 감정 영어로 바꿔서 담은 변수
+  const findEn = Colors16.find(color=>color.name===todayColor).en  
 
   useEffect(()=>{
     getGuideImg(findEn, setCrawlingList)
@@ -62,8 +66,9 @@ function PostDraw(props){
     <Wrapper>
       <CrawlingsHere>
         {/* <ScrollMenu wheel={true}> 스크롤 오류나서 일단 5개만 잘라서 받아놓음 */} 
-        {crawlingList.slice(0,5).map((crawlingImg)=>(
-          <CanvasItem size={"xs"} imageUrl={crawlingImg.img} 
+        {crawlingList.slice(0,5).map((crawlingImg, index)=>(
+          <CanvasItem size={"xs"} imageUrl={crawlingImg.img} key={index}
+          feedIdx={crawlingImg.url}
           />
         ))}
         {/* </ScrollMenu> */}
