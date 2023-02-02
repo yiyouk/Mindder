@@ -4,6 +4,7 @@ import { getCookie } from "./cookie";
 // axios.create는 나만의 엑시오스 인스턴스를 만드는 메서드이다.
 const instance = axios.create({
   baseURL: "http://mindder.me:8888"
+  // timeout: 3000
 });
 
 // headers: { access_token : `${getCookie("is_login")}` }
