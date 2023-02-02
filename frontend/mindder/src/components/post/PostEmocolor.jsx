@@ -9,12 +9,6 @@ import { Colors16 } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../redux/store";
 
-const EmoColorList = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items:center;
-  /* border: 1px solid blue; */
-`
 
 function PostEmocolor(props){
   const selectedSrc = useSelector((state)=>state.userState.emotagSrc)
@@ -23,26 +17,25 @@ function PostEmocolor(props){
 
   const [imgSrc, setImgSrc] = useState(selectedSrc)
 
+  const onClick = (e) => {
+    const name = e.currentTarget.id
+    const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
+    setImgSrc(updatedSrc)
+    dispatch(userAction.SAVE({selected:name, case:"emoColor"}))
+  }
   return (
     <Wrapper>
       <EmoHeader text="감정의 색을 채워주세요"/>
       <TodayEmotion
       imgSrc={imgSrc}
       />
-      <CardContainer>
+      <CardContainer columnGap={1}>
         {Colors16.map((color)=>(
-          <EmoColorList key={color.id} id={color.name}
-          onClick={(e)=>{
-            const name = e.currentTarget.id
-            const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
-            setImgSrc(updatedSrc)
-            dispatch(userAction.SAVE({selected:name, case:"emoColor"}))
-          }}
-          >
+          <div onClick={(e)=>{onClick(e)}} id={color.name}>
             <EmoColors
-            key={color.id} colorCode={color.code} colorName={color.name} 
+            key={color.id} colorCode={color.code} colorName={color.name}
             />
-          </EmoColorList>
+          </div>
         ))}
       </CardContainer>
     </Wrapper>

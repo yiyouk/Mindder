@@ -5,66 +5,82 @@ export const Emoticons = [
   {
       id:1,
       name:"화남",
+      en:"aggro",
   },
   {
       id:2,
       name:"기쁜",
+      en:"joy",
   },
   {
       id:3,
       name:"외로움",
+      en:"loneliness",
   },
   {
       id:4,
       name:"우울",
+      en:"depressed",
   },
   {
       id:5,
       name:"피곤",
+      en:"fatigue",
   },
   {
       id:6,
       name:"만족",
+      en:"satisfied",
   },
   {
       id:7,
       name:"행복",
+      en:"happiness",
   },
   {
       id:8,
       name:"슬픔",
+      en:"sadness",
   },
   {
       id:9,
       name:"불안",
+      en:"unrest",
   },
   {
       id:10,
       name:"아픔",
+      en:"pain",
   },
   {
       id:11,
       name:"불쾌",
+      en:"discomfort",
   },
   {
       id:12,
       name:"실망",
+      en:"disappointed",
   },
   {
       id:13,
       name:"긴장",
+      en:"nervous",
   },
   {
       id:14,
       name:"신남",
+      en:"excited",
   },
   {
       id:15,
       name:"지루함",
+      en:"boredom",
   },
   {
       id:16,
       name:"기타",
+      en:"etc",
   },
 ]
 
@@ -72,82 +88,98 @@ export const Colors16 = [
   {
     id:1,
     name:"빨강",
-    code:"#F56161"
+    code:"#F56161",
+    en:"Red",
   },
   {
     id:2,
     name:"파랑",
-    code:"#82AAE3"
+    code:"#82AAE3",
+    en:"Blue",
   },
   {
     id:3,
     name:"연두",
-    code:"#B6E2A1"
+    code:"#B6E2A1",
+    en:"Green",
   },
   {
     id:4,
     name:"베이지",
-    code:"#F8EDE3"
+    code:"#F8EDE3",
+    en:"Beige",
   },
   {
     id:5,
     name:"갈색",
-    code:"#AD8270"
+    code:"#AD8270",
+    en:"Brown",
   },
   {
     id:6,
     name:"회색",
-    code:"#B2B2B2"
+    code:"#B2B2B2",
+    en:"Gray",
   },
   {
     id:7,
     name:"분홍",
-    code:"#FC9CBB"
+    code:"#FC9CBB",
+    en:"Pink",
   },
   {
     id:8,
     name:"남색",
-    code:"#3A4F7A"
+    code:"#3A4F7A",
+    en:"Navy",
   },
   {
     id:9,
     name:"연분홍",
-    code:"#FFC7C7"
+    code:"#FFC7C7",
+    en:"Peach",
   },
   {
     id:10,
     name:"노랑",
-    code:"#F8F388"
+    code:"#F8F388",
+    en:"Yellow",
   },
   {
     id:11,
     name:"주황",
-    code:"#FFCC80"
+    code:"#FFCC80",
+    en:"Orange",
   },
   {
     id:12,
-    name:"보라",
-    code:"#BA94D1"
+    name:"연보라",
+    code:"#BA94D1",
+    en:"Purple",
   },
   {
     id:13,
     name:"하양",
-    code:"#FFFFFF"
+    code:"#FFFFFF",
+    en:"White",
   },
   {
     id:14,
     name:"하늘",
-    code:"#7FE9DE"
+    code:"#7FE9DE",
+    en:"Mint",
   },
   {
     id:15,
     name:"보라",
-    code:"#863A6F"
+    code:"#863A6F",
+    en:"Mauve",
   },
   {
     id:16,
     name:"검정",
-    code:"#000000"
+    code:"#000000",
+    en:"Black",
   },
 ]
 
