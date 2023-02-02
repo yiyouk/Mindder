@@ -116,8 +116,9 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
    
    
    <!-- 메인 페이지 추천 피드 리스트 반환 -->
-   <select id="recommendation" parameterType="int"  resultMap="com.ssafy.resultmaps.recommendation">
-   select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
+   <select id="recommendation" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
+ select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,update_date,
+ (select nickname from mainuser u where u.user_idx=f.user_idx) as 'nickname',
    (select count(*) from feedcomment c where c.feed_idx=f.feed_idx) as 'comment_count',
    (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
    from 
@@ -126,7 +127,7 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
       from mainfeed
       where (
          select emote_color_idx
-         from mainfeed 
+         from mainfeed
          where user_idx=#{userIdx}
          order by update_date DESC
          limit 1
@@ -135,7 +136,6 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
     join feedcomment c
     on c.feed_idx=f.feed_idx
    order by f.feed_hit DESC
-    
       
    </select>
 </mapper>

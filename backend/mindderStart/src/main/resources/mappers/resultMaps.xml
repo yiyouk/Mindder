@@ -42,7 +42,7 @@
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
 	
-		<resultMap type="FeedsRecommendationDto" id="recommendation">
+		<resultMap type="FeedListDto" id="recommendation">
 		<result column="feed_idx" property="feedIdx" />
 		<result column="file_idx" property="fileIdx" />
 		<result column="user_idx" property="userIdx" />

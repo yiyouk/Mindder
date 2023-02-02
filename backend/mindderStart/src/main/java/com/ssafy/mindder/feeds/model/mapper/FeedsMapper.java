@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
-import com.ssafy.mindder.feeds.model.FeedsRecommendationDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 
 @Mapper
@@ -51,6 +51,6 @@ public interface FeedsMapper {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 추천 피드 목록 조회
-	public List<FeedsRecommendationDto> recommendation(int userIdx);
+	public List<FeedListDto> recommendation(int userIdx);
 
 }
