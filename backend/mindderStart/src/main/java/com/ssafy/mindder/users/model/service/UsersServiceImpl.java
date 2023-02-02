@@ -185,4 +185,10 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.selectUserIdx(email);
 	}
 
+	@Override
+	public void deletedJoinUser(UsersDto usersdto) throws Exception {
+		usersMapper.deletedJoinUser(usersdto);
+		
+	}
+
 }
