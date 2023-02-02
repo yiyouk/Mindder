@@ -110,15 +110,12 @@ function Modify() {
     const sendInfo = async() => {
         try {
             const response = await api.patch(`/users`, {
-                profileImageUrl: profile,
                 nickname: nickname,
                 emoteColor : myColor
             });
             
-            // console.log(response)
-            if (response.data.success === true){
-                getUserInfo();
-            }  
+            window.location.replace("/accounts/edit")
+             
         } catch (e) {
             alert("오류 발생!");
             console.error(e);

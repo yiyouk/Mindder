@@ -187,7 +187,7 @@ const initialState = {
   todayEmotion:null,
   todayColor:null,
   nickName:"",
-  userIdx:null,
+  myIdx:null,
 }
 
 const userStateSlice = createSlice({
@@ -210,9 +210,9 @@ const userStateSlice = createSlice({
       state.nickName = action.payload
       console.log(`nickName : ${state.nickName}`)
     },
-    SAVE_userIdx(state, action){
-      state.userIdx = action.payload
-      console.log(`userIdx : ${state.userIdx}`)
+    SAVE_myIdx(state, action){
+      state.myIdx = action.payload
+      console.log(`myIdx : ${state.myIdx}`)
     },
   }
 })
@@ -250,5 +250,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_userIdx } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;

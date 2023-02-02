@@ -7,7 +7,7 @@ import { removeCookie } from "../api/cookie";
 import { useDispatch, useSelector } from "react-redux";
 
 import api from "../api/api";
-import {SAVE_nickName, SAVE_userIdx, DELETE_TOKEN } from "../redux/reducers";
+import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN } from "../redux/reducers";
 
 const Remove = styled.div`
     margin: 1rem;
@@ -30,7 +30,7 @@ function ModifyPage(props) {
             removeCookie("is_login")
             dispatch(DELETE_TOKEN("is_login"));
             dispatch(SAVE_nickName(""));
-            dispatch(SAVE_userIdx(null));
+            dispatch(SAVE_myIdx(null));
             navigate('/')
         }
     }
