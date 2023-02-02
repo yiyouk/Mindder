@@ -4,6 +4,7 @@ import {
     Routes,
     Route, useNavigate
 } from "react-router-dom";
+
 import api from "./api/api"
 
 // Pages
@@ -29,7 +30,6 @@ import SearchTagPage from "./router/SearchTagPage";
 import NaviBar from './commons/bar/NaviBar';
 import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
-import axios from "axios";
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { tokenAction, userAction } from "./redux/store";
@@ -40,30 +40,24 @@ const idx = 0
 function App(props) {
     const dispatch = useDispatch()
 
+    //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
-        if(getCookie("is_login") !== undefined){
+        console.log("나는 App.js의 함수")
+        if (getCookie("is_login") !== undefined){ 
             dispatch(tokenAction.SET_TOKEN(getCookie("is_login")));
-        } else {
+            setUserInfo(); //닉네임, 인덱스 번호 가져오기'
+        } else { //쿠키에 정보가 없으면 tonken 초기화
             dispatch(tokenAction.DELETE_TOKEN("is_login"));
         }
-        setUserInfo();
     }, [])
 
-        //닉네임 가져오기
+    
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
-            const response = await axios.get(`http://mindder.me:8888/users/information`, {
-                headers: { access_token : `${getCookie("is_login")}` }
-            });
-            console.log(response);
-
-            if(response.data.data !== null) {
-                const NickName = response.data.data.nickname;
-                const UserIdx = response.data.data.userIdx
-                console.log(UserIdx)
-                dispatch(userAction.SAVE({selected:UserIdx, case:"userIdx"}))
-                console.log(`유저아이디 저장`)
-                dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
+            const response = await api.get(`/my/information`);
+            if (response.data.data !== null) {
+                dispatch(userAction.SAVE({selected:response.data.data.userIdx, case:"userIdx"}))
+                dispatch(userAction.SAVE({selected:response.data.data.nickname, case:"nickName"}))
             }
         } catch (e) {
             alert("오류 발생!");
