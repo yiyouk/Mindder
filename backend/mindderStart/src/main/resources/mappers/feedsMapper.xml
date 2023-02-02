@@ -117,12 +117,13 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
    
    <!-- 메인 페이지 추천 피드 리스트 반환 -->
    <select id="recommendation" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
-select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
+ 	select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
+	  (select update_date from mainfeed m where m.feed_idx = f.feed_idx) as 'update_date',
    (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
    (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
    from 
    (
-	select feed_idx, user_idx, file_idx, emote_color_idx, feed_hit
+    select feed_idx, user_idx, file_idx, emote_color_idx, feed_hit
       from mainfeed
       where (
          select emote_color_idx
