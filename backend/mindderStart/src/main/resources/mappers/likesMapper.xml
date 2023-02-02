@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.mindder.my.model.mapper.LikesMapper">
+<mapper namespace="com.ssafy.mindder.likes.model.mapper.LikesMapper">
+	<!-- 공감 검색 -->
+	<select id="selectLike" parameterType="LikesDto" resultType="String">
+		select like_idx 
+		from feedlike 
+		where user_idx = #{userIdx} and feed_idx = #{feedIdx};
+	</select>
 	<!-- 공감 등록 -->
 	<insert id="insertLike" parameterType="LikesDto">
 		insert into feedlike(feed_idx, user_idx, like_type) values(#{feedIdx}, #{userIdx}, #{likeType});	
@@ -10,7 +16,7 @@
 		update feedlike set like_type = #{likeType} where user_idx = #{userIdx} and feed_idx = #{feedIdx};
 	</update>
 	<!-- 공감 취소 -->
-	<delete id="deleteLike" parameterType="int">
+	<delete id="deleteLike" parameterType="LikesDto">
 		delete from feedlike where user_idx = #{userIdx} and feed_idx = #{feedIdx};	
 	</delete>
 </mapper>

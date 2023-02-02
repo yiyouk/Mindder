@@ -13,9 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class LikesDto {
 
-	private int likeIdx;
-	private int feedIdx;
 	private int userIdx;
+	private int feedIdx;
 	private int likeType;
 
 }

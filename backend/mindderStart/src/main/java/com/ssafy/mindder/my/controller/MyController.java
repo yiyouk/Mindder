@@ -165,7 +165,9 @@ public class MyController {
 		logger.debug("followAdd - 호출 : " + targetUserIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			
+			if (myService.findFollow(userIdx, targetUserIdx) != null) {
+				return ApiResponse.error(ErrorCode.VALIDATION_FOLLOW_EXCEPTION);
+			}
 			myService.addMyFollow(userIdx, targetUserIdx);
 			return ApiResponse.success(SuccessCode.CREATE_MY_FOLLOW);
 		} catch (Exception e) {
@@ -183,7 +185,9 @@ public class MyController {
 		logger.debug("followRemove - 호출 : " + targetUserIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			
+			if (myService.findFollow(userIdx, targetUserIdx) == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FOLLOW_EXCEPTION);
+			}
 			myService.removeMyFollow(userIdx, targetUserIdx);
 			return ApiResponse.success(SuccessCode.DELETE_MY_FOLLOW);
 		} catch (Exception e) {
