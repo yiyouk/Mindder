@@ -10,7 +10,7 @@
 		delete from feedscrap where user_idx = #{userIdx} and feed_idx = #{feedIdx};	
 	</delete>
 	<!-- 스크랩 목록 조회 -->
-	<select id="selectMyScraps" parameterType="int" resultMap="com.ssafy.resultmaps.scrap">
+	<select id="selectMyScraps" parameterType="int" resultMap="com.ssafy.resultmaps.feedList">
 		select s.feed_idx, f.user_idx, u.nickname, f.update_date, f.file_idx, 
 			   ifnull(c.cnt, 0) as comment_count, ifnull(l.cnt, 0) as like_total_count
 		from feedscrap s 
