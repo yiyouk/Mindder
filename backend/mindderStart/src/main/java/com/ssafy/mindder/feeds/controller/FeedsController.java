@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -140,13 +141,13 @@ public class FeedsController {
 	@GetMapping("/crawling/{color}")
 	public ApiResponse<?> crawling(@PathVariable("color") String color) throws Exception {
 		// 일단 변수 반영 x, 메인 이미지만 가져와보기
-//		String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
+//      String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
 //
-//		Document doc = Jsoup.connect(url).get();
-//		Thread.sleep(1000);
-//		
-//		List<FeedsCrawlDto> list = new ArrayList<>();
-//		Elements links = doc.select("div.isv-r");
+//      Document doc = Jsoup.connect(url).get();
+//      Thread.sleep(1000);
+//      
+//      List<FeedsCrawlDto> list = new ArrayList<>();
+//      Elements links = doc.select("div.isv-r");
 
 		logger.debug("crawling - 호출 : " + color);
 
@@ -155,7 +156,6 @@ public class FeedsController {
 					+ "-draw?c3apidt=p67950521402&cr=ec&gclid=Cj0KCQiAz9ieBhCIARIsACB0oGJBB98nHvnTniAE-kjspSDdkQWfpIcWxlh0IFv7ed-Mr8cMmg1vLicaAiz5EALw_wcB&gclsrc=aw.ds&kw=%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%8B%A4%EC%9A%B4&pl=PPC_GOO_KR_IG-567002744555";
 
 			Document doc = Jsoup.connect(url).get();
-			Thread.sleep(1000);
 			List<FeedsCrawlDto> list = new ArrayList<>();
 
 			Elements links = doc.select(".mui-b5j3lh-item-sstkGridItem-item");
@@ -205,22 +205,25 @@ public class FeedsController {
 	}
 
 	// 메인 페이지 추천 피드 조회
-	// 유저가 최근에 선택했던 감정 색상을 기준으로 추천 페이지 제공
+	// 유저가 최근에 선택했던 감정 색상을 기준으로 추천 페이지 제공-> emote_color_idx를 기준!
 	// 색상이 동일하면서 hit수가 높은 순으로 조회
+	// emote_color_idx=#{emoteColorIdx}
+	// order by hit DESC
 
-//	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
-//	@GetMapping("/recommendation")
-//	public ApiResponse<?> recommendation(
-//			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
-//		logger.info("userIdx - 호출");
-//		try {
-//			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
-//			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
-//			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-//		}
-//	}
+	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
+	@GetMapping("/recommendation")
+	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
+		logger.info("recommendation - 호출");
+		try {
+			int userIdx = jwtService.neighborFeed(accessToken);
+			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
+			System.out.println(recommendation);
+			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("recommendation - 추천 글 불러오기 실패");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
 
 }
