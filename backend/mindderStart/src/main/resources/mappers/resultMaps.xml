@@ -23,6 +23,8 @@
 	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="my_like_type" property="myLikeType" /> 
+		<result column="main_text" property="mainText" /> 
+		<result column="normal_tag" property="normalTag" /> 
 		<result column="feed_idx" property="feedIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="file_idx" property="fileIdx" />

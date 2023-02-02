@@ -13,6 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class FeedsParameterDto {
 	private int feedIdx;
+	private String mainText;
+	private String normalTag;
 	private String nickname;
 	private String updateDate;
 	private int commentCount;
