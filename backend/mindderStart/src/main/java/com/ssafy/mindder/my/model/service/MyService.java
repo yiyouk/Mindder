@@ -5,8 +5,12 @@ import java.util.List;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FollowsDto;
+import com.ssafy.mindder.my.model.UserInformationDto;
 
 public interface MyService {
+	
+	// 회원 정보 조회
+	public UserInformationDto findUser(int userIdx) throws Exception;
 
 	// 내가 쓴 피드 목록 조회
 	public List<FeedListDto> findMyFeeds(int userIdx) throws Exception;

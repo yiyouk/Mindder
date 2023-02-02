@@ -9,7 +9,6 @@ public interface UsersMapper {
 	UsersDto searchUser(String email)throws Exception;
 	void joinUser(UsersDto usersdto) throws Exception;
 	int checkNickname(String nickname) throws Exception;
-	UsersDto checkUser(int userIdx) throws Exception;
 	UsersDto login(UsersDto usersdto)throws Exception;
 	void addToken(UsersDto usersdto) throws Exception;
 	UsersDto findSocialKakaoID(String userid) throws Exception;
