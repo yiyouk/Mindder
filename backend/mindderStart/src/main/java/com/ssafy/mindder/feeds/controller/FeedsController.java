@@ -138,7 +138,7 @@ public class FeedsController {
 	// 이미지 크롤링
 	@ApiOperation(value = "이미지 크롤링 ", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/crawling/{color}")
-	public ApiResponse<?> crawling(String color) throws Exception {
+	public ApiResponse<?> crawling(@PathVariable("color") String color) throws Exception {
 		// 일단 변수 반영 x, 메인 이미지만 가져와보기
 //		String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
 //
