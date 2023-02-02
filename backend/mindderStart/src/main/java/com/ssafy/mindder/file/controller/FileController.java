@@ -20,7 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.file.model.FileDto;
@@ -76,21 +79,49 @@ public class FileController {
 
 	@GetMapping("/{fileIdx}")
 	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
-		FileDto temp = fileService.findFile(fileIdx);
-		String saveFolder = temp.getSaveFolder(); // 파일 경로
-		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
-		String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
-		File file = new File(filePath + saveFolder, saveFile);
+		FileDto temp = null;
+		
 		ResponseEntity<String> result = null;
 		String tp =null;
 		try {
+			temp = fileService.findFile(fileIdx);
+			String saveFolder = temp.getSaveFolder(); // 파일 경로
+			String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
+			String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
+			File file = new File(filePath + saveFolder, saveFile);
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
 			tp =Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return ApiResponse.success(SuccessCode.READ_FILE_BASE64, tp);
 		//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
+	}
+	@GetMapping("/normal-bear")
+	public ApiResponse<?> normalBear(@Value("${file.path.upload-files}") String filePath){
+		Map<String, Integer> map = new HashMap<>();
+		List<String> re = new ArrayList<>();
+		map.put("s", 5);
+		map.put("e", 20);
+		try {
+			List<FileDto> lf = fileService.findNormalBear(map);
+			System.out.println(lf);
+			for(FileDto temp : lf) {
+				String saveFolder = temp.getSaveFolder(); // 파일 경로
+				String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
+				String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
+				File file = new File(filePath + saveFolder, saveFile);
+				re.add(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)));
+			}
+			return ApiResponse.success(SuccessCode.READ_FILE_BEAR,re);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
 	}
 }
