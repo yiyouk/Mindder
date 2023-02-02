@@ -63,8 +63,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public FeedsParameterDto getFeed(int feedIdx) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx);
+	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx, userIdx);
 	}
 
 	@Override
