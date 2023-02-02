@@ -61,7 +61,7 @@ public class UsersController {
 			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
 			usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 			usersService.changePassword(usersDto);
-			return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+			return ApiResponse.success(SuccessCode.UPDATE_PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
