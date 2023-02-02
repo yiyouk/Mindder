@@ -13,9 +13,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class FollowsDto {
 
-	private int followerIdx;
+	private int followIdx;
 	private int userIdx;
 	private String nickname;
 	private int targetUserIdx;
+	private int fileIdx;
 
 }
