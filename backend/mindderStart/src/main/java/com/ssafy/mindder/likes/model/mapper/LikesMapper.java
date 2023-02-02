@@ -8,6 +8,9 @@ import com.ssafy.mindder.likes.model.LikesDto;
 
 @Mapper
 public interface LikesMapper {
+	
+	// 공감 검색
+	public String selectLike(LikesDto likesDto) throws SQLException;
 
 	// 공감 등록
 	public void insertLike(LikesDto likesDto) throws SQLException;
@@ -16,6 +19,6 @@ public interface LikesMapper {
 	public void updateLike(LikesDto likesDto) throws SQLException;
  
 	// 공감 삭제
-	public void deleteLike(int userIdx, int feedIdx) throws SQLException;
+	public void deleteLike(LikesDto likesDto) throws SQLException;
 
 }
