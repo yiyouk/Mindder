@@ -43,17 +43,33 @@ public class MyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 	
-	@ApiOperation(value = "회원 정보 조회", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
-	@GetMapping("/information/{userIdx}")
-	ApiResponse<?> myUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+	@ApiOperation(value = "회원 정보 조회 (마이페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
+	@GetMapping("/information")
+	ApiResponse<?> myUserDetails(@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("myUserDetails - 호출");
+		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			UserInformationDto userDto = myService.findUser(userIdx);
+			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("myUserDetails - 회원 정보 조회 (마이페이지) 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "회원 정보 조회 (타인페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
+	@GetMapping("/information/{userIdx}")
+	ApiResponse<?> otherUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+
+		logger.debug("otherUserDetails - 호출");
 		try {
 			UserInformationDto userDto = myService.findUser(userIdx);
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("myUserDetails - 회원 정보 조회 중 에러");
+			logger.debug("otherUserDetails - 회원 정보 조회 (타인페이지) 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
