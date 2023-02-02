@@ -39,8 +39,9 @@ const Image = styled.img`
 
 function NaviBar(props) {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
-
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
+    const myIdx = useSelector((state)=>state.USER.myIdx);
+    console.log(myIdx)
     return (
         <>
             {isLoggedIn ?    <Wrapper>
@@ -67,7 +68,7 @@ function NaviBar(props) {
                         
             <NavMenu
                 onClick={() => {
-                    navigate("/user");
+                    navigate(`/${myIdx}`);
                 }}>   
                 <Image src={MyPageImg} alt="" />
             </NavMenu>

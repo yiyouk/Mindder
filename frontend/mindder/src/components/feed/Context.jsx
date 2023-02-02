@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom: solid 0.6px rgb(231, 231, 231);
+    /* border-bottom: solid 0.6px rgb(231, 231, 231); */
     /* box-shadow: 1px 0px 0px rgb(67, 67, 67); */
 `;
 
@@ -52,15 +52,15 @@ const Date = styled.div`
     margin-bottom: 0.5rem;
 `
 
-function Context(props) {
+function Context({updateDate, mainText, normalTag}) {
     return (
         <Wrapper>
             <ContextWrapper>
                 <Img></Img>
-                <ContextStyled>&nbsp; 오늘도 데이트 </ContextStyled>
-                <TagStyled> #행복 #핑크</TagStyled>
+                <ContextStyled>&nbsp; {mainText} </ContextStyled>
+                <TagStyled> {normalTag} </TagStyled>
             </ContextWrapper>
-            <Date>2022.01.26</Date>
+            <Date>{updateDate}</Date>
         </Wrapper>
     );
 }
