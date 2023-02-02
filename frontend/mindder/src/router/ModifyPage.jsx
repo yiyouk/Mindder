@@ -20,6 +20,8 @@ const Remove = styled.div`
 function ModifyPage(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch() 
+
+    //로그아웃
     const logout = () => {
         sendLogout();
         removeCookie("is_login")
