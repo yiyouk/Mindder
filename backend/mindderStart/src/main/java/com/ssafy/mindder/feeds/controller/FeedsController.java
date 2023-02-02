@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
-import com.ssafy.mindder.feeds.model.FeedsRecommendationDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 import com.ssafy.mindder.util.JwtService;
@@ -156,7 +156,6 @@ public class FeedsController {
 					+ "-draw?c3apidt=p67950521402&cr=ec&gclid=Cj0KCQiAz9ieBhCIARIsACB0oGJBB98nHvnTniAE-kjspSDdkQWfpIcWxlh0IFv7ed-Mr8cMmg1vLicaAiz5EALw_wcB&gclsrc=aw.ds&kw=%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%8B%A4%EC%9A%B4&pl=PPC_GOO_KR_IG-567002744555";
 
 			Document doc = Jsoup.connect(url).get();
-			Thread.sleep(1000);
 			List<FeedsCrawlDto> list = new ArrayList<>();
 
 			Elements links = doc.select(".mui-b5j3lh-item-sstkGridItem-item");
@@ -217,7 +216,7 @@ public class FeedsController {
 		logger.info("recommendation - 호출");
 		try {
 			int userIdx = jwtService.neighborFeed(accessToken);
-			List<FeedsRecommendationDto> neighborList = feedsService.recommendation(userIdx);
+			List<FeedListDto> neighborList = feedsService.recommendation(userIdx);
 			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, neighborList);
 		} catch (Exception e) {
 			e.printStackTrace();
