@@ -32,22 +32,25 @@ import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenAction, userAction } from "./redux/store";
+import { SAVE_userIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
+
 const userId = 0
 const idx = 0
 // const keyword = "사랑"
 
 function App(props) {
     const dispatch = useDispatch()
-
+    //const userAction = userStateSlice.actions;
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
         console.log("나는 App.js의 함수")
         if (getCookie("is_login") !== undefined){ 
-            dispatch(tokenAction.SET_TOKEN(getCookie("is_login")));
+            console.log(getCookie("is_login"))
+            dispatch(SET_TOKEN(getCookie("is_login")));
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
         } else { //쿠키에 정보가 없으면 tonken 초기화
-            dispatch(tokenAction.DELETE_TOKEN("is_login"));
+            dispatch(DELETE_TOKEN(getCookie("is_login")));
+
         }
     }, [])
 
@@ -56,8 +59,8 @@ function App(props) {
         try {
             const response = await api.get(`/my/information`);
             if (response.data.data !== null) {
-                dispatch(userAction.SAVE({selected:response.data.data.userIdx, case:"userIdx"}))
-                dispatch(userAction.SAVE({selected:response.data.data.nickname, case:"nickName"}))
+                dispatch(SAVE_userIdx(response.data.data.userIdx))
+                dispatch(SAVE_nickName(response.data.data.nickname))
             }
         } catch (e) {
             alert("오류 발생!");

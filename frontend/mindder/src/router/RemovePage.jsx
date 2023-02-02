@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {removeCookie} from "../api/cookie";
-import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
 import api from "../api/api";
 
 import '../assets/css/main.css';
+import {DELETE_TOKEN,SAVE_nickName,SAVE_userIdx } from "../redux/reducers";
 
 
 function RemovePage(props) {
@@ -18,11 +18,10 @@ function RemovePage(props) {
             const response = await api.delete(`/users`, null);
             if(response.data.success){                
                 
-                dispatch(tokenAction.DELETE_TOKEN("is_login"))
-                dispatch(userAction.SAVE({selected:"", case:"nickName"}));
-                dispatch(userAction.SAVE({selected:null, case:"userIdx"}));
+                dispatch(DELETE_TOKEN("is_login"))
+                dispatch(SAVE_nickName(""));
+                dispatch(SAVE_userIdx(null));
                 removeCookie("is_login")
-
                 alert("회원퇼퇴가 완료 되었습니다.");
                 navigate("/");
             } else{

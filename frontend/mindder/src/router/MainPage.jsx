@@ -12,7 +12,7 @@ const Wrapper = styled.nav`
 `;
 
 function MainPage(props) {
-    const isLoggedIn = useSelector((state)=>state.authToken.authenticated)
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
 
     if(!isLoggedIn){
         return (
