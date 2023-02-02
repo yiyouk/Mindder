@@ -24,10 +24,10 @@ function Modify() {
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
     const [nicknameCheck, setNicknameCheck] = useState(true);
-    // const [password, setPassword] = useState("");
     const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
  
+    //정보 가져오기
     useEffect(()=>{
         getUserInfo();
     }, [])
@@ -42,7 +42,6 @@ function Modify() {
 
     //닉네임 중복 확인
     const handleCheckNick = e => {
-        // console.log(email);
         if(nickname === ""){
             alert("닉네임 입력해주세요.");
         } else if(nicknameOrigin === nickname) {
@@ -52,22 +51,22 @@ function Modify() {
         }
     }
 
-      //닉네임 중복 확인 비동기 통신
-  async function getNick(){ // async, await을 사용하는 경우
-    try {
-        const response = await api.get(`/users/check-nickname/${nickname}`, null);
-        
-        if(response.data.data.available){
-            setNicknameCheck(true);
-            alert("사용 가능한 닉네임입니다.");
-        } else{
-            alert("이미 존재하는 닉네임입니다.");
+  //닉네임 중복 확인 비동기 통신
+    const getNick = async() => { // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/users/check-nickname/${nickname}`, null);
+            
+            if(response.data.data.available){
+                setNicknameCheck(true);
+                alert("사용 가능한 닉네임입니다.");
+            } else{
+                alert("이미 존재하는 닉네임입니다.");
+            }
+            
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
         }
-        
-    } catch (e) {
-        console.error(e);
-        navigate("/error");
-    }
   }
 
 
@@ -83,21 +82,16 @@ function Modify() {
             alert("닉네임 중복 확인을 완료해주세요.");                                                                             
         } else {
             sendInfo();
-            navigate("/accounts/edit");
         }
     }
 
-    const isLoggedIn = useSelector((state)=>state.authToken)
-
     //현재 accesstonken에 맞는 user 정보 불러오기
-    async function getUserInfo(){ // async, await을 사용하는 경우
+    const getUserInfo = async() => { // async, await을 사용하는 경우
         try {
-            console.log("--------------------##########################-----------------------------------")
-            console.log(isLoggedIn);
-            const response = await api.get(`/users/information`, null);
-            console.log(response.data);
-            console.log("-------------------------------------------------------")
-            if(response.data !== null){
+            const response = await api.get(`/my/information`);
+            console.log("getUserInfo")
+            console.log(response)
+            if(response.data.data !== null){
                 setEmail(response.data.data.email);
                 setNickname(response.data.data.nickname);
                 setnicknameOrigin(response.data.data.nickname);
@@ -113,18 +107,18 @@ function Modify() {
     }
 
     //정보 수정하기
-    async function sendInfo(){ // async, await을 사용하는 경우
+    const sendInfo = async() => {
         try {
             const response = await api.patch(`/users`, {
                 profileImageUrl: profile,
                 nickname: nickname,
                 emoteColor : myColor
             });
-            console.log(response.data);
-            if (response.data.success===true){
-                getUserInfo()
-            }
-            navigate("/accounts/edit");   
+            
+            // console.log(response)
+            if (response.data.success === true){
+                getUserInfo();
+            }  
         } catch (e) {
             alert("오류 발생!");
             console.error(e);
@@ -183,7 +177,7 @@ function Modify() {
             <input type="color" name="myColor" id="myColor"/>
         </div>
         <div className="center-container">
-        <input className="maincolor-white-btn" type="button" value="수정하기" onClick={handleModify}/>
+        <input className="maincolor-white-btn" type="button" value="수정하기" onClick = {handleModify}/>
         </div>
     </form>
     );

@@ -16,6 +16,7 @@ public enum SuccessCode {
 	//file
 	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"),
 	READ_FILE_BEAR(SUCCESS,"곰돌이파일 조회 성공"),
+	READ_FILE_BASE64(SUCCESS, "파일 Base64 조회 성공"),
 	//password
 	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
 
@@ -49,7 +50,7 @@ public enum SuccessCode {
 	CREATE_USER(SUCCESS, "유저 정보 등록 성공"), READ_CHECK_EMIAL(SUCCESS, "이메일 중복 확인 성공"), DELETE_USER(SUCCESS, "유저 정보 삭제 성공"),
 	UPDATE_USER(SUCCESS, "유저 정보 수정 성공"), READ_KAKAO_LOGIN(SUCCESS, "카카오 유저 로그인 성공"), READ_LOGIN(SUCCESS, "유저 로그인 성공"),
 	READ_LOGOUT(SUCCESS, "유저 로그아웃 성공"), READ_FIND_PWD(SUCCESS, "유저 비밀번호 일치 여부 확인 성공"),
-	READ_CHECK_NICKNAME(SUCCESS, "유저 닉네임 중복 여부 확인 성공"), READ_CHECK_USER(SUCCESS, "유저 정보 반환 성공"),;
+	READ_CHECK_NICKNAME(SUCCESS, "유저 닉네임 중복 여부 확인 성공"), READ_CHECK_USER(SUCCESS, "회원 정보 조회 성공"),;
 
 	private final StatusCode statusCode;
 	private final String message;

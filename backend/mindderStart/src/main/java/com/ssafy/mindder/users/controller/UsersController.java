@@ -47,6 +47,7 @@ public class UsersController {
 	private static class Check {
 		@JsonProperty
 		boolean available;
+
 		public Check(boolean available) {
 			this.available = available;
 		}
@@ -54,18 +55,19 @@ public class UsersController {
 
 	@ApiOperation(value = "패스워드 변경 완료")
 	@PatchMapping("/change-password")
-	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,@RequestBody UsersDto usersDto){
+	public ApiResponse<?> changePassword(@RequestHeader("access_token") String accessToken,
+			@RequestBody UsersDto usersDto) {
 		try {
 			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
 			usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 			usersService.changePassword(usersDto);
-			return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+			return ApiResponse.success(SuccessCode.UPDATE_PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-	
+
 	@ApiOperation(value = "이메일 중복 여부를 반환한다")
 	@GetMapping("/check-email/{email}")
 	public ApiResponse<?> checkEmail(@PathVariable("email") String email) {
@@ -131,7 +133,7 @@ public class UsersController {
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
-			if (usersDto != null&&!usersDto.isDeleted()) {
+			if (usersDto != null && !usersDto.isDeleted()) {
 				usersDto.setRefreshToken(token.get("refresh_token"));
 				// 회원가입 이후 DB조회 후 우리 idx로 변환
 				usersService.addToken(usersDto);
@@ -162,7 +164,7 @@ public class UsersController {
 			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
-			if (usersDto != null&& !usersDto.isDeleted()) {
+			if (usersDto != null && !usersDto.isDeleted()) {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
@@ -200,7 +202,8 @@ public class UsersController {
 
 	@ApiOperation(value = "비밀번호 일치 여부를 반환한다.", response = String.class)
 	@PostMapping("/password")
-	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken, @RequestBody UsersDto userDto) {
+	public ApiResponse<?> findpassword(@RequestHeader("access_token") String accessToken,
+			@RequestBody UsersDto userDto) {
 		logger.debug("findpassword - 호출");
 		try {
 			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
@@ -242,6 +245,7 @@ public class UsersController {
 
 		}
 	}
+
 	@ApiOperation(value = "닉네임 중복 여부를 반환한다.")
 	@GetMapping("/check-nickname/{nickname}")
 	public ApiResponse<?> checkNickname(@PathVariable("nickname") String nickname) {
@@ -256,20 +260,6 @@ public class UsersController {
 			} else {
 				return ApiResponse.success(SuccessCode.READ_CHECK_NICKNAME, nicknameCheck);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("checkNickname - 닉네임 체크 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
-	@ApiOperation(value = "회원 정보를 반환한다.", response = String.class)
-	@GetMapping("/information")
-	ApiResponse<?> checkUser(@RequestHeader("access_token") String accessToken) {
-
-		logger.debug("checkNickname - 호출");
-		try {
-			UsersDto userDto = usersService.checkUser(jwtService.getUserIdx(accessToken));
-			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("checkNickname - 닉네임 체크 중 에러");
@@ -291,7 +281,7 @@ public class UsersController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-	
+
 	@ApiOperation(value = "임시 비밀번호 발급")
 	@PatchMapping("/temp-password/{email}")
 	public ApiResponse<?> tempPasswordModify(@PathVariable @ApiParam(value = "이메일", required = true) String email) {

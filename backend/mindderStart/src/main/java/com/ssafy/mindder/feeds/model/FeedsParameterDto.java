@@ -21,4 +21,6 @@ public class FeedsParameterDto {
 	private int sadCount;
 	private int likeTotalCount;
 	private int fileIdx;
+	private int userIdx;
+	private int myLikeType; // 내가 느른 공감 버튼
 }

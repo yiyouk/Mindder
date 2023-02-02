@@ -78,10 +78,11 @@ public class FileController {
 	}
 
 	@GetMapping("/{fileIdx}")
-	public ResponseEntity<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
+	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
 		FileDto temp = null;
 		
 		ResponseEntity<String> result = null;
+		String tp =null;
 		try {
 			temp = fileService.findFile(fileIdx);
 			String saveFolder = temp.getSaveFolder(); // 파일 경로
@@ -90,14 +91,14 @@ public class FileController {
 			File file = new File(filePath + saveFolder, saveFile);
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<String>(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)), headers, HttpStatus.OK);
+			tp =Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
+		return ApiResponse.success(SuccessCode.READ_FILE_BASE64, tp);
 		//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
 	@GetMapping("/normal-bear")

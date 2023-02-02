@@ -7,7 +7,6 @@ import { useDispatch} from "react-redux";
 import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
-import axios from "axios";
 import api from "../api/api";
 
 import '../assets/css/main.css';
@@ -18,14 +17,17 @@ function LoginPage(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    //이메일 input 받기
     const handleChangeEmail = e => {
         setEmail(e.target.value);
     }
 
+    //비밀번호 input 받기
     const handleChangePw = e => {
         setPassword(e.target.value);
     }
 
+    //로그인 시도했을때
     const handleSubmit = e => {
         console.log(email);
         console.log(password);
@@ -39,29 +41,8 @@ function LoginPage(props) {
         }
     }
 
-    //닉네임 가져오기
-    const getNickName = async () =>{ // async, await을 사용하는 경우
-        try {
-            console.log("이곳은 getNickName 함수")
-            console.log(getCookie("is_login"));
-            const response = await axios.get(`http://mindder.me:8888/users/information`, {
-                headers: { access_token : `${getCookie("is_login")}` }
-            });
-            console.log(response);
-
-            if(response.data.data !== null) {
-                const NickName = response.data.data.nickname;
-                dispatch(userAction.SAVE({selected:NickName, case:"nickName"}))
-                // const NickName = useSelector((state)=>state.userState.nickname)
-            }
-        } catch (e) {
-            alert("오류 발생!");
-            console.error(e);
-            navigate("/error");
-        }
-    }
-
-    async function getUser(){ // async, await을 사용하는 경우
+    //로그인 비동기 통신
+    const getUser = async() => {
         try {
             const response = await api.post(`/users/login`,
             {   
@@ -72,20 +53,26 @@ function LoginPage(props) {
             
             if(response.data.success===true){
                 const accessToken = response.data.data.accessToken;
+                const nickname = response.data.data.nickname;
+                const userIdx = response.data.data.userIdx;
 
+                //원래 쿠키가 있다면?
                 if(getCookie("is_login") !== undefined){
+                    //쿠키 삭제
                     removeCookie("is_login")
+                    //전역 변수 삭제
                     dispatch(tokenAction.DELETE_TOKEN("is_login"))
+                    dispatch(userAction.SAVE({selected:"", case:"nickName"}))
+                    dispatch(userAction.SAVE({selected:null, case:"userIdx"}))
                 }
                         
+                //쿠키 새롭게 세팅
                 setCookie("is_login", accessToken);
-                dispatch(tokenAction.SET_TOKEN(accessToken));
-                
-                console.log("현재 setting cookie");
-                console.log(getCookie("is_login"));
-                console.log("밑에서 get Name 부른다.")
 
-                getNickName();
+                //전역 변수 세팅
+                dispatch(tokenAction.SET_TOKEN(accessToken));
+                dispatch(userAction.SAVE({selected:nickname, case:"nickName"}))
+                dispatch(userAction.SAVE({selected:userIdx, case:"userIdx"}))
 
                 navigate("/");
             } else{
