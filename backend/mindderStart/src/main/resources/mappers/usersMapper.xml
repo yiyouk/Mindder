@@ -11,11 +11,6 @@
 		from mainuser
 		where email = #{email}
 	</select>
-	<select id="checkUser" parameterType="int" resultMap="com.ssafy.resultmaps.user">
-		select email,user_idx,emote_color_idx,social_id,nickname
-		from mainuser
-		where user_idx = #{userIdx}
-	</select>
 	<select id="findpassword" parameterType="int" resultType="String">
 		select password
 		from mainuser
@@ -45,7 +40,7 @@
 		set refresh_token = #{refreshToken}
 		where user_idx = #{userIdx}
 	</update>
-	<update id="updateUser" parameterType="UsersDto" >
+	<update id="updateUser" parameterType="UsersDto">
 		update mainuser
 		set email=#{email}, nickname = #{nickname}, emote_color_idx = #{emoteColor}
 		where user_idx = #{userIdx}
@@ -55,12 +50,12 @@
 		set password=#{password}
 		where user_idx = #{userIdx}
 	</update>
-	<update id="deleteUser" parameterType="int" >
+	<update id="deleteUser" parameterType="int">
 		update mainuser
 		set is_deleted = 1, update_date = now()
 		where user_idx = #{userIdx}
 	</update>
-	<update id="logout" parameterType="int" >
+	<update id="logout" parameterType="int">
 		update mainuser
 		set refresh_token=null
 		where user_idx = #{userIdx}
@@ -70,5 +65,4 @@
 		from mainuser
 		where email = #{email}
 	</select>
-	
 </mapper>
