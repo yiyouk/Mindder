@@ -32,7 +32,7 @@ import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { SAVE_userIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
+import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
 
 const userId = 0
 const idx = 0
@@ -40,7 +40,6 @@ const idx = 0
 
 function App(props) {
     const dispatch = useDispatch()
-    //const userAction = userStateSlice.actions;
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
         console.log("나는 App.js의 함수")
@@ -59,7 +58,7 @@ function App(props) {
         try {
             const response = await api.get(`/my/information`);
             if (response.data.data !== null) {
-                dispatch(SAVE_userIdx(response.data.data.userIdx))
+                dispatch(SAVE_myIdx(response.data.data.userIdx))
                 dispatch(SAVE_nickName(response.data.data.nickname))
             }
         } catch (e) {
@@ -74,7 +73,7 @@ function App(props) {
             <div id = "bodysuit">
                 <Routes>
                     <Route path="" element={<MainPage />} />
-                    <Route path="user" element={<UserPage />} />
+                    <Route path={`${userId}`} element={<UserPage />} />
                     <Route path="feeds" element={<FeedPage />} />
                     <Route path="search" element={<SearchPage />} />
                     <Route path={`${userId}/calendar`} element={<CalendarPage />} />

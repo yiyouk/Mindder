@@ -6,7 +6,4 @@ export const store = configureStore({
   reducer:rootReducer
   });
 
-// export const userAction = userStateSlice.actions;
-// export const tokenAction = tokenSlice.actions;
-
 export default store;
