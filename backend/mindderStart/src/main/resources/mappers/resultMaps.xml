@@ -11,6 +11,16 @@
 		<result column="emote_color_idx" property="emoteColor" />
 		<result column="social_id" property="socialId" />
 	</resultMap>
+	<resultMap type="UserInformationDto" id="userInformation">
+		<result column="user_idx" property="userIdx" />
+		<result column="email" property="email" />
+		<result column="nickname" property="nickname" />
+		<result column="file_idx" property="fileIdx" />
+		<result column="emote_color_idx" property="emoteColorIdx" />
+		<result column="social_id" property="socialId" />
+		<result column="follower_count" property="followerCount" />
+		<result column="following_count" property="followingCount" />
+	</resultMap>
 	<resultMap type="FeedListDto" id="feedList">
 		<result column="feed_idx" property="feedIdx" />
 		<result column="comment_count" property="commentCount" />
