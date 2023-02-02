@@ -100,10 +100,12 @@ public class FeedsController {
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
 	public ApiResponse<?> getFeed(
-			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx) throws Exception {
+			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
-			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx);
+			int userIdx = jwtService.neighborFeed(accessToken);
+			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
 			if (feedDetail != null)
 				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 			else
@@ -136,7 +138,7 @@ public class FeedsController {
 	// 이미지 크롤링
 	@ApiOperation(value = "이미지 크롤링 ", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/crawling/{color}")
-	public ApiResponse<?> crawling(String color) throws Exception {
+	public ApiResponse<?> crawling(@PathVariable("color") String color) throws Exception {
 		// 일단 변수 반영 x, 메인 이미지만 가져와보기
 //		String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
 //
@@ -206,19 +208,19 @@ public class FeedsController {
 	// 유저가 최근에 선택했던 감정 색상을 기준으로 추천 페이지 제공
 	// 색상이 동일하면서 hit수가 높은 순으로 조회
 
-	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
-	@GetMapping("/recommendation")
-	public ApiResponse<?> recommendation(
-			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
-		logger.info("userIdx - 호출");
-		try {
-			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
-			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
+//	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
+//	@GetMapping("/recommendation")
+//	public ApiResponse<?> recommendation(
+//			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+//		logger.info("userIdx - 호출");
+//		try {
+//			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+//			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
+//			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+//		}
+//	}
 
 }
