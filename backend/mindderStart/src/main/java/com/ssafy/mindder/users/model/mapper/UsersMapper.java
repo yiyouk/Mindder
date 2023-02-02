@@ -19,4 +19,6 @@ public interface UsersMapper {
 	int checkEmail(String email) throws Exception;
 	void changePassword(UsersDto usersDto) throws Exception;
 	String selectUserIdx(String email) throws Exception;
+	void deletedJoinUser(UsersDto usersdto) throws Exception;
+	void deletedHard(int idx)throws Exception;
 }

@@ -62,6 +62,8 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void deleteUser(int userIdx) throws Exception {
+		usersMapper.deletedHard(userIdx);
+		System.out.println("11111");
 		usersMapper.deleteUser(userIdx);
 	}
 
@@ -183,6 +185,12 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String findUserIdx(String email) throws Exception {
 		return usersMapper.selectUserIdx(email);
+	}
+
+	@Override
+	public void deletedJoinUser(UsersDto usersdto) throws Exception {
+		usersMapper.deletedJoinUser(usersdto);
+		
 	}
 
 }

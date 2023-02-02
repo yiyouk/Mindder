@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
@@ -64,6 +65,8 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception {
+		// 조회수 증가
+		sqlSession.getMapper(FeedsMapper.class).updateHit(feedIdx);
 		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx, userIdx);
 	}
 
@@ -71,6 +74,11 @@ public class FeedsServiceImpl implements FeedsService {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto) {
 		return sqlSession.getMapper(FeedsMapper.class).searchFile(feedsBearDto);
 
+	}
+
+	@Override
+	public List<FeedListDto> recommendation(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
 	}
 
 }
