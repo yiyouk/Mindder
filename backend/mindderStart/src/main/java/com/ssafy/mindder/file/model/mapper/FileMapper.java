@@ -1,9 +1,13 @@
 package com.ssafy.mindder.file.model.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ssafy.mindder.file.model.FileDto;
 
 public interface FileMapper {
-	int addFile(FileDto fileDto);
-	FileDto findFile(int fileIdx);
+	List<FileDto> findNormalBear(Map<String, Integer> map) throws Exception;
+	int addFile(FileDto fileDto)throws Exception;
+	FileDto findFile(int fileIdx)throws Exception;
 	
 }
