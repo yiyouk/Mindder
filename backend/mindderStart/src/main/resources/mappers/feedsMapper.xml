@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.feeds.model.mapper.FeedsMapper">
-	
-	<!-- 공개여부 -> default값은 공개로 -->
-	<insert id="writeFeed" parameterType="FeedsDto">
-		insert into mainfeed 
-		(social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx, emote_complete_idx)
-		values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText},  #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
-	</insert>
-	
-	<!-- 글 작성 -> 감정 캘린더에 입력 -->
-	<insert id="writeCalendar" parameterType="FeedsDto">
-		insert into feedcalendar 
-		(calendar_date, emote_idx,user_idx, emote_complete_idx)
-		values(curdate(), #{emoteIdx}, #{userIdx},  #{emoteCompleteIdx})		
-	</insert>
-	
-	<!-- 피드글 삭제-->
-	<!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
-	<update id="deleteMainFeed" parameterType="int">
-	update  mainfeed 
-	set is_deleted = 1
-	where feed_idx = #{feedIdx};
-	</update>
-	
-	<update id="deleteFeedLike" parameterType="int">
-	update  feedlike 
-	set is_deleted = 1
-	where feed_idx = #{feedIdx};
-	</update>
-	
-	<update id="deleteFeedComment" parameterType="int">
-	update feedcomment 
-	set is_deleted = 1
-	where feed_idx = #{feedIdx};
-	</update>
-	
-	<update id="deleteFeedScrap" parameterType="int" >
-	update feedscrap 
-	set is_deleted = 1
-	where feed_idx = #{feedIdx};
-	</update>
-	
-	<!-- 피드글 수정-->
-	<update id ="modifyFeed" parameterType="FeedsUpdateDto">
-	update mainfeed 
-	set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
-	where feed_idx=#{feedIdx} and is_deleted!='1'
-	</update>
+   
+   <!-- 공개여부 -> default값은 공개로 -->
+   <insert id="writeFeed" parameterType="FeedsDto">
+      insert into mainfeed 
+      (social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx, emote_complete_idx)
+      values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText},  #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
+   </insert>
+   
+   <!-- 글 작성 -> 감정 캘린더에 입력 -->
+   <insert id="writeCalendar" parameterType="FeedsDto">
+      insert into feedcalendar 
+      (calendar_date, emote_idx,user_idx, emote_complete_idx)
+      values(curdate(), #{emoteIdx}, #{userIdx},  #{emoteCompleteIdx})      
+   </insert>
+   
+   <!-- 피드글 삭제-->
+   <!-- feedIdx가 있는 피드 좋아요, 피드 스크랩, 피드에 달린 코멘트 -> is_delete true로 변경  -->
+   <update id="deleteMainFeed" parameterType="int">
+   update  mainfeed 
+   set is_deleted = 1
+   where feed_idx = #{feedIdx};
+   </update>
+   
+   <update id="deleteFeedLike" parameterType="int">
+   update  feedlike 
+   set is_deleted = 1
+   where feed_idx = #{feedIdx};
+   </update>
+   
+   <update id="deleteFeedComment" parameterType="int">
+   update feedcomment 
+   set is_deleted = 1
+   where feed_idx = #{feedIdx};
+   </update>
+   
+   <update id="deleteFeedScrap" parameterType="int" >
+   update feedscrap 
+   set is_deleted = 1
+   where feed_idx = #{feedIdx};
+   </update>
+   
+   <!-- 피드글 수정-->
+   <update id ="modifyFeed" parameterType="FeedsUpdateDto">
+   update mainfeed 
+   set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
+   where feed_idx=#{feedIdx} and is_deleted!='1'
+   </update>
 
-	<!-- 피드글 상세보기 -->
-	<select id="getFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
-	<!-- 이미지 URL 은 제외한 코드 -->
-	select f.feed_idx,u.user_idx, u.nickname,
-	 f.update_date,f.emote_complete_idx,f.file_idx,
-   	(select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx and c.feed_idx=#{feedIdx})as 'comment_count',
-   	(select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=1) as 'like_count',
-	(select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=2 ) as 'cheerup_count',
-	(select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=3) as 'sad_count',
-	 (select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} ) as 'like_total_count',
-	(select l.like_type from feedlike l join mainfeed m on l.feed_idx = m.feed_idx where l.user_idx=#{userIdx} and m.feed_idx=#{feedIdx}) as 'my_like_type'
+   <!-- 피드글 상세보기 -->
+   <select id="getFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
+   <!-- 이미지 URL 은 제외한 코드 -->
+   select f.feed_idx,u.user_idx, u.nickname,f.main_text,f.normal_tag,
+    f.update_date,f.emote_complete_idx,f.file_idx,
+      (select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx and c.feed_idx=#{feedIdx})as 'comment_count',
+      (select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=1) as 'like_count',
+   (select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=2 ) as 'cheerup_count',
+   (select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=3) as 'sad_count',
+    (select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} ) as 'like_total_count',
+   (select l.like_type from feedlike l join mainfeed m on l.feed_idx = m.feed_idx where l.user_idx=#{userIdx} and m.feed_idx=#{feedIdx}) as 'my_like_type'
     from mainfeed f ,mainuser u
-	where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx;
+   where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx;
 
-	</select>
-	
-	
-	
-	<!-- 이웃의 게시글 리스트 -->
-	<select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
-	
+   </select>
+   
+   
+   
+   <!-- 이웃의 게시글 리스트 -->
+   <select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
+   
 select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l.like_total_count,e.my_like_type
-   		from 
+         from 
         (
-			select m.feed_idx,m.user_idx, m.file_idx ,m.emote_complete_idx
-			from mainfeed m,
+         select m.feed_idx,m.user_idx, m.file_idx ,m.emote_complete_idx
+         from mainfeed m,
             (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f  
-			where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
-		) f 
+         where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
+      ) f 
         
       left join
         (select like_type as 'my_like_type', feed_idx
@@ -86,34 +86,57 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
         ) as e
         on e.feed_idx=f.feed_idx
         
-      	left join 
+         left join 
         
-      	(
-			select feed_idx, count(*) as comment_count 
-			 from feedcomment 
-			 where is_deleted = 0 
-			group by feed_idx
-		) as c 
-			on f.feed_idx = c.feed_idx 
+         (
+         select feed_idx, count(*) as comment_count 
+          from feedcomment 
+          where is_deleted = 0 
+         group by feed_idx
+      ) as c 
+         on f.feed_idx = c.feed_idx 
         left join 
         (
-			select feed_idx, count(*) as 'like_total_count'
-			 from feedlike
+         select feed_idx, count(*) as 'like_total_count'
+          from feedlike
              group by feed_idx 
         ) as l
-             	on f.feed_idx = l.feed_idx 
-	
+                on f.feed_idx = l.feed_idx 
+   
   
         
-	</select>
-	
-	<!--완성된 곰돌이 이미지 조회 -->
-	<select id="searchFile" parameterType="FeedsBearDto" resultMap="com.ssafy.resultmaps.bear">
-	select file_idx, emote_idx, emote_color_idx
-	from feedemotecomplete 
-	where emote_idx=#{emoteIdx} and emote_color_idx=#{emoteColorIdx}
-	</select>
-
+   </select>
+   
+   <!--완성된 곰돌이 이미지 조회 -->
+   <select id="searchFile" parameterType="FeedsBearDto" resultMap="com.ssafy.resultmaps.bear">
+   select file_idx, emote_idx, emote_color_idx
+   from feedemotecomplete 
+   where emote_idx=#{emoteIdx} and emote_color_idx=#{emoteColorIdx}
+   </select>
+   
+   
+   <!-- 메인 페이지 추천 피드 리스트 반환 -->
+   <select id="recommendation" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
+ 	select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
+	  (select update_date from mainfeed m where m.feed_idx = f.feed_idx) as 'update_date',
+   (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+   (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+   from 
+   (
+    select feed_idx, user_idx, file_idx, emote_color_idx, feed_hit
+      from mainfeed
+      where (
+         select emote_color_idx
+         from mainfeed 
+         where user_idx= #{userIdx}
+         order by update_date DESC
+         limit 1
+         ) = emote_color_idx and user_idx != #{userIdx} and is_deleted = 0 and is_public=1
+    ) as f 
+  left join feedcomment c
+    on c.feed_idx=f.feed_idx
+   order by f.feed_hit DESC;
+      
+   </select>
 </mapper>
-
 

@@ -23,6 +23,8 @@
 	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="my_like_type" property="myLikeType" /> 
+		<result column="main_text" property="mainText" /> 
+		<result column="normal_tag" property="normalTag" /> 
 		<result column="feed_idx" property="feedIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="file_idx" property="fileIdx" />
@@ -41,6 +43,16 @@
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
+	
+		<resultMap type="FeedListDto" id="recommendation">
+		<result column="feed_idx" property="feedIdx" />
+		<result column="file_idx" property="fileIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="comment_count" property="commentCount" />
+		<result column="like_total_count" property="likeTotalCount" />
+		
+	</resultMap>
+	
 	<resultMap type="CommentsListDto" id="comment">
 		<result column="comment_idx" property="commentIdx" />
 		<result column="nickname" property="nickname" />
