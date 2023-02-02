@@ -83,20 +83,13 @@ function Modify() {
             alert("닉네임 중복 확인을 완료해주세요.");                                                                             
         } else {
             sendInfo();
-            navigate("/accounts/edit");
         }
     }
-
-    const isLoggedIn = useSelector((state)=>state.authToken)
 
     //현재 accesstonken에 맞는 user 정보 불러오기
     async function getUserInfo(){ // async, await을 사용하는 경우
         try {
-            console.log("--------------------##########################-----------------------------------")
-            console.log(isLoggedIn);
             const response = await api.get(`/users/information`, null);
-            console.log(response.data);
-            console.log("-------------------------------------------------------")
             if(response.data !== null){
                 setEmail(response.data.data.email);
                 setNickname(response.data.data.nickname);
@@ -121,10 +114,9 @@ function Modify() {
                 emoteColor : myColor
             });
             console.log(response.data);
-            if (response.data.success===true){
-                getUserInfo()
-            }
-            navigate("/accounts/edit");   
+            if (response.data.success === true){
+                getUserInfo();
+            }  
         } catch (e) {
             alert("오류 발생!");
             console.error(e);
@@ -183,7 +175,7 @@ function Modify() {
             <input type="color" name="myColor" id="myColor"/>
         </div>
         <div className="center-container">
-        <input className="maincolor-white-btn" type="button" value="수정하기" onClick={handleModify}/>
+        <input className="maincolor-white-btn" type="button" value="수정하기" onClick = {handleModify}/>
         </div>
     </form>
     );
