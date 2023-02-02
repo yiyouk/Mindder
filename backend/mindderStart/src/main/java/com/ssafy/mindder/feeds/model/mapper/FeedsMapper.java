@@ -46,8 +46,9 @@ public interface FeedsMapper {
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws SQLException;
 
+	public void updateHit(int feedIdx) throws SQLException;
+
 	// 완성된 곰돌이 조회
-	// idx 2개 받음 -> DB에서 조회해서 이미지 URL로 보내주면 됨
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 추천 피드 목록 조회
