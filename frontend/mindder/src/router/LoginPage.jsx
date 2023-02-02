@@ -9,7 +9,7 @@ import { useDispatch} from "react-redux";
 import api from "../api/api";
 
 import '../assets/css/main.css';
-import {SAVE_nickName, SAVE_userIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
+import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
 
 function LoginPage(props) {
     const navigate = useNavigate();
@@ -63,7 +63,7 @@ function LoginPage(props) {
                     //전역 변수 삭제
                     dispatch(DELETE_TOKEN("is_login"))
                     dispatch(SAVE_nickName(""))
-                    dispatch(SAVE_userIdx(null))
+                    dispatch(SAVE_myIdx(null))
                 }
                         
                 //쿠키 새롭게 세팅
@@ -72,7 +72,7 @@ function LoginPage(props) {
                 //전역 변수 세팅
                 dispatch(SET_TOKEN(accessToken));
                 dispatch(SAVE_nickName(nickname))
-                dispatch(SAVE_userIdx(userIdx))
+                dispatch(SAVE_myIdx(userIdx))
                 navigate("/");
             } else{
                 alert("로그인 정보를 다시 확인해주세요.");
