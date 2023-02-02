@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {removeCookie} from "../api/cookie";
-import {tokenAction} from "../redux/store"
+import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
 import api from "../api/api";
@@ -18,8 +18,10 @@ function RemovePage(props) {
             const response = await api.delete(`/users`, null);
             if(response.data.success){                
                 
-                removeCookie("is_login")
                 dispatch(tokenAction.DELETE_TOKEN("is_login"))
+                dispatch(userAction.SAVE({selected:"", case:"nickName"}));
+                dispatch(userAction.SAVE({selected:null, case:"userIdx"}));
+                removeCookie("is_login")
 
                 alert("회원퇼퇴가 완료 되었습니다.");
                 navigate("/");
