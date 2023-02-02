@@ -30,14 +30,14 @@ const sizes = {
 
     // 팔로우 팔로잉 리스트
     s: {
-        height: '3.2rem',
-        width: '3.2rem',
+        height: '3rem',
+        width: '3rem',
     },
 
     // 댓글
     xs: {
-        height:  '2.8em',
-        width: '2.8rem',
+        height:  '2.5em',
+        width: '2.5rem',
     }
 };
 
