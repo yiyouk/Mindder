@@ -8,9 +8,13 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FollowsDto;
+import com.ssafy.mindder.my.model.UserInformationDto;
 
 @Mapper
 public interface MyMapper {
+	
+	// 회원 정보 조회
+	public UserInformationDto selectUser(int userIdx) throws SQLException;
 
 	// 내가 쓴 피드 목록 조회
 	public List<FeedListDto> selectMyFeeds(int userIdx) throws SQLException;

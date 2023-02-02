@@ -11,6 +11,16 @@
 		<result column="emote_color_idx" property="emoteColor" />
 		<result column="social_id" property="socialId" />
 	</resultMap>
+	<resultMap type="UserInformationDto" id="userInformation">
+		<result column="user_idx" property="userIdx" />
+		<result column="email" property="email" />
+		<result column="nickname" property="nickname" />
+		<result column="file_idx" property="fileIdx" />
+		<result column="emote_color_idx" property="emoteColorIdx" />
+		<result column="social_id" property="socialId" />
+		<result column="follower_count" property="followerCount" />
+		<result column="following_count" property="followingCount" />
+	</resultMap>
 	<resultMap type="FeedListDto" id="feedList">
 		<result column="feed_idx" property="feedIdx" />
 		<result column="comment_count" property="commentCount" />
@@ -18,6 +28,7 @@
 	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="feed_idx" property="feedIdx" />
+		<result column="user_idx" property="userIdx" />
 		<result column="file_idx" property="fileIdx" />
 		<result column="update_date" property="updateDate" />
 		<result column="comment_count" property="commentCount" />
@@ -48,6 +59,7 @@
 	
 	<resultMap type="FeedsNeighborDto" id="neighbor">
 		<result column="feed_idx" property="feedIdx" />
+		<result column="user_idx" property="userIdx" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 		<result column="file_idx" property="fileIdx" />
