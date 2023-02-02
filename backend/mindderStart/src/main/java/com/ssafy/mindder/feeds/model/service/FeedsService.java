@@ -31,7 +31,7 @@ public interface FeedsService {
 	List<FeedsNeighborDto> neighborFeed(int userIdx) throws Exception;
 
 	// 피드 상세 조회
-	public FeedsParameterDto getFeed(int feedIdx) throws Exception;
+	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception;
 
 	// 완성된 곰돌이 조회
 	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
