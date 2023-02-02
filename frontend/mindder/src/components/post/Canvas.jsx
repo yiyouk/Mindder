@@ -1,39 +1,49 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-// import axios from "axios";
-// import { BACKEND_URL } from '../../config';
 
 import TrashImg from "../../assets/images/trash.png"
 import SaveImg from "../../assets/images/saveButton.png"
+import EraserImg from "../../assets/images/eraser.png"
+import FillImg from "../../assets/images/paint.png"
+
+
+// #### styled ####
+
 const Wrapper = styled.div`
 display: flex;
 justify-content: center;
 flex-direction: column;
 `
-// #### styled ####
 const Canva = styled.canvas`
 border-radius: 10px;
 border: 1px solid #CACACA;
+
 `
-const Colors = styled.div`
+
+const Container = styled.div`
 display: flex;
-border-radius: 25px;
-border: 1px solid #CACACA;
 background-color: white;
+align-items: center;
+& > input{
+    margin:5px;
+    background-color: transparent;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 `
+
+
 const Color = styled.button`
   border-radius: 25px;
   margin: 5px;
   width: 25px;
   height: 25px;
   border: 1px solid #CACACA;
-`
-const Strokes = styled.div`
-display: flex;
-border-radius: 25px;
-border: 1px solid #CACACA;
-background-color: white;
-align-items: center;
+  
+  cursor: pointer;
 `
 const Stroke = styled.button`
   margin: 5px;
@@ -42,45 +52,32 @@ const Stroke = styled.button`
   background-color:black;
   border-radius: 10px;
   border: 1px solid #000000;
+  cursor: pointer;
 `
-const EraseBtn = styled.button`
-    border-radius: 25px;
+const PaintTool = styled.button`
     margin: 5px;
     width: 25px;
     height: 25px;
-    border: 1px solid #CACACA;
-`
-const EraseAll = styled.button`
-    margin: 5px;
-    width: 25px;
-    height: 25px;
-    background-image:url(${TrashImg});
+    background-image:url(${(props) => (props.img)});
     border: none;
     background-color: transparent;
-    background-size: 120%;
+    background-size: 100%;
     background-position:center;
     background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
 `
-const SaveBtn = styled.button`
-    margin: 5px;
-    width: 25px;
-    height: 25px;
-    background-image:url(${SaveImg});
-    border: none;
-    background-color: transparent;
-    background-size: 120%;
-    background-position:center;
-    background-repeat: no-repeat;`
-
-
     
 function Draw() {
+
     const canvasRef = useRef(null);
 
     const [ctx, setCtx] = useState([]);
     const [isDrawing, setIsDrawing] = useState('');
     const [erase, setErase] = useState('');
     const [mode, setMode] = useState("brush");
+    const [color, setColor] = useState("black");
+    const [stroke, setStroke] = useState(1);
 
     // -- 캔버스 생성 -- //
         useEffect(() => {
@@ -90,22 +87,19 @@ function Draw() {
         }, []);
 
     // -- 색 변경 -- //
-    // mode가 erase 상태면 자동으로 brush 상태로 변경 //
-        const [color, setColor] = useState("black");
         const handleColorClick = (event) => {
             const newColor = event.target.style.backgroundColor ;
             setColor(newColor);
             setMode("brush")
         }
 
+
     // -- 선, 지우개 두께 변경 -- //
-        const [stroke, setStroke] = useState(1);
         const handleStrokeWidth = (event) => {
             const newStrokeWidth = event.target.style.strokeWidth ;
             setStroke(newStrokeWidth);
-
         }
-    
+
     // -- 색, 선 굵기 변경 -- //
         useEffect(() => {
             const canvas = canvasRef.current;
@@ -117,69 +111,48 @@ function Draw() {
             setCtx(context);
         }, [color, stroke])
 
+        const changePicker = (e) => {
+            setColor(e.target.value);
+            setMode("brush");
+
+        }
+
     // -- 전체 지우기 -- //
         const eraseAll = () => {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             context.clearRect(0, 0, canvas.width, canvas.height);
         }
-    
+
+    // -- 선택된 색으로 채우기 -- //
+        const fillAll = () => {
+            const canvas = canvasRef.current;
+            const context = canvas.getContext("2d");
+            context.fillStyle = color;
+            context.strokeStyle = color;
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
     // -- 지우개 버튼 클릭 시 모드 erase로 변경 -- //
         const eraseMode = () => {
             setMode("erase")
         }
 
-    // -- mouseDown시 동작 -- //
-    // mode가 brush면 Drawing, mode가 erase면 Erase //
-        const initDraw = ({nativeEvent}) => {
+    // -- 마우스 클릭 -- //
+        const initDraw = () => {
             if(mode === "brush"){
                 setErase(check => !check);
                 setIsDrawing(check => !check);
-                // console.log(setIsDrawing(true))
-                // console.log(isDrawing, erase)
             } else if (mode === "erase"){
                 setIsDrawing(check => !check);
                 setErase(check => !check);
-                // console.log(isDrawing, erase)
             }
         };
 
-        useEffect( () => {
-        }, [isDrawing]);
-        
-        const drawMobile = (e) => {
-            const X = e.touches[0].clientX - e.target.offsetLeft;
-            const Y = e.touches[0].clientY - e.target.offsetTop + document.documentElement.scrollTop;
-            if(mode === "brush"){
-                if (ctx) {
-                    if (!isDrawing) {
-                        // console.log(isDrawing, erase)
-                        ctx.beginPath();
-                        ctx.moveTo(X, Y);
-                    } else {
-                        // console.log('터치로도 그려진다!')
-                        ctx.lineTo(X, Y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            else if (mode === "erase"){
-                if(erase) {
-                    // 동그랗게 지우는 건 어떻게ㅠ..
-                    if (!erase) {                        
-                        ctx.beginPath();
-                        ctx.moveTo(X, Y);
-                    } else {
-                        ctx.clearRect(X-ctx.lineWidth/2, Y-ctx.lineWidth/2, ctx.lineWidth, ctx.lineWidth);
-                    }
-                }
-            }
-        };
-    
-    // -- mouseMove 동작 -- /
-    // brush 모드 isDrawing 상태면 그림 그려짐, erase 모드면 지우개.. //
+    // -- 마우스 동작 -- /
         const draw = ({nativeEvent}) => {
             const {offsetX, offsetY} = nativeEvent;
+
             if(mode === "brush"){
                 if (ctx) {
                     if (!isDrawing) {
@@ -193,7 +166,6 @@ function Draw() {
             }
             else if (mode === "erase"){
                 if(erase) {
-                    // 동그랗게 지우는 건 어떻게ㅠ..
                     if (!erase) {                        
                         ctx.beginPath();
                         ctx.moveTo(offsetX, offsetY);
@@ -210,6 +182,29 @@ function Draw() {
             setErase(false);
         };
     
+    // -- 모바일 터치 시작 시 -- /  
+        const mobileInit = (e) => {
+            const X = e.touches[0].clientX - e.target.offsetLeft + document.documentElement.scrollLeft;
+            const Y = e.touches[0].clientY - e.target.offsetTop + document.documentElement.scrollTop;         
+            ctx.beginPath();
+            ctx.moveTo(X, Y);
+        
+        };
+
+    // -- 모바일 터치 후 이동 -- /
+        const drawMobile = (e) => {
+            const X = e.touches[0].clientX - e.target.offsetLeft + document.documentElement.scrollLeft;
+            const Y = e.touches[0].clientY - e.target.offsetTop + document.documentElement.scrollTop;
+            if(mode === "brush"){
+                ctx.lineTo(X, Y);
+                ctx.stroke();
+            }
+            else if (mode === "erase"){ 
+                ctx.clearRect(X-ctx.lineWidth/2, Y-ctx.lineWidth/2, ctx.lineWidth, ctx.lineWidth);
+            }
+        };
+
+    
     // -- 그린거 저장 어케하지 -- /
         const imageSaved = () => {
             const canvas = canvasRef.current;
@@ -223,73 +218,56 @@ function Draw() {
             var myBlob = new Blob([new ArrayBuffer(array)], {type: "image/png"});
 
             const file = new File([myBlob], 'blobtofile.png');
-            console.log(file)
+            // console.log(file)
             var formData = new FormData();
             formData.append("media", file);
             formData.append("content", "Blob확인");
             formData.append("tagList", "blob");
             formData.append("username", "admin");
 
-            console.log(formData)
-
-            // axios
-            // .post(`${BACKEND_URL}/feeds`, null, {
-            //   headers: {
-            //     // "Content-type": "multipart/form-data",
-            //     // Authorization: sessionStorage.getItem("jwt"),
-            //   },
-            // })
-            // .then((res) => {
-            //   console.log(res);
-            // })
-            // .catch((err) => {
-            //   alert("실패");
-            //   console.log(err)
-            // });
+            // console.log(formData)
         }
             return (
                 <Wrapper>
-                  <Canva ref={canvasRef}
-                    onMouseDown={initDraw}
-                    onMouseMove={draw}
-                    onMouseUp={finishDraw}
-                    onPointerOut={finishDraw}
+                    <Canva ref={canvasRef}
+                        onMouseDown={initDraw}
+                        onMouseMove={draw}
+                        onMouseUp={finishDraw}
+                        onPointerOut={finishDraw}
 
-                    // 모바일로 터치할때는..
-                    onTouchStart={initDraw}
-                    onTouchMove={drawMobile}
-                    onTouchEnd={finishDraw}
-                    onTouchCancel={finishDraw}
-                  >
-                </Canva>
-            
-                    <Colors>
-                        <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#2c2c2c"}} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "white" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#F56161" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#FFCC80" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#F8C388" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#B6E2A1" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#7FE9DE" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#82AAE3" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#863A6F" }} />
-                         <Color className="singleColor" onClick={handleColorClick} style={{ backgroundColor: "#863A6F" }} />
-                    </Colors>
-                    <Strokes>
+                        onTouchStart={mobileInit}
+                        onTouchMove={drawMobile}
+                        onTouchEnd={finishDraw}
+                        onTouchCancel={finishDraw}
+                    >
+                    </Canva>
+                    <Container>
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#2c2c2c"}} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "white" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#F56161" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#FFCC80" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#F8C388" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#B6E2A1" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#7FE9DE" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#82AAE3" }} />
+                        <Color onClick={handleColorClick} style={{ backgroundColor: "#863A6F" }} />
+                        <input className="picker-style" type="color" value={color.hex} onChange={changePicker}/>
+                    </Container>
+                    <Container>
                         <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 1}}></Stroke>
-                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 3}}></Stroke> 
-                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 5}}></Stroke>                    
+                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 4}}></Stroke> 
                         <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 7}}></Stroke>                    
-                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 10}}></Stroke>
-                        <EraseBtn onClick={eraseMode}></EraseBtn>
-                        <EraseAll onClick={eraseAll}></EraseAll>
-                        <SaveBtn onClick={imageSaved}></SaveBtn>
-                    </Strokes>
-                
+                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 10}}></Stroke>                    
+                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 15}}></Stroke>
+                        <Stroke onClick={handleStrokeWidth} style={{ strokeWidth: 20}}></Stroke>
+                        <PaintTool img={FillImg} onClick={fillAll}></PaintTool>
+                        <PaintTool img={EraserImg} onClick={eraseMode}></PaintTool>
+                        <PaintTool img={TrashImg} onClick={eraseAll}></PaintTool>
+                        <PaintTool img={SaveImg} onClick={imageSaved}></PaintTool>
+                    </Container>
                  
                 </Wrapper>
               );
             }
         
         export default Draw;
-
