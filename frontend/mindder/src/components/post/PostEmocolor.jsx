@@ -5,44 +5,35 @@ import TodayEmotion from "./TodayEmotion";
 import EmoColors from "./EmoColors";
 import { Wrapper } from "./PostEmotag";
 import { CardContainer } from "./PostEmotag";
-import { Colors16 } from "../../redux/store";
+import { Colors16, SAVE_todayColor } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { userAction } from "../../redux/store";
-
-const EmoColorList = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items:center;
-  /* border: 1px solid blue; */
-`
 
 function PostEmocolor(props){
-  const selectedSrc = useSelector((state)=>state.userState.emotagSrc)
-  const selectedEmo = useSelector((state)=>state.userState.todayEmotion)
+  const selectedSrc = useSelector((state)=>state.USER.emotagSrc)
+  const selectedEmo = useSelector((state)=>state.USER.todayEmotion)
   const dispatch = useDispatch()
 
   const [imgSrc, setImgSrc] = useState(selectedSrc)
 
+  const onClick = (e) => {
+    const name = e.currentTarget.id
+    const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
+    setImgSrc(updatedSrc)
+    dispatch(SAVE_todayColor(name))
+  }
   return (
     <Wrapper>
       <EmoHeader text="감정의 색을 채워주세요"/>
       <TodayEmotion
       imgSrc={imgSrc}
       />
-      <CardContainer>
+      <CardContainer columnGap={1}>
         {Colors16.map((color)=>(
-          <EmoColorList key={color.id} id={color.name}
-          onClick={(e)=>{
-            const name = e.currentTarget.id
-            const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
-            setImgSrc(updatedSrc)
-            dispatch(userAction.SAVE({selected:name, case:"emoColor"}))
-          }}
-          >
+          <div onClick={(e)=>{onClick(e)}} id={color.name} key={color.id}>
             <EmoColors
-            key={color.id} colorCode={color.code} colorName={color.name} 
+            key={color.id} colorCode={color.code} colorName={color.name}
             />
-          </EmoColorList>
+          </div>
         ))}
       </CardContainer>
     </Wrapper>

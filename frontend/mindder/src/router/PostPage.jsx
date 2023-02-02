@@ -9,6 +9,7 @@ import PostCommentwrite from "../components/post/PostCommentwrite";
 import NextImg from "../assets/images/arrow.png"
 import PrevImg from "../assets/images/arrow2.png"
 import MainPage from "./MainPage";
+import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
     padding: 0;
@@ -64,7 +65,9 @@ const Prev = styled.div`
 function PostPage(props) {
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
-    
+    const checkUserState = useSelector((state)=>state.USER)
+    // console.log(checkUserState)
+
     switch (level) {
         case 1:
             return (
@@ -73,7 +76,11 @@ function PostPage(props) {
                     <div/>
                     <Next
                     onClick={()=>{
-                        setLevel(level+1)
+                        if (checkUserState.todayEmotion){
+                            setLevel(level+1)
+                        } else {
+                            alert("감정을 선택해주세요")
+                        }
                     }}
                     />
                     </Btndiv>
@@ -90,7 +97,11 @@ function PostPage(props) {
                     }}
                     /><Next
                     onClick={()=>{
-                        setLevel(level+1)
+                        if (checkUserState.todayColor){
+                            setLevel(level+1)
+                        } else {
+                            alert("색을 채워주세요")
+                        }
                     }}/>
                     </Btndiv>
                     <PostEmocolor/>

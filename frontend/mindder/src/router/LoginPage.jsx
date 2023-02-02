@@ -4,12 +4,12 @@ import {getCookie, setCookie, removeCookie} from "../api/cookie";
 
 //로그인 유지
 import { useDispatch} from "react-redux";
-import {tokenAction, userAction} from "../redux/store"
 
 //비동기 동신
 import api from "../api/api";
 
 import '../assets/css/main.css';
+import {SAVE_nickName, SAVE_userIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
 
 function LoginPage(props) {
     const navigate = useNavigate();
@@ -61,19 +61,18 @@ function LoginPage(props) {
                     //쿠키 삭제
                     removeCookie("is_login")
                     //전역 변수 삭제
-                    dispatch(tokenAction.DELETE_TOKEN("is_login"))
-                    dispatch(userAction.SAVE({selected:"", case:"nickName"}))
-                    dispatch(userAction.SAVE({selected:null, case:"userIdx"}))
+                    dispatch(DELETE_TOKEN("is_login"))
+                    dispatch(SAVE_nickName(""))
+                    dispatch(SAVE_userIdx(null))
                 }
                         
                 //쿠키 새롭게 세팅
                 setCookie("is_login", accessToken);
 
                 //전역 변수 세팅
-                dispatch(tokenAction.SET_TOKEN(accessToken));
-                dispatch(userAction.SAVE({selected:nickname, case:"nickName"}))
-                dispatch(userAction.SAVE({selected:userIdx, case:"userIdx"}))
-
+                dispatch(SET_TOKEN(accessToken));
+                dispatch(SAVE_nickName(nickname))
+                dispatch(SAVE_userIdx(userIdx))
                 navigate("/");
             } else{
                 alert("로그인 정보를 다시 확인해주세요.");
