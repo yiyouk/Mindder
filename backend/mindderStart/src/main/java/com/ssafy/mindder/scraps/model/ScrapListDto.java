@@ -1,4 +1,4 @@
-package com.ssafy.mindder.feeds.model;
+package com.ssafy.mindder.scraps.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,12 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedsNeighborDto {
-
+public class ScrapListDto {
 	private int feedIdx;
-	private int commentCount;
-	private int likeTotalCount;
-	private int emoteCompleteIdx;
 	private int fileIdx;
 	private int userIdx;
-	private int myLikeType;
+	private String nickname;
+	private String updateDate;
+	private int commentCount;
+	private int likeTotalCount;
 }

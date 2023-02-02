@@ -20,19 +20,18 @@ const Remove = styled.div`
 function ModifyPage(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch() 
-    const logout = () => {
-        sendLogout();
-        removeCookie("is_login")
-        dispatch(tokenAction.DELETE_TOKEN())
-        dispatch(userAction.SAVE({selected:"", case:"nickName"}))
-        navigate('/')
-    }
 
-    const sendLogout = async() => {
+    //로그아웃
+    const logout = async() => {
         const response = await api.get(`/users/logout`);
         if(!response.data.success){
             alert("로그아웃 실패! 다시 시도해주세요.");
-            navigate('/accounts/edit')
+        } else {
+            removeCookie("is_login")
+            dispatch(tokenAction.DELETE_TOKEN("is_login"));
+            dispatch(userAction.SAVE({selected:"", case:"nickName"}));
+            dispatch(userAction.SAVE({selected:null, case:"userIdx"}));
+            navigate('/')
         }
     }
 

@@ -152,10 +152,11 @@ export const Colors16 = [
 ]
 
 const initialState = {
-  emotagSrc:"/static/media/face2.66e6957fbe1fd4bfad8b.png",
+  emotagSrc:"/static/media/face2.f3c1c753969210027376.png",
   todayEmotion:null,
   todayColor:null,
-  nickName:""
+  nickName:"",
+  userIdx:null,
 }
 
 const userStateSlice = createSlice({
@@ -163,6 +164,7 @@ const userStateSlice = createSlice({
   initialState:initialState,
   reducers:{
     SAVE(state, action){
+      // console.log(action)
       switch (action.payload.case) {
         case "emoTag":
           state.todayEmotion = action.payload.selected
@@ -179,6 +181,10 @@ const userStateSlice = createSlice({
         case "nickName":
           state.nickName = action.payload.selected
           console.log(`nickName : ${state.nickName}`)
+          break;
+        case "userIdx":
+          state.userIdx = action.payload.selected
+          console.log(`userIdx : ${state.userIdx}`)
           break;
         default:
           break;
