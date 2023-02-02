@@ -10,15 +10,12 @@
 		where user_idx = #{userIdx} and is_deleted = 0;
 	</select>
 	<sql id="selectFeeds">
-		select f.feed_idx, f.file_idx, f.user_idx, u.nickname, f.update_date, 
-			   ifnull(c.cnt, 0) as comment_count, ifnull(l.cnt, 0) as like_total_count
+		select f.feed_idx, f.file_idx, f.user_idx, u.nickname, f.update_date,
+		ifnull((select count(*) from feedcomment where f.feed_idx = feed_idx group by feed_idx), 0) as comment_count,
+		ifnull((select count(*) from feedlike where f.feed_idx = feed_idx group by feed_idx), 0) as like_total_count
 		from mainfeed f 
 		join mainuser u 
 		on f.user_idx = u.user_idx
-		left join (select feed_idx, count(*) as cnt from feedcomment group by feed_idx) as c 
-		on f.feed_idx = c.feed_idx
-		left join (select feed_idx, count(*) as cnt from feedlike group by feed_idx) as l 
-		on f.feed_idx = l.feed_idx
 	</sql>
 	<!-- 내가 쓴 피드 목록 조회 -->
 	<select id="selectMyFeeds" parameterType="int" resultMap="com.ssafy.resultmaps.feedList">
