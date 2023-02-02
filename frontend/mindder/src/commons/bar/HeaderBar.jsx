@@ -25,7 +25,7 @@ function TopBar(props) {
 
   return (
     <Wrapper>
-      <div className="headerLogo"></div>
+      <div className="headerLogo" onClick={() => {navigate("/");}}></div>
       {NickName ==="" ? null : <Nick> {NickName} 님 </Nick>}
     </Wrapper>
   )
