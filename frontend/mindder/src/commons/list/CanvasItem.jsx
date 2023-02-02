@@ -72,7 +72,7 @@ function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
   };
 
   return(
-    <RecoCanvas onClick={feedIdx? onClick : toExternal} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
+    <RecoCanvas onClick={isNaN(feedIdx)? toExternal : onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
     />
   )
 }
