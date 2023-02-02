@@ -228,10 +228,15 @@ public class UsersController {
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
-
-			if (temp == null || temp.isDeleted()) {
-				usersDto.setPassword(encryPassword);
+			usersDto.setPassword(encryPassword);
+			System.out.println(temp);
+			if (temp == null) {
 				usersService.joinUser(usersDto);
+			}else if(temp.isDeleted()) {
+				System.out.println("살려줘");
+				usersDto.setUserIdx(temp.getUserIdx());
+				usersService.deletedJoinUser(usersDto);
+				
 			}
 			System.out.println(usersDto);
 
