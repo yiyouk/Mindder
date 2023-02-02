@@ -9,9 +9,6 @@ import styled from "styled-components";
   /* border: 1px solid black; */
   background-color:${(props) => (props.bgColor)};
   margin:0.5rem;
-  flex-direction:column;
-  display:flex;
-  align-items:center;
   `
 
 function EmotionColorList(props){

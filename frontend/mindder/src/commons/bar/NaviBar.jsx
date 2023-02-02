@@ -39,7 +39,7 @@ const Image = styled.img`
 
 function NaviBar(props) {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((state)=>state.authToken.authenticated)
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
 
     return (
         <>
