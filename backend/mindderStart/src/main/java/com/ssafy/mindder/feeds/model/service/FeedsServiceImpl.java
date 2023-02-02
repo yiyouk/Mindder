@@ -10,6 +10,7 @@ import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsRecommendationDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
 
@@ -71,6 +72,11 @@ public class FeedsServiceImpl implements FeedsService {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto) {
 		return sqlSession.getMapper(FeedsMapper.class).searchFile(feedsBearDto);
 
+	}
+
+	@Override
+	public List<FeedsRecommendationDto> recommendation(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
 	}
 
 }

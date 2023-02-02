@@ -6,6 +6,7 @@ import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsRecommendationDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 
 public interface FeedsService {
@@ -35,6 +36,8 @@ public interface FeedsService {
 
 	// 완성된 곰돌이 조회
 	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
+
+	public List<FeedsRecommendationDto> recommendation(int userIdx);
 
 	//////////////////////////////////////////////////////////////////
 
