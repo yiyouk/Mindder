@@ -64,9 +64,16 @@ function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
   const onClick = () => {
     navigate(`/f/${feedIdx}`);
   };
+
+  // 크롤링 이미지는 일단 새창에서 열리게 함
+  const toExternal = () => {
+    console.log(`외부 페이지 열기`)
+    window.open(feedIdx, '_blank')
+  };
+
   return(
-    <RecoCanvas onClick={onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
-    ></RecoCanvas>
+    <RecoCanvas onClick={feedIdx? onClick : toExternal} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
+    />
   )
 }
 

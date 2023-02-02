@@ -5,14 +5,12 @@ import TodayEmotion from "./TodayEmotion";
 import EmoColors from "./EmoColors";
 import { Wrapper } from "./PostEmotag";
 import { CardContainer } from "./PostEmotag";
-import { Colors16 } from "../../redux/store";
+import { Colors16, SAVE_todayColor } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { userAction } from "../../redux/store";
-
 
 function PostEmocolor(props){
-  const selectedSrc = useSelector((state)=>state.userState.emotagSrc)
-  const selectedEmo = useSelector((state)=>state.userState.todayEmotion)
+  const selectedSrc = useSelector((state)=>state.USER.emotagSrc)
+  const selectedEmo = useSelector((state)=>state.USER.todayEmotion)
   const dispatch = useDispatch()
 
   const [imgSrc, setImgSrc] = useState(selectedSrc)
@@ -21,7 +19,7 @@ function PostEmocolor(props){
     const name = e.currentTarget.id
     const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
     setImgSrc(updatedSrc)
-    dispatch(userAction.SAVE({selected:name, case:"emoColor"}))
+    dispatch(SAVE_todayColor(name))
   }
   return (
     <Wrapper>

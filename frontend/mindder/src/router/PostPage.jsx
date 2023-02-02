@@ -65,7 +65,7 @@ const Prev = styled.div`
 function PostPage(props) {
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
-    const checkUserState = useSelector((state)=>state.userState)
+    const checkUserState = useSelector((state)=>state.USER)
     // console.log(checkUserState)
 
     switch (level) {

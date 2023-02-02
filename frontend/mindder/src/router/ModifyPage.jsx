@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeCookie } from "../api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenAction, userAction } from "../redux/store";
 
 import api from "../api/api";
+import {SAVE_nickName, SAVE_userIdx, DELETE_TOKEN } from "../redux/reducers";
 
 const Remove = styled.div`
     margin: 1rem;
@@ -28,9 +28,9 @@ function ModifyPage(props) {
             alert("로그아웃 실패! 다시 시도해주세요.");
         } else {
             removeCookie("is_login")
-            dispatch(tokenAction.DELETE_TOKEN("is_login"));
-            dispatch(userAction.SAVE({selected:"", case:"nickName"}));
-            dispatch(userAction.SAVE({selected:null, case:"userIdx"}));
+            dispatch(DELETE_TOKEN("is_login"));
+            dispatch(SAVE_nickName(""));
+            dispatch(SAVE_userIdx(null));
             navigate('/')
         }
     }

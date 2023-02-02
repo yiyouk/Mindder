@@ -6,12 +6,12 @@ import TodayEmotion from "./TodayEmotion";
 import EmoHeader from "./EmoHeader";
 import EmoTag from "./EmoTag";
 import { useSelector, useDispatch } from "react-redux";
-import { Emoticons } from "../../redux/store";
-import { userAction } from "../../redux/store";
+import { Emoticons, SAVE_emotagSrc, SAVE_todayEmotion } from "../../redux/reducers";
+
 
 export const Wrapper = styled.div`
     width: calc(100% - 1rem) !important;
-    height:31.5rem;
+    height:31rem;
     display: grid;
     flex-direction: column;
     align-items: center;
@@ -43,7 +43,7 @@ export const EmotionTag = styled.div`
 `
 
 function PostEmoTag(props) {
-    const selectedEmo = useSelector((state)=>state.userState.emotagSrc)
+    const selectedEmo = useSelector((state)=>state.USER.emotagSrc)
     // console.log(selectedEmo)
 
     const dispatch = useDispatch()
@@ -54,8 +54,8 @@ function PostEmoTag(props) {
         // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
         const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
         setImgSrc(selectedSrc)
-        dispatch(userAction.SAVE({selected:selectedSrc, case:"imgSrc"}))
-        dispatch(userAction.SAVE({selected:emo.name, case:"emoTag"}))
+        dispatch(SAVE_emotagSrc(selectedSrc))
+        dispatch(SAVE_todayEmotion(emo.name))
     }
     return (
         <Wrapper>
