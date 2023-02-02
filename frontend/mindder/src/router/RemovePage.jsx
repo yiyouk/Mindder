@@ -7,7 +7,7 @@ import {removeCookie} from "../api/cookie";
 import api from "../api/api";
 
 import '../assets/css/main.css';
-import {DELETE_TOKEN,SAVE_nickName,SAVE_userIdx } from "../redux/reducers";
+import {DELETE_TOKEN,SAVE_nickName, SAVE_myIdx } from "../redux/reducers";
 
 
 function RemovePage(props) {
@@ -20,7 +20,7 @@ function RemovePage(props) {
                 
                 dispatch(DELETE_TOKEN("is_login"))
                 dispatch(SAVE_nickName(""));
-                dispatch(SAVE_userIdx(null));
+                dispatch(SAVE_myIdx(null));
                 removeCookie("is_login")
                 alert("회원퇼퇴가 완료 되었습니다.");
                 navigate("/");
