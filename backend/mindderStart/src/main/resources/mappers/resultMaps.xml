@@ -21,11 +21,6 @@
 		<result column="follower_count" property="followerCount" />
 		<result column="following_count" property="followingCount" />
 	</resultMap>
-	<resultMap type="FeedListDto" id="feedList">
-		<result column="feed_idx" property="feedIdx" />
-		<result column="comment_count" property="commentCount" />
-		<result column="like_total_count" property="likeTotalCount" />
-	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="my_like_type" property="myLikeType" /> 
 		<result column="feed_idx" property="feedIdx" />
@@ -38,7 +33,7 @@
 		<result column="sad_count" property="sadCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
-	<resultMap type="ScrapListDto" id="scrap">
+	<resultMap type="FeedListDto" id="feedList">
 		<result column="feed_idx" property="feedIdx" />
 		<result column="file_idx" property="fileIdx" />
 		<result column="user_idx" property="userIdx" />

@@ -19,8 +19,8 @@ import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
-import com.ssafy.mindder.scraps.model.ScrapListDto;
 import com.ssafy.mindder.scraps.model.service.ScrapsService;
 import com.ssafy.mindder.util.JwtService;
 
@@ -81,7 +81,7 @@ public class ScrapsController {
 		logger.debug("myScrapList - 호출 : ");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			List<ScrapListDto> scrapList = scrapsService.findMyScraps(userIdx);
+			List<FeedListDto> scrapList = scrapsService.findMyScraps(userIdx);
 			return ApiResponse.success(SuccessCode.READ_MY_SCRAP_LIST, scrapList);
 		} catch (Exception e) {
 			e.printStackTrace();
