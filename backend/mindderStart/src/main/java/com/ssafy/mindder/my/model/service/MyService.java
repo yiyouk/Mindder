@@ -14,6 +14,9 @@ public interface MyService {
 
 	// 내가 쓴 피드 목록 조회
 	public List<FeedListDto> findMyFeeds(int userIdx) throws Exception;
+	
+	// 타인이 쓴 피드 목록 조회
+	public List<FeedListDto> findOthersFeeds(int userIdx) throws Exception;
 
 	// 팔로워 목록 조회
 	public List<FollowsDto> findMyFollowers(int userIdx) throws Exception;
