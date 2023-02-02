@@ -10,7 +10,7 @@ import { Emoticons } from "../../redux/store";
 import { userAction } from "../../redux/store";
 
 export const Wrapper = styled.div`
-    width: calc(100% - 1rem);
+    width: calc(100% - 1rem) !important;
     height:31.5rem;
     display: grid;
     flex-direction: column;

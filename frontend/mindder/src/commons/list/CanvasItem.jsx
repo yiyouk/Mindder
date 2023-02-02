@@ -34,6 +34,12 @@ const sizes = {
         height: '6.5rem',
         width: '6.5rem',
     },
+
+    // 크롤링이미지
+    "xs": {
+        height: '4rem',
+        width: '4rem',
+    },
 };
 
 
@@ -45,7 +51,7 @@ CanvasItem.defaultProps = {
 const RecoCanvas = styled.div`
   ${sizeStyles}
   /* background-image:url(${(props)=>props.imageUrl}); */
-  background-image:url(${CanvasSample});
+  background-image:url(${(props)=>(props.imageUrl? props.imageUrl : CanvasSample)});
   background-size:cover;
   filter: drop-shadow(0px 1.5px 1.5px rgba(0, 0, 0, 0.25));
   border-radius: 4px;
@@ -59,7 +65,7 @@ function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
     navigate(`/f/${feedIdx}`);
   };
   return(
-    <RecoCanvas onClick={onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount}
+    <RecoCanvas onClick={onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
     ></RecoCanvas>
   )
 }
