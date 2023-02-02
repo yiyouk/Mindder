@@ -75,17 +75,34 @@ public class MyController {
 	}
 
 	@ApiOperation(value = "내가 쓴 피드 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
-	@GetMapping("/feeds/{userIdx}")
+	@GetMapping("/feeds")
 	public ApiResponse<?> myFeedList(
-			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+			@RequestHeader("access_token") String accessToken) {
 
-		logger.debug("myFeedList - 호출 : " + userIdx);
+		logger.debug("myFeedList - 호출");
 		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> feedList = myService.findMyFeeds(userIdx);
 			return ApiResponse.success(SuccessCode.READ_MY_FEED_LIST, feedList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("myFeedList - 내가 쓴 피드 목록 조회 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "타인이 쓴 피드 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
+	@GetMapping("/feeds/{userIdx}")
+	public ApiResponse<?> othersFeedList(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+
+		logger.debug("othersFeedList - 호출 : " + userIdx);
+		try {
+			List<FeedListDto> feedList = myService.findOthersFeeds(userIdx);
+			return ApiResponse.success(SuccessCode.READ_OTHERS_FEED_LIST, feedList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("othersFeedList - 타인이 쓴 피드 목록 조회 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}

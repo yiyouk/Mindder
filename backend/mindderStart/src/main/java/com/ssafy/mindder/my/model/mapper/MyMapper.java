@@ -18,6 +18,9 @@ public interface MyMapper {
 
 	// 내가 쓴 피드 목록 조회
 	public List<FeedListDto> selectMyFeeds(int userIdx) throws SQLException;
+	
+	// 타인이 쓴 피드 목록 조회
+	public List<FeedListDto> selectOthersFeeds(int userIdx) throws SQLException;
 
 	// 팔로워 목록 조회
 	public List<FollowsDto> selectMyFollowers(int userIdx) throws SQLException;
