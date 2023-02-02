@@ -29,6 +29,11 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
+	public List<FeedListDto> findOthersFeeds(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectOthersFeeds(userIdx);
+	}
+	
+	@Override
 	public List<FollowsDto> findMyFollowers(int userIdx) throws Exception {
 		return sqlSession.getMapper(MyMapper.class).selectMyFollowers(userIdx);
 	}

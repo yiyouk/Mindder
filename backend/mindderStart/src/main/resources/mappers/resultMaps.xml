@@ -21,12 +21,8 @@
 		<result column="follower_count" property="followerCount" />
 		<result column="following_count" property="followingCount" />
 	</resultMap>
-	<resultMap type="FeedListDto" id="feedList">
-		<result column="feed_idx" property="feedIdx" />
-		<result column="comment_count" property="commentCount" />
-		<result column="like_total_count" property="likeTotalCount" />
-	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
+		<result column="my_like_type" property="myLikeType" /> 
 		<result column="feed_idx" property="feedIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="file_idx" property="fileIdx" />
@@ -35,6 +31,14 @@
 		<result column="like_count" property="likeCount" />
 		<result column="cheerup_count" property="cheerupCount" />
 		<result column="sad_count" property="sadCount" />
+		<result column="like_total_count" property="likeTotalCount" />
+	</resultMap>
+	<resultMap type="FeedListDto" id="feedList">
+		<result column="feed_idx" property="feedIdx" />
+		<result column="file_idx" property="fileIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="update_date" property="updateDate" />
+		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
 	<resultMap type="CommentsListDto" id="comment">
@@ -47,17 +51,17 @@
 		<result column="calendar_idx" property="calendarIdx" />
 		<result column="calendar_date" property="calendarDate" />
 		<result column="user_idx" property="userIdx" />
-		<result column="emote_idx" property="emoteIdx" />
-		<result column="emote_color_idx" property="emoteColorIdx" />
+		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="FollowsDto" id="follow">
-		<result column="follower_idx" property="followerIdx" />
+		<result column="follow_idx" property="followIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="target_user_idx" property="targetUserIdx" />
-		<result column="is_deleted" property="isDeleted" />
+		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	
 	<resultMap type="FeedsNeighborDto" id="neighbor">
+		<result column="my_like_type" property="myLikeType" /> 
 		<result column="feed_idx" property="feedIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="comment_count" property="commentCount" />

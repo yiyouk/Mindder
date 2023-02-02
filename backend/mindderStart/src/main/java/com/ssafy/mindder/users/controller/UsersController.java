@@ -61,7 +61,7 @@ public class UsersController {
 			usersDto.setUserIdx(jwtService.getUserIdx(accessToken));
 			usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 			usersService.changePassword(usersDto);
-			return ApiResponse.success(SuccessCode.READ_CHECK_EMIAL);
+			return ApiResponse.success(SuccessCode.UPDATE_PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
@@ -109,7 +109,6 @@ public class UsersController {
 		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
-			System.out.println(idx);
 			usersDto.setUserIdx(idx);
 			usersService.updateUser(usersDto);
 			return ApiResponse.success(SuccessCode.UPDATE_USER);
