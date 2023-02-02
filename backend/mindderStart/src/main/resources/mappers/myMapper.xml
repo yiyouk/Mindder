@@ -49,9 +49,11 @@
 		where f.user_idx = #{userIdx} and f.is_deleted = 0;
 	</select>
 	<!-- 월별 캘린더 목록 조회 -->
-	<!-- @fixme: 감정 이모지 url 추가 필요 -->
 	<select id="selectMyCalendars" parameterType="int" resultMap="com.ssafy.resultmaps.calendar">
-		select * from feedcalendar 
+		select c.calendar_idx, c.calendar_date, e.file_idx, c.user_idx 
+		from feedcalendar c 
+		join feedemotecomplete e 
+		on c.emote_complete_idx = e.emote_complete_idx
 		where user_idx = #{userIdx} and month(calendar_date) = #{month};	
 	</select>
 	<!-- 팔로우 등록 -->

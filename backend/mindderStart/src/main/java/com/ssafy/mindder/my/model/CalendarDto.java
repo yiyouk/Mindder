@@ -12,11 +12,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalendarDto {
-	
+
 	private int calendarIdx;
 	private String calendarDate;
 	private int userIdx;
-	private int emoteIdx;
-	private int emoteColorIdx;
-	
+	private int fileIdx;
+
 }
