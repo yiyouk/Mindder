@@ -16,12 +16,12 @@ const Wrapper = styled.div`
 const Nick = styled.div`
     color: #404040;
     padding-right: 1rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
 `;
 
 function TopBar(props) {
   const navigate = useNavigate();
-  const NickName = useSelector((state)=>state.userState.nickName)
+  const NickName = useSelector((state)=>state.USER.nickName)
 
   return (
     <Wrapper>
