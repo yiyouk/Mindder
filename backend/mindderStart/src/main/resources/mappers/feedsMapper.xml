@@ -12,8 +12,8 @@
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
       insert into feedcalendar 
-      (calendar_date, emote_idx,user_idx, emote_complete_idx)
-      values(curdate(), #{emoteIdx}, #{userIdx},  #{emoteCompleteIdx})      
+      (calendar_date,user_idx, emote_complete_idx)
+      values(curdate(), #{userIdx}, #{emoteCompleteIdx})      
    </insert>
    
    <!-- 피드글 삭제-->
@@ -142,7 +142,6 @@ select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l
   left join feedcomment c
     on c.feed_idx=f.feed_idx
    order by f.feed_hit DESC;
-      
    </select>
 </mapper>
 
