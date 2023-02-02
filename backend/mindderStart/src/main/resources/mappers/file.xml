@@ -17,4 +17,9 @@
 		from imagefile
 		where file_idx =#{fileIdx}
 	</select>
+	<select id="findNormalBear" parameterType="java.util.HashMap" resultMap="file">
+		select *
+		from imagefile
+		where file_idx >=5 and file_idx <![CDATA[<=]]> 20
+	</select>
 </mapper>
