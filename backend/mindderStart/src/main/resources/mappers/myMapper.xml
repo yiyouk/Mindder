@@ -11,8 +11,8 @@
 	</select>
 	<sql id="selectFeeds">
 		select f.feed_idx, f.file_idx, f.user_idx, u.nickname, f.update_date,
-		ifnull((select count(*) from feedcomment where f.feed_idx = feed_idx group by feed_idx), 0) as comment_count,
-		ifnull((select count(*) from feedlike where f.feed_idx = feed_idx group by feed_idx), 0) as like_total_count
+		ifnull((select count(*) from feedcomment where f.feed_idx = feed_idx and is_deleted = 0), 0) as comment_count,
+		ifnull((select count(*) from feedlike where f.feed_idx = feed_idx), 0) as like_total_count
 		from mainfeed f 
 		join mainuser u 
 		on f.user_idx = u.user_idx
