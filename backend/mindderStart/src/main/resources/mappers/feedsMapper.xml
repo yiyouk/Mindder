@@ -62,8 +62,14 @@
    (select l.like_type from feedlike l join mainfeed m on l.feed_idx = m.feed_idx where l.user_idx=#{userIdx} and m.feed_idx=#{feedIdx}) as 'my_like_type'
     from mainfeed f ,mainuser u
    where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx;
-
    </select>
+   
+   <!-- 그 뭐냐 조회수 업데이트 -->
+   	<update id="updateHit" parameterType="int">
+		update mainfeed
+		set feed_hit = feed_hit + 1
+		where feed_idx = #{feedIdx}
+	</update>
    
    
    
