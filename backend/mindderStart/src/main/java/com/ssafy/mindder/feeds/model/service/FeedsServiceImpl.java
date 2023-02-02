@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
@@ -71,6 +72,11 @@ public class FeedsServiceImpl implements FeedsService {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto) {
 		return sqlSession.getMapper(FeedsMapper.class).searchFile(feedsBearDto);
 
+	}
+
+	@Override
+	public List<FeedListDto> recommendation(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
 	}
 
 }
