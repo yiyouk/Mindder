@@ -65,6 +65,8 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception {
+		// 조회수 증가
+		sqlSession.getMapper(FeedsMapper.class).updateHit(feedIdx);
 		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx, userIdx);
 	}
 
