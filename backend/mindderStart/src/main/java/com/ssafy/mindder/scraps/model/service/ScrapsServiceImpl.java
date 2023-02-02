@@ -16,6 +16,11 @@ public class ScrapsServiceImpl implements ScrapsService {
 	private SqlSession sqlSession;
 	
 	@Override
+	public String findScrap(int userIdx, int feedIdx) throws Exception {
+		return sqlSession.getMapper(ScrapsMapper.class).selectScrap(userIdx, feedIdx);
+	}
+	
+	@Override
 	public void addScrap(int userIdx, int feedIdx) throws Exception {
 		sqlSession.getMapper(ScrapsMapper.class).insertScrap(userIdx, feedIdx);
 	}

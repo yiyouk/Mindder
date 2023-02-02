@@ -46,7 +46,9 @@ public class ScrapsController {
 		logger.debug("scrapAdd - 호출 : " + feedIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-
+			if (scrapsService.findScrap(userIdx, feedIdx) != null) {
+				return ApiResponse.error(ErrorCode.VALIDATION_SCRAP_EXCEPTION);
+			}
 			scrapsService.addScrap(userIdx, feedIdx);
 			return ApiResponse.success(SuccessCode.CREATE_SCRAP);
 		} catch (Exception e) {
@@ -64,7 +66,9 @@ public class ScrapsController {
 		logger.debug("scrapRemove - 호출 : " + feedIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-
+			if (scrapsService.findScrap(userIdx, feedIdx) == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_SCRAP_EXCEPTION);
+			}
 			scrapsService.removeScrap(userIdx, feedIdx);
 			return ApiResponse.success(SuccessCode.DELETE_SCRAP);
 		} catch (Exception e) {
