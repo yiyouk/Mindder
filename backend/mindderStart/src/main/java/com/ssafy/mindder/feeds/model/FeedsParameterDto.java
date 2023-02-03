@@ -21,7 +21,8 @@ public class FeedsParameterDto {
 	private int sadCount;
 	private int likeTotalCount;
 	private int fileIdx;
-	private String Base64;
+	private String base64;
+	private String extension;
 	private int userIdx;
 	private int myLikeType; // 내가 누른 공감 버튼
 }
