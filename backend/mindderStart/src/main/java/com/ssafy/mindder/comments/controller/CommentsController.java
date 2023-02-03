@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import com.ssafy.mindder.comments.model.service.CommentsService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,6 +33,8 @@ public class CommentsController {
 
 	@Autowired
 	private CommentsService commentsService;
+	@Autowired
+	private JwtService jwtService;
 
 	private static final Logger logger = LoggerFactory.getLogger(CommentsController.class);
 	private static final String SUCCESS = "success";
@@ -39,10 +43,14 @@ public class CommentsController {
 	@ApiOperation(value = "피드 댓글 작성", notes = "댓글을 작성한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
 	public ApiResponse<?> writeCommnet(
-			@RequestBody @ApiParam(value = "피드 정보.", required = true) CommentsDto commentsDto) throws Exception {
+			@RequestBody @ApiParam(value = "피드 정보.", required = true) CommentsDto commentsDto,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("writeComment - 호출");
 
 		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			System.out.println(userIdx);
+			commentsDto.setUserIdx(userIdx);
 			commentsService.writeComment(commentsDto);
 			return ApiResponse.success(SuccessCode.CREATE_COMMENT);
 		} catch (Exception e) {
