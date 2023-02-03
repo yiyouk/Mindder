@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import Image from "react-image-webp";
 
 const TodayEmotionDiv = styled.div`
     width: 11rem;
@@ -12,15 +12,17 @@ const TodayEmotionDiv = styled.div`
     justify-content:center;
     position:relative;
     top:5px;
-    background-image:url(${(props) => (props.bgImg)});
-    background-size:cover;
 `
 
 function TodayEmotion(props){
   return(
     <TodayEmotionDiv
-      bgImg={props.imgSrc}
+      // bgImg={props.imgSrc}
     >
+      <Image
+        webp={props.imgSrc}
+        style={{width:"11rem"}}
+      />
     </TodayEmotionDiv>
   )
 }

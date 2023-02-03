@@ -52,7 +52,7 @@ function PostEmoTag(props) {
 
     const onClick = (e, emo) => {
         // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
-        const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
+        const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.webp`)
         setImgSrc(selectedSrc)
         dispatch(SAVE_emotagSrc(selectedSrc))
         dispatch(SAVE_todayEmotion(emo.name))
@@ -70,7 +70,7 @@ function PostEmoTag(props) {
                     onClick={(e)=>{onClick(e, emo)}}
                     >
                         <EmoTag
-                        key={emo.id} emoId={emo.id} emoName={emo.name} 
+                        key={emo.id} emoId={emo.id} emoName={emo.name}
                         />
                     </EmotionTag>
                 ))}
