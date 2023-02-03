@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState  } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import api from '../../api/api'
+
 
 
 const Wrapper = styled.div`
@@ -17,20 +19,16 @@ const FollowNum = styled.div`
     cursor: pointer;
 ` 
 
-function Follower(props) {
+function Follower({follower, userIdx}) {
+
+
     const navigate = useNavigate();
-
-
-    // // const { title, onClick } = props;
-    // const moveFollower = () => {
-    //     navigate("/search");
-    // }
     return (
     <Wrapper>
         <div>팔로워</div>
         <FollowNum onClick={() => {
-            navigate("../0/Followers")}}>
-                {props.follower}
+            navigate(`/0/followers`)}}>
+                {follower}
         </FollowNum>
     
     </Wrapper>
