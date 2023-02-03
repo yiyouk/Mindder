@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // -- 아이콘 이미지 import -- 
 import SearchImg from "../../assets/images/icon1.png";
@@ -38,9 +39,12 @@ const Image = styled.img`
 
 function NaviBar(props) {
     const navigate = useNavigate();
-
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
+    const myIdx = useSelector((state)=>state.USER.myIdx);
+    console.log(myIdx)
     return (
-        <Wrapper>
+        <>
+            {isLoggedIn ?    <Wrapper>
             <NavMenu
                 onClick={() => {
                     navigate("/search");
@@ -64,7 +68,7 @@ function NaviBar(props) {
                         
             <NavMenu
                 onClick={() => {
-                    navigate("/user");
+                    navigate(`/${myIdx}`);
                 }}>   
                 <Image src={MyPageImg} alt="" />
             </NavMenu>
@@ -76,7 +80,8 @@ function NaviBar(props) {
                 <Image src={PostImg} alt="" />
             </NavMenu>
         
-        </Wrapper>
+        </Wrapper> :  null}
+        </>
     );
 }
 

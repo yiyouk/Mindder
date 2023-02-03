@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import ToggleBtn from "./ToggleBtn";
-import styles from './style.css'
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`

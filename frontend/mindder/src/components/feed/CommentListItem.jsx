@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Imag from "../../assets/images/face1.png";
+import Imag from "../../assets/images/face2.png";
 
 const Wrapper = styled.div`
     display: flex;
@@ -54,18 +54,16 @@ const Image = styled.img`
     border-radius: 100%;
 `
 
-function CommentListItem(props) {
-    const { comment } = props;
-
+function CommentListItem({comment}) {
     return (
         <Wrapper>
             <Image src = {Imag}></Image>
             <WrapperTop>
                 <ContextWrapper>
-                    <ProfileText>이유경</ProfileText>
-                    <Date>2019.12.05</Date>
+                    <ProfileText>{comment.nickname}</ProfileText>
+                    <Date>{comment.updateDate}</Date>
                 </ContextWrapper>
-            <ContentText>{comment.content}</ContentText>
+            <ContentText>{comment.feedComment}</ContentText>
             </WrapperTop>
         </Wrapper>
     );

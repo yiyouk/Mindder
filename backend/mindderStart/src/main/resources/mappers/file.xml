@@ -8,7 +8,7 @@
 		<result column="save_file" property="saveFile" />
 
 	</resultMap>
-	<insert id="addFile" >
+	<insert id="addFile" parameterType="FileDto"  useGeneratedKeys="true" keyColumn="file_idx" keyProperty="fileIdx">
 		insert into imagefile(save_folder,original_file,save_file)
 		value(#{saveFolder},#{originalFile},#{saveFile})
 	</insert>
@@ -16,5 +16,10 @@
 		select *
 		from imagefile
 		where file_idx =#{fileIdx}
+	</select>
+	<select id="findNormalBear" parameterType="java.util.HashMap" resultMap="file">
+		select *
+		from imagefile
+		where file_idx >=5 and file_idx <![CDATA[<=]]> 20
 	</select>
 </mapper>

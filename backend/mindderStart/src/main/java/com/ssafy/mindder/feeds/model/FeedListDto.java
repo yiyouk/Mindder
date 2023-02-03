@@ -12,9 +12,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FeedListDto {
-
-	int feedIdx;
-	int commentCount;
-	int likeTotalCount;
-	
+	private int feedIdx;
+	private int fileIdx;
+	private int userIdx;
+	private String nickname;
+	private String updateDate;
+	private int commentCount;
+	private int likeTotalCount;
 }

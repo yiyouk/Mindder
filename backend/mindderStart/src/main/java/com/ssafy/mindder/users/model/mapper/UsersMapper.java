@@ -9,7 +9,6 @@ public interface UsersMapper {
 	UsersDto searchUser(String email)throws Exception;
 	void joinUser(UsersDto usersdto) throws Exception;
 	int checkNickname(String nickname) throws Exception;
-	UsersDto checkUser(int userIdx) throws Exception;
 	UsersDto login(UsersDto usersdto)throws Exception;
 	void addToken(UsersDto usersdto) throws Exception;
 	UsersDto findSocialKakaoID(String userid) throws Exception;
@@ -18,4 +17,8 @@ public interface UsersMapper {
 	void logout(int userIdx) throws Exception;
 	String findpassword(int userIdx) throws Exception;
 	int checkEmail(String email) throws Exception;
+	void changePassword(UsersDto usersDto) throws Exception;
+	String selectUserIdx(String email) throws Exception;
+	void deletedJoinUser(UsersDto usersdto) throws Exception;
+	void deletedHard(int idx)throws Exception;
 }

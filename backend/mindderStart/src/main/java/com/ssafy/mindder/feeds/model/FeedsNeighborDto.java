@@ -16,4 +16,8 @@ public class FeedsNeighborDto {
 	private int feedIdx;
 	private int commentCount;
 	private int likeTotalCount;
+	private int emoteCompleteIdx;
+	private int fileIdx;
+	private int userIdx;
+	private int myLikeType;
 }

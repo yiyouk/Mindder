@@ -2,8 +2,10 @@ import React, {useEffect} from "react";
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route, useNavigate
 } from "react-router-dom";
+
+import api from "./api/api"
 
 // Pages
 import MainPage from './router/MainPage';
@@ -28,39 +30,50 @@ import SearchTagPage from "./router/SearchTagPage";
 import NaviBar from './commons/bar/NaviBar';
 import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
-
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenAction } from "./redux/store";
+import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
+
 const userId = 0
 const idx = 0
 // const keyword = "사랑"
 
 function App(props) {
     const dispatch = useDispatch()
-    const test2 = useSelector((state)=>state)
+    //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
-        console.log(test2.authToken)
-        const test = () => getCookie("is_login")
-        if(test()!==undefined){
-            dispatch(tokenAction.SET_TOKEN(test()));
+        console.log("나는 App.js의 함수")
+        if (getCookie("is_login") !== undefined){ 
+            console.log(getCookie("is_login"))
+            dispatch(SET_TOKEN(getCookie("is_login")));
+            setUserInfo(); //닉네임, 인덱스 번호 가져오기'
+        } else { //쿠키에 정보가 없으면 tonken 초기화
+            dispatch(DELETE_TOKEN(getCookie("is_login")));
+
         }
-        // console.log(test())
-        console.log(test2.authToken)
     }, [])
 
-    // console.log(`저장 전 : \n`)
-    console.log(`저장 후 :`)
-    console.log(test2.authToken)
-        
+    
+    const setUserInfo = async () =>{ // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/my/information`);
+            if (response.data.data !== null) {
+                dispatch(SAVE_myIdx(response.data.data.userIdx))
+                dispatch(SAVE_nickName(response.data.data.nickname))
+            }
+        } catch (e) {
+            alert("오류 발생!");
+            console.error(e);
+        }
+    }
 
-        return (
+    return (
         <BrowserRouter>
             <HeaderBar/>
             <div id = "bodysuit">
                 <Routes>
                     <Route path="" element={<MainPage />} />
-                    <Route path="user" element={<UserPage />} />
+                    <Route path={`${userId}`} element={<UserPage />} />
                     <Route path="feeds" element={<FeedPage />} />
                     <Route path="search" element={<SearchPage />} />
                     <Route path={`${userId}/calendar`} element={<CalendarPage />} />

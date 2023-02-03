@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +19,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
+import com.ssafy.mindder.file.model.service.FileService;
+import com.ssafy.mindder.util.Base64Util;
+import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -39,7 +48,11 @@ public class FeedsController {
 
 	@Autowired
 	private FeedsService feedsService;
-
+	@Autowired
+	private JwtService jwtService;
+	@Autowired
+	private FileService fileService;
+	private Base64Util base = new Base64Util();
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
@@ -61,8 +74,8 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
-	public ApiResponse<?> modifyFeed(@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsDto feedsDto)
-			throws Exception {
+	public ApiResponse<?> modifyFeed(
+			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsUpdateDto feedsDto) throws Exception {
 		logger.info("modifyFeed - 호출 {}", feedsDto);
 
 		try {
@@ -94,11 +107,20 @@ public class FeedsController {
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
 	public ApiResponse<?> getFeed(
-			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx) throws Exception {
+			@Value("${file.path.upload-files}") String filePath,
+			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
-			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx);
-			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
+			int userIdx = jwtService.getUserIdx(accessToken);
+			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
+			Map<String,String> file = fileService.findFile(feedDetail.getFileIdx(),filePath);
+			feedDetail.setBase64(file.get("base64"));
+			feedDetail.setExtension(file.get("extension"));
+			if (feedDetail != null)
+				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
+			else
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
@@ -108,12 +130,14 @@ public class FeedsController {
 
 	// 팔로잉 하는 이웃의 피드 리스트 조회
 	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
-	@GetMapping("neighbors/{userIdx}")
-	public ApiResponse<?> neighborFeed(
-			@PathVariable("userIdx") @ApiParam(value = "유저 번호 ", required = true) int userIdx) throws Exception {
+	@GetMapping("/neighbors")
+	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("userIdx - 호출");
 		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			System.out.println(userIdx);
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+			System.out.println(neighborList);
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,18 +146,18 @@ public class FeedsController {
 		}
 	}
 
-	// 핀터레스트 이미지 크롤링
+	// 이미지 크롤링
 	@ApiOperation(value = "이미지 크롤링 ", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/crawling/{color}")
-	public ApiResponse<?> crawling(String color) throws Exception {
+	public ApiResponse<?> crawling(@PathVariable("color") String color) throws Exception {
 		// 일단 변수 반영 x, 메인 이미지만 가져와보기
-//		String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
+//      String url = "https://www.google.com/search?q=purple+drawing&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjW1rb2k-78AhWSFIgKHTgUD_8Q_AUoAXoECAEQAw&biw=1536&bih=746&dpr=1.25";
 //
-//		Document doc = Jsoup.connect(url).get();
-//		Thread.sleep(1000);
-//		
-//		List<FeedsCrawlDto> list = new ArrayList<>();
-//		Elements links = doc.select("div.isv-r");
+//      Document doc = Jsoup.connect(url).get();
+//      Thread.sleep(1000);
+//      
+//      List<FeedsCrawlDto> list = new ArrayList<>();
+//      Elements links = doc.select("div.isv-r");
 
 		logger.debug("crawling - 호출 : " + color);
 
@@ -142,7 +166,6 @@ public class FeedsController {
 					+ "-draw?c3apidt=p67950521402&cr=ec&gclid=Cj0KCQiAz9ieBhCIARIsACB0oGJBB98nHvnTniAE-kjspSDdkQWfpIcWxlh0IFv7ed-Mr8cMmg1vLicaAiz5EALw_wcB&gclsrc=aw.ds&kw=%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%8B%A4%EC%9A%B4&pl=PPC_GOO_KR_IG-567002744555";
 
 			Document doc = Jsoup.connect(url).get();
-			Thread.sleep(1000);
 			List<FeedsCrawlDto> list = new ArrayList<>();
 
 			Elements links = doc.select(".mui-b5j3lh-item-sstkGridItem-item");
@@ -165,6 +188,66 @@ public class FeedsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(" crawling- 이미지 크롤링 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 완성된 곰돌이 이미지 조회 -> request body
+	@ApiOperation(value = "완성된 곰돌이 이미지 조회 ", notes = "완성된 곰돌이 이미지를 조회한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping("/emote-complete")
+	public ApiResponse<?> searchFile(
+			@RequestBody @ApiParam(value = "완성된 곰돌이 이미지 ", required = true) FeedsBearDto feedsBearDto)
+			throws Exception {
+		logger.info("searchFile - 호출");
+		try {
+
+			FeedsBearDto fileIdx = feedsService.searchFile(feedsBearDto);
+			if (fileIdx != null)
+				return ApiResponse.success(SuccessCode.READ_FIND_BEAR, fileIdx);
+			else
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("searchFile - 곰돌이 이미지 불러오는 중 에러 발생");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 메인 페이지 추천 피드 조회
+	// 유저가 최근에 선택했던 감정 색상을 기준으로 추천 페이지 제공-> emote_color_idx를 기준!
+	// 색상이 동일하면서 hit수가 높은 순으로 조회
+	// emote_color_idx=#{emoteColorIdx}
+	// order by hit DESC
+
+	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
+	@GetMapping("/recommendation")
+	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
+		logger.info("recommendation - 호출");
+		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
+			System.out.println(recommendation);
+			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("recommendation - 추천 글 불러오기 실패");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 유사 감정 색상 피드 목록 조회
+	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
+	@GetMapping("/similarity-color")
+	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
+			System.out.println(similarEmotion);
+			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}

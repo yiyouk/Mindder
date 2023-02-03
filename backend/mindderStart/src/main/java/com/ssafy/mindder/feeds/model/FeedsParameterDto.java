@@ -13,6 +13,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class FeedsParameterDto {
 	private int feedIdx;
+	private String mainText;
+	private String normalTag;
 	private String nickname;
 	private String updateDate;
 	private int commentCount;
@@ -20,4 +22,9 @@ public class FeedsParameterDto {
 	private int cheerupCount;
 	private int sadCount;
 	private int likeTotalCount;
+	private int fileIdx;
+	private String base64;
+	private String extension;
+	private int userIdx;
+	private int myLikeType; // 내가 누른 공감 버튼
 }
