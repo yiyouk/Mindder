@@ -24,7 +24,6 @@ import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequestMapping("/comments")
@@ -42,8 +41,7 @@ public class CommentsController {
 
 	@ApiOperation(value = "피드 댓글 작성", notes = "댓글을 작성한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
-	public ApiResponse<?> writeCommnet(
-			@RequestBody @ApiParam(value = "피드 정보.", required = true) CommentsDto commentsDto,
+	public ApiResponse<?> writeCommnet(@RequestBody CommentsDto commentsDto,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("writeComment - 호출");
 
@@ -62,9 +60,8 @@ public class CommentsController {
 
 	@ApiOperation(value = "피드 댓글 삭제", notes = "댓글 번호에 해당하는 댓글을 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/{commentIdx}")
-	public ApiResponse<?> deleteComment(
-			@PathVariable("commentIdx") @ApiParam(value = "삭제할 댓글 번호.", required = true) int commentIdx)
-			throws Exception {
+	public ApiResponse<?> deleteComment(@PathVariable("commentIdx") int commentIdx,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("deleteComment - 호출");
 		try {
 			commentsService.deleteComment(commentIdx);
@@ -79,8 +76,8 @@ public class CommentsController {
 	// 댓글 리스트 조회에에에에에엥
 	@ApiOperation(value = "피드 댓글 조회", notes = "피드에 달린 모든 댓글을 반환한다.", response = List.class)
 	@GetMapping("/{feedIdx}")
-	public ApiResponse<?> commentList(
-			@PathVariable("feedIdx") @ApiParam(value = "해당 피드글 번호.", required = true) int feedIdx) throws Exception {
+	public ApiResponse<?> commentList(@PathVariable("feedIdx") int feedIdx,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("feedIdx - 호출");
 
 		try {
