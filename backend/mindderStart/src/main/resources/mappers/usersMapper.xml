@@ -11,11 +11,6 @@
 		from mainuser
 		where email = #{email}
 	</select>
-	<select id="checkUser" parameterType="int" resultMap="com.ssafy.resultmaps.user">
-		select *
-		from mainuser
-		where user_idx = #{userIdx}
-	</select>
 	<select id="findpassword" parameterType="int" resultType="String">
 		select password
 		from mainuser
@@ -24,7 +19,7 @@
 	<select id="checkEmail" parameterType="String" resultType="int">
 		select count(email)
 		from mainuser
-		where email = #{nickname}
+		where email = #{nickname} and is_deleted = 0
 	</select>
 	<select id="findSocialKakaoID" parameterType="String" resultMap="com.ssafy.resultmaps.user">
 		select *
@@ -45,20 +40,44 @@
 		set refresh_token = #{refreshToken}
 		where user_idx = #{userIdx}
 	</update>
-	<update id="updateUser" parameterType="UsersDto" >
+	<update id="updateUser" parameterType="UsersDto">
 		update mainuser
-		set nickname = #{nickname}, password = #{password}
+		set nickname = #{nickname}, emote_color_idx = #{emoteColor}
 		where user_idx = #{userIdx}
 	</update>
-	<update id="deleteUser" parameterType="int" >
+	<update id="changePassword" parameterType="UsersDto">
 		update mainuser
-		set is_deleted = 1, update_date = now()
+		set password=#{password}
 		where user_idx = #{userIdx}
 	</update>
-	<update id="logout" parameterType="int" >
+	<update id="deleteUser" parameterType="int">
+		update mainuser 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+		update mainfeed 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+		update feedcomment 
+		set  is_deleted = 1, update_date = now()
+		where user_idx = #{userIdx};
+	</update>
+	<delete id="deletedHard" parameterType="int">
+		delete from feedlike where user_idx =#{userIdx};
+		delete from feedscrap where user_idx =#{userIdx};
+	</delete>
+	<update id="logout" parameterType="int">
 		update mainuser
 		set refresh_token=null
 		where user_idx = #{userIdx}
 	</update>
-	
+	<select id="selectUserIdx" parameterType="String" resultType="String">
+		select user_idx
+		from mainuser
+		where email = #{email}
+	</select>
+	<update id="deletedJoinUser" parameterType="UsersDto">
+		update mainuser
+		set email = #{email},nickname=#{nickname},password=#{password},create_date = now(),emote_color_idx = #{emoteColor},social_id = #{socialId},is_deleted = 0, update_date = now()
+		where user_idx = #{userIdx}
+	</update>
 </mapper>

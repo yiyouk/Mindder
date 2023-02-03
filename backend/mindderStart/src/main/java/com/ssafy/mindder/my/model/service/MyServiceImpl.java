@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FollowsDto;
+import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.mapper.MyMapper;
 
 @Service
@@ -18,8 +19,18 @@ public class MyServiceImpl implements MyService {
 	private SqlSession sqlSession;
 	
 	@Override
+	public UserInformationDto findUser(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectUser(userIdx);
+	}
+	
+	@Override
 	public List<FeedListDto> findMyFeeds(int userIdx) throws Exception {
 		return sqlSession.getMapper(MyMapper.class).selectMyFeeds(userIdx);
+	}
+	
+	@Override
+	public List<FeedListDto> findOthersFeeds(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectOthersFeeds(userIdx);
 	}
 	
 	@Override
@@ -35,6 +46,11 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public List<CalendarDto> findMyCalendars(int month, int userIdx) throws Exception {
 		return sqlSession.getMapper(MyMapper.class).selectMyCalendars(month, userIdx);
+	}
+	
+	@Override
+	public String findFollow(int userIdx, int targetUserIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectFollow(userIdx, targetUserIdx);
 	}
 	
 	@Override

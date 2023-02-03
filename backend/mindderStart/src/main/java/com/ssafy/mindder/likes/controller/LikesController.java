@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
@@ -37,14 +37,16 @@ public class LikesController {
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
 	@ApiOperation(value = "공감 등록", notes = "공감을 등록한다.")
-	@PostMapping("/likes")
-	public ApiResponse<?> likeAdd(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
+	@PostMapping()
+	public ApiResponse<?> likeAdd(@RequestHeader("access_token") String accessToken, @RequestBody LikesDto likesDto) {
 
 		logger.debug("likeAdd - 호출 : " + likesDto);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			likesDto.setUserIdx(userIdx);
-
+			if (likesService.findLike(likesDto) != null) {
+				return ApiResponse.error(ErrorCode.VALIDATION_LIKE_EXCEPTION);
+			}
 			likesService.addLike(likesDto);
 			return ApiResponse.success(SuccessCode.CREATE_LIKE);
 		} catch (Exception e) {
@@ -55,14 +57,16 @@ public class LikesController {
 	}
 	
 	@ApiOperation(value = "공감 수정", notes = "공감을 수정한다.")
-	@PatchMapping("/likes")
-	public ApiResponse<?> likeModify(@RequestParam("access_token") String accessToken, @RequestBody LikesDto likesDto) {
+	@PatchMapping()
+	public ApiResponse<?> likeModify(@RequestHeader("access_token") String accessToken, @RequestBody LikesDto likesDto) {
 
 		logger.debug("likeModify - 호출 : " + likesDto);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			likesDto.setUserIdx(userIdx);
-			
+			if (likesService.findLike(likesDto) == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_LIKE_EXCEPTION);
+			}
 			likesService.modifyLike(likesDto);
 			return ApiResponse.success(SuccessCode.UPDATE_LIKE);
 		} catch (Exception e) {
@@ -73,15 +77,18 @@ public class LikesController {
 	}
 
 	@ApiOperation(value = "공감 삭제", notes = "피드 번호에 해당하는 공감을 삭제한다.")
-	@DeleteMapping("/likes/{feedIdx}")
-	public ApiResponse<?> likeRemove(@RequestParam("access_token") String accessToken,
+	@DeleteMapping("/{feedIdx}")
+	public ApiResponse<?> likeRemove(@RequestHeader("access_token") String accessToken,
 			@PathVariable("feedIdx") @ApiParam(value = "피드 번호", required = true) int feedIdx) {
 
 		logger.debug("likeRemove - 호출 : " + feedIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			
-			likesService.removeLike(userIdx, feedIdx);
+			LikesDto likesDto = new LikesDto(userIdx, feedIdx, 0);
+			if (likesService.findLike(likesDto) == null) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_LIKE_EXCEPTION);
+			}
+			likesService.removeLike(likesDto);
 			return ApiResponse.success(SuccessCode.DELETE_LIKE);
 		} catch (Exception e) {
 			e.printStackTrace();

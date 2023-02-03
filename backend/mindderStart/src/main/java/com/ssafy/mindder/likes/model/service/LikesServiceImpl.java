@@ -14,6 +14,11 @@ public class LikesServiceImpl implements LikesService {
 	private SqlSession sqlSession;
 	
 	@Override
+	public String findLike(LikesDto likesDto) throws Exception {
+		return sqlSession.getMapper(LikesMapper.class).selectLike(likesDto);
+	}
+	
+	@Override
 	public void addLike(LikesDto likesDto) throws Exception {
 		sqlSession.getMapper(LikesMapper.class).insertLike(likesDto);
 	}
@@ -24,8 +29,8 @@ public class LikesServiceImpl implements LikesService {
 	}
 	
 	@Override
-	public void removeLike(int userIdx, int feedIdx) throws Exception {
-		sqlSession.getMapper(LikesMapper.class).deleteLike(userIdx, feedIdx);
+	public void removeLike(LikesDto likesDto) throws Exception {
+		sqlSession.getMapper(LikesMapper.class).deleteLike(likesDto);
 	}
 
 }

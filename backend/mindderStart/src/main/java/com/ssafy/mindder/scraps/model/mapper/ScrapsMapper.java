@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedListDto;
 
 @Mapper
 public interface ScrapsMapper {
 
+	// 스크랩 검색 
+	public String selectScrap(int userIdx, int feedIdx) throws SQLException;
+	
 	// 스크랩 등록
 	public void insertScrap(int userIdx, int feedIdx) throws SQLException;
 
@@ -17,6 +20,6 @@ public interface ScrapsMapper {
 	public void deleteScrap(int userIdx, int feedIdx) throws SQLException;
 
 	// 스크랩 목록 조회
-	public List<FeedsParameterDto> selectMyScraps(int userIdx) throws SQLException;
+	public List<FeedListDto> selectMyScraps(int userIdx) throws SQLException;
 
 }

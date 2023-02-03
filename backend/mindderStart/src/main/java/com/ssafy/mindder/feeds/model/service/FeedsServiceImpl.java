@@ -6,9 +6,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
 
 @Service
@@ -19,9 +22,9 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
+
 		sqlSession.getMapper(FeedsMapper.class).writeCalendar(feedsDto);
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
-
 	}
 
 	@Override
@@ -33,8 +36,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public boolean modifyFeed(FeedsDto boardDto) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto) == 1;
+	public boolean modifyFeed(FeedsUpdateDto boardDto) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto);
 	}
 
 	@Override
@@ -61,8 +64,26 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public FeedsParameterDto getFeed(int feedIdx) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx);
+	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception {
+		// 조회수 증가
+		sqlSession.getMapper(FeedsMapper.class).updateHit(feedIdx);
+		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx, userIdx);
+	}
+
+	@Override
+	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto) {
+		return sqlSession.getMapper(FeedsMapper.class).searchFile(feedsBearDto);
+
+	}
+
+	@Override
+	public List<FeedListDto> recommendation(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
+	}
+
+	@Override
+	public List<FeedsNeighborDto> similarColorFeed(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).similarColorFeed(userIdx);
 	}
 
 }

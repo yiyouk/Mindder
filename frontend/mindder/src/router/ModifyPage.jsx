@@ -4,8 +4,10 @@ import Modify from "../components/account/Modify";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeCookie } from "../api/cookie";
-import { useDispatch } from "react-redux";
-import { tokenAction } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+
+import api from "../api/api";
+import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN } from "../redux/reducers";
 
 const Remove = styled.div`
     margin: 1rem;
@@ -18,10 +20,20 @@ const Remove = styled.div`
 function ModifyPage(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch() 
-    const logout = () => {
-        removeCookie("is_login")
-        dispatch(tokenAction.DELETE_TOKEN())
-    }   
+
+    //로그아웃
+    const logout = async() => {
+        const response = await api.get(`/users/logout`);
+        if(!response.data.success){
+            alert("로그아웃 실패! 다시 시도해주세요.");
+        } else {
+            removeCookie("is_login")
+            dispatch(DELETE_TOKEN("is_login"));
+            dispatch(SAVE_nickName(""));
+            dispatch(SAVE_myIdx(null));
+            navigate('/')
+        }
+    }
 
     return(
         <div id="main">
@@ -37,7 +49,6 @@ function ModifyPage(props) {
                     <span
                     onClick={()=>{
                     logout()
-                    navigate('/')
                     }}
                     > 로그아웃</span>
                 </div>
