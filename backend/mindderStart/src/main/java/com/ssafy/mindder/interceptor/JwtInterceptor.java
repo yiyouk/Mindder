@@ -21,7 +21,6 @@ import com.ssafy.mindder.util.JwtServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
