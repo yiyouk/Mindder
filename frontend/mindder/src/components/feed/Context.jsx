@@ -6,7 +6,7 @@ const Wrapper = styled.div`
     width: 22rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     /* border-bottom: solid 0.6px rgb(231, 231, 231); */
     /* box-shadow: 1px 0px 0px rgb(67, 67, 67); */
@@ -58,8 +58,8 @@ function Context({updateDate, mainText, normalTag}) {
             <ContextWrapper>
                 <Img></Img>
                 <ContextStyled>&nbsp; {mainText} </ContextStyled>
-                <TagStyled> {normalTag} </TagStyled>
             </ContextWrapper>
+                <TagStyled> {normalTag} </TagStyled>
             <Date>{updateDate}</Date>
         </Wrapper>
     );

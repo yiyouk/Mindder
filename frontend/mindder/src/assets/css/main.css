@@ -118,6 +118,30 @@ input {
     border-radius: 6px;
 }
 
+.pad{
+    height: 0.5em;
+}
+
+.naver{
+    display: flex;
+    justify-content: center;
+    width: 11.5rem;
+    background-color: #03c75a;
+    border-radius: 6px;
+}
+
+.login-btn{
+    font-weight: 600;
+    width: 11.5rem;
+    height: 2.5rem;
+    color: black;
+    font-size:0.85rem;
+    font-style: normal;
+    background-color: #ffffffd4;
+    border: none;
+    border-radius: 6px;
+}
+
 .white-black-line-btn{
     width: 6rem;
     height: 2.5em;
@@ -131,6 +155,7 @@ input {
 }
 
 .text-white{
+    font-size: 0.9rem;
     color: white;
     margin:3px;
 }
@@ -141,11 +166,13 @@ input {
 }
 
 .logo{
-    width : 200px;
+    width : 12rem; 
+    margin-top: 1.6rem;
+    margin-bottom: 2rem;
 }
 
 .logoText{
-    width : 300px;
+    width : 19rem;
 }
 
 .snslogos{
