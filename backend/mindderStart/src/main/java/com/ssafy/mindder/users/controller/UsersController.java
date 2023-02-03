@@ -222,7 +222,7 @@ public class UsersController {
 	}
 
 	@ApiOperation(value = "회원가입 성공 여부를 반환한다.", response = String.class)
-	@PostMapping
+	@PostMapping("/join")
 	public ApiResponse<?> join(@RequestBody UsersDto usersDto) {
 		logger.debug("join - 호출");
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
