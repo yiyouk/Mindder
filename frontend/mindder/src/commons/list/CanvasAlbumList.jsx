@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CanvasItem from "./CanvasItem";
@@ -31,17 +31,19 @@ const AlbumContainer = styled.div`
 `
 
 function CanvasAlbumList(props){
+  const [feedList, setFeedList] = useState([])
+  useEffect(() => {
+    console.log("피드데이터", props)
+    // setFeedList(feedlist)
+}, [])
   return (
     <AlbumWrapper>
       <AlbumContainer>
         {/* 여기서 for문 */}
-        <CanvasItem size="m"/>   
-        <CanvasItem size="m"/>
-        <CanvasItem size="m"/>
-        <CanvasItem size="m"/>
-        <CanvasItem size="m"/>
-        <CanvasItem size="m"/>
-        <CanvasItem size="m"/>
+        {feedList.map((Feed, idx) => (
+          <CanvasItem size="m" feedIdx={Feed.feedIdx} imageUrl={Feed.fildIdx} commentCount={Feed.commentCount} likeTotalCount={Feed.likeTotalCount} key={idx}/>   
+
+        ))}
       </AlbumContainer>
     </AlbumWrapper>  
   );

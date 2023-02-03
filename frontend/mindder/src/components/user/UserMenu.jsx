@@ -1,22 +1,23 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 
 // user
-import UserFollow from "./UserFollow";
 import UserMenuSub from "./UserMenuSub"
+
+import Follower from "../../commons/ui/Follower"
+import Following from "../../commons/ui/Following"
 
 
 import ProfileImage from "../../commons/ui/ProfileImage";
 import ProfileName from "../../commons/ui/ProfileName";
-
 import MenuBtn from "../../assets/images/menulistbtn.png";
+
+
+
 const Wrapper = styled.div`
-    /* padding: 16px; */
-    /* width: 100vw; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,7 +27,7 @@ export const ProfileContainer = styled.div`
     align-items: center;
     align-self: start;
     padding-left: 1.2rem;
-`
+`;
 export const ProfileEditBtn = styled.div`
     width: 30px;
     padding: 8px;
@@ -34,27 +35,66 @@ export const ProfileEditBtn = styled.div`
     display: flex;
     position:relative;
     left:6rem;
-`
+`;
 
-function UserPage(props) {
+const FollowContainer = styled.div`
+    display: flex;
+    align-items:center;
+`;
+
+function UserMenu({userIdx}) {
     const navigate = useNavigate();
+
+    // 내 유저 아이디
+    const selectedUserId = useSelector((state)=>state.USER.userIdx)
+
+    const [profile, setProfile] = useState("");
+    const [nickname, setNickname] = useState("");
+    const [following, setFollowing] = useState(0);
+    const [follower, setFollower] = useState(0);
+
+    useEffect(() => {
+        getUserInfo();
+    }, [])
+
+    const getUserInfo = async() => {
+        console.log(userIdx)
+        try{
+            const response = await api.get(`/my/information/${userIdx}`);
+                setNickname(response.data.data.nickname);
+                setFollowing(response.data.data.followingCount);
+                setFollower(response.data.data.followerCount);
+                setProfile(response.data.data.fileIdx);
+        } catch (e) {
+            console.error(e);
+        }
+    }
     return (
         <Wrapper>
             <ProfileContainer>
                 <ProfileImage size="m"></ProfileImage>
-                <ProfileName size="m" name="닉네임"></ProfileName>
-                <ProfileEditBtn 
-                    onClick={() => {
-                    navigate("../accounts/edit")
-                    }}>
-                    <img src={MenuBtn}/>
-                </ProfileEditBtn>
+                <ProfileName size="m" name={nickname}></ProfileName>
+                { userIdx === selectedUserId? 
+                    <ProfileEditBtn 
+                        onClick={() => {
+                        navigate("../accounts/edit")
+                        }}>
+                        <img src={MenuBtn}/>
+                    </ProfileEditBtn>
+                    : null
+                }
             </ProfileContainer>
-            <UserFollow></UserFollow>
-            {/* 내 페이지일 경우 */}
+            <FollowContainer>
+                <Follower follower={follower} userIdx={userIdx}></Follower>
+                <Following following={following} userIdx={userIdx}></Following>
+            </FollowContainer>
+
+            { userIdx === selectedUserId? 
                 <UserMenuSub></UserMenuSub>
+                : null
+            }
         </Wrapper>
     );
 }
 
-export default UserPage;
+export default UserMenu;
