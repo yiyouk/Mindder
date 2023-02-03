@@ -81,4 +81,9 @@ public class FeedsServiceImpl implements FeedsService {
 		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
 	}
 
+	@Override
+	public List<FeedsNeighborDto> similarColorFeed(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).similarColorFeed(userIdx);
+	}
+
 }
