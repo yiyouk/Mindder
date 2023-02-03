@@ -79,7 +79,7 @@ public class FileController {
 
 	@GetMapping("/{fileIdx}")
 	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
-		String tp =null;
+		Map<String,String> tp =null;
 		try {
 			tp = fileService.findFile(fileIdx, filePath);
 		} catch (IOException e) {
