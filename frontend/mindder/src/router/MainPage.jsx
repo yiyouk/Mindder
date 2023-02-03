@@ -3,12 +3,12 @@ import React from "react";
 import styled from "styled-components";
 import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
+import NaviBar from '../commons/bar/NaviBar';
+import HeaderBar from "../commons/bar/HeaderBar";
 import { useSelector } from "react-redux";
 
-
-
 const Wrapper = styled.nav`
-    margin: 1rem 0 0 0;
+    padding: 0.5rem 1rem 3rem 1rem;
 `;
 
 function MainPage(props) {
@@ -21,6 +21,8 @@ function MainPage(props) {
     } else {
         return (
             <Wrapper>
+                <HeaderBar></HeaderBar>
+                <NaviBar></NaviBar>
                 <LoginHome></LoginHome>
             </Wrapper>
         );
