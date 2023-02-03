@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -18,9 +18,11 @@ const Wrapper = styled.div`
 `;
 
 
-function FollowItem({props}) {
+function FollowItem({data}) {
   const [isFollow, setIsFollow] = useState(false);
-
+  useEffect(() => {
+    console.log(data)
+  }, [])
   const handleFollowState = () => {
     isFollow ? setIsFollow(false) : setIsFollow(true)
     console.log(isFollow)
@@ -28,13 +30,14 @@ function FollowItem({props}) {
 
   return (
     <Wrapper>
-      <ProfileContainer>
-        <ProfileImage size="s"></ProfileImage>
-        <ProfileName size="s" name="닉네임"></ProfileName>
-      </ProfileContainer>
-      <FollowButton onClick={handleFollowState} active={isFollow}>
-        {isFollow ? '팔로잉' : '팔로우'}
-      </FollowButton>
+
+        <ProfileContainer>
+          <ProfileImage size="s"></ProfileImage>
+          <ProfileName size="s" name={data.nickname}></ProfileName>
+        </ProfileContainer>
+        <FollowButton onClick={handleFollowState} active={isFollow}>
+          {data.followIdx ? '팔로잉' : '팔로우'}
+        </FollowButton>
     </Wrapper>
   );
 }
