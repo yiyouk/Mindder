@@ -79,19 +79,9 @@ public class FileController {
 
 	@GetMapping("/{fileIdx}")
 	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
-		FileDto temp = null;
-		
-		ResponseEntity<String> result = null;
 		String tp =null;
 		try {
-			temp = fileService.findFile(fileIdx);
-			String saveFolder = temp.getSaveFolder(); // 파일 경로
-			String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
-			String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
-			File file = new File(filePath + saveFolder, saveFile);
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Type", Files.probeContentType(file.toPath()));
-			tp =Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file));
+			tp = fileService.findFile(fileIdx, filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
