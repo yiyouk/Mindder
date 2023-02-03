@@ -13,11 +13,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class CommentsDto {
 
-	private int commentIdx;
 	private int feedIdx;
-	private int userIdx;
-	private String nickname;
 	private String feedComment;
 	private String updateDate;
+	private int userIdx;
 
 }
