@@ -30,7 +30,8 @@ public class JwtServiceImpl implements JwtService {
 
 	@Override
 	public <T> String createAccessToken(String key, T data) {
-		return create(key, data, "access-token", 1000 * 60 * 60 * 24);
+		//return create(key, data, "access-token", 1000 * 60 * 60 * 24);
+		return create(key, data, "access-token", 1000 * 30);
 	}
 
 //	AccessToken에 비해 유효기간을 길게...
@@ -85,13 +86,14 @@ public class JwtServiceImpl implements JwtService {
 //			parseClaimsJws : 파싱하여 원본 jws 만들기
 			Jws<Claims> claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(jwt);
 //			Claims 는 Map의 구현체 형태
-			logger.warn("claims: {}", claims);
+			//logger.warn("claims: {}", claims);
 			return true;
 		} catch (Exception e) {
 //			if (logger.isInfoEnabled()) {
 //				e.printStackTrace();
 //			} else {
-			logger.error(e.getMessage());
+			System.out.println("bbb");
+			//logger.error(e.getMessage());
 //			}
 //			throw new UnauthorizedException();
 //			개발환경
