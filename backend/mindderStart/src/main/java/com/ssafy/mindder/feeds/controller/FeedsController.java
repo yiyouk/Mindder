@@ -105,7 +105,7 @@ public class FeedsController {
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
-			int userIdx = jwtService.neighborFeed(accessToken);
+			int userIdx = jwtService.getUserIdx(accessToken);
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
 			if (feedDetail != null)
 				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
@@ -124,7 +124,7 @@ public class FeedsController {
 	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("userIdx - 호출");
 		try {
-			int userIdx = jwtService.neighborFeed(accessToken);
+			int userIdx = jwtService.getUserIdx(accessToken);
 			System.out.println(userIdx);
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
 			System.out.println(neighborList);
@@ -215,7 +215,7 @@ public class FeedsController {
 	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("recommendation - 호출");
 		try {
-			int userIdx = jwtService.neighborFeed(accessToken);
+			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
 			System.out.println(recommendation);
 			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
@@ -231,7 +231,7 @@ public class FeedsController {
 	@GetMapping("/similarity-color")
 	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
-			int userIdx = jwtService.similarColorFeed(accessToken);
+			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
 			System.out.println(similarEmotion);
 			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);

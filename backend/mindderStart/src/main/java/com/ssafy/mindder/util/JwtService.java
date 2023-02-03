@@ -15,8 +15,4 @@ public interface JwtService {
 
 	int getUserIdx(String token);
 
-	int neighborFeed(String accessToken);
-
-	int similarColorFeed(String accessToken);
-
 }
