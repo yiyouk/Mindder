@@ -3,6 +3,7 @@ package com.ssafy.mindder.feeds.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,7 +36,6 @@ import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 import com.ssafy.mindder.file.model.service.FileService;
-import com.ssafy.mindder.util.Base64Util;
 import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
@@ -52,10 +52,7 @@ public class FeedsController {
 	private JwtService jwtService;
 	@Autowired
 	private FileService fileService;
-	private Base64Util base = new Base64Util();
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
 
 	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
@@ -76,7 +73,7 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
-	public ApiResponse<?> modifyFeed(
+	public ApiResponse<?> modifyFeed(@RequestHeader("access_token") String accessToken,
 			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsUpdateDto feedsDto) throws Exception {
 		logger.info("modifyFeed - 호출 {}", feedsDto);
 
@@ -92,7 +89,7 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 삭제", notes = "글번호에 해당하는 게시글의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/{feedIdx}")
-	public ApiResponse<?> deleteFeed(
+	public ApiResponse<?> deleteFeed(@RequestHeader("access_token") String accessToken,
 			@PathVariable("feedIdx") @ApiParam(value = "삭제할 글의 글번호.", required = true) int feedIdx) throws Exception {
 		logger.info("deleteFeed - 호출");
 
@@ -118,14 +115,16 @@ public class FeedsController {
 			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
 			feedDetail.setBase64(file.get("base64"));
 			feedDetail.setExtension(file.get("extension"));
-			if (feedDetail != null)
-				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
-			return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
+			if (Objects.isNull(feedDetail)) {
+				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
+			}
+			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
+
 	}
 
 	// 팔로잉 하는 이웃의 피드 리스트 조회

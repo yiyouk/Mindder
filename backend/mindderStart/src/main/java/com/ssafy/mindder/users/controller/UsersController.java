@@ -160,7 +160,6 @@ public class UsersController {
 		logger.debug("login - 호출");
 		usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 		try {
-			int check = 0;
 			usersDto = usersService.login(usersDto);
 			System.out.println(usersDto);
 			if (usersDto != null && !usersDto.isDeleted()) {
