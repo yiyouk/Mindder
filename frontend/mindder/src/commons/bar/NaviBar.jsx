@@ -39,12 +39,10 @@ const Image = styled.img`
 
 function NaviBar(props) {
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
     const myIdx = useSelector((state)=>state.USER.myIdx);
     console.log(myIdx)
     return (
-        <>
-            {isLoggedIn ?    <Wrapper>
+        <Wrapper>
             <NavMenu
                 onClick={() => {
                     navigate("/search");
@@ -79,9 +77,7 @@ function NaviBar(props) {
                 }}>
                 <Image src={PostImg} alt="" />
             </NavMenu>
-        
-        </Wrapper> :  null}
-        </>
+        </Wrapper>
     );
 }
 

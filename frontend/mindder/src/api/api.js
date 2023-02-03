@@ -1,13 +1,11 @@
 import axios from "axios";
-import { getCookie } from "./cookie";
+import { getCookie, removeCookie } from "./cookie";
 
 // axios.create는 나만의 엑시오스 인스턴스를 만드는 메서드이다.
 const instance = axios.create({
   baseURL: "http://mindder.me:8888"
-  // timeout: 3000
 });
 
-// headers: { access_token : `${getCookie("is_login")}` }
 
 /**
  1. 요청 인터셉터
@@ -49,11 +47,11 @@ instance.interceptors.request.use(
   },
 
   (error) => {
-    /*
-        http status가 200이 아닌 경우
-        응답 에러 직전 호출됩니다.
-        .catch() 으로 이어집니다.
-    */
+    if(error.response.status === 401){
+      alert("로그인 정보가 만료되었습니다. 다시 로그인 해주세요.")
+      removeCookie("is_login")
+      window.location.replace("/")
+    }
     return Promise.reject(error);
   }
 );

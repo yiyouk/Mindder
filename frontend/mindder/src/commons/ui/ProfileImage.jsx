@@ -69,10 +69,10 @@ ProfileImage.defaultProps = {
     size: "m",
   };
 
-function ProfileImage({size, userId}) {
+function ProfileImage({size, userIdx}) {
     const navigate = useNavigate();
     const onClick = () => {
-      navigate(`/${userId}`);
+      navigate(`/${userIdx}`);
     };
     return (
         <Wrapper>
