@@ -11,7 +11,7 @@ const EmoName = styled.div`
 `
 
 function EmoTag(props){
-  const imgSrc = require(`../../assets/images/face${props.emoId}.png`)
+  // const imgSrc = require(`../../assets/images/face${props.emoId}.png`)
   const webpSrc = require(`../../assets/images/face${props.emoId}.webp`)
 
   return(
