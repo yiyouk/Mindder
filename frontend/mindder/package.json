@@ -12,6 +12,7 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-horizontal-scrolling-menu": "^3.2.3",
+    "react-image-webp": "^0.8.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.0",

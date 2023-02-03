@@ -17,7 +17,8 @@ function PostEmocolor(props){
 
   const onClick = (e) => {
     const name = e.currentTarget.id
-    const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
+    const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.webp`)
+    console.log(updatedSrc)
     setImgSrc(updatedSrc)
     dispatch(SAVE_todayColor(name))
   }
