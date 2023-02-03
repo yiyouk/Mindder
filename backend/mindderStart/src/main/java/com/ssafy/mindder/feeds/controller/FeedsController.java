@@ -226,4 +226,20 @@ public class FeedsController {
 		}
 	}
 
+	// 유사 감정 색상 피드 목록 조회
+	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
+	@GetMapping("/similarity-color")
+	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+		try {
+			int userIdx = jwtService.similarColorFeed(accessToken);
+			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
+			System.out.println(similarEmotion);
+			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
 }
