@@ -17,5 +17,6 @@ public class CommentsListDto {
 	private String nickname;
 	private String feedComment;
 	private String updateDate;
+	private int userIdx;
 
 }
