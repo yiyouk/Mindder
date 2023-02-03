@@ -136,4 +136,10 @@ public class JwtServiceImpl implements JwtService {
 				.get("useridx");
 	}
 
+	@Override
+	public int similarColorFeed(String accessToken) {
+		return (int) Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(accessToken).getBody()
+				.get("useridx");
+	}
+
 }
