@@ -36,8 +36,6 @@ public class CommentsController {
 	private JwtService jwtService;
 
 	private static final Logger logger = LoggerFactory.getLogger(CommentsController.class);
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
 
 	@ApiOperation(value = "피드 댓글 작성", notes = "댓글을 작성한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
