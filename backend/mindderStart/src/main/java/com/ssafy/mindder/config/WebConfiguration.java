@@ -1,6 +1,7 @@
 package com.ssafy.mindder.config;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,7 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.ssafy.mindder.interceptor.JwtInterceptor;
 
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import  com.ssafy.mindder.filter.CORSFilter;
 @Configuration
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer{
@@ -22,6 +24,17 @@ public class WebConfiguration implements WebMvcConfigurer{
 	public WebConfiguration(@Value("${file.path.upload-files}") String uploadFilePath) {
 		this.uploadFilePath = uploadFilePath;
 	}
+	
+    @Bean
+    public FilterRegistrationBean filterBean() {
+    
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new CORSFilter());
+        registrationBean.setOrder(Integer.MIN_VALUE); //필터 여러개 적용 시 순번
+        registrationBean.addUrlPatterns("/*"); //전체 URL 포함
+
+        return registrationBean;
+    }
+    
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 //		System.out.println("CORS Setting");
