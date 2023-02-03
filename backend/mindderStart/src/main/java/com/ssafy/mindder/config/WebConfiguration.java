@@ -52,6 +52,7 @@ public class WebConfiguration implements WebMvcConfigurer{
 	        		.excludePathPatterns("/users/check-email")
 	        		.excludePathPatterns("/users/email-confirm")
 	        		.excludePathPatterns("/users/login")
+	        		.excludePathPatterns("/users/join")
 	        		.excludePathPatterns("/users/social")
 	        		.excludePathPatterns("/users/temp-password")
 	        		.excludePathPatterns("/swagger-resources/**")
