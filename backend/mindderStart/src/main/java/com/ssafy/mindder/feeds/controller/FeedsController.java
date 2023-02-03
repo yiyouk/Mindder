@@ -57,6 +57,7 @@ public class FeedsController {
 			throws Exception {
 		logger.info("writeArticle - 호출");
 		try {
+			// int userIdx = jwtService.getUserIdx(accessToken);
 			feedsService.writeFeed(feedsDto);
 			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
 		} catch (Exception e) {
