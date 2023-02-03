@@ -18,15 +18,15 @@ const FollowNum = styled.div`
 ` 
 
 
-function Following(props) {
+function Following({following, userIdx}) {
     const navigate = useNavigate();
 
     return (
     <Wrapper>
         <div>팔로잉</div>
         <FollowNum onClick={() => {
-            navigate("../0/Following")}}>
-                {props.following}
+            navigate(`/0/following`)}}>
+                {following}
         </FollowNum>
     
     </Wrapper>
