@@ -54,4 +54,7 @@ public interface FeedsMapper {
 	// 추천 피드 목록 조회
 	public List<FeedListDto> recommendation(int userIdx);
 
+	// 유사 감정 색상 - 게시물 리스트 조회
+	public List<FeedsNeighborDto> similarColorFeed(int userIdx);
+
 }
