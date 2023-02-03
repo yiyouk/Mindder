@@ -59,11 +59,12 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
-	public ApiResponse<?> writeFeeds(@RequestBody @ApiParam(value = "피드 정보.", required = true) FeedsDto feedsDto)
-			throws Exception {
+	public ApiResponse<?> writeFeeds(@RequestBody @ApiParam(value = "피드 정보.", required = true) FeedsDto feedsDto,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("writeArticle - 호출");
 		try {
-			// int userIdx = jwtService.getUserIdx(accessToken);
+			int userIdx = jwtService.getUserIdx(accessToken);
+			feedsDto.setUserIdx(userIdx);
 			feedsService.writeFeed(feedsDto);
 			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
 		} catch (Exception e) {
@@ -107,21 +108,19 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
-	public ApiResponse<?> getFeed(
-			@Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> getFeed(@Value("${file.path.upload-files}") String filePath,
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
-			Map<String,String> file = fileService.findFile(feedDetail.getFileIdx(),filePath);
+			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
 			feedDetail.setBase64(file.get("base64"));
 			feedDetail.setExtension(file.get("extension"));
 			if (feedDetail != null)
 				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
-			else
-				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
+			return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("getFeed - 피드 글 상세 보기 중 에러 발생 ");
