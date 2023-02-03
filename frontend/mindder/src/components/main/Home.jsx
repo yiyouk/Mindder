@@ -1,26 +1,45 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import LogoW from "../../assets/images/LogoW.png"
+import LogoW from "../../assets/images/MainLogo.png"
 import Logo from "../../assets/images/Logo.png";
-import Never from "../../assets/images/Never.png";
-import Kakao from "../../assets/images/Kakao.png";
+
+import styled from "styled-components";
+
+import naver_login from "../../assets/images/naver_login.png";
+import kakao_login from "../../assets/images/kakao_login.png";
+
+const Top = styled.div`
+    width: 22rem;
+    height: 4rem;
+`;
+
+const Bottom = styled.div`
+    width: 22rem;
+    height: 2rem;
+`;
+
+const Lnaver = styled.div`
+    width: 22rem;
+    height: 0.5rem;
+`;
+
 
 function Home(props) {
     const navigate = useNavigate();
     return (
         <div id="main" className="start-screen">
+            <Top className="start-screen"/>
             <div className="center-container">
                 <img className="logoText" src={LogoW}/>
                 <img className="logo" src={Logo}/>
             </div>
             <div className="center-container">
-                <button className="white-black-btn" onClick={() => {
-                      navigate("/login");
-                  }}>로그인</button>
-                <div className="logo-container">
-                    <img className="snslogos" src={Never}/>
-                    <img className="snslogos" src={Kakao}/>
-                </div>
+                <button className="login-btn" onClick={() => {navigate("/login");}}>로그인</button>
+                <Lnaver className="pad"/>
+                <div className="naver"><img src={naver_login} style={{width:"10.5rem"}}/></div>
+                <Lnaver className="pad"/>
+                <img src={kakao_login} style={{width:"11.5rem"}}/>
+                <Lnaver className="pad"/>
             </div>
             <div className="right-container">
                 <span className="text-white"  onClick={() => {
@@ -31,6 +50,7 @@ function Home(props) {
                       navigate("/accounts/password/find");
                   }}> 비밀번호 찾기</span>
             </div>
+            <Bottom className="start-screen"/>
          </div>
     );
 }

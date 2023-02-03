@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {
     BrowserRouter,
     Routes,
@@ -8,6 +8,7 @@ import {
 import api from "./api/api"
 
 // Pages
+import MainLayout from './Layout/MainLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
 import UserPage from './router/UserPage';
@@ -27,18 +28,16 @@ import SavedPage from "./router/SavedPage";
 import SearchNamePage from "./router/SearchNamePage";
 import SearchResPage from "./router/SearchResPage";
 import SearchTagPage from "./router/SearchTagPage";
-import NaviBar from './commons/bar/NaviBar';
-import HeaderBar from "./commons/bar/HeaderBar";
 import ErrorPage from "./router/ErrorPage";
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
 
-const userId = 0
-const idx = 0
+const idx = 0;
 // const keyword = "사랑"
 
 function App(props) {
+    const [userId, setUserId] = useState();
     const dispatch = useDispatch()
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
@@ -60,6 +59,7 @@ function App(props) {
             if (response.data.data !== null) {
                 dispatch(SAVE_myIdx(response.data.data.userIdx))
                 dispatch(SAVE_nickName(response.data.data.nickname))
+                setUserId(response.data.data.userIdx);
             }
         } catch (e) {
             alert("오류 발생!");
@@ -69,33 +69,33 @@ function App(props) {
 
     return (
         <BrowserRouter>
-            <HeaderBar/>
-            <div id = "bodysuit">
                 <Routes>
+                    {/* 오직 홈만 */}
                     <Route path="" element={<MainPage />} />
-                    <Route path={`${userId}`} element={<UserPage />} />
-                    <Route path="feeds" element={<FeedPage />} />
-                    <Route path="search" element={<SearchPage />} />
-                    <Route path={`${userId}/calendar`} element={<CalendarPage />} />
-                    {/* <Route path={`f/${idx}`} element={<FeedDetailPage />} /> */}
-                    <Route path="f/0" element={<FeedDetailPage />} />
-                    <Route path={`${userId}/followers`} element={<FollowersPage />} />
-                    <Route path={`${userId}/following`} element={<FollowingPage />} />
-                    <Route path="join" element={<JoinPage />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="accounts/edit" element={<ModifyPage />} />
-                    <Route path="post" element={<PostPage />} />
-                    <Route path="accounts/password/change" element={<PwChangePage />} />
-                    <Route path="accounts/password/find" element={<PwFindPage />} />
-                    <Route path="accounts/remove" element={<RemovePage />} />
-                    <Route path={`${userId}/saved`} element={<SavedPage />} />
-                    <Route path={`search/:keyword/nickname`} element={<SearchNamePage />} />
-                    <Route path={`search/:keyword`} element={<SearchResPage />} />
-                    <Route path={`search/:keyword/canvas`} element={<SearchTagPage />} />
-                    <Route path={`error`} element={<ErrorPage />} />
+                    {/* 헤더 필요함 + 공백 */}
+                    <Route element={<MainLayout/>}>
+                        <Route path={`${userId}`} element={<UserPage />} />
+                        <Route path="feeds" element={<FeedPage />} />
+                        <Route path="search" element={<SearchPage />} />
+                        <Route path={`${userId}/calendar`} element={<CalendarPage />} />
+                        {/* <Route path={`f/${idx}`} element={<FeedDetailPage />} /> */}
+                        <Route path="f/0" element={<FeedDetailPage />} />
+                        <Route path={`${userId}/followers`} element={<FollowersPage />} />
+                        <Route path={`${userId}/following`} element={<FollowingPage />} />
+                        <Route path="join" element={<JoinPage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="accounts/edit" element={<ModifyPage />} />
+                        <Route path="post" element={<PostPage />} />
+                        <Route path="accounts/password/change" element={<PwChangePage />} />
+                        <Route path="accounts/password/find" element={<PwFindPage />} />
+                        <Route path="accounts/remove" element={<RemovePage />} />
+                        <Route path={`${userId}/saved`} element={<SavedPage />} />
+                        <Route path={`search/:keyword/nickname`} element={<SearchNamePage />} />
+                        <Route path={`search/:keyword`} element={<SearchResPage />} />
+                        <Route path={`search/:keyword/canvas`} element={<SearchTagPage />} />
+                        <Route path={`error`} element={<ErrorPage />} />
+                    </Route>
                 </Routes>
-            </div>
-            <NaviBar/>
         </BrowserRouter>
     );
 
