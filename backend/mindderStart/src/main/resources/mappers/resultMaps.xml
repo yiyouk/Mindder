@@ -58,6 +58,7 @@
 		<result column="nickname" property="nickname" />
 		<result column="text" property="feedComment" />
 		<result column="update_date" property="updateDate" />
+		<result column="user_idx" property="userIdx" />
 	</resultMap>
 	<resultMap type="CalendarDto" id="calendar">
 		<result column="calendar_idx" property="calendarIdx" />
