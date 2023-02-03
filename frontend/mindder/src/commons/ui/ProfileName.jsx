@@ -1,7 +1,7 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled, { css } from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
     margin-right: 30px;
@@ -54,9 +54,14 @@ ProfileName.defaultProps = {
   };
 
 
-function ProfileName({size, name}) {
+function ProfileName({userIdx, size, name}) {
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate(`/${userIdx}`);
+      };
+
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             <Nickname
                 size={size}>
                 {name}

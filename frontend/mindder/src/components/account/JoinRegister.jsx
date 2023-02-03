@@ -82,9 +82,9 @@ function JoinRegister({email}) {
   }
 
     //회원가입 비동기 통신
-    async function getjoin(){ // async, await을 사용하는 경우
+    const getjoin = async() => { // async, await을 사용하는 경우
         try {
-            const response = await api.post(`/users`,
+            const response = await api.post(`/users/join`,
             {   
                 nickname: nickname,
                 email: email,
