@@ -10,22 +10,22 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 1rem;
-    & > * {
+    margin-top: 0.5rem;
+    /* & > * {
         :not(:last-child) {
             margin-bottom: 16px;
         }
-    }
+    } */
 `;
 
-function CommentList({feedIdx}) {
+function CommentList({feedIdx, commentCount}) {
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
 
     //데이터 가져오기
     useEffect(()=>{
         getComments();
-    }, [])
+    }, [commentCount])
 
 
     //댓글 데이터 가져오기
