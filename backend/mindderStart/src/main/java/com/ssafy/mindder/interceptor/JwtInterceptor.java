@@ -21,7 +21,6 @@ import com.ssafy.mindder.util.JwtServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RequiredArgsConstructor
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
@@ -37,6 +36,9 @@ public static final Logger logger = LoggerFactory.getLogger(JwtInterceptor.class
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		if (request.getMethod().equals("OPTIONS")) {
+    		return true;
+    	}
 		final String token = request.getHeader(HEADER_AUTH);
 		if(token != null && jwtService.checkToken(token)){
 			logger.info("토큰 사용 가능 : {}", token);
