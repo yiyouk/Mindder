@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -112,7 +113,9 @@ public class FeedsController {
 		try {
 			int userIdx = jwtService.neighborFeed(accessToken);
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
-			feedDetail.setBase64(fileService.findFile(feedDetail.getFileIdx(),filePath));
+			Map<String,String> file = fileService.findFile(feedDetail.getFileIdx(),filePath);
+			feedDetail.setBase64(file.get("base64"));
+			feedDetail.setExtension(file.get("extension"));
 			if (feedDetail != null)
 				return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 			else
