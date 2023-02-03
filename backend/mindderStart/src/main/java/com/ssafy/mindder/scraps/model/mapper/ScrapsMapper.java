@@ -10,6 +10,9 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 @Mapper
 public interface ScrapsMapper {
 
+	// 스크랩 검색 
+	public String selectScrap(int userIdx, int feedIdx) throws SQLException;
+	
 	// 스크랩 등록
 	public void insertScrap(int userIdx, int feedIdx) throws SQLException;
 
