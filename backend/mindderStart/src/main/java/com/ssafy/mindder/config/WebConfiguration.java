@@ -33,10 +33,10 @@ public class WebConfiguration implements WebMvcConfigurer{
 		registry.addMapping("/**").allowedOrigins("*")
 		.allowCredentials(true)
 //		.allowedOrigins("http://localhost:8080", "http://localhost:8081")
-			.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
-					HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
-					HttpMethod.PATCH.name())
-//			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
+//			.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
+//					HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
+//					HttpMethod.PATCH.name())
+			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD")
 			.maxAge(1800);
 	}
 	@Override
