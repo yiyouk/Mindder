@@ -51,12 +51,16 @@
 		on c.emote_complete_idx = e.emote_complete_idx
 		where user_idx = #{userIdx} and month(calendar_date) = #{month};	
 	</select>
+	<!-- 팔로우 검색 -->
+	<select id="selectFollow" parameterType="int" resultType="String">
+		select follow_idx from userfollow where target_user_idx = #{targetUserIdx} and user_idx = #{userIdx};
+	</select>
 	<!-- 팔로우 등록 -->
 	<insert id="insertMyFollow" parameterType="int">
-		insert into userfollower(target_user_idx, user_idx) values(#{targetUserIdx}, #{userIdx});	
+		insert into userfollow(target_user_idx, user_idx) values(#{targetUserIdx}, #{userIdx});	
 	</insert>
 	<!-- 팔로우 취소 -->
 	<delete id="deleteMyFollow" parameterType="int">
-		delete from userfollower where target_user_idx = #{targetUserIdx} and user_idx = #{userIdx};	
+		delete from userfollow where target_user_idx = #{targetUserIdx} and user_idx = #{userIdx};	
 	</delete>
 </mapper>
