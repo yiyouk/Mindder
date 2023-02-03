@@ -13,8 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.ssafy.mindder.interceptor.JwtInterceptor;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import  com.ssafy.mindder.filter.CORSFilter;
 @Configuration
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer{
@@ -24,17 +22,6 @@ public class WebConfiguration implements WebMvcConfigurer{
 	public WebConfiguration(@Value("${file.path.upload-files}") String uploadFilePath) {
 		this.uploadFilePath = uploadFilePath;
 	}
-	
-    @Bean
-    public FilterRegistrationBean filterBean() {
-    
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new CORSFilter());
-        registrationBean.setOrder(Integer.MIN_VALUE); //필터 여러개 적용 시 순번
-        registrationBean.addUrlPatterns("/*"); //전체 URL 포함
-
-        return registrationBean;
-    }
-    
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 //		System.out.println("CORS Setting");
@@ -44,7 +31,6 @@ public class WebConfiguration implements WebMvcConfigurer{
 //		Allow all headers.
 //		Set max age to 1800 seconds (30 minutes).
 		registry.addMapping("/**").allowedOrigins("*")
-		.allowCredentials(true)
 //		.allowedOrigins("http://localhost:8080", "http://localhost:8081")
 //			.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(),
 //					HttpMethod.DELETE.name(), HttpMethod.HEAD.name(), HttpMethod.OPTIONS.name(),
