@@ -20,4 +20,5 @@ public class UsersDto {
 	String refreshToken;
 	boolean isDeleted;
 	int emoteColor;
+	int fileIdx;
 }
