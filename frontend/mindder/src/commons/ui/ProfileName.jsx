@@ -3,16 +3,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const Wrapper = styled.div`
-    margin-right: 30px;
-    display: flex;
-    align-items: center;
-    & > span {
-        font-size: 1rem;
-        color: #999999;
-    }
-`;
-
 const sizeStyles = css`
   /*크기*/
   ${({size}) => css`
@@ -45,7 +35,6 @@ const sizes = {
 
 export const Nickname = styled.div`
     ${sizeStyles}
-    margin: 0.5rem 1rem 0.5rem 0;
 `
 
 // size 입력 없을 경우 default 값은 m!
@@ -61,12 +50,9 @@ function ProfileName({userIdx, size, name}) {
       };
 
     return (
-        <Wrapper onClick={onClick}>
-            <Nickname
-                size={size}>
-                {name}
-            </Nickname>
-        </Wrapper>
+        <Nickname size={size} onClick={onClick}>
+            {name}
+        </Nickname>
     );
 }
 
