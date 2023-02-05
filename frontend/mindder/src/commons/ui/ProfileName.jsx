@@ -29,7 +29,7 @@ const sizes = {
 
     // 댓글
     xs: {
-        fontsize: '0.7rem'
+        fontsize: '0.75rem'
     }
 };
 
