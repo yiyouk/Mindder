@@ -22,12 +22,16 @@ const Wrapper = styled.div`
 function CommentList({feedIdx, commentCount}) {
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
+    const [number, setNumber] = useState(commentCount);
 
     //데이터 가져오기
     useEffect(()=>{
         getComments();
-    }, [commentCount])
+    }, [commentCount, number])
 
+    const getData = (number) => {
+        setNumber(number);
+    }
 
     //댓글 데이터 가져오기
     const getComments = async() => { // async, await을 사용하는 경우
@@ -50,7 +54,7 @@ function CommentList({feedIdx, commentCount}) {
         <Wrapper>
             <span className="CC"> 댓글({comments.length})</span>
             {comments.map((comment, index) => {
-                return <CommentListItem key={index} comment={comment} />;
+                return <CommentListItem getData={getData} commentCount={commentCount} key={index} comment={comment} />;
             })}
         </Wrapper>
     );
