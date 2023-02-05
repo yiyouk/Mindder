@@ -16,10 +16,12 @@ public class UserInformationDto {
 	int userIdx;
 	String email;
 	String nickname;
-	String fileIdx;
+	int fileIdx;
 	int emoteColorIdx;
 	String socialId = null;
 	int followerCount;
 	int followingCount;
+	String base64;
+	String extension;
 	
 }
