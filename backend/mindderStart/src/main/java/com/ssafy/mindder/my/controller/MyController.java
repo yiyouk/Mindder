@@ -69,10 +69,12 @@ public class MyController {
 	
 	@ApiOperation(value = "회원 정보 조회 (타인페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
 	@GetMapping("/information/{userIdx}")
-	ApiResponse<?> otherUserDetails(@Value("${file.path.upload-files}") String filePath,@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+	ApiResponse<?> otherUserDetails(@Value("${file.path.upload-files}") String filePath,
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx ,@RequestHeader("access_token") String accessToken) {
 		logger.debug("otherUserDetails - 호출");
 		try {
 			UserInformationDto userDto = myService.findUser(userIdx);
+			System.out.println(userDto.getFileIdx());
 			Map<String,String>file = fileService.findFile(userDto.getFileIdx(),filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
