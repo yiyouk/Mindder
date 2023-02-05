@@ -1,58 +1,61 @@
 import React from "react";
-import styled from "styled-components";
-import Imag from "../../assets/images/face2.png";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 
-import api from "../../api/api"
+import Imag from "../../assets/images/face2.png";
+
+import api from "../../api/api";
 
 const Wrapper = styled.div`
     display: flex;
     max-width: 21rem;
     background: white;
-    align-items: center;
 `;
 
-const WrapperTop = styled.div`
+const Main = styled.div`
     display: flex;
     flex-direction: column;
-    width: 19rem;
-    height: 4rem;
+    width: 16.5rem;
     margin: 0 0 0 1rem;
-    background: white;
-    overflow: scroll;
-    /* border:1px solid; */
 `;
 
-const ContentText = styled.div`
-    color: rgb(67, 67, 67);
-    font-size: 0.75rem;
-    max-width: 12rem;
-    padding: 0 0 0 0;
-    margin: 0 0 -2rem 0;
-    /* border:1px solid blue; */
-    /* display:grid; */
-`;
-
-const ProfileText = styled.p`
-    color: rgb(67, 67, 67);
-    font-weight: 600;
-    font-size: 0.75rem;
-`;
-
-const ContextWrapper = styled.div`
-    width: 16rem;
-    max-width: 16rem;
+const SideContainer = styled.div`
+    width: 16em;
     display: flex;
-    align-content: flex-start;
+    align-items: center;
     justify-content: space-between;
 `;
 
-const Date = styled.div`
-    /* display: flex; */
+const ContentText = styled.span`
+    max-width: 18rem;
+    color: rgb(67, 67, 67);
+    font-size: 0.75rem;
+    margin-bottom: 1.3rem;
+`;
+
+const CommentInfo = styled.div`
+    max-width: 18rem;
+    display: flex;
+    align-content: flex-end;
+    margin-bottom: 0.3rem;
+`;
+
+const NickName = styled.span`
+    color: rgb(67, 67, 67);
+    font-weight: 600;
+    font-size: 0.75rem;
+    margin-right: 0.5rem;
+`;
+
+const Date = styled.span`
     font-size: 0.5rem;
     color: rgb(67, 67, 67);
-    /* justify-content: center !important; */
+    margin-right: 1rem;
+`
+const X = styled.span`
+    font-size: 0.5rem;
+    color: rgb(67, 67, 67);
 `
 
 const Image = styled.img`
@@ -67,12 +70,11 @@ function CommentListItem({comment}) {
     const MyIdx = useSelector((state)=>state.USER.myIdx);
     
     const deleteComment = () => {
-        sendDelete();
-        // if(comment.userIdx === MyIdx){
-            // if(useConfirm("댓글을 삭제하시겠습니까?", true, false)){
-            //     sendDelete();
-            // }
-        // }
+        if(comment.userIdx === MyIdx){
+            if(window.confirm("댓글을 삭제하시겠습니까?")){
+                sendDelete();
+            }
+        }
     }
     
     //댓글 삭제 비동기 통신
@@ -92,18 +94,19 @@ function CommentListItem({comment}) {
         }
     }
 
-    
     return (
             <Wrapper>
                 <Image src = {Imag}></Image>
-                <WrapperTop>
-                    <ContextWrapper>
-                        <ProfileText>{comment.nickname}</ProfileText>
-                        <Date>{comment.updateDate}</Date>
-                    </ContextWrapper>
-                <ContentText>{comment.feedComment}</ContentText>
-                </WrapperTop>
-                {comment.userIdx === MyIdx? <ContentText onClick={deleteComment}> x </ContentText> : null}
+                <Main>
+                    <SideContainer>
+                        <CommentInfo>
+                            <NickName>{comment.nickname}</NickName>
+                            <Date>{comment.updateDate}</Date>
+                        </CommentInfo>
+                        {comment.userIdx === MyIdx? <X onClick={deleteComment}> 삭제 </X> : null}
+                    </SideContainer>
+                    <ContentText>{comment.feedComment}</ContentText>
+                </Main>
             </Wrapper>
     );
 }
