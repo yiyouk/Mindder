@@ -16,8 +16,8 @@ import BookMark from "../components/feed/BookMark";
 
 
 const Wrapper = styled.div`
-    max-width: 21rem;
-    width: 21rem;
+    max-width: 21.5rem;
+    width: 21.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,11 +43,19 @@ const CanvasImg = styled.img`
 `
 
 const SideContainer = styled.div`
-    width: 20em;
+    width: 20.5em;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0.8rem 0 0.6rem 0;
+    margin: 1rem 0 0.6rem 0;
+`;
+
+const SideContainer2 = styled.div`
+    width: 20.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.2rem 0 0.8rem 0;
 `;
 
 //////댓글 작성 영역//////
@@ -90,6 +98,9 @@ function FeedDetailPage(props) {
     const [base64, setBase64] = useState("");
     const [commentCount, setCommentCount] = useState(0);
     const [likeTotalCount, setLikeTotalCount] = useState(0);
+    const [likeCount, setLikeCount] = useState(0);
+    const [cheerupCount, setCheerupCount] = useState(0);
+    const [sadCount, setSadCount] = useState(0);
     const [postUserIdx, setPostuserIdx] = useState(0);
     const [myLikeType, setMyLikeType] = useState(0);
     const [scrollEvent, setScrollEvent] = useState(false);
@@ -132,6 +143,9 @@ function FeedDetailPage(props) {
                 setUpdateDate(response.data.data.updateDate);
                 setCommentCount(response.data.data.commentCount);
                 setLikeTotalCount(response.data.data.likeTotalCount);
+                setLikeCount(response.data.data.likeCount);
+                setCheerupCount(response.data.data.cheerupCount);
+                setSadCount(response.data.data.sadCount);
                 setPostuserIdx(response.data.data.userIdx);
                 setMainText(response.data.data.mainText);
                 setNormalTag(response.data.data.normalTag);
@@ -160,7 +174,6 @@ function FeedDetailPage(props) {
     }
 
     const sendComment = async() => {
-        console.log(comment);
         try {
             const response = await api.post(`/comments`,{
                 feedIdx: feedIdx,
@@ -184,7 +197,11 @@ function FeedDetailPage(props) {
         }
     }
 
-    
+    //like~
+    const getData = () => {
+        setMyLikeType(0);
+    }
+
     return (
         <Wrapper>
             <SideContainer>
@@ -192,10 +209,10 @@ function FeedDetailPage(props) {
                 {myIdx === postUserIdx ? <FeedManage mainText={mainText} feedIdx={feedIdx}/> : null}
             </SideContainer>
             <CanvasImg src={base64}/>
-            <SideContainer>
-                <EmoManage likeTotalCount={likeTotalCount}/>
+            <SideContainer2>
+                <EmoManage getData={getData} feedIdx={feedIdx} myLikeType={myLikeType} likeCount={likeCount} cheerupCount={cheerupCount} sadCount={sadCount} likeTotalCount={likeTotalCount}/>
                 <BookMark/>
-            </SideContainer>
+            </SideContainer2>
             <Context myLikeType={myLikeType} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
             <CommentList commentCount={commentCount} feedIdx={feedIdx} />
             <Bottom scrollEvent={scrollEvent}>
