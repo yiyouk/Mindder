@@ -7,21 +7,6 @@ import Modal from "./ModifyModal";
 
 import api from "../../api/api"
 
-const Li = styled.li`
-    list-style: none;
-    /* border-bottom: 3rem; */
-`;
-
-const Ul = styled.ul`
-    list-style: none;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 0.8rem;
-    color: #666666;
-    width: 3rem;
-    margin: 0.5rem 0.2rem 0.5rem 0.2rem;
-    padding: 0 0 0 0;
-`;
 
 //누르면 나오는거
 const DropDown = styled.button`
@@ -34,10 +19,8 @@ const DropDown = styled.button`
 //박스 전체 컨테이너
 const ListContainer = styled.div`
   background-color: white;
-  border-radius: 5px;
-  border: solid 0.6px  #7767FD;
-  padding: 3px;
-  margin-top: 7px;
+  border-radius: 1rem;
+  border: solid 0.1rem  #7767FD;
   position: absolute;
   right: 0.3rem;
   display:none;
@@ -49,9 +32,26 @@ const ListContainer = styled.div`
   }
 `;
 
-const W = styled.span`
+const W = styled.div`
+    border-bottom-left-radius: 0.8rem;   
+    border-top-left-radius: 0.8rem;   
     background-color: white;
     color: #7767FD;
+    padding: 0.3rem 0.2rem 0.3rem 0.3rem;
+    width: 2.3rem;
+`
+const P = styled.div`
+    border-bottom-right-radius: 0.8rem;   
+    border-top-right-radius: 0.8rem;   
+    border: none;
+    background-color:#7767FD;
+    color: #ffffff;
+    padding: 0.3rem 0.3rem 0.3rem 0.2rem;
+    width: 2.3rem;
+`
+
+const F = styled.div`
+    display: flex;
 `
 
 function FeedManage({mainText, feedIdx}) {
@@ -97,21 +97,15 @@ function FeedManage({mainText, feedIdx}) {
     return (
         <>
         <Modal feedIdx={feedIdx} mainText={mainText} open={modalOpen} close={closeModal}></Modal>
-            <Li>
-                <DropDown>
-                    <CgMenuRight size="30" color="#7767FD"/>
-                    <ListContainer>
-                        <Ul>
-                            <Li onClick={openModal}>
-                                <W>수정</W> 
-                            </Li>
-                            <Li onClick={deletePost}>
-                                <W>삭제</W> 
-                            </Li>
-                        </Ul>
-                    </ListContainer>
-                </DropDown>
-            </Li>
+            <DropDown>
+                <CgMenuRight size="30" color="#7767FD"/>
+                <ListContainer>
+                    <F>
+                        <W onClick={openModal}>수정</W>
+                        <P onClick={deletePost}>삭제</P> 
+                    </F>
+                </ListContainer>
+            </DropDown>
         </>
     );
 };
