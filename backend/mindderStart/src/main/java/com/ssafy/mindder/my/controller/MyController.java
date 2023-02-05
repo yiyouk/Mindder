@@ -1,10 +1,12 @@
 package com.ssafy.mindder.my.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
@@ -40,17 +43,22 @@ public class MyController {
 	private MyService myService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private FileService fileService;
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 	
 	@ApiOperation(value = "회원 정보 조회 (마이페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
 	@GetMapping("/information")
-	ApiResponse<?> myUserDetails(@RequestHeader("access_token") String accessToken) {
+	ApiResponse<?> myUserDetails(@Value("${file.path.upload-files}") String filePath,@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("myUserDetails - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			UserInformationDto userDto = myService.findUser(userIdx);
+			Map<String,String>file = fileService.findFile(userDto.getFileIdx(),filePath);
+			userDto.setBase64(file.get("base64"));
+			userDto.setExtension(file.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,10 +69,13 @@ public class MyController {
 	
 	@ApiOperation(value = "회원 정보 조회 (타인페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
 	@GetMapping("/information/{userIdx}")
-	ApiResponse<?> otherUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
+	ApiResponse<?> otherUserDetails(@Value("${file.path.upload-files}") String filePath,@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 		logger.debug("otherUserDetails - 호출");
 		try {
 			UserInformationDto userDto = myService.findUser(userIdx);
+			Map<String,String>file = fileService.findFile(userDto.getFileIdx(),filePath);
+			userDto.setBase64(file.get("base64"));
+			userDto.setExtension(file.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
