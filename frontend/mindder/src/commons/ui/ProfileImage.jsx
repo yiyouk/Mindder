@@ -41,19 +41,8 @@ const sizes = {
     }
 };
 
-const Wrapper = styled.div`
-    margin-right: 1rem;
-    display: flex;
-    align-items: center;
-    & > span {
-        font-size: 1rem;
-        color: #999999;
-    }
-`;
-
 const ProfileImg = styled.div`
     ${sizeStyles}
-    margin: 0.5rem 1rem 0.5rem 0;
     border: 1px solid #c0c0c0;
     border-radius: 50%;
     overflow: hidden;
@@ -75,11 +64,9 @@ function ProfileImage({size, userIdx}) {
       navigate(`/${userIdx}`);
     };
     return (
-        <Wrapper>
-            <ProfileImg onClick={onClick} size={size}>
-                    <img src={UserImg} alt="프로필이미지" />
-            </ProfileImg>
-        </Wrapper>
+        <ProfileImg onClick={onClick} size={size}>
+            <img src={UserImg} alt="프로필이미지" />
+        </ProfileImg>
     );
 }
 
