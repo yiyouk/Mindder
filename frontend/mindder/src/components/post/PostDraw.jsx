@@ -7,26 +7,33 @@ import { useSelector } from "react-redux";
 import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 import { Colors16 } from "../../redux/reducers";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
+    width: calc(100% - 1rem);
     height:31rem;
     display: grid;
-    grid-template-rows: 1fr 5fr;
+    /* flex-direction:column; */
+    /* justify-content:center; */
+    /* align-items:center; */
     margin-top:1rem;
+    margin-right:0.5rem;
+    & > * {
+      width:inherit;
+    }
 `;
 
 const CrawlingsHere = styled.div`
   height: 71px;
   border: 1px solid #7767FD;
   border-radius: 6px;
-  display:flex;
-  justify-content:space-around;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-items:center;
   /* grid-template-rows: repeat(1, 1fr) !important; */
   /* position:relative; */
   /* top:-1rem; */
 `
 const CanvasDiv = styled.div`
-  height: 358px;
+  height: 24rem;
   background: #FFFFFF;
   border-radius: 19px;
 `
