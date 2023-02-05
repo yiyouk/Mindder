@@ -36,15 +36,15 @@ const sizes = {
 
     // 댓글
     xs: {
-        height:  '2.5em',
-        width: '2.5rem',
+        height:  '2em',
+        width: '2rem',
     }
 };
 
 const ProfileImg = styled.div`
     ${sizeStyles}
     border: 1px solid #c0c0c0;
-    border-radius: 50%;
+    border-radius: 100%;
     overflow: hidden;
     & > img {
         width: 100%;
