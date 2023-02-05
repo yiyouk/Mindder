@@ -1,65 +1,46 @@
 import React from "react";
-import styled from "styled-components";
-import Imgs from "../../assets/images/happy.png";
+import styled, {css} from "styled-components";
+import { Colors16 } from "../../redux/reducers";
 
-const Wrapper = styled.div`
-    width: 22rem;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    /* border-bottom: solid 0.6px rgb(231, 231, 231); */
-    /* box-shadow: 1px 0px 0px rgb(67, 67, 67); */
+const colortyles = css`
+  /*크기*/
+  ${({myLikeType}) => css`
+    color: ${Colors16[myLikeType].code};
+  `}
 `;
 
-const ContextWrapper = styled.div`
-    width: 19em;
-    margin-top: 1rem;
+const Wrapper = styled.div`
+    width: 20rem;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: solid 0.6px rgb(231, 231, 231);
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
 `;
 
 const ContextStyled = styled.div`
     font-size: 0.9rem;
     font-weight: 500;
-    align-items: start;
-    /* margin-bottom: 0.5rem; */
+    margin-bottom: 0.1rem;
 `;
 
 const TagStyled = styled.div`
-    size: 0.5rem;
-    color: #FC9CBB;
-    font-size: 0.7rem;
-    font-weight: 500;
-    align-items: start;
-    margin-left: 0.5rem;
+    ${colortyles}
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 `;
 
-const Img = styled.div`
-    width: 1.6em;
-    height: 1.6rem;
-    background-image:url(${Imgs});
-    background-size:cover;
-`
-
 const Date = styled.div`
-    width: 19rem;
-    display: flex;
-    font-size: 0.3rem;
-    color: rgb(67, 67, 67);
-    justify-content: flex-end !important;
-    margin-bottom: 0.5rem;
+    color: gray;
+    font-size: 0.75rem;
 `
 
-function Context({updateDate, mainText, normalTag}) {
+function Context({myLikeType, updateDate, mainText, normalTag}) {
     return (
         <Wrapper>
-            <ContextWrapper>
-                <Img></Img>
-                <ContextStyled>&nbsp; {mainText} </ContextStyled>
-            </ContextWrapper>
-                <TagStyled> {normalTag} </TagStyled>
+            <ContextStyled>{mainText}</ContextStyled>
+            <TagStyled myLikeType={myLikeType}> {normalTag} </TagStyled>
             <Date>{updateDate}</Date>
         </Wrapper>
     );

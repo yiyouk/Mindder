@@ -6,16 +6,17 @@ import api from "../../api/api"
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-    width: 19em;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 0.5rem;
-    /* & > * {
-        :not(:last-child) {
-            margin-bottom: 16px;
-        }
-    } */
+    & > .CC {
+        align-self:flex-start;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: gray;
+        margin-bottom: 1rem;
+    }
 `;
 
 function CommentList({feedIdx, commentCount}) {
@@ -47,6 +48,7 @@ function CommentList({feedIdx, commentCount}) {
 
     return (
         <Wrapper>
+            <span className="CC"> 댓글({comments.length})</span>
             {comments.map((comment, index) => {
                 return <CommentListItem key={index} comment={comment} />;
             })}
