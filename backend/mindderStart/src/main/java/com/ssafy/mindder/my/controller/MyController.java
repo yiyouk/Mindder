@@ -75,7 +75,7 @@ public class MyController {
 		try {
 			UserInformationDto userDto = myService.findUser(userIdx);
 			System.out.println(userDto.getFileIdx());
-			Map<String,String>file = fileService.findFile(userDto.getFileIdx(),"/img/");
+			Map<String,String>file = fileService.findFile(userDto.getFileIdx(),filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
