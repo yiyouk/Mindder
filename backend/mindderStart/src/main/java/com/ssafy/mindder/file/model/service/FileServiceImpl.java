@@ -43,5 +43,20 @@ public class FileServiceImpl implements FileService{
 	public List<FileDto> findNormalBear(Map<String, Integer> map) throws Exception {
 		return fileMapper.findNormalBear(map);
 	}
+	@Override
+	public Map<String, String> findCompleteBear(Map<String, Integer> map, String filePath) throws Exception {
+		int color = map.get("color");
+		int emote = map.get("emote");
+		
+		FileDto temp =fileMapper.findFile(21+((color-1)*16)+(emote-1));
+		String saveFolder = temp.getSaveFolder(); // 파일 경로
+		String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
+		String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
+		File file = new File(filePath + saveFolder, saveFile);
+		Map<String, String> t = new HashMap<>();
+		t.put("base64", Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)));
+		t.put("extension", FilenameUtils.getExtension(file.getName()));
+		return t;
+	}
 	
 }
