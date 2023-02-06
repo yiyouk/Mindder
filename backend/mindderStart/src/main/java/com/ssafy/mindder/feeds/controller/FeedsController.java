@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.jsoup.Jsoup;
@@ -11,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,10 @@ public class FeedsController {
 	@Autowired
 	private FileService fileService;
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
+
+	// 스웨거 테스트를 위한 전역 변수 설정
+	@Value("${file.path.upload-files}")
+	private String filePath;
 
 	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = FeedsDto.class)
 	@PostMapping
@@ -119,10 +125,10 @@ public class FeedsController {
 			}
 
 			// 이미지
-//			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
-//			feedDetail.setBase64(file.get("base64"));
-//			feedDetail.setExtension(file.get("extension"));
-//			System.out.println(feedDetail);
+			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
+			feedDetail.setBase64(file.get("base64"));
+			feedDetail.setExtension(file.get("extension"));
+			System.out.println(feedDetail);
 
 			// 메인 피드글 여부 확인
 			if (Objects.isNull(feedDetail)) {
@@ -144,8 +150,16 @@ public class FeedsController {
 		logger.info("userIdx - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			System.out.println(userIdx);
+
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < neighborList.size(); i++) {
+				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+				neighborList.get(i).setBase64(file.get("base64"));
+				neighborList.get(i).setExtension(file.get("extension"));
+			}
+
 			System.out.println(neighborList);
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
 		} catch (Exception e) {
@@ -237,6 +251,13 @@ public class FeedsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
 			System.out.println(recommendation);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < recommendation.size(); i++) {
+				Map<String, String> file = fileService.findFile(recommendation.get(i).getFileIdx(), filePath);
+				recommendation.get(i).setBase64(file.get("base64"));
+				recommendation.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -253,6 +274,14 @@ public class FeedsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
 			System.out.println(similarEmotion);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < similarEmotion.size(); i++) {
+				Map<String, String> file = fileService.findFile(similarEmotion.get(i).getFileIdx(), filePath);
+				similarEmotion.get(i).setBase64(file.get("base64"));
+				similarEmotion.get(i).setExtension(file.get("extension"));
+			}
+
 			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
 		} catch (Exception e) {
 			e.printStackTrace();

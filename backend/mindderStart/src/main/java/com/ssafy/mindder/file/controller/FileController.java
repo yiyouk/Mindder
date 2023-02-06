@@ -4,19 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.nio.file.Files;
-
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -25,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,8 +68,8 @@ public class FileController {
 	}
 
 	@GetMapping("/{fileIdx}")
-	public ApiResponse<?> getFile(@Value("${file.path.upload-files}") String filePath,@PathVariable("fileIdx") int fileIdx) {
-		Map<String,String> tp =null;
+	public ApiResponse<?> getFile(@PathVariable("fileIdx") int fileIdx) {
+		Map<String, String> tp = null;
 		try {
 			tp = fileService.findFile(fileIdx, filePath);
 		} catch (IOException e) {
@@ -89,10 +79,11 @@ public class FileController {
 			e.printStackTrace();
 		}
 		return ApiResponse.success(SuccessCode.READ_FILE_BASE64, tp);
-		//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
+		// return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
+
 	@GetMapping("/normal-bear")
-	public ApiResponse<?> normalBear(@Value("${file.path.upload-files}") String filePath){
+	public ApiResponse<?> normalBear() {
 		Map<String, Integer> map = new HashMap<>();
 		List<String> re = new ArrayList<>();
 		map.put("s", 5);
@@ -100,14 +91,14 @@ public class FileController {
 		try {
 			List<FileDto> lf = fileService.findNormalBear(map);
 			System.out.println(lf);
-			for(FileDto temp : lf) {
+			for (FileDto temp : lf) {
 				String saveFolder = temp.getSaveFolder(); // 파일 경로
 				String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
 				String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
 				File file = new File(filePath + saveFolder, saveFile);
 				re.add(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)));
 			}
-			return ApiResponse.success(SuccessCode.READ_FILE_BEAR,re);
+			return ApiResponse.success(SuccessCode.READ_FILE_BEAR, re);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
