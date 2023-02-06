@@ -15,6 +15,7 @@ public enum ErrorCode {
 	// 400 Bad Request
 	VALIDATION_EXCEPTION(BAD_REQUEST, "잘못된 요청입니다."),
 	VALIDATION_LIKE_EXCEPTION(BAD_REQUEST, "이미 해당 피드에 공감을 눌렀습니다."),
+	VALIDATION_LIKE_TYPE_EXCEPTION(BAD_REQUEST, "likeType은 1, 2, 3만 가능합니다."),
 	VALIDATION_SCRAP_EXCEPTION(BAD_REQUEST, "이미 등록된 스크랩입니다."),
 	VALIDATION_FOLLOW_EXCEPTION(BAD_REQUEST, "이미 등록된 팔로우입니다."),
 
