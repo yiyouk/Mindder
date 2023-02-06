@@ -54,7 +54,7 @@
 }
 
 input {
-    margin: 1em 0 1em 0;
+    margin: 0rem 0 0.7rem 0;
     padding: 0 1em;
     border: 0;
     box-sizing: border-box;
@@ -70,6 +70,10 @@ input {
     font-size: 0.7rem;
 }
 
+.email-Text{
+    font-size: 0.9rem;
+    padding: 0 0.5em;
+}
 
 .center-container {
     margin: 0.5rem 0 0.25rem 0;
