@@ -6,14 +6,14 @@
    <insert id="writeFeed" parameterType="FeedsDto">
       insert into mainfeed 
       (social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx)
-      values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText}, #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
+      values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText}, #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx})
    </insert>
    
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
       insert into feedcalendar 
       (calendar_date,user_idx)
-      values(curdate(), #{userIdx}, #{emoteCompleteIdx})      
+      values(curdate(), #{userIdx})      
    </insert>
    
    <!-- 피드글 삭제-->
