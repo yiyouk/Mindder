@@ -27,4 +27,5 @@ public class FeedsParameterDto {
 	private String extension;
 	private int userIdx;
 	private int myLikeType; // 내가 누른 공감 버튼
+	private boolean myScrap; // 나의 스크랩 여부
 }

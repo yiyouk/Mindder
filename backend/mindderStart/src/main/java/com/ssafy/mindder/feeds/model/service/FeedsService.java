@@ -19,20 +19,13 @@ public interface FeedsService {
 	// 피드 수정
 	public boolean modifyFeed(FeedsUpdateDto feedsDto) throws Exception;
 
-	// 추천피드 목록 조회
-	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws Exception;
-
-	// 유사감정 태그 피드 조회
-	public List<FeedsDto> similarityTagFeed(FeedsDto boardDto) throws Exception;
-
-	// 유사 감정 색상 태그 피드 조회
-	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws Exception;
-
 	// 사용자 이웃 피드 목록 조회
 	List<FeedsNeighborDto> neighborFeed(int userIdx) throws Exception;
 
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception;
+
+	public boolean myScrap(int feedIdx, int userIdx) throws Exception;
 
 	// 완성된 곰돌이 조회
 	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
