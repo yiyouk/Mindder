@@ -124,7 +124,6 @@ function PostCommentwrite(props){
       mainText : userComment,
       normalTag : null,
       isPublic : isPublic,
-      emoteCompleteIdx : null,
     }
     console.log(requests)
     try {
@@ -146,12 +145,20 @@ function PostCommentwrite(props){
 
     let file = new Blob([new Uint8Array(array)], {type: "image/webp"});
     console.log(file)
-    let upfile = new FormData();
-    upfile.append("file", file);
-    console.log(upfile)
+    let formData = new FormData();
+    formData.append("file", file);
+    console.log(formData)
 
     try {
-      const fileResponse = await api.post(`file/`, upfile)
+      const fileResponse = await api.post(`file/`, {
+      data:formData,
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+      cache: false,
+      contentType: false,
+      processData: false,
+      })
       console.log(fileResponse)
     } catch (error) {
       console.log(error)
@@ -160,7 +167,7 @@ function PostCommentwrite(props){
 
   const onClick = ()=>{
     getFileIdx()
-    writeFeed()
+    // writeFeed()
     navigate('/feeds')
   }
 
