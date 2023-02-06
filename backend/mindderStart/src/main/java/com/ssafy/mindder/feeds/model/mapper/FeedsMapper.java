@@ -46,6 +46,10 @@ public interface FeedsMapper {
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws SQLException;
 
+	// 피드 상세 조회 -> 스크랩 여부 확인
+	public boolean myScrap(int feedIdx, int userIdx);
+
+	// 피드 조회수 카운트
 	public void updateHit(int feedIdx) throws SQLException;
 
 	// 완성된 곰돌이 조회
