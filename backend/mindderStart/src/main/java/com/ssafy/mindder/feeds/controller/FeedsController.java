@@ -54,6 +54,10 @@ public class FeedsController {
 	private FileService fileService;
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
+	// 스웨거 테스트를 위한 전역 변수 설정
+	@Value("${file.path.upload-files}")
+	private String filePath;
+
 	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = FeedsDto.class)
 	@PostMapping
 	public ApiResponse<?> writeFeeds(@RequestBody FeedsDto feedsDto, @RequestHeader("access_token") String accessToken)
@@ -105,7 +109,7 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
-	public ApiResponse<?> getFeed(@Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> getFeed(
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
@@ -141,8 +145,7 @@ public class FeedsController {
 	// 팔로잉 하는 이웃의 피드 리스트 조회
 	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/neighbors")
-	public ApiResponse<?> neighborFeed(@Value("${file.path.upload-files}") String filePath,
-			@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("userIdx - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
@@ -241,8 +244,7 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
 	@GetMapping("/recommendation")
-	public ApiResponse<?> recommendation(@Value("${file.path.upload-files}") String filePath,
-			@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("recommendation - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
@@ -266,8 +268,7 @@ public class FeedsController {
 	// 유사 감정 색상 피드 목록 조회
 	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
 	@GetMapping("/similarity-color")
-	public ApiResponse<?> similarColorFeed(@Value("${file.path.upload-files}") String filePath,
-			@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
