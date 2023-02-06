@@ -5,6 +5,8 @@ import TrashImg from "../../assets/images/trash.png"
 import SaveImg from "../../assets/images/saveButton.png"
 import EraserImg from "../../assets/images/eraser.png"
 import FillImg from "../../assets/images/paint.png"
+import { useDispatch } from "react-redux";
+import { SAVE_userDrawing } from "../../redux/reducers";
 
 
 // #### styled ####
@@ -69,7 +71,7 @@ const PaintTool = styled.button`
 `
     
 function Draw() {
-
+    const dispatch = useDispatch()
     const canvasRef = useRef(null);
 
     const [ctx, setCtx] = useState([]);
@@ -208,24 +210,10 @@ function Draw() {
     // -- 그린거 저장 어케하지 -- /
         const imageSaved = () => {
             const canvas = canvasRef.current;
-            const image = canvas.toDataURL('image/png');
-            const decodImg = atob(image.split(',')[1]);
-            var array = [];
-            for (var i = 0; i < decodImg.length; i++) {
-                array.push(decodImg.charCodeAt(i));
-            }
-
-            var myBlob = new Blob([new ArrayBuffer(array)], {type: "image/png"});
-
-            const file = new File([myBlob], 'blobtofile.png');
-            // console.log(file)
-            var formData = new FormData();
-            formData.append("media", file);
-            formData.append("content", "Blob확인");
-            formData.append("tagList", "blob");
-            formData.append("username", "admin");
-
-            // console.log(formData)
+            console.log(canvas)
+            const image = canvas.toDataURL('image/webp', 0.5);
+            console.log(image)
+            dispatch(SAVE_userDrawing(image))
         }
             return (
                 <Wrapper>
