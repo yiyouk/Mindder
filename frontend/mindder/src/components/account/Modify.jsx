@@ -79,7 +79,7 @@ function Modify() {
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
     const [nicknameCheck, setNicknameCheck] = useState(true);
-    const [myColor, setMyColor] = useState(0);
+    const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
     const [fileIdx, setFileIdx] = useState();
     const [base64, setBase64] = useState("");
@@ -99,7 +99,7 @@ function Modify() {
 
    //색 선택하기
     const handlePickColor = (e) =>{
-        setMyColor(e-1);
+        setMyColor(e);
     }
 
     //닉네임 중복 확인
@@ -174,7 +174,7 @@ function Modify() {
         try {
             const response = await api.patch(`/users`, {
                 nickname: nickname,
-                emoteColor : myColor,
+                emoteColorIdx : myColor,
                 fileIdx: fileIdx
             });
             
@@ -270,7 +270,7 @@ function Modify() {
         <div className="col-12">  
             <label className="form-label">나의 색</label>
             <DropDown>
-                <PickColor mypick = {Colors16[myColor].code}/>
+                <PickColor mypick = {Colors16[myColor-1].code}/>
                 <ListContainer>
                     {Colors16.map((color)=>(
                         <ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>
