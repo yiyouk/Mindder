@@ -22,6 +22,7 @@
 		<result column="following_count" property="followingCount" />
 	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
+		<result column="my_scrap" property="myScrap" /> 
 		<result column="my_like_type" property="myLikeType" /> 
 		<result column="main_text" property="mainText" /> 
 		<result column="normal_tag" property="normalTag" /> 
@@ -80,7 +81,6 @@
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 		<result column="file_idx" property="fileIdx" />
-		<result column="emote_complete_idx" property="emoteCompleteIdx" />
 	</resultMap>
 	
 	<resultMap type="FeedsBearDto" id="bear">
