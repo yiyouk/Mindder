@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,9 +72,9 @@ public class FeedsController {
 	}
 
 	@ApiOperation(value = "메인 피드 글 수정", notes = "수정할 피드의 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@PutMapping
+	@PatchMapping
 	public ApiResponse<?> modifyFeed(@RequestHeader("access_token") String accessToken,
-			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) FeedsUpdateDto feedsDto) throws Exception {
+			@RequestBody FeedsUpdateDto feedsDto) throws Exception {
 		logger.info("modifyFeed - 호출 {}", feedsDto);
 
 		try {
@@ -112,9 +112,20 @@ public class FeedsController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			FeedsParameterDto feedDetail = feedsService.getFeed(feedIdx, userIdx);
+
+			// 사용자 -> 메인 스크랩 여부 코드
+			boolean checkMyscrap = feedsService.myScrap(feedIdx, userIdx);
+			System.out.println(checkMyscrap);
+			if (checkMyscrap) {
+				feedDetail.setMyScrap(checkMyscrap);
+			}
+
+			// 이미지
 			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
 			feedDetail.setBase64(file.get("base64"));
 			feedDetail.setExtension(file.get("extension"));
+
+			// 메인 피드글 여부 확인
 			if (Objects.isNull(feedDetail)) {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 			}
