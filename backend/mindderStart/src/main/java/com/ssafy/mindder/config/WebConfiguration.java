@@ -44,24 +44,24 @@ public class WebConfiguration implements WebMvcConfigurer{
         registry.addResourceHandler("/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-	 @Override
-	    public void addInterceptors(InterceptorRegistry registry) {
-	        registry.addInterceptor(new JwtInterceptor())
-	                .addPathPatterns("/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
-	                .excludePathPatterns("/users/check-nickname/**") // 해당 경로는 인터셉터가 가로채지 않는다.
-	        		.excludePathPatterns("/users/check-email/**")
-	        		.excludePathPatterns("/users/email-confirm/**")
-	        		.excludePathPatterns("/file")
-	        		.excludePathPatterns("/file/**")
-	        		.excludePathPatterns("/users/login")
-	        		.excludePathPatterns("/users/join")
-	        		.excludePathPatterns("/users/social")
-	        		.excludePathPatterns("/users/temp-password/**")
-	        		.excludePathPatterns("/swagger-resources/**")
-	        		.excludePathPatterns("/swagger-ui.html")
-	        		.excludePathPatterns("/v2/api-docs")
-	        		.excludePathPatterns("/webjars/**");
-	        		
-	    }
+//	 @Override
+//	    public void addInterceptors(InterceptorRegistry registry) {
+//	        registry.addInterceptor(new JwtInterceptor())
+//	                .addPathPatterns("/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
+//	        		.excludePathPatterns("/file")
+//	        		.excludePathPatterns("/file/**")
+//	                .excludePathPatterns("/users/check-nickname/**") // 해당 경로는 인터셉터가 가로채지 않는다.
+//	        		.excludePathPatterns("/users/check-email/**")
+//	        		.excludePathPatterns("/users/email-confirm/**")
+//	        		.excludePathPatterns("/users/login")
+//	        		.excludePathPatterns("/users/join")
+//	        		.excludePathPatterns("/users/social")
+//	        		.excludePathPatterns("/users/temp-password/**")
+//	        		.excludePathPatterns("/swagger-resources/**")
+//	        		.excludePathPatterns("/swagger-ui.html")
+//	        		.excludePathPatterns("/v2/api-docs")
+//	        		.excludePathPatterns("/webjars/**");
+//	        		
+//	    }
 	
 }
