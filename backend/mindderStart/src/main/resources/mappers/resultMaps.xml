@@ -8,7 +8,7 @@
 		<result column="password" property="password" />
 		<result column="refresh_token" property="refreshToken" />
 		<result column="is_deleted" property="isDeleted" />
-		<result column="emote_color_idx" property="emoteColor" />
+		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
 	</resultMap>
 	<resultMap type="UserInformationDto" id="userInformation">
