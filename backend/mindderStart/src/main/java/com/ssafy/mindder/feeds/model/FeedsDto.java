@@ -26,6 +26,4 @@ public class FeedsDto {
 	private int emoteColorIdx;
 	private int feedHit;
 	private int fileIdx;
-	private int emoteCompleteIdx;
-
 }

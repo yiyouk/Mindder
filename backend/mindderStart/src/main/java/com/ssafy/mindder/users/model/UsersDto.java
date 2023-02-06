@@ -19,6 +19,6 @@ public class UsersDto {
 	String nickname;
 	String refreshToken;
 	boolean isDeleted;
-	int emoteColor;
+	int emoteColorIdx;
 	int fileIdx;
 }

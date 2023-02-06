@@ -18,5 +18,7 @@ public class FollowsDto {
 	private String nickname;
 	private int targetUserIdx;
 	private int fileIdx;
+	private String base64;
+	private String extension;
 
 }
