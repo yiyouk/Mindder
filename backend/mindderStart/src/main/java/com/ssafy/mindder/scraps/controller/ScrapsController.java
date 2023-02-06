@@ -41,7 +41,7 @@ public class ScrapsController {
 
 	@ApiOperation(value = "스크랩 등록", notes = "스크랩을 등록한다.")
 	@PostMapping("/{feedIdx}")
-	public ApiResponse<?> scrapAdd(@RequestHeader("access_token") String accessToken, @RequestParam int feedIdx) {
+	public ApiResponse<?> scrapAdd(@RequestHeader("access_token") String accessToken, @PathVariable("feedIdx") @ApiParam(value = "등록할 피드번호.", required = true) int feedIdx) {
 
 		logger.debug("scrapAdd - 호출 : " + feedIdx);
 		try {
@@ -61,7 +61,7 @@ public class ScrapsController {
 	@ApiOperation(value = "스크랩 삭제", notes = "피드 번호에 해당하는 스크랩을 삭제한다.")
 	@DeleteMapping("/{feedIdx}")
 	public ApiResponse<?> scrapRemove(@RequestHeader("access_token") String accessToken,
-			@PathVariable("feedIdx") @ApiParam(value = "피드 번호", required = true) int feedIdx) {
+			@PathVariable("feedIdx") @ApiParam(value = "삭제할 피드번호.", required = true) int feedIdx) {
 
 		logger.debug("scrapRemove - 호출 : " + feedIdx);
 		try {
