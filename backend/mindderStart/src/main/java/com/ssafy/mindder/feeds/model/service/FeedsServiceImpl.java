@@ -41,24 +41,6 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedsDto> recommendationFeed(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FeedsDto> similarityTagFeed(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<FeedsNeighborDto> neighborFeed(int userIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).neighborFeed(userIdx);
 	}
@@ -67,6 +49,7 @@ public class FeedsServiceImpl implements FeedsService {
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception {
 		// 조회수 증가
 		sqlSession.getMapper(FeedsMapper.class).updateHit(feedIdx);
+		// 스크랩 여부 확인
 		return sqlSession.getMapper(FeedsMapper.class).getFeed(feedIdx, userIdx);
 	}
 
@@ -84,6 +67,11 @@ public class FeedsServiceImpl implements FeedsService {
 	@Override
 	public List<FeedsNeighborDto> similarColorFeed(int userIdx) {
 		return sqlSession.getMapper(FeedsMapper.class).similarColorFeed(userIdx);
+	}
+
+	@Override
+	public boolean myScrap(int feedIdx, int userIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).myScrap(feedIdx, userIdx);
 	}
 
 }

@@ -8,7 +8,7 @@
 		where user_idx = #{userIdx} and feed_idx = #{feedIdx};
 	</select>
 	<!-- 스크랩 등록 -->
-	<insert id="inserScrap" parameterType="int">
+	<insert id="insertScrap" parameterType="int">
 		insert into feedscrap(feed_idx, user_idx) values(#{feedIdx}, #{userIdx});	
 	</insert>
 	<!-- 스크랩 취소 -->

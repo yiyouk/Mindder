@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ser.std.FileSerializer;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -44,10 +43,14 @@ public class UsersController {
 	@Autowired
 	private JwtService jwtService;
 	@Autowired
-	private FileService fileService; 
+	private FileService fileService;
 	@Autowired
 	private EmailService emailService;
+
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
+
+	@Value("${file.path.upload-files}")
+	private String filePath;
 
 	private static class Check {
 		@JsonProperty
@@ -108,15 +111,14 @@ public class UsersController {
 
 	@ApiOperation(value = "엑세스 토큰을 통해 유저 업데이트", response = String.class)
 	@PatchMapping
-	public ApiResponse<?> updateUser(@Value("${file.path.upload-files}") String filePath,@RequestHeader("access_token") String accessToken,
+	public ApiResponse<?> updateUser(@RequestHeader("access_token") String accessToken,
 			@RequestBody UsersDto usersDto) {
-
 		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			usersDto.setUserIdx(idx);
 			usersService.updateUser(usersDto);
-			return ApiResponse.success(SuccessCode.UPDATE_USER,fileService.findFile(usersDto.getFileIdx(),filePath));
+			return ApiResponse.success(SuccessCode.UPDATE_USER, fileService.findFile(usersDto.getFileIdx(), filePath));
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("updateUser - 정보수정 중 에러");
@@ -236,11 +238,11 @@ public class UsersController {
 			System.out.println(temp);
 			if (temp == null) {
 				usersService.joinUser(usersDto);
-			}else if(temp.isDeleted()) {
+			} else if (temp.isDeleted()) {
 				System.out.println("살려줘");
 				usersDto.setUserIdx(temp.getUserIdx());
 				usersService.deletedJoinUser(usersDto);
-				
+
 			}
 			System.out.println(usersDto);
 
