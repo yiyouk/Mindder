@@ -12,8 +12,8 @@
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
       insert into feedcalendar 
-      (calendar_date,user_idx)
-      values(curdate(), #{userIdx})      
+      (calendar_date,user_idx, file_idx)
+      values(curdate(), #{userIdx}, #{fileIdx})      
    </insert>
    
    <!-- 피드글 삭제-->
@@ -170,4 +170,3 @@
 
    
 </mapper>
-
