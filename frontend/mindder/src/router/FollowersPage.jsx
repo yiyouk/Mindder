@@ -7,7 +7,11 @@ import FollowItem from "../components/user/FollowItem";
 import Follower from "../commons/ui/Follower";
 import Following from "../commons/ui/Following";
 
+import PrevImg from "../assets/images/back.png"
+
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -20,43 +24,42 @@ const Wrapper = styled.div`
 export const FollowContainer = styled.div`
     width: 100%;
     display: flex;
+    border-top: 2px solid #7767FD;
     & > * {
         width: 50%;
     }
 
 `
 
-function FollowersPage() {
+export const Prev = styled.div`
+align-self: flex-start;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background-image:url(${PrevImg});
+    background-size: 55%;
+    background-position:center;
+    background-position-x:8px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+`
 
-    const [userIdx, setUserIdx] = useState()
+function FollowersPage() {
+    const navigate = useNavigate();
+
     const [followerList, setFollowerList] = useState([])
     const [followingList, setFollowingList] = useState([])
-    const myIdx = useSelector((state)=>state.USER.userIdx);
-    const otherIdx = useSelector((state)=>state.USER.otherUserIdx);
-    
 
-    useEffect(() => {
-        getUserIdx();
-        console.log(userIdx)
-    }, [])
+    const userIdx = useParams().userId;
+    const myFollowing = useSelector((state) => state.USER.myFollowing)
 
-    
+
     useEffect(() => {
         getFollowerInfo();
         getFollowingInfo();
-        console.log(userIdx)
-    }, [userIdx])
-
-
-    const getUserIdx = () => {
-        if(otherIdx !== myIdx){
-            setUserIdx(otherIdx)
-        } else{
-            setUserIdx(myIdx)
-        }
-    }
-
-    // // 팔로워 리스트 받아옴
+    }, [])
+    
+   
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
@@ -78,15 +81,16 @@ function FollowersPage() {
 
     return (
         <Wrapper>
+            <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
-                <Follower follower={followerList.length}/>
-                <Following following={followingList.length}/>
+                <Follower userIdx={userIdx} follower={followerList.length}/>
+                <Following userIdx={userIdx} following={followingList.length}/>
             </FollowContainer>
                 {!followerList || followerList.length === 0? (
                     <div>팔로우 목록이 존재하지 않습니다.</div>
                 ):(
                     followerList.map((follower, idx) => (
-                        <FollowItem data={follower} key={idx}></FollowItem>
+                        <FollowItem userIdx={follower.userIdx} status={myFollowing.includes(follower.userIdx)} data={follower} key={idx}></FollowItem>
                     ))
                 )}
         </Wrapper>

@@ -74,7 +74,7 @@ function UserPage(props) {
     const myFollow = useSelector((state)=>state.USER.myFollowing)
     
     // 유저 아이디
-    const userIdx = parseInt(useParams().userId);
+    const userIdx = useParams().userId;
     const myIdx = useSelector((state)=>state.USER.myIdx);
 
     const [isFollow, setIsFollow] = useState(myFollow.includes(userIdx));
@@ -82,12 +82,9 @@ function UserPage(props) {
 
     useEffect(() => {
         setIsMine(Boolean(userIdx===myIdx))
-        // myFollowing();
-        // getUserId();
-        getOthersInfo();
-        getUserFeeds();
-    }, [myIdx])
-    console.log(isMine)
+        console.log(isMine)
+        myFollowing();
+    }, [])
     
     // useEffect(() => {
     //     getUserId();
@@ -166,8 +163,8 @@ function UserPage(props) {
         <Wrapper>
             {/* 여기는 유저페이지 */}
             <ProfileContainer>
-                <Profile imgsize="m" namesize="m" name={nickname} userIdx={isMine? myIdx : userIdx}></Profile>
-                { isMine ?
+                <Profile imgsize="m" namesize="m" name={nickname} userIdx={userIdx}></Profile>
+                { userIdx == myIdx ?
                     <ProfileEditBtn 
                         onClick={() => {
                         navigate("../accounts/edit")
@@ -178,8 +175,8 @@ function UserPage(props) {
                 }
             </ProfileContainer>
             
-            <UserFollow isMine={isMine}/>
-            {isMine?
+            <UserFollow userIdx={userIdx} follower={follower} following={following} data={isFollow}></UserFollow>
+            {userIdx === myIdx?
                 <UserMenuSub></UserMenuSub>
                 :
                 null

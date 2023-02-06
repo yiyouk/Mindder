@@ -8,7 +8,7 @@ import {
 
 import { getCookie } from "./api/cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
+import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN, SAVE_followerCount, SAVE_profileImg, SAVE_followingCount } from "./redux/reducers";
 
 import api from "./api/api"
 
@@ -55,9 +55,13 @@ function App(props) {
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/information`);
+            console.log(response.data)
             if (response.data.data !== null) {
                 dispatch(SAVE_myIdx(response.data.data.userIdx))
                 dispatch(SAVE_nickName(response.data.data.nickname))
+                dispatch(SAVE_followerCount(response.data.data.followerCount))
+                dispatch(SAVE_followingCount(response.data.data.followingCount))
+                dispatch(SAVE_profileImg(response.data.data.base64))
             }
         } catch (e) {
             alert("오류 발생!");

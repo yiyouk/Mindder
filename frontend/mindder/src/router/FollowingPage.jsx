@@ -7,7 +7,10 @@ import FollowItem from "../components/user/FollowItem";
 import Follower from "../commons/ui/Follower";
 import Following from "../commons/ui/Following";
 import { FollowContainer } from "./FollowersPage";
-import { useSelector } from "react-redux";
+import {Prev} from "./FollowersPage";
+
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const Wrapper = styled.div`
@@ -20,34 +23,20 @@ const Wrapper = styled.div`
 `;
 
 function FollowingPage(props) {
+    const navigate = useNavigate();
 
-    const [userIdx, setUserIdx] = useState()
     const [followerList, setFollowerList] = useState([])
     const [followingList, setFollowingList] = useState([])
-    const myIdx = useSelector((state)=>state.USER.userIdx);
-    const otherIdx = useSelector((state)=>state.USER.otherUserIdx);
-    
-    
-    useEffect(() => {
-        getUserIdx();
-        console.log(userIdx)
-    }, [])
 
+    const userIdx = useParams().userId;
+    const myFollowing = useSelector((state) => state.USER.myFollowing)
     
     useEffect(() => {
         getFollowerInfo();
         getFollowingInfo();
-        console.log(userIdx)
-    }, [userIdx])
-
-    const getUserIdx = () => {
-        if(otherIdx !== myIdx){
-            setUserIdx(otherIdx)
-        } else{
-            setUserIdx(myIdx)
-        }
-    }
+    }, [])
     
+
     // // 팔로워 리스트 받아옴
     const getFollowerInfo = async() => {
         try{
@@ -70,15 +59,16 @@ function FollowingPage(props) {
 
     return (
         <Wrapper>
+            <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
-                <Follower follower={followerList.length}/>
-                <Following following={followingList.length}/>
+                <Follower userIdx={userIdx} follower={followerList.length}/>
+                <Following userIdx={userIdx} following={followingList.length}/>
             </FollowContainer>
                 {!followingList || followingList.length === 0? (
                     <div>팔로우 목록이 존재하지 않습니다.</div>
                 ):(
                     followingList.map((following, idx) => (
-                        <FollowItem data={following} key={idx}></FollowItem>
+                        <FollowItem userIdx={following.targetUserIdx} status={myFollowing.includes(following.targetUserIdx)} data={following} key={idx}></FollowItem>
                     ))
                 )}
         </Wrapper>
