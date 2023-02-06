@@ -141,12 +141,21 @@ public class FeedsController {
 	// 팔로잉 하는 이웃의 피드 리스트 조회
 	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/neighbors")
-	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> neighborFeed(@Value("${file.path.upload-files}") String filePath,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("userIdx - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			System.out.println(userIdx);
+
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < neighborList.size(); i++) {
+				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+				neighborList.get(i).setBase64(file.get("base64"));
+				neighborList.get(i).setExtension(file.get("extension"));
+			}
+
 			System.out.println(neighborList);
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
 		} catch (Exception e) {
@@ -232,12 +241,20 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 페이지 추천 피드 조회", notes = "메인 페이지의 추천 피드를 반환한다.", response = List.class)
 	@GetMapping("/recommendation")
-	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> recommendation(@Value("${file.path.upload-files}") String filePath,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("recommendation - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
 			System.out.println(recommendation);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < recommendation.size(); i++) {
+				Map<String, String> file = fileService.findFile(recommendation.get(i).getFileIdx(), filePath);
+				recommendation.get(i).setBase64(file.get("base64"));
+				recommendation.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,11 +266,20 @@ public class FeedsController {
 	// 유사 감정 색상 피드 목록 조회
 	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
 	@GetMapping("/similarity-color")
-	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> similarColorFeed(@Value("${file.path.upload-files}") String filePath,
+			@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
 			System.out.println(similarEmotion);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < similarEmotion.size(); i++) {
+				Map<String, String> file = fileService.findFile(similarEmotion.get(i).getFileIdx(), filePath);
+				similarEmotion.get(i).setBase64(file.get("base64"));
+				similarEmotion.get(i).setExtension(file.get("extension"));
+			}
+
 			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
 		} catch (Exception e) {
 			e.printStackTrace();
