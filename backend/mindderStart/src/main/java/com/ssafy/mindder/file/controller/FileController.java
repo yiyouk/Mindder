@@ -47,14 +47,14 @@ public class FileController {
 		int fileIdx =0;
 		if (fileDto.getBase64()!=null||!fileDto.getBase64().equals("")) {
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
-			String saveFolder = filePath + File.separator + today;
+			String saveFolder = filePath + today;
 
 			File folder = new File(saveFolder);
 			if (!folder.exists())
 				folder.mkdirs();
 			String saveFileName = System.nanoTime()
 					+ fileDto.getOriginalFile().substring(fileDto.getOriginalFile().lastIndexOf('.'));
-			File file = new File(saveFolder+"/"+saveFileName);
+			File file = new File(saveFolder+ File.separator+saveFileName);
 			byte[] decode = Base64.getDecoder().decode(fileDto.getBase64());
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 		    fileOutputStream.write(decode);
