@@ -1,11 +1,12 @@
 import React from "react";
 import styled, {css} from "styled-components";
-import { Colors16 } from "../../redux/reducers";
+import { Colors16, Emoticons } from "../../redux/reducers";
+import Image from "react-image-webp";
 
 const colortyles = css`
   /*크기*/
-  ${({myLikeType}) => css`
-    color: ${Colors16[myLikeType].code};
+  ${({emoteColorIdx}) => css`
+    color: ${Colors16[emoteColorIdx].code};
   `}
 `;
 
@@ -28,7 +29,7 @@ const ContextStyled = styled.div`
 const TagStyled = styled.div`
     ${colortyles}
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
 `;
 
 const Date = styled.div`
@@ -36,11 +37,21 @@ const Date = styled.div`
     font-size: 0.75rem;
 `
 
-function Context({myLikeType, updateDate, mainText, normalTag}) {
+const Line = styled.div`
+    margin-bottom: 0.5rem;  
+    display: flex;
+`
+
+function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
+    const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.webp`)
+
     return (
         <Wrapper>
             <ContextStyled>{mainText}</ContextStyled>
-            <TagStyled myLikeType={myLikeType}> {normalTag} </TagStyled>
+            <Line>
+                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #</TagStyled>
+                <Image webp={bear}  style={{width:"1.5rem"}}/>
+            </Line>
             <Date>{updateDate}</Date>
         </Wrapper>
     );
