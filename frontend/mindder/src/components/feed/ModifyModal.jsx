@@ -12,14 +12,14 @@ const Modal = ({open, close, mainText, feedIdx}) => {
   //현재 글
   useEffect(()=>{
       setText(mainText);
-  }, [])
+  }, [open])
 
 
   //새로운 글 입력중
   const handleText = e => {
       setText(e.target.value);
   }
-  console.log(Text)
+
    //댓글 수정하기 비동기 통신
    const modifyPost = async() => { // async, await을 사용하는 경우
     try {

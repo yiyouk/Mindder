@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Imag from "../../assets/images/face2.png";
+import ProfileImage from "../../commons/ui/ProfileImage";
 
 import api from "../../api/api";
 
@@ -58,17 +58,16 @@ const X = styled.span`
     color: rgb(67, 67, 67);
 `
 
-const Image = styled.img`
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid #c0c0c0;
-    border-radius: 100%;
-`
-
-function CommentListItem({comment}) {
+function CommentListItem({getData, commentCount, comment}) {
     const navigate = useNavigate();
     const MyIdx = useSelector((state)=>state.USER.myIdx);
     
+    //닉네임 클릭시 해당 유저 페이지 이동
+    const onClick = () => {
+        navigate(`/${comment.userIdx}`);
+      };
+
+    //댓글 삭제 물어보기
     const deleteComment = () => {
         if(comment.userIdx === MyIdx){
             if(window.confirm("댓글을 삭제하시겠습니까?")){
@@ -84,6 +83,7 @@ function CommentListItem({comment}) {
             
             if(response.data.success){
                 alert("댓글 삭제 성공");
+                getData(commentCount-1);
             } else{
                 alert("댓글 삭제 실패! 다시 시도해주세요.");
             }
@@ -96,11 +96,11 @@ function CommentListItem({comment}) {
 
     return (
             <Wrapper>
-                <Image src = {Imag}></Image>
+                <ProfileImage size = "xs" userIdx={comment.userIdx}></ProfileImage>
                 <Main>
                     <SideContainer>
                         <CommentInfo>
-                            <NickName>{comment.nickname}</NickName>
+                            <NickName onClick={onClick}>{comment.nickname}</NickName>
                             <Date>{comment.updateDate}</Date>
                         </CommentInfo>
                         {comment.userIdx === MyIdx? <X onClick={deleteComment}> 삭제 </X> : null}
