@@ -189,6 +189,10 @@ const initialState = {
   nickName:"",
   myIdx:null,
   otherUserIdx:null,
+  myFollowing:[],
+  profileImg:null,
+  followingCount:null,
+  followerCount:null,
 }
 
 const userStateSlice = createSlice({
@@ -218,7 +222,23 @@ const userStateSlice = createSlice({
     SAVE_otherUserIdx(state, action){
       state.otherUserIdx = action.payload
       console.log(`otherUserIdx : ${state.otherUserIdx}`)
-    }
+    },
+    SAVE_myFollowing(state, action){
+      state.myFollowing = action.payload
+      console.log(`myFollowing : ${state.myFollowing}`)
+    },
+    SAVE_profileImg(state, action){
+      state.profileImg = action.payload
+      console.log(`profileImg : ${state.profileImg}`)
+    },
+    SAVE_followingCount(state, action){
+      state.followingCount = action.payload
+      console.log(`followingCount : ${state.followingCount}`)
+    },
+    SAVE_followerCount(state, action){
+      state.followerCount = action.payload
+      console.log(`followerCount : ${state.followerCount}`)
+    },
   }
 })
 
@@ -255,5 +275,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_myFollowing, SAVE_profileImg, SAVE_followerCount, SAVE_followingCount } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;
