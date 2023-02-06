@@ -47,6 +47,10 @@ public class LikesController {
 			if (likesService.findLike(likesDto) != null) {
 				return ApiResponse.error(ErrorCode.VALIDATION_LIKE_EXCEPTION);
 			}
+			int likeType = likesDto.getLikeType();
+			if (likeType != 1 && likeType != 2 && likeType != 3 ) {
+				return ApiResponse.error(ErrorCode.VALIDATION_LIKE_TYPE_EXCEPTION);
+			}
 			likesService.addLike(likesDto);
 			return ApiResponse.success(SuccessCode.CREATE_LIKE);
 		} catch (Exception e) {
@@ -66,6 +70,10 @@ public class LikesController {
 			likesDto.setUserIdx(userIdx);
 			if (likesService.findLike(likesDto) == null) {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_LIKE_EXCEPTION);
+			}
+			int likeType = likesDto.getLikeType();
+			if (likeType != 1 && likeType != 2 && likeType != 3 ) {
+				return ApiResponse.error(ErrorCode.VALIDATION_LIKE_TYPE_EXCEPTION);
 			}
 			likesService.modifyLike(likesDto);
 			return ApiResponse.success(SuccessCode.UPDATE_LIKE);
