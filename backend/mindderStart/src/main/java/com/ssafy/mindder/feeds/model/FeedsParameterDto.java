@@ -23,6 +23,7 @@ public class FeedsParameterDto {
 	private int sadCount;
 	private int likeTotalCount;
 	private int fileIdx;
+	private boolean isPublic;
 	private int userIdx;
 	private int emoteIdx;
 	private int emoteColorIdx;
