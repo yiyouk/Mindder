@@ -118,6 +118,10 @@ function PostCommentwrite(props){
   const onChange = (e)=>{
     // console.log(e.target.value)
     setUserComment(e.target.value)
+    console.log(userComment.split(/\s|#[^\s#]+/g))
+    
+    console.log(userComment.split(/^#&\s$/g).join(' '))
+    // console.log(userComment.match(/#[^\s#]+/g).join(''))
   }
 
   const writeFeed = async ()=>{
@@ -129,16 +133,15 @@ function PostCommentwrite(props){
       })
       console.log(fileResponse)
       const fileIdx = fileResponse.data.data;
-
+      const normalTag = userComment.match(/#[^\s#]+/g).join('')
       const requests = {
         emoteIdx : Emoticons.find(emote=>emote.name===emoTag).id,
         emoteColorIdx : Colors16.find(color=>color.name===emoColor).id,
         fileIdx : fileIdx,
         mainText : userComment,
-        normalTag : null,
-        isPublic : isPublic,
+        normalTag : normalTag,
+        public : isPublic,
       }
-      console.log(typeof(requests.emoteIdx))
       console.log(requests)
       const response = await api.post(`/feeds`, requests)
       console.log(response.data)
