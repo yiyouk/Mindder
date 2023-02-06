@@ -9,6 +9,7 @@ import {FaRegSmile, FaSmile} from "react-icons/fa";
 import api from "../../api/api";
 
 const Text = styled.span`
+    color: gray;
     font-size: 0.8rem;
     margin-left: 0.5rem;
 `;
@@ -60,24 +61,36 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
   const [cheerup, setCheerup] = useState(false);
   const [sad, setSad] = useState(false);
 
-  //현재 좋아요한 타입 true로 바꾸기
+  //현재 공감 상황에 따라 다르게 보이게
   useEffect(()=>{
       if(myLikeType === 1){
         setLike(true);
+        setCheerup(false);
+        setSad(false);
       } else if(myLikeType === 2){
+        setLike(false);
         setCheerup(true);
+        setSad(false);
       } else if(myLikeType === 3){
+        setLike(false);
+        setCheerup(false);
         setSad(true);
+      } else if(myLikeType === 0){
+        setLike(false);
+        setCheerup(false);
+        setSad(false);
       }
   }, [myLikeType])
 
-  //내가 true면 걍 취소
+  //공감 취소
   const likeCancel = async() => {
     try {
       const response = await api.delete(`/likes/${feedIdx}`);
-      getData(0);
-      console.log(response);
-
+      if(response.data.success){
+        getData(0);
+      } else{
+        alert("다시 시도해주세요.")
+      }
     } catch (e) {
         alert("오류 발생!");
         console.error(e);
@@ -85,29 +98,29 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
     }
   }
 
-    //내가 false면 상황에 따라
-    const likeTry = (num) => {
-      console.log(num)
-      console.log("오긴.,,와?")
-      //하나라도 true면
-      if(like || cheerup || sad){
-        //공감수정
-        likeModify();
-      }else{ //전부 false라면 그냥 등록
+  //공감 등록 & 수정은 상황에 따라
+  const likeTry = (num) => {
+      if(myLikeType !== 0){ //이미 공감 있으면 수정
+        getData(num);
+        likeModify(num);
+      }else{  //없으면 등록
         likeRegister(num);
       }
-    }
+  }
 
-  //내가 false면 상황에 따라 등록
+  //공감 등록
   const likeRegister = async(num) => {
     try {
       const response = await api.post(`/likes`, {
         feedIdx : feedIdx,
-        likeType : num,
+        likeType : num
       });
 
-      console.log(response);
-      getData(num);
+      if(response.data.success){
+        getData(num);
+      }else{
+        alert("다시 시도해주세요.");
+      }
 
     } catch (e) {
         alert("오류 발생!");
@@ -116,16 +129,19 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
     }
   }
 
-    //내가 false면 상황에 따라 수정
+    //공감 수정
     const likeModify = async(num) => {
       try {
         const response = await api.patch(`/likes`, {
           feedIdx : feedIdx,
-          likeType : num,
+          likeType : num
         });
   
-        getData(num);
-        console.log(response);
+        if(response.data.success){
+          getData(num);
+        }else{
+          alert("다시 시도해주세요.");
+        }
   
       } catch (e) {
           alert("오류 발생!");
@@ -142,16 +158,16 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
           <ListContainer>
             <Container>
               <Emote>
-                {like ? <BsEmojiHeartEyesFill  onClick={likeCancel} color="white" size="22" />:<BsEmojiHeartEyes onClick={likeTry(1)} color="white" size="22"/>}
+                {like ? <BsEmojiHeartEyesFill  onClick={likeCancel} color="white" size="22" />:<BsEmojiHeartEyes onClick={()=>{likeTry(1)}} color="white" size="22"/>}
                 <EmoteText>{likeCount}
                 </EmoteText>
                 </Emote>
               <Emote>
-                {cheerup ? <BsEmojiWinkFill  onClick={likeCancel} color="white" size="22"/>:<BsEmojiWink onClick={likeTry(2)} color="white" size="22"/>}
+                {cheerup ? <BsEmojiWinkFill  onClick={likeCancel} color="white" size="22"/>:<BsEmojiWink onClick={()=>{likeTry(2)}} color="white" size="22"/>}
                 <EmoteText>{cheerupCount}</EmoteText>
               </Emote>
               <Emote>
-                {sad ? <BsEmojiFrownFill onClick={likeCancel} color="white" size="22"/>:<BsEmojiFrown onClick={likeTry(3)} color="white" size="22"/>}
+                {sad ? <BsEmojiFrownFill onClick={likeCancel} color="white" size="22"/>:<BsEmojiFrown onClick={()=>{likeTry(3)}} color="white" size="22"/>}
                 <EmoteText>{sadCount}</EmoteText>
                 </Emote>
             </Container>

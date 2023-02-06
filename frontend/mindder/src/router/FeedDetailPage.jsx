@@ -12,7 +12,7 @@ import Context from "../components/feed/Context";
 import CommentList from "../components/feed/CommentList";
 import FeedManage from "../components/feed/FeedManage";
 import EmoManage from "../components/feed/EmoManage";
-import BookMark from "../components/feed/BookMark";
+import Scraps from "../components/feed/Scraps";
 
 
 const Wrapper = styled.div`
@@ -103,6 +103,10 @@ function FeedDetailPage(props) {
     const [sadCount, setSadCount] = useState(0);
     const [postUserIdx, setPostuserIdx] = useState(0);
     const [myLikeType, setMyLikeType] = useState(0);
+    const [emoteColorIdx, setEmoteColorIdx] = useState(0);
+    const [emoteIdx, setEmoteIdx] = useState(0);
+    const [myScrap, setMyScrap] = useState(false);
+    const [Public, setPublic] = useState(false);
     const [scrollEvent, setScrollEvent] = useState(false);
 
     const onScroll = () => {
@@ -121,7 +125,7 @@ function FeedDetailPage(props) {
         return ()=>{
             window.removeEventListener('scroll', onScroll)
         }
-    }, [])
+    }, [myLikeType])
 
 
     //댓글 작성시 입력 ~
@@ -150,6 +154,10 @@ function FeedDetailPage(props) {
                 setMainText(response.data.data.mainText);
                 setNormalTag(response.data.data.normalTag);
                 setMyLikeType(response.data.data.myLikeType);
+                setEmoteColorIdx(response.data.data.emoteColorIdx);
+                setEmoteIdx(response.data.data.emoteIdx);
+                setMyScrap(response.data.data.myScrap);
+                setPublic(response.data.data.public);
                 setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
             }  else {
                 alert("정보를 불러오지 못했습니다.");
@@ -198,22 +206,22 @@ function FeedDetailPage(props) {
     }
 
     //like~
-    const getData = () => {
-        setMyLikeType(0);
+    const getData = (num) => {
+        setMyLikeType(num);
     }
 
     return (
         <Wrapper>
             <SideContainer>
                 <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s"/>
-                {myIdx === postUserIdx ? <FeedManage mainText={mainText} feedIdx={feedIdx}/> : null}
+                {myIdx === postUserIdx ? <FeedManage Public ={Public} mainText={mainText} feedIdx={feedIdx}/> : null}
             </SideContainer>
             <CanvasImg src={base64}/>
             <SideContainer2>
                 <EmoManage getData={getData} feedIdx={feedIdx} myLikeType={myLikeType} likeCount={likeCount} cheerupCount={cheerupCount} sadCount={sadCount} likeTotalCount={likeTotalCount}/>
-                <BookMark/>
+                <Scraps feedIdx={feedIdx} myScrap={myScrap}/>
             </SideContainer2>
-            <Context myLikeType={myLikeType} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
+            <Context emoteIdx={emoteIdx} emoteColorIdx={emoteColorIdx} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
             <CommentList commentCount={commentCount} feedIdx={feedIdx} />
             <Bottom scrollEvent={scrollEvent}>
                 <TexetAreaStyled ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>
