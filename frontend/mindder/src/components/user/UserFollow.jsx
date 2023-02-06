@@ -25,14 +25,14 @@ const SavedButton = styled.div`
     cursor: pointer;
 `;
 
-const Follow = styled.div`
+export const Follow = styled.div`
     display: flex;
     justify-content:space-between;
     width:7rem;
     /* border:1px solid; */
 `
 
-const CountHere = styled.div`
+export const CountHere = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -50,28 +50,6 @@ function UserFollow({isMine, follower, following, data}) {
     const [ isFollow, setIsFollow ] = useState(data);
     const [ followersCount, setFollowersCount ] = useState();
     const [ followingList, setFollowingList ] = useState([]);
-
-    // 팔로우 여부 확인
-    // const myFollowing = async() => {
-    //     try{
-    //         const response = await api.get(`/my/followings/${myIdx}`);
-    //         setFollowingList(response.data.data)
-    //         console.log(response)
-    //         {
-    //             Object.keys(followingList).find(key => followingList[key].targetUserIdx === {userIdx})?
-    //                 setIsFollow(true)
-    //                 : 
-    //                 setIsFollow(false)
-    //         }
-    //     } catch(e) {
-    //         console.error(e)
-    //     }
-    // }
-
-    // useEffect(()=>{
-    //     // myFollowing();
-    // }, [isFollow])
-
 
     const followAPI = useCallback(async () => {
         try {
@@ -126,9 +104,9 @@ function UserFollow({isMine, follower, following, data}) {
                 </CountHere>
                 <CountHere onClick={()=>{
                     isMine?
-                    navigate(`/${myIdx}/followers`)
+                    navigate(`/${myIdx}/following`)
                     :
-                    navigate(`/${userIdx}/followers`)
+                    navigate(`/${userIdx}/following`)
                 }}>
                     <span>팔로잉</span>
                     <span>{followingCount} </span>
