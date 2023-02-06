@@ -54,7 +54,7 @@ public class FileController {
 				folder.mkdirs();
 			String saveFileName = System.nanoTime()
 					+ fileDto.getOriginalFile().substring(fileDto.getOriginalFile().lastIndexOf('.'));
-			File file = new File(saveFolder+"/"+saveFileName);
+			File file = new File(saveFolder+ File.separator+saveFileName);
 			byte[] decode = Base64.getDecoder().decode(fileDto.getBase64());
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 		    fileOutputStream.write(decode);
