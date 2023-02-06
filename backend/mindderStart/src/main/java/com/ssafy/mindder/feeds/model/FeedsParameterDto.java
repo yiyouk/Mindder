@@ -23,8 +23,11 @@ public class FeedsParameterDto {
 	private int sadCount;
 	private int likeTotalCount;
 	private int fileIdx;
+	private int userIdx;
+	private int emoteIdx;
+	private int emoteColorIdx;
+	private int myLikeType; // 내가 누른 공감 버튼
+	private boolean myScrap; // 나의 스크랩 여부
 	private String base64;
 	private String extension;
-	private int userIdx;
-	private int myLikeType; // 내가 누른 공감 버튼
 }

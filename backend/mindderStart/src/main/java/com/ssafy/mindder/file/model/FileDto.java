@@ -16,4 +16,6 @@ public class FileDto {
 	private String saveFolder;
 	private String originalFile;
 	private String saveFile;
+	private String base64;
+	private String extension;
 }
