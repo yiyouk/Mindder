@@ -193,6 +193,7 @@ const initialState = {
   profileImg:null,
   followingCount:null,
   followerCount:null,
+  userDrawing:null,
 }
 
 const userStateSlice = createSlice({
@@ -239,6 +240,10 @@ const userStateSlice = createSlice({
       state.followerCount = action.payload
       console.log(`followerCount : ${state.followerCount}`)
     },
+    SAVE_userDrawing(state, action){
+      state.userDrawing = action.payload
+      console.log(`유저가 그린 그림 : ${state.userDrawing}`)
+    },
   }
 })
 
@@ -260,10 +265,10 @@ const tokenSlice = createSlice({
             state.expireTime = new Date().getTime() + TOKEN_TIME_OUT;
         },
         DELETE_TOKEN(state, action){
-            console.log(`DELETE_TOKEN : ${state, action}`)
+            console.log(`DELETE_TOKEN : ${state}`)
             state.authenticated = false;
             state.accessToken = null;
-            state.expireTime = null
+            state.expireTime = null;
         },
     }
 })
@@ -275,5 +280,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_myFollowing, SAVE_profileImg, SAVE_followerCount, SAVE_followingCount } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;
