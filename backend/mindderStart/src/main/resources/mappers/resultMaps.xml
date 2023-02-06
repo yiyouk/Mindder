@@ -32,6 +32,8 @@
 		<result column="update_date" property="updateDate" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_count" property="likeCount" />
+		<result column="emote_idx" property="emoteIdx" />
+		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="cheerup_count" property="cheerupCount" />
 		<result column="sad_count" property="sadCount" />
 		<result column="like_total_count" property="likeTotalCount" />
