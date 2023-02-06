@@ -2,7 +2,6 @@ package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import org.jsoup.Jsoup;
@@ -12,7 +11,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,10 +52,10 @@ public class FeedsController {
 	private FileService fileService;
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
-	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = FeedsDto.class)
 	@PostMapping
-	public ApiResponse<?> writeFeeds(@RequestBody @ApiParam(value = "피드 정보.", required = true) FeedsDto feedsDto,
-			@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> writeFeeds(@RequestBody FeedsDto feedsDto, @RequestHeader("access_token") String accessToken)
+			throws Exception {
 		logger.info("writeArticle - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
@@ -105,7 +103,8 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
-	public ApiResponse<?> getFeed(@Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> getFeed(
+			// @Value("${file.path.upload-files}") String filePath,
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
@@ -115,15 +114,15 @@ public class FeedsController {
 
 			// 사용자 -> 메인 스크랩 여부 코드
 			boolean checkMyscrap = feedsService.myScrap(feedIdx, userIdx);
-			System.out.println(checkMyscrap);
 			if (checkMyscrap) {
 				feedDetail.setMyScrap(checkMyscrap);
 			}
 
 			// 이미지
-			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
-			feedDetail.setBase64(file.get("base64"));
-			feedDetail.setExtension(file.get("extension"));
+//			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
+//			feedDetail.setBase64(file.get("base64"));
+//			feedDetail.setExtension(file.get("extension"));
+//			System.out.println(feedDetail);
 
 			// 메인 피드글 여부 확인
 			if (Objects.isNull(feedDetail)) {
