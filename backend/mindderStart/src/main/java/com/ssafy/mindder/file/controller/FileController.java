@@ -60,7 +60,7 @@ public class FileController {
 		    fileOutputStream.write(decode);
 		    fileOutputStream.close();
 		    fileDto.setSaveFile(saveFileName);
-		    fileDto.setSaveFolder(saveFolder);
+		    fileDto.setSaveFolder(today);
 			fileIdx= fileService.addFile(fileDto);
 		}
 		return ApiResponse.success(SuccessCode.READ_FILE_IDX, fileIdx);
