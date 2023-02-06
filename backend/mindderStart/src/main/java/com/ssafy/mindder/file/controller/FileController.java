@@ -2,6 +2,7 @@ package com.ssafy.mindder.file.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,29 +48,30 @@ public class FileController {
 
 	@Autowired
 	private FileService fileService;
+
+	@Value("${file.path.upload-files}") 
+	String filePath;
+
 	@PostMapping
-	public ApiResponse<?> fileUpLoad(@Value("${file.path.upload-files}") String filePath,
-			@RequestParam("upfile") MultipartFile[] files) throws Exception {
+	public ApiResponse<?> fileUpLoad(@RequestBody FileDto fileDto) throws Exception {
 		int fileIdx =0;
-		if (!files[0].isEmpty()) {
+		if (fileDto.getBase64()!=null||!fileDto.getBase64().equals("")) {
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
 			String saveFolder = filePath + File.separator + today;
+
 			File folder = new File(saveFolder);
 			if (!folder.exists())
 				folder.mkdirs();
-			for (MultipartFile mfile : files) {
-				FileDto fileInfoDto = new FileDto();
-				String originalFileName = mfile.getOriginalFilename();
-				if (!originalFileName.isEmpty()) {
-					String saveFileName = System.nanoTime()
-							+ originalFileName.substring(originalFileName.lastIndexOf('.'));
-					fileInfoDto.setSaveFolder(today);
-					fileInfoDto.setOriginalFile(originalFileName);
-					fileInfoDto.setSaveFile(saveFileName);
-					mfile.transferTo(new File(folder, saveFileName));
-				}
-				fileIdx= fileService.addFile(fileInfoDto);
-			}
+			String saveFileName = System.nanoTime()
+					+ fileDto.getOriginalFile().substring(fileDto.getOriginalFile().lastIndexOf('.'));
+			File file = new File(saveFolder+"/"+saveFileName);
+			byte[] decode = Base64.getDecoder().decode(fileDto.getBase64());
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+		    fileOutputStream.write(decode);
+		    fileOutputStream.close();
+		    fileDto.setSaveFile(saveFileName);
+		    fileDto.setSaveFolder(saveFolder);
+			fileIdx= fileService.addFile(fileDto);
 		}
 		return ApiResponse.success(SuccessCode.READ_FILE_IDX, fileIdx);
 
