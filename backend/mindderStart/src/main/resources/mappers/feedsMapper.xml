@@ -5,15 +5,15 @@
    <!-- 공개여부 -> default값은 공개로 -->
    <insert id="writeFeed" parameterType="FeedsDto">
       insert into mainfeed 
-      (social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx, emote_complete_idx)
-      values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText}, #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx}, #{emoteCompleteIdx})
+      (social_id, update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx)
+      values(#{socialId},curdate(), curtime(), #{isPublic},#{mainText}, #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx})
    </insert>
    
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
       insert into feedcalendar 
-      (calendar_date,user_idx, emote_complete_idx)
-      values(curdate(), #{userIdx}, #{emoteCompleteIdx})      
+      (calendar_date,user_idx)
+      values(curdate(), #{userIdx})      
    </insert>
    
    <!-- 피드글 삭제-->
@@ -44,14 +44,13 @@
    <update id ="modifyFeed" parameterType="FeedsUpdateDto">
    update mainfeed 
    set is_public = #{isPublic}, main_text=#{mainText}, normal_tag=#{normalTag}
-   where feed_idx=#{feedIdx} and is_deleted!='1'
+   where feed_idx=#{feedIdx} and is_deleted!=1
    </update>
 
    <!-- 피드글 상세보기 -->
    <select id="getFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feed">
-   <!-- 이미지 URL 은 제외한 코드 -->
    select f.feed_idx,u.user_idx, u.nickname,f.main_text,f.normal_tag,
-    f.update_date,f.emote_complete_idx,f.file_idx,
+    f.update_date,f.file_idx,f.emote_idx, f.emote_color_idx,
       (select count(*) from feedcomment c, mainfeed f where c.feed_idx= f.feed_idx and c.feed_idx=#{feedIdx} and c.is_deleted!=1)as 'comment_count',
       (select count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx} and l.like_type=1) as 'like_count',
    (select  count(*) from feedlike l, mainfeed f where f.feed_idx=l.feed_idx and l.feed_idx=#{feedIdx}  and l.like_type=2 ) as 'cheerup_count',
@@ -62,6 +61,13 @@
    where  f.is_deleted!=1 and f.feed_idx=#{feedIdx} and f.user_idx=u.user_idx;
    </select>
    
+   <select id= "myScrap" parameterType="int" resultType="boolean">
+	SELECT IF(COUNT(*) = 1, 1, 0)
+	FROM feedscrap f join mainuser u
+	on f.user_idx=u.user_idx
+	where u.user_idx=#{userIdx} and f.feed_idx=#{feedIdx};
+ 	 </select>
+   
    <!-- 그 뭐냐 조회수 업데이트 -->
    	<update id="updateHit" parameterType="int">
 		update mainfeed
@@ -69,15 +75,14 @@
 		where feed_idx = #{feedIdx}
 	</update>
    
-   
-   
+
    <!-- 이웃의 게시글 리스트 -->
    <select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
    
-select f.feed_idx,f.user_idx,f.emote_complete_idx, f.file_idx,c.comment_count, l.like_total_count,e.my_like_type
+	select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count,e.my_like_type
          from 
         (
-         select m.feed_idx,m.user_idx, m.file_idx ,m.emote_complete_idx
+         select m.feed_idx,m.user_idx, m.file_idx 
          from mainfeed m,
             (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f  
          where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
