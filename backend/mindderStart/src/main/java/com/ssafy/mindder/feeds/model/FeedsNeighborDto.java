@@ -19,4 +19,6 @@ public class FeedsNeighborDto {
 	private int fileIdx;
 	private int userIdx;
 	private int myLikeType;
+	private String base64;
+	private String extension;
 }
