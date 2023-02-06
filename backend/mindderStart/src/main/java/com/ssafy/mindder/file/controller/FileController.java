@@ -47,7 +47,7 @@ public class FileController {
 		int fileIdx =0;
 		if (fileDto.getBase64()!=null||!fileDto.getBase64().equals("")) {
 			String today = new SimpleDateFormat("yyMMdd").format(new Date());
-			String saveFolder = filePath + File.separator + today;
+			String saveFolder = filePath + today;
 
 			File folder = new File(saveFolder);
 			if (!folder.exists())
