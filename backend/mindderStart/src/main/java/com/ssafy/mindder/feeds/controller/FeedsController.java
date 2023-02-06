@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.jsoup.Jsoup;
@@ -11,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -103,8 +105,7 @@ public class FeedsController {
 
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
-	public ApiResponse<?> getFeed(
-			// @Value("${file.path.upload-files}") String filePath,
+	public ApiResponse<?> getFeed(@Value("${file.path.upload-files}") String filePath,
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
@@ -119,10 +120,10 @@ public class FeedsController {
 			}
 
 			// 이미지
-//			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
-//			feedDetail.setBase64(file.get("base64"));
-//			feedDetail.setExtension(file.get("extension"));
-//			System.out.println(feedDetail);
+			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
+			feedDetail.setBase64(file.get("base64"));
+			feedDetail.setExtension(file.get("extension"));
+			System.out.println(feedDetail);
 
 			// 메인 피드글 여부 확인
 			if (Objects.isNull(feedDetail)) {
