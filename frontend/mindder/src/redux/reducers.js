@@ -230,7 +230,7 @@ const userStateSlice = createSlice({
     },
     SAVE_profileImg(state, action){
       state.profileImg = action.payload
-      console.log(`profileImg : ${state.profileImg}`)
+      console.log(`profileImg : 저장 성공`)
     },
     SAVE_followingCount(state, action){
       state.followingCount = action.payload
@@ -242,7 +242,7 @@ const userStateSlice = createSlice({
     },
     SAVE_userDrawing(state, action){
       state.userDrawing = action.payload
-      console.log(`유저가 그린 그림 : ${state.userDrawing}`)
+      console.log(`유저가 그린 그림 : 저장 성공`)
     },
   }
 })
@@ -280,5 +280,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_myFollowing } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components';
 import api from "../../api/api";
 import FollowButton from '../../commons/ui/FollowButton';
+import Profile from '../../commons/ui/Profile';
 import ProfileImage from '../../commons/ui/ProfileImage';
 import ProfileName from '../../commons/ui/ProfileName';
 import { ProfileContainer } from '../../router/UserPage';
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
 `;
 
 
-function FollowItem({userIdx, status, data}) {
+function FollowItem({userIdx, status, nickname, imgSrc}) {
     const [isFollow, setIsFollow] = useState({status})
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followingList, setFollowingList ] = useState([]);
@@ -36,7 +37,7 @@ function FollowItem({userIdx, status, data}) {
         try{
             const response = await api.get(`/my/followings/${myIdx}`);
             setFollowingList(response.data.data)
-            console.log(response)
+            console.log(response.data)
             {
                 Object.keys(followingList).find(key => followingList[key].targetUserIdx === {userIdx})?
                     setIsFollow(true)
@@ -52,7 +53,7 @@ function FollowItem({userIdx, status, data}) {
         try {
             const response = await api.post(`/my/follows/${userIdx}`);
             setIsFollow((isFollow) => !isFollow);
-            console.log(response)
+            console.log(response.data)
         } catch (e) {
             console.error(e);
         }
@@ -62,7 +63,7 @@ function FollowItem({userIdx, status, data}) {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
             setIsFollow((isFollow) => !isFollow);
-            console.log(response)
+            console.log(response.data)
         } catch (e) {
             console.error(e);
         }
@@ -74,13 +75,12 @@ function FollowItem({userIdx, status, data}) {
           followAPI();
         }
       };
-
+    console.log(status)
     return (
         <Wrapper>
 
             <ProfileContainer>
-              <ProfileImage size="s" userIdx={userIdx}></ProfileImage>
-              <ProfileName size="s" userIdx={userIdx} name={data.nickname}></ProfileName>
+                <Profile imgsize={"s"} namesize={"s"} name={nickname} userIdx={userIdx} imgSrc={imgSrc}/>
             </ProfileContainer>
             {myIdx === userIdx? 
                 null:

@@ -8,6 +8,7 @@ import Follower from "../commons/ui/Follower";
 import Following from "../commons/ui/Following";
 import { FollowContainer } from "./FollowersPage";
 import {Prev} from "./FollowersPage";
+import { Follow, CountHere } from "../components/user/UserFollow";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,34 +25,23 @@ const Wrapper = styled.div`
 
 function FollowingPage(props) {
     const navigate = useNavigate();
-
-    const [followerList, setFollowerList] = useState([])
     const [followingList, setFollowingList] = useState([])
 
-    const userIdx = useParams().userId;
+    const userIdx = parseInt(useParams().userId);
     const myFollowing = useSelector((state) => state.USER.myFollowing)
-    
+    const followerCount = useSelector((state)=>state.USER.followerCount)
+    const followingCount = useSelector((state)=>state.USER.followingCount)
     useEffect(() => {
-        getFollowerInfo();
         getFollowingInfo();
     }, [])
     
-
-    // // 팔로워 리스트 받아옴
-    const getFollowerInfo = async() => {
-        try{
-            const response = await api.get(`/my/followers/${userIdx}`);
-                setFollowerList(response.data.data);
-        } catch (e) {
-            console.error(e);
-        }
-    }
 
     // 팔로잉 리스트 받아옴
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
-                setFollowingList(response.data.data);
+            console.log(response.data)
+            setFollowingList(response.data.data);
         } catch (e) {
             console.error(e);
         }
@@ -61,14 +51,26 @@ function FollowingPage(props) {
         <Wrapper>
             <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
-                <Follower userIdx={userIdx} follower={followerList.length}/>
-                <Following userIdx={userIdx} following={followingList.length}/>
+            <Follow>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/followers`)
+                }}>
+                    <span>팔로워</span>
+                    <span>{followerCount} </span>
+                </CountHere>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/following`)
+                }}>
+                    <span>팔로잉</span>
+                    <span>{followingCount} </span>
+                </CountHere>
+            </Follow>
             </FollowContainer>
                 {!followingList || followingList.length === 0? (
-                    <div>팔로우 목록이 존재하지 않습니다.</div>
+                    <div>팔로잉 목록이 존재하지 않습니다.</div>
                 ):(
                     followingList.map((following, idx) => (
-                        <FollowItem userIdx={following.targetUserIdx} status={myFollowing.includes(following.targetUserIdx)} data={following} key={idx}></FollowItem>
+                        <FollowItem userIdx={following.targetUserIdx} status={myFollowing.includes(following.targetUserIdx)} nickname={following.nickname} key={idx} imgSrc={following.base64}></FollowItem>
                     ))
                 )}
         </Wrapper>

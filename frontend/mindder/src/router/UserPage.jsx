@@ -89,11 +89,6 @@ function UserPage(props) {
     }, [myIdx])
     console.log(isMine)
     
-    // useEffect(() => {
-    //     getUserId();
-    //     getOthersInfo();
-    //     getUserFeeds();
-    // }, [userIdx])
 
     // 로그인 되어 있는 유저의 팔로잉 정보 저장
     const myFollowing = async () => {
