@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from '../../api/api'
 
+import {Emoticons} from "../../redux/reducers";
+import {Colors16} from "../../redux/reducers";
+
 const Wrapper = styled.div`
     width: calc(100% - 0.5rem);
     height:31rem;
@@ -105,6 +108,7 @@ function PostCommentwrite(props){
   const userDraw = useSelector((state)=>state.USER.userDrawing)
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
   const emoColor = useSelector((state)=>state.USER.todayColor)
+  const myIdx = useSelector((state)=>state.USER.myIdx)
   const placeHolder = "오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)"
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
@@ -117,16 +121,25 @@ function PostCommentwrite(props){
   }
 
   const writeFeed = async ()=>{
-    const requests = {
-      emoteTagIdx : emoTag,
-      emoteColorTagIdx : emoColor,
-      fileIdx : null,
-      mainText : userComment,
-      normalTag : null,
-      isPublic : isPublic,
-    }
-    console.log(requests)
+    console.log(userDraw.split(',')[1])
     try {
+      const fileResponse = await api.post(`file`, {
+        originalFile:`${Date.now()}_${myIdx}.webp`,
+        base64:userDraw.split(',')[1],
+      })
+      console.log(fileResponse)
+      const fileIdx = fileResponse.data.data;
+
+      const requests = {
+        emoteIdx : Emoticons.find(emote=>emote.name===emoTag).id,
+        emoteColorIdx : Colors16.find(color=>color.name===emoColor).id,
+        fileIdx : fileIdx,
+        mainText : userComment,
+        normalTag : null,
+        isPublic : isPublic,
+      }
+      console.log(typeof(requests.emoteIdx))
+      console.log(requests)
       const response = await api.post(`/feeds`, requests)
       console.log(response.data)
 
@@ -135,39 +148,8 @@ function PostCommentwrite(props){
     }
   }
 
-  const getFileIdx = async()=>{
-    const decodImg = atob(userDraw.split(',')[1]);
-    // console.log(decodImg)
-    let array = [];
-    for (let i = 0; i < decodImg.length; i++) {
-        array.push(decodImg.charCodeAt(i));
-    }
-
-    let file = new Blob([new Uint8Array(array)], {type: "image/webp"});
-    console.log(file)
-    let formData = new FormData();
-    formData.append("file", file);
-    console.log(formData)
-
-    try {
-      const fileResponse = await api.post(`file/`, {
-      data:formData,
-      // headers: {
-      //   "Content-Type": "multipart/form-data",
-      // },
-      cache: false,
-      contentType: false,
-      processData: false,
-      })
-      console.log(fileResponse)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const onClick = ()=>{
-    getFileIdx()
-    // writeFeed()
+    writeFeed()
     navigate('/feeds')
   }
 
