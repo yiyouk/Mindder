@@ -17,5 +17,7 @@ public class CalendarDto {
 	private String calendarDate;
 	private int userIdx;
 	private int fileIdx;
+	private String base64;
+	private String extension;
 
 }

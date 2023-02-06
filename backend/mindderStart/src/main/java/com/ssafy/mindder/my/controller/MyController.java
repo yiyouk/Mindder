@@ -62,7 +62,7 @@ public class MyController {
 			Map<String, String> file = fileService.findFile(userDto.getFileIdx(), filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
-			System.out.println("userDto"+userDto);
+			System.out.println("userDto" + userDto);
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,6 +98,11 @@ public class MyController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> feedList = myService.findMyFeeds(userIdx);
+			for (int i = 0; i < feedList.size(); i++) {
+				Map<String, String> file = fileService.findFile(feedList.get(i).getFileIdx(), filePath);
+				feedList.get(i).setBase64(file.get("base64"));
+				feedList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_MY_FEED_LIST, feedList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,6 +119,11 @@ public class MyController {
 		logger.debug("othersFeedList - 호출 : " + userIdx);
 		try {
 			List<FeedListDto> feedList = myService.findOthersFeeds(userIdx);
+			for (int i = 0; i < feedList.size(); i++) {
+				Map<String, String> file = fileService.findFile(feedList.get(i).getFileIdx(), filePath);
+				feedList.get(i).setBase64(file.get("base64"));
+				feedList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_OTHERS_FEED_LIST, feedList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,6 +140,11 @@ public class MyController {
 		logger.debug("myFollowerList - 호출 : " + userIdx);
 		try {
 			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
+			for (int i = 0; i < followerList.size(); i++) {
+				Map<String, String> file = fileService.findFile(followerList.get(i).getFileIdx(), filePath);
+				followerList.get(i).setBase64(file.get("base64"));
+				followerList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_MY_FOLLOWER_LIST, followerList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -146,6 +161,11 @@ public class MyController {
 		logger.debug("myFollowingList - 호출 : " + userIdx);
 		try {
 			List<FollowsDto> followingList = myService.findMyFollowings(userIdx);
+			for (int i = 0; i < followingList.size(); i++) {
+				Map<String, String> file = fileService.findFile(followingList.get(i).getFileIdx(), filePath);
+				followingList.get(i).setBase64(file.get("base64"));
+				followingList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_MY_FOLLOWING_LIST, followingList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,6 +184,11 @@ public class MyController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 
 			List<CalendarDto> calendarList = myService.findMyCalendars(month, userIdx);
+			for (int i = 0; i < calendarList.size(); i++) {
+				Map<String, String> file = fileService.findFile(calendarList.get(i).getFileIdx(), filePath);
+				calendarList.get(i).setBase64(file.get("base64"));
+				calendarList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_MY_CALENDAR_LIST, calendarList);
 		} catch (Exception e) {
 			e.printStackTrace();
