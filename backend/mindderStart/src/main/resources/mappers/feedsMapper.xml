@@ -145,9 +145,9 @@
    </select>
    
    
-   <!-- 실시간 작성된 피드 글 리스트로 조회   -->
+   <!-- 주간 작성된 피드 인기 글 리스트로 조회   -->
    <!-- 현재일 기준으로 +7일 hit글 높은 순으로 조회 -->
-    <select id ="realtimeFeed"  parameterType="int"   resultMap="com.ssafy.resultmaps.neighbor">
+    <select id ="popularArticle"  parameterType="int"   resultMap="com.ssafy.resultmaps.neighbor">
 	select f.feed_idx,f.file_idx, f.user_idx, e.my_like_type,
 	(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
 	(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'

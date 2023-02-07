@@ -65,8 +65,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedsNeighborDto> realtimeFeed(int userIdx) {
-		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed(userIdx);
+	public List<FeedsNeighborDto> popularArticle(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).popularArticle(userIdx);
 	}
 
 	@Override
