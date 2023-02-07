@@ -5,6 +5,8 @@ import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
 import RecoCanvasList from "../../commons/list/CanvasList";
 import EmotionChart from "./EmotionChart"
 
+import api from "../../api/api"
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -65,6 +67,7 @@ const ContainerT = styled.div`
     height: 10rem;
     border-radius:20px;
 `;
+
 
 function LoginHome(props) {
     const navigate = useNavigate();

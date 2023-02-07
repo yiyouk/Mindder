@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled, {css} from "styled-components";
-
+import {GiPadlock} from "react-icons/gi";
 //비동기 통신
 import api from "../api/api";
 
@@ -106,7 +106,7 @@ function FeedDetailPage(props) {
     const [emoteColorIdx, setEmoteColorIdx] = useState(0);
     const [emoteIdx, setEmoteIdx] = useState(0);
     const [myScrap, setMyScrap] = useState(false);
-    const [Public, setPublic] = useState(false);
+    const [isPublic, setIsPublic] = useState(false);
     const [scrollEvent, setScrollEvent] = useState(false);
 
     const onScroll = () => {
@@ -157,7 +157,7 @@ function FeedDetailPage(props) {
                 setEmoteColorIdx(response.data.data.emoteColorIdx);
                 setEmoteIdx(response.data.data.emoteIdx);
                 setMyScrap(response.data.data.myScrap);
-                setPublic(response.data.data.public);
+                setIsPublic(response.data.data.public);
                 setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
             }  else {
                 alert("정보를 불러오지 못했습니다.");
@@ -214,7 +214,10 @@ function FeedDetailPage(props) {
         <Wrapper>
             <SideContainer>
                 <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s"/>
-                {myIdx === postUserIdx ? <FeedManage Public ={Public} mainText={mainText} feedIdx={feedIdx}/> : null}
+                <div>
+                    {isPublic ? null:<GiPadlock color=" #7767FD" size="22" style={{position:'relative', top:'3.2rem', left:'3rem'}}/>}
+                    {myIdx === postUserIdx ? <FeedManage isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
+                </div>
             </SideContainer>
             <CanvasImg src={base64}/>
             <SideContainer2>

@@ -8,7 +8,7 @@ import FollowItem from "../user/FollowItem";
 import { useNavigate } from "react-router-dom";
 import { CanvasContainer } from "./SearchResult";
 import CanvasItem from "../../commons/list/CanvasItem";
-import FeedRecoDetail from "../feed/FeedRecoDetail";
+import FeedsList from "../feed/FeedsList";
 
 const Wrapper = styled.div`
     /* padding: 0; */
@@ -36,7 +36,7 @@ function SearchCanvas (props){
           }}
           ><img id = "back_btn" src={BackIcon}/></button>
         </HeaderBtnContainer>
-        <FeedRecoDetail></FeedRecoDetail>
+        <FeedsList></FeedsList>
       </CanvasContainer>
     </Wrapper>
   )
