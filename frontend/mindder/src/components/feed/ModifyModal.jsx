@@ -50,10 +50,11 @@ const Side = styled.div`
 `
 
 
-const Modal = ({open, close, mainText, feedIdx, Public}) => {
+const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
   const navigate = useNavigate();
   const [Text, setText] = useState()
-  const [toggle, setToggle] = useState(Public);
+  const [toggle, setToggle] = useState(isPublic);
+  // const [isPublic, setIsPublic] = useState(isPublic);
 
   //토글 버튼 클릭
   const clickedToggle = () => {
@@ -105,10 +106,10 @@ const Modal = ({open, close, mainText, feedIdx, Public}) => {
           <textarea cols="44" rows="10" value={Text} onChange={handleText}/>
           <Side>
             <Container>
-                <Toggle onClick={clickedToggle} toggle={toggle}>
-                  <Circle toggle={toggle} />
-                </Toggle>
-                <span>{!toggle ? "공 개" : "비공개"}</span>
+              <Toggle onClick={clickedToggle} toggle={toggle}>
+                <Circle toggle={toggle}/>
+              </Toggle>
+                <span>{toggle ? "공 개" : "비공개"}</span>
             </Container>
             <footer>
               <button className="close" onClick={()=>{close(); modifyPost();}}> 수정 </button>

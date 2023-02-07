@@ -1,5 +1,5 @@
 // 추천 캔버스 출력할 컴포넌트
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CanvasItem from "./CanvasItem";
@@ -22,34 +22,15 @@ const CanvasItemContainer = styled.div`
     justify-content: space-around;
 `
 
-function CanvasList(props){
+function CanvasList({list}){
  const navigate = useNavigate()
-
-  const feedList = props.feedList
-  // emoteCompleteIdx : 완성된 곰돌이 이미지 id
-  // fileIdx : 이미지파일의 id.
-  // 이미지파일 얻으려면 이 id로 다시한번 요청보내야함
-
-  // async function getBearImg (){
-  //   try {
-  //     const response = await api.post(`/file/${fileIdx}`, null);
-  //   } catch (error) {
-      
-  //   }
-  // }
 
   return (
     <Container>
       <CanvasItemContainer>
-        {/* 서버 api 구현되면 주석 푸삼 */}
-        {/* {feedList.map((feed)=>{
-          <CanvasItem
-          size={"s"} feedIdx={feed.feedIdx} commentCount={feed.commentCount} likeTotalCount={feed.likeTotalCount}
-          />
-        })} */}
-        <CanvasItem size="s"/>
-        <CanvasItem size="s"/>
-        <CanvasItem size="s"/>
+        {list ? list.map((feed, index)=>{
+          return <CanvasItem key={index} size="s" feedIdx={feed.feedIdx}/>
+        }): null}
       </CanvasItemContainer>
     </Container>  
   );
