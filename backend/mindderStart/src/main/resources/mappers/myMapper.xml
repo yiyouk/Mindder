@@ -61,4 +61,12 @@
 	<delete id="deleteMyFollow" parameterType="int">
 		delete from userfollow where target_user_idx = #{targetUserIdx} and user_idx = #{userIdx};	
 	</delete>
+	<!-- 최근에 쓴 피드의 감정, 색상 조회 -->
+	<select id="selectMyFeedsRecent" parameterType="int" resultMap="com.ssafy.resultmaps.recent">
+		select f.emote_idx, e.emote_color_tag, f.update_date 
+		from mainfeed f
+		join feedemotecolor e
+		on f.emote_color_idx = e.emote_color_idx
+		where user_idx = #{userIdx} order by feed_idx desc limit 1;
+	</select>
 </mapper>

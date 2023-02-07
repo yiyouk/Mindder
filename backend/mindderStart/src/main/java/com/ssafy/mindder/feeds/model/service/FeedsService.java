@@ -33,7 +33,10 @@ public interface FeedsService {
 	// 메인 추천 게시물 리스트 조회
 	public List<FeedListDto> recommendation(int userIdx);
 
-	// 유사 감정 색상 - 게시물 리스트 조회
-	public List<FeedsNeighborDto> similarColorFeed(int userIdx);
+	// 주간 인기글 리스트 조회
+	public List<FeedListDto> popularArticle();
+
+	// 실시간 작성된 게시글 리스트 조회
+	public List<FeedListDto> realtimeFeed();
 
 }
