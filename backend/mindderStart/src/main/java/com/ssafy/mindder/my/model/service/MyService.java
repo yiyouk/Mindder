@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
+import com.ssafy.mindder.my.model.FeedsRecentDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 
@@ -35,5 +36,8 @@ public interface MyService {
 
 	// 팔로우 취소
 	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception;
+
+	// 최근에 쓴 피드의 감정, 색상 조회
+	public FeedsRecentDto findMyFeedsRecent(int userIdx) throws Exception;
 
 }
