@@ -5,7 +5,6 @@ import CanvasItem from "./CanvasItem";
 
 
 const AlbumWrapper = styled.div`
-    margin: 0.5rem 0 0.25rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,11 +14,9 @@ const AlbumWrapper = styled.div`
 const AlbumContainer = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.7rem;
+      /* gap: 0.5rem; */
       align-items: center;
       justify-content: center;
-      
-    /* border : 1px solid black; */
 
     @media (max-width: 992x) {
       width:90vw;
@@ -30,19 +27,12 @@ const AlbumContainer = styled.div`
     }
 `
 
-function CanvasAlbumList(props){
-  const [feedList, setFeedList] = useState([])
-  useEffect(() => {
-    console.log("피드데이터", props)
-    // setFeedList(feedlist)
-}, [])
+function CanvasAlbumList({size, list, up}){
   return (
     <AlbumWrapper>
       <AlbumContainer>
-        {/* 여기서 for문 */}
-        {feedList.map((Feed, idx) => (
-          <CanvasItem size="m" feedIdx={Feed.feedIdx} imageUrl={Feed.fildIdx} commentCount={Feed.commentCount} likeTotalCount={Feed.likeTotalCount} key={idx}/>   
-
+        {list.map((feed, index) => (
+          <CanvasItem size={size} list={feed} key={index} up={up}/>   
         ))}
       </AlbumContainer>
     </AlbumWrapper>  

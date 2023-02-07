@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {
     BrowserRouter,
     Routes,
-    Route,
-    useParams
+    Route
 } from "react-router-dom";
 
 import { getCookie } from "./api/cookie";
@@ -17,7 +16,7 @@ import MainLayout from './Layout/MainLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
 import UserPage from './router/UserPage';
-import FeedPage from './router/FeedPage';
+import FeedsPage from './router/FeedsPage';
 import SearchPage from './router/SearchPage';
 import CalendarPage from "./router/CalendarPage";
 import FeedDetailPage from "./router/FeedDetailPage";
@@ -35,15 +34,11 @@ import SearchResPage from "./router/SearchResPage";
 import SearchTagPage from "./router/SearchTagPage";
 import ErrorPage from "./router/ErrorPage";
 
-// const keyword = "사랑"
-
 function App(props) {
     const dispatch = useDispatch()
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
-        console.log("나는 App.js의 함수")
-        if (getCookie("is_login") !== undefined){ 
-            console.log(getCookie("is_login"))
+        if (getCookie("is_login") !== undefined){
             dispatch(SET_TOKEN(getCookie("is_login")));
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
         } else { //쿠키에 정보가 없으면 tonken 초기화
@@ -74,7 +69,7 @@ function App(props) {
                     {/* 헤더 필요함 + 공백 */}
                     <Route element={<MainLayout/>}>
                         <Route path=":userId" element={<UserPage />} />
-                        <Route path="feeds" element={<FeedPage />} />
+                        <Route path="feeds" element={<FeedsPage />} />
                         <Route path="search" element={<SearchPage />} />
                         <Route path="calendar" element={<CalendarPage />} />
                         <Route path="f/:feedIdx" element={<FeedDetailPage />} />
