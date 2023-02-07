@@ -54,7 +54,7 @@ const F = styled.div`
     display: flex;
 `
 
-function FeedManage({mainText, feedIdx, Public}) {
+function FeedManage({mainText, feedIdx, isPublic}) {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx)
     const [modalOpen, setModalOpen] = useState(false);
@@ -96,7 +96,7 @@ function FeedManage({mainText, feedIdx, Public}) {
 
     return (
         <>
-        <Modal Public={Public} feedIdx={feedIdx} mainText={mainText} open={modalOpen} close={closeModal}></Modal>
+        <Modal isPublic={isPublic} feedIdx={feedIdx} mainText={mainText} open={modalOpen} close={closeModal}></Modal>
             <DropDown>
                 <CgMenuRight size="30" color="#7767FD"/>
                 <ListContainer>
