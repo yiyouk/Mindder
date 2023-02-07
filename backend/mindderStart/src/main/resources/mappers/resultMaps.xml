@@ -79,4 +79,8 @@
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
+	<resultMap type="FeedsRecentDto" id="recent">
+		<result column="emote_idx" property="emoteIdx" />
+		<result column="emote_color_tag" property="emoteColorTag" />
+	</resultMap>
 </mapper>
