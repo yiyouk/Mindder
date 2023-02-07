@@ -114,7 +114,7 @@ public class MyController {
 
 	@ApiOperation(value = "타인이 쓴 피드 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
 	@GetMapping("/feeds/{userIdx}")
-	public ApiResponse<?> othersFeedList(
+	public ApiResponse<?> othersFeedList(@RequestHeader("access_token") String accessToken,
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
 		logger.debug("othersFeedList - 호출 : " + userIdx);
