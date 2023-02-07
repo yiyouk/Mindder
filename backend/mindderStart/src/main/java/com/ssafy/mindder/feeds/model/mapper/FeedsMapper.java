@@ -59,6 +59,6 @@ public interface FeedsMapper {
 	public List<FeedListDto> recommendation(int userIdx);
 
 	// 실시간 작성된 피드 글 리스트 조회
-	public List<FeedsNeighborDto> realtimeFeed(int userIdx);
+	public List<FeedsNeighborDto> popularArticle(int userIdx);
 
 }
