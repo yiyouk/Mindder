@@ -65,13 +65,18 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedsNeighborDto> popularArticle(int userIdx) {
-		return sqlSession.getMapper(FeedsMapper.class).popularArticle(userIdx);
+	public boolean myScrap(int feedIdx, int userIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).myScrap(feedIdx, userIdx);
 	}
 
 	@Override
-	public boolean myScrap(int feedIdx, int userIdx) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).myScrap(feedIdx, userIdx);
+	public List<FeedListDto> realtimeFeed() {
+		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed();
+	}
+
+	@Override
+	public List<FeedListDto> popularArticle() {
+		return sqlSession.getMapper(FeedsMapper.class).popularArticle();
 	}
 
 }

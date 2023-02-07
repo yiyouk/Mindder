@@ -58,7 +58,10 @@ public interface FeedsMapper {
 	// 추천 피드 목록 조회
 	public List<FeedListDto> recommendation(int userIdx);
 
-	// 실시간 작성된 피드 글 리스트 조회
-	public List<FeedsNeighborDto> popularArticle(int userIdx);
+	// 주간 인기글 리스트 조회
+	public List<FeedListDto> popularArticle();
+
+	// 실시간 작성된 인기글 리스트 조회
+	public List<FeedListDto> realtimeFeed();
 
 }
