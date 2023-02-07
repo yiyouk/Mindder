@@ -270,23 +270,25 @@ public class FeedsController {
 		}
 	}
 
-	// 유사 감정 색상 피드 목록 조회
-	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
-	@GetMapping("/similarity-color")
-	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+	// 실시간 작성된 피드 리스트 조회
+	@GetMapping("/realtime-feed")
+	@ApiOperation(value = "실시간 작성된 피드 리스트 조회", notes = "실시간 작성된 피드 리스트 조회", response = List.class)
+	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
-			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
-			System.out.println(similarEmotion);
 
-			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < similarEmotion.size(); i++) {
-				Map<String, String> file = fileService.findFile(similarEmotion.get(i).getFileIdx(), filePath);
-				similarEmotion.get(i).setBase64(file.get("base64"));
-				similarEmotion.get(i).setExtension(file.get("extension"));
+			int userIdx = jwtService.getUserIdx(accessToken);
+			List<FeedsNeighborDto> realtimeFeed = feedsService.realtimeFeed(userIdx);
+			System.out.println(realtimeFeed);
+
+			// 이미지 set 코드 작성
+			for (int i = 0; i < realtimeFeed.size(); i++) {
+				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+				realtimeFeed.get(i).setBase64(file.get("base64"));
+				realtimeFeed.get(i).setExtension(file.get("extension"));
 			}
 
-			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
+			System.out.println(realtimeFeed);
+			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, realtimeFeed);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
