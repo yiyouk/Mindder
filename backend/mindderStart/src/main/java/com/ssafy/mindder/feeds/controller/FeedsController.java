@@ -277,7 +277,7 @@ public class FeedsController {
 		try {
 
 			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedsNeighborDto> popularArticle = feedsService.popularArticle(userIdx);
+			List<FeedListDto> popularArticle = feedsService.popularArticle(userIdx);
 			System.out.println(popularArticle);
 
 			// 이미지 set 코드 작성
