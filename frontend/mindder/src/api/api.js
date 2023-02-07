@@ -3,7 +3,7 @@ import { getCookie, removeCookie } from "./cookie";
 
 // axios.create는 나만의 엑시오스 인스턴스를 만드는 메서드이다.
 const instance = axios.create({
-  baseURL: "http://mindder.me/dev"
+  baseURL: "https://mindder.me/dev"
 });
 
 
