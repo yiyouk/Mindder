@@ -290,7 +290,7 @@ public class FeedsController {
 			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, popularArticle);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
+			logger.debug("popularArticle - 주간 인기글 리스트 조회 실패");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
@@ -315,7 +315,7 @@ public class FeedsController {
 			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, realtimeFeed);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
+			logger.debug("realtimeFeed - 실시간 등록된 게시글 불러오기 실패 ");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
