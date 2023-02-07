@@ -271,7 +271,7 @@ public class FeedsController {
 	}
 
 	// 주간 인기글 리스트 조회
-	@GetMapping("/popular-article")
+	@GetMapping("/popular-feed")
 	@ApiOperation(value = "주간 인기글 리스트 조회 ", notes = "주간 인기글 리스트 조회 ", response = List.class)
 	public ApiResponse<?> popularArticle(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
