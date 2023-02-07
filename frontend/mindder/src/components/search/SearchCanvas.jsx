@@ -1,14 +1,14 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-import { ContentsContainer, UsersContainer } from "./SearchResult";
-import { HeaderBtnContainer } from "./SearchResult";
-import { Header } from "./SearchResult";
-import BackIcon from "../../assets/images/back.png";
-import FollowItem from "../user/FollowItem";
-import { useNavigate } from "react-router-dom";
-import { CanvasContainer } from "./SearchResult";
-import CanvasItem from "../../commons/list/CanvasItem";
-import FeedsList from "../feed/FeedsList";
+// import { ContentsContainer, UsersContainer } from "./SearchResult";
+// import { HeaderBtnContainer } from "./SearchResult";
+// import { Header } from "./SearchResult";
+// import BackIcon from "../../assets/images/back.png";
+// import FollowItem from "../user/FollowItem";
+// import { useNavigate } from "react-router-dom";
+// import { CanvasContainer } from "./SearchResult";
+// import CanvasItem from "../../commons/list/CanvasItem";
+// import FeedsAlbumList from "../feed/FeedsAlbumList";
 
 const Wrapper = styled.div`
     /* padding: 0; */
@@ -23,11 +23,11 @@ const Wrapper = styled.div`
 
 
 function SearchCanvas (props){
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   
   return (
     <Wrapper>
-      <CanvasContainer>
+      {/* <CanvasContainer>
         <HeaderBtnContainer>
           <Header>'검색어' 태그를 포함한 캔버스</Header>
           <button type="button" className="img_btn"
@@ -36,8 +36,8 @@ function SearchCanvas (props){
           }}
           ><img id = "back_btn" src={BackIcon}/></button>
         </HeaderBtnContainer>
-        <FeedsList></FeedsList>
-      </CanvasContainer>
+        <FeedsAlbumList></FeedsAlbumList>
+      </CanvasContainer> */}
     </Wrapper>
   )
 }
