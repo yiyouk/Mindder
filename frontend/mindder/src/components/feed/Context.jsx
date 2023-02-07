@@ -43,6 +43,7 @@ const Line = styled.div`
 `
 
 function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
+    // const E = Emoticons.find(emote=>emote.id===emoteIdx).id;
     const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.webp`)
 
     return (
@@ -50,7 +51,7 @@ function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
             <ContextStyled>{mainText}</ContextStyled>
             <Line>
                 <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #</TagStyled>
-                <Image webp={bear}  style={{width:"1.5rem"}}/>
+                <Image webp={bear} style={{width:"1.5rem"}}/>
             </Line>
             <Date>{updateDate}</Date>
         </Wrapper>
