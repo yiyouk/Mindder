@@ -105,7 +105,7 @@
           from feedlike
              group by feed_idx 
         ) as l
-                on f.feed_idx = l.feed_idx ;
+                on f.feed_idx = l.feed_idx 
    
    
    </select>
@@ -138,7 +138,7 @@
     ) as f 
   left join feedcomment c
     on c.feed_idx=f.feed_idx
-   order by f.feed_hit DESC;
+   order by f.feed_hit DESC
    </select>
    
    
@@ -150,6 +150,17 @@
 		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
 	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
 	WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() and f.is_deleted = 0 and f.is_public=1
-	order by f.feed_hit DESC;
+	order by f.feed_hit DESC
+   </select>
+   
+  
+   <!-- 실시간 작성된 피드 리스트 조회 -->
+    <select id ="realtimeFeed" resultMap="com.ssafy.resultmaps.feedList">
+	select distinct f.feed_idx, f.user_idx, f.file_idx,u.nickname,
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
+	WHERE f.is_deleted = 0 and f.is_public=1
+	order by f.feed_idx DESC
    </select>
 </mapper>
