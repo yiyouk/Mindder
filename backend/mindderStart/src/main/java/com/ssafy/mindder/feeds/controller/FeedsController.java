@@ -276,8 +276,7 @@ public class FeedsController {
 	public ApiResponse<?> popularArticle(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
 
-			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedListDto> popularArticle = feedsService.popularArticle(userIdx);
+			List<FeedListDto> popularArticle = feedsService.popularArticle();
 			System.out.println(popularArticle);
 
 			// 이미지 set 코드 작성
@@ -288,7 +287,32 @@ public class FeedsController {
 			}
 
 			System.out.println(popularArticle);
-			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, popularArticle);
+			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, popularArticle);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 실시간 작성된 피드 조회
+	@GetMapping("/realtime-feed")
+	@ApiOperation(value = "실시간 작성된 피드 조회", notes = "실시간 작성된 피드 조회", response = List.class)
+	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+		try {
+
+			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed();
+			System.out.println(realtimeFeed);
+
+			// 이미지 set 코드 작성
+			for (int i = 0; i < realtimeFeed.size(); i++) {
+				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+				realtimeFeed.get(i).setBase64(file.get("base64"));
+				realtimeFeed.get(i).setExtension(file.get("extension"));
+			}
+
+			System.out.println(realtimeFeed);
+			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, realtimeFeed);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
