@@ -23,6 +23,7 @@ import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.CalendarDto;
+import com.ssafy.mindder.my.model.FeedsRecentDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.service.MyService;
@@ -233,6 +234,21 @@ public class MyController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("followRemove - 팔로우 취소 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "가장 최근에 쓴 피드의 감정, 색상 조회", notes = "피드의 감정과 색상을 반환한다.", response = FeedsRecentDto.class)
+	@GetMapping("/feeds/recent")
+	public ApiResponse<?> myFeedsRecentDetails(@RequestHeader("access_token") String accessToken) throws Exception {
+		logger.info("myFeedsRecentDetails - 호출");
+		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			FeedsRecentDto feedsRecentDto = myService.findMyFeedsRecent(userIdx);
+			return ApiResponse.success(SuccessCode.READ_MY_FEEDS_RECENT, feedsRecentDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("myFeedsRecentDetails - 가장 최근에 쓴 피드의 감정, 색상 조회 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
