@@ -36,8 +36,8 @@
    </update>
    
    <update id="deleteFeedScrap" parameterType="int" >
-	   delete from feedscrap
-	   where feed_idx=#{feedIdx};
+	delete from feedscrap
+	where feed_idx=#{feedIdx};
    </update>
    
    <!-- 피드글 수정-->
@@ -77,28 +77,23 @@
    
 
    <!-- 이웃의 게시글 리스트 -->
-   <select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
-   
-	select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count,e.my_like_type
+   <select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feedList">
+   	select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count, u.nickname
          from 
         (
          select m.feed_idx,m.user_idx, m.file_idx 
          from mainfeed m,
-            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f  
+            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f
          where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
       ) f 
-        
-      left join
-        (select like_type as 'my_like_type', feed_idx
-        from feedlike  
-       where user_idx=#{userIdx}
-        ) as e
-        on e.feed_idx=f.feed_idx
-        
+      left join (
+      select nickname, user_idx
+      from mainuser u 
+      ) as u
+		on f.user_idx= u.user_idx
          left join 
-        
          (
-         select feed_idx, count(*) as comment_count 
+         select feed_idx, count(*) as 'comment_count' 
           from feedcomment 
           where is_deleted = 0 
          group by feed_idx
@@ -111,6 +106,8 @@
              group by feed_idx 
         ) as l
                 on f.feed_idx = l.feed_idx 
+   
+   
    </select>
    
    <!--완성된 곰돌이 이미지 조회 -->
@@ -141,32 +138,29 @@
     ) as f 
   left join feedcomment c
     on c.feed_idx=f.feed_idx
-   order by f.feed_hit DESC;
+   order by f.feed_hit DESC
    </select>
    
    
-   <!-- 유사 감정 색상 -> 게시물 리스트 조회  -->
-    <select id ="similarColorFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
-	 select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
-	(select update_date from mainfeed m where m.feed_idx = f.feed_idx) as 'update_date',
-   	(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
-   	(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
-   	from 
-   (
-    select feed_idx, user_idx, file_idx, emote_color_idx, feed_hit
-      from mainfeed
-      where (
-         select emote_color_idx
-         from mainfeed 
-         where user_idx= #{userIdx}
-         order by update_date DESC
-         limit 1
-         ) = emote_color_idx and user_idx != #{userIdx} and is_deleted = 0 and is_public=1
-    ) as f 
-  left join feedcomment c
-    on c.feed_idx=f.feed_idx
-   order by f.feed_hit DESC;
+   <!-- 주간 작성된 피드 인기 글 리스트로 조회   -->
+   <!-- 현재일 기준으로 +7일 hit글 높은 순으로 조회 -->
+    <select id ="popularArticle"  parameterType="int"   resultMap="com.ssafy.resultmaps.feedList">
+	select distinct f.feed_idx, f.user_idx, f.file_idx,u.nickname,f.feed_hit,
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
+	WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() and f.is_deleted = 0 and f.is_public=1
+	order by f.feed_hit DESC
    </select>
-
    
+  
+   <!-- 실시간 작성된 피드 리스트 조회 -->
+    <select id ="realtimeFeed" resultMap="com.ssafy.resultmaps.feedList">
+	select distinct f.feed_idx, f.user_idx, f.file_idx,u.nickname,
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
+	WHERE f.is_deleted = 0 and f.is_public=1
+	order by f.feed_idx DESC
+   </select>
 </mapper>

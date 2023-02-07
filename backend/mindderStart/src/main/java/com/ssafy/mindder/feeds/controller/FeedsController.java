@@ -66,6 +66,10 @@ public class FeedsController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
+			int fileIdx = feedsDto.getFeedIdx();
+			if (fileIdx == 0 || fileIdx == 3 || fileIdx == 301 || fileIdx == 302) {
+				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
+			}
 			feedsService.writeFeed(feedsDto);
 			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
 		} catch (Exception e) {
@@ -266,26 +270,52 @@ public class FeedsController {
 		}
 	}
 
-	// 유사 감정 색상 피드 목록 조회
-	@ApiOperation(value = "유사 감정 색상 피드 목록 조회", notes = "유저가 선택한 최신 감정 태그를 바탕으로 추천", response = List.class)
-	@GetMapping("/similarity-color")
-	public ApiResponse<?> similarColorFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+	// 주간 인기글 리스트 조회
+	@GetMapping("/popular-feed")
+	@ApiOperation(value = "주간 인기글 리스트 조회 ", notes = "주간 인기글 리스트 조회 ", response = List.class)
+	public ApiResponse<?> popularArticle(@RequestHeader("access_token") String accessToken) throws Exception {
 		try {
-			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedsNeighborDto> similarEmotion = feedsService.similarColorFeed(userIdx);
-			System.out.println(similarEmotion);
 
-			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < similarEmotion.size(); i++) {
-				Map<String, String> file = fileService.findFile(similarEmotion.get(i).getFileIdx(), filePath);
-				similarEmotion.get(i).setBase64(file.get("base64"));
-				similarEmotion.get(i).setExtension(file.get("extension"));
+			List<FeedListDto> popularArticle = feedsService.popularArticle();
+			System.out.println(popularArticle);
+
+			// 이미지 set 코드 작성
+			for (int i = 0; i < popularArticle.size(); i++) {
+				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
+				popularArticle.get(i).setBase64(file.get("base64"));
+				popularArticle.get(i).setExtension(file.get("extension"));
 			}
 
-			return ApiResponse.success(SuccessCode.READ_SIMILARCOLOR_FEED, similarEmotion);
+			System.out.println(popularArticle);
+			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, popularArticle);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug("similarEmotionFeed - 유사 감정 태그 목록 조회 중 에러");
+			logger.debug("popularArticle - 주간 인기글 리스트 조회 실패");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 실시간 작성된 피드 조회
+	@GetMapping("/realtime-feed")
+	@ApiOperation(value = "실시간 작성된 피드 조회", notes = "실시간 작성된 피드 조회", response = List.class)
+	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken) throws Exception {
+		try {
+
+			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed();
+			System.out.println(realtimeFeed);
+
+			// 이미지 set 코드 작성
+			for (int i = 0; i < realtimeFeed.size(); i++) {
+				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+				realtimeFeed.get(i).setBase64(file.get("base64"));
+				realtimeFeed.get(i).setExtension(file.get("extension"));
+			}
+
+			System.out.println(realtimeFeed);
+			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, realtimeFeed);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("realtimeFeed - 실시간 등록된 게시글 불러오기 실패 ");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
