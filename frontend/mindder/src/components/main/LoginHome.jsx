@@ -2,8 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
-import RecoCanvasList from "../../commons/list/CanvasList";
+// import RecoCanvasList from "../../commons/list/CanvasList";
 import EmotionChart from "./EmotionChart"
+
+import api from "../../api/api"
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -66,6 +68,7 @@ const ContainerT = styled.div`
     border-radius:20px;
 `;
 
+
 function LoginHome(props) {
     const navigate = useNavigate();
     return (
@@ -78,7 +81,7 @@ function LoginHome(props) {
             </Container>
             <ContainerT>
                 <Header>추천 캔버스</Header>
-                <RecoCanvasList/>
+                {/* <RecoCanvasList/> */}
             </ContainerT>
             <ContainerT>
                 <Header>마인더 통계</Header>
