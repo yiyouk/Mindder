@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
+import com.ssafy.mindder.my.model.FeedsRecentDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.mapper.MyMapper;
@@ -61,6 +62,11 @@ public class MyServiceImpl implements MyService {
 	@Override
 	public void removeMyFollow(int userIdx, int targetUserIdx) throws Exception {
 		sqlSession.getMapper(MyMapper.class).deleteMyFollow(userIdx, targetUserIdx);
+	}
+	
+	@Override
+	public FeedsRecentDto findMyFeedsRecent(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectMyFeedsRecent(userIdx);
 	}
 	
 }
