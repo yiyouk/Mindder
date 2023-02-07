@@ -36,8 +36,8 @@
    </update>
    
    <update id="deleteFeedScrap" parameterType="int" >
-	   delete from feedscrap
-	   where feed_idx=#{feedIdx};
+	delete from feedscrap
+	where feed_idx=#{feedIdx};
    </update>
    
    <!-- 피드글 수정-->
@@ -145,28 +145,25 @@
    </select>
    
    
-   <!-- 유사 감정 색상 -> 게시물 리스트 조회  -->
-    <select id ="similarColorFeed" parameterType="int" resultMap="com.ssafy.resultmaps.neighbor">
-	 select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
-	(select update_date from mainfeed m where m.feed_idx = f.feed_idx) as 'update_date',
-   	(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
-   	(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
-   	from 
-   (
-    select feed_idx, user_idx, file_idx, emote_color_idx, feed_hit
-      from mainfeed
-      where (
-         select emote_color_idx
-         from mainfeed 
-         where user_idx= #{userIdx}
-         order by update_date DESC
-         limit 1
-         ) = emote_color_idx and user_idx != #{userIdx} and is_deleted = 0 and is_public=1
-    ) as f 
-  left join feedcomment c
-    on c.feed_idx=f.feed_idx
-   order by f.feed_hit DESC;
-   </select>
+   <!-- 주간 작성된 피드 인기 글 리스트로 조회   -->
+   <!-- 현재일 기준으로 +7일 hit글 높은 순으로 조회 -->
+    <select id ="popularArticle"  parameterType="int"   resultMap="com.ssafy.resultmaps.neighbor">
+	select f.feed_idx,f.file_idx, f.user_idx, e.my_like_type,
+	(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+	(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
 
-   
+	from 
+		( select f.feed_idx, f.file_idx, u.user_idx,f.update_date,f.feed_hit
+			from mainfeed f join mainuser u 
+			on f.user_idx=u.user_idx
+		) as f
+	left join       
+		(select like_type as 'my_like_type', feed_idx
+        	from feedlike  
+       		where user_idx=#{userIdx}
+        ) as e
+	on e.feed_idx=f.feed_idx
+	WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+	order by f.feed_hit DESC;
+   </select>
 </mapper>
