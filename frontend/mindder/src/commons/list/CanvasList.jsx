@@ -1,39 +1,25 @@
-// 추천 캔버스 출력할 컴포넌트
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import CanvasItem from "./CanvasItem";
-import api from "../../api/api";
+import styled from "styled-components";
 
-// 추천 캔버스
-const Container = styled.div`
-    width: 22rem;
+
+const Wrapper = styled.div`
     height: 7rem;
+    width: 22rem;
+    margin: 0.5rem 0 0.25rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction:column;
-`;
-
-const CanvasItemContainer = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
 `
 
-function CanvasList({list}){
- const navigate = useNavigate()
-
-  return (
-    <Container>
-      <CanvasItemContainer>
-        {list ? list.map((feed, index)=>{
-          return <CanvasItem key={index} size="s" feedIdx={feed.feedIdx}/>
-        }): null}
-      </CanvasItemContainer>
-    </Container>  
-  );
+function CanvasList({list, size, up}) {
+    return (
+        <Wrapper>
+            {list.map((feed, index) => {
+              return <CanvasItem list={feed} key={index} size={size} up={up}/>;
+            })}
+        </Wrapper>
+    );
 }
 
 export default CanvasList;
