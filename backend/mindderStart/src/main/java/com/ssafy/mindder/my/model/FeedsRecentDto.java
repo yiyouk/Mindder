@@ -16,5 +16,8 @@ public class FeedsRecentDto {
 	private int emoteIdx;
 	private String emoteColorTag;
 	private String updateDate;
+	private int fileIdx;
+	private String base64;
+	private String extension;
 
 }
