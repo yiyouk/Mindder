@@ -63,7 +63,7 @@
 	</delete>
 	<!-- 최근에 쓴 피드의 감정, 색상 조회 -->
 	<select id="selectMyFeedsRecent" parameterType="int" resultMap="com.ssafy.resultmaps.recent">
-		select f.emote_idx, e.emote_color_tag 
+		select f.emote_idx, e.emote_color_tag, f.update_date 
 		from mainfeed f
 		join feedemotecolor e
 		on f.emote_color_idx = e.emote_color_idx
