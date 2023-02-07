@@ -43,7 +43,6 @@
 		<result column="feed_idx" property="feedIdx" />
 		<result column="file_idx" property="fileIdx" />
 		<result column="user_idx" property="userIdx" />
-		<result column="update_date" property="updateDate" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
 	</resultMap>
@@ -64,14 +63,6 @@
 		<result column="follow_idx" property="followIdx" />
 		<result column="user_idx" property="userIdx" />
 		<result column="target_user_idx" property="targetUserIdx" />
-		<result column="file_idx" property="fileIdx" />
-	</resultMap>
-	<resultMap type="FeedsNeighborDto" id="neighbor">
-		<result column="my_like_type" property="myLikeType" />
-		<result column="feed_idx" property="feedIdx" />
-		<result column="user_idx" property="userIdx" />
-		<result column="comment_count" property="commentCount" />
-		<result column="like_total_count" property="likeTotalCount" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="FeedsBearDto" id="bear">
