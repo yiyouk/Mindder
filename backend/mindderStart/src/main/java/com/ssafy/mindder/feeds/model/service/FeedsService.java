@@ -34,6 +34,6 @@ public interface FeedsService {
 	public List<FeedListDto> recommendation(int userIdx);
 
 	// 실시간 작성된 게시글 리스트 조회
-	public List<FeedsNeighborDto> popularArticle(int userIdx);
+	public List<FeedListDto> popularArticle(int userIdx);
 
 }
