@@ -25,7 +25,7 @@ public enum SuccessCode {
 	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
 	READ_NEIGHBORS_FEED_LIST(SUCCESS, "이웃 피드 글 보기 성공"), READ_FIND_BEAR(SUCCESS, "완성된 곰돌이 이미지 조회"),
 	READ_IMAGE_CRAAWLING_COLOR(SUCCESS, "이미지 크롤링 성공"), READ_RECOMMENDATION_FEED(SUCCESS, "추천 리스트 불러오기 성공"),
-	READ_SIMILARCOLOR_FEED(SUCCESS, "유사 색상 추천 게시물 불러오기 성공"),
+	READ_POPULAR_FEED(SUCCESS, "주간 인기글 불러오기 성공"), READ_RECENT_FEED(SUCCESS, "실시간 작성된 피드 리스트 불러오기 성공"),
 
 	// comment
 	DELETE_COMMNET(SUCCESS, "메인 피드 댓글 삭제 성공"), CREATE_COMMENT(SUCCESS, "메인 피드 댓글 작성 성공"),
