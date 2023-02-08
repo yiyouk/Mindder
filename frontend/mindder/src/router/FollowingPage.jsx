@@ -12,6 +12,7 @@ import { Follow, CountHere } from "../components/user/UserFollow";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { SAVE_followingCount, SAVE_followingList } from "../redux/reducers";
 
 
 const Wrapper = styled.div`
@@ -25,27 +26,32 @@ const Wrapper = styled.div`
 
 function FollowingPage(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [followingList, setFollowingList] = useState([])
-
     const userIdx = parseInt(useParams().userId);
-    const myFollowing = useSelector((state) => state.USER.myFollowing)
+    const myIdx = useSelector((state) => state.USER.myIdx)
     const followerCount = useSelector((state)=>state.USER.followerCount)
-    const followingCount = useSelector((state)=>state.USER.followingCount)
+
     useEffect(() => {
         getFollowingInfo();
     }, [])
     
 
-    // 팔로잉 리스트 받아옴
+    // 내가 팔로잉하는 리스트 받아옴
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
             console.log(response.data)
             setFollowingList(response.data.data);
+            dispatch(SAVE_followingCount(response.data.data.length))
+            const lst = response.data.data.map((ele)=>ele.targetUserIdx)
+            console.log(lst)
+            dispatch(SAVE_followingList(lst))
         } catch (e) {
             console.error(e);
         }
     }
+    // console.log(followingList)
 
     return (
         <Wrapper>
@@ -62,7 +68,7 @@ function FollowingPage(props) {
                     navigate(`/${userIdx}/following`)
                 }}>
                     <span>팔로잉</span>
-                    <span>{followingCount} </span>
+                    <span>{followingList.length || "..."} </span>
                 </CountHere>
             </Follow>
             </FollowContainer>
@@ -70,7 +76,7 @@ function FollowingPage(props) {
                     <div>팔로잉 목록이 존재하지 않습니다.</div>
                 ):(
                     followingList.map((following, idx) => (
-                        <FollowItem userIdx={following.targetUserIdx} status={myFollowing.includes(following.targetUserIdx)} nickname={following.nickname} key={idx} imgSrc={following.base64}></FollowItem>
+                        <FollowItem userIdx={following.targetUserIdx} followStatus={true} nickname={following.nickname} key={idx} imgSrc={following.base64}></FollowItem>
                     ))
                 )}
         </Wrapper>

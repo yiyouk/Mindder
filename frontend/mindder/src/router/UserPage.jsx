@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import api from "../api/api";
 import { SAVE_otherUserIdx } from "../redux/reducers";
-import { SAVE_myFollowing } from "../redux/reducers";
+import { SAVE_followingList } from "../redux/reducers";
 
 import UserMenuSub from "../components/user/UserMenuSub";
 import UserFollow from "../components/user/UserFollow";
@@ -56,7 +56,6 @@ export const ProfileEditBtn = styled.div`
     cursor: pointer;
     display: flex;
     justify-content: center;
-
 `
 
 function UserPage(props) {
@@ -77,17 +76,16 @@ function UserPage(props) {
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);
 
-    const [isFollow, setIsFollow] = useState(myFollow.includes(userIdx));
+    // const [isFollow, setIsFollow] = useState(myFollow.includes(userIdx));
     const [isMine, setIsMine] = useState(Boolean(userIdx===myIdx))
 
     useEffect(() => {
         setIsMine(Boolean(userIdx===myIdx))
-        // myFollowing();
+        myFollowing();
         // getUserId();
         getOthersInfo();
         getUserFeeds();
     }, [myIdx])
-    console.log(isMine)
     
 
     // 로그인 되어 있는 유저의 팔로잉 정보 저장
@@ -95,7 +93,8 @@ function UserPage(props) {
         try {
             const response = await api.get(`/my/followings/${myIdx}`);
             const followList = response.data.data.map((a) => a.targetUserIdx);
-            dispatch(SAVE_myFollowing(followList))
+            console.log(followList)
+            dispatch(SAVE_followingList(followList))
         } catch (e) {
             console.error(e);
         }
@@ -129,6 +128,7 @@ function UserPage(props) {
             try {
                 const response = await api.get(`/my/feeds/${userIdx}`, null);
                 if(response.data.success===true){
+                    console.log(response.data)
                     const userFeedList = response.data.data
                     setUserFeeds(userFeedList)
                 } else {
@@ -143,6 +143,7 @@ function UserPage(props) {
             try {
                 const response = await api.get(`/my/feeds/`, null);
                 if(response.data.success===true){
+                    console.log(response.data)
                     const userFeedList = response.data.data
                     setUserFeeds(userFeedList)
                 } else {
@@ -187,7 +188,7 @@ function UserPage(props) {
                 ):(
                 <AlbumContainer>
                     {userFeeds.map((recentFeed, idx) => (
-                    <CanvasItem size="m" feedIdx={recentFeed.feedIdx} imageUrl={recentFeed.imageUrl} commentCount={recentFeed.commentCount} likeTotalCount={recentFeed.likeTotalCount} key={idx}></CanvasItem>
+                    <CanvasItem size="m" list={recentFeed} up={true} key={idx}></CanvasItem>
                     ))}
                 </AlbumContainer>
                 )
