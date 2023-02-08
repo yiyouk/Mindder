@@ -86,6 +86,7 @@ function UserPage(props) {
     const [isMine, setIsMine] = useState(Boolean(userIdx===myIdx))
 
     useEffect(() => {
+        getOthersInfo()
         setIsMine(Boolean(userIdx===myIdx))
         setProfile(exProfile)
         setNickname(exNickname)
