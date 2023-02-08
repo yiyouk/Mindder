@@ -189,11 +189,11 @@ const initialState = {
   nickName:"",
   myIdx:null,
   otherUserIdx:null,
-  myFollowing:[],
-  profileImg:null,
+  followingList:[],
   followingCount:null,
   followerCount:null,
   userDrawing:null,
+  profileImg:null,
 }
 
 const userStateSlice = createSlice({
@@ -224,9 +224,9 @@ const userStateSlice = createSlice({
       state.otherUserIdx = action.payload
       console.log(`otherUserIdx : ${state.otherUserIdx}`)
     },
-    SAVE_myFollowing(state, action){
-      state.myFollowing = action.payload
-      console.log(`myFollowing : ${state.myFollowing}`)
+    SAVE_followingList(state, action){
+      state.followingList = action.payload
+      console.log(`followingList : ${state.followingList}`)
     },
     SAVE_profileImg(state, action){
       state.profileImg = action.payload
@@ -280,5 +280,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_myFollowing } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;

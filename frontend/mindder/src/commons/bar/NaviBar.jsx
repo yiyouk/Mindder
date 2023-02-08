@@ -40,7 +40,7 @@ const Image = styled.img`
 function NaviBar(props) {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx);
-    console.log(myIdx)
+    // console.log(myIdx)
     return (
         <Wrapper>
             <NavMenu

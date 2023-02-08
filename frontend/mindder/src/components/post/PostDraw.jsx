@@ -76,8 +76,7 @@ function PostDraw(props){
       <CrawlingsHere>
         {/* <ScrollMenu wheel={true}> 스크롤 오류나서 일단 5개만 잘라서 받아놓음 */} 
         {crawlingList.slice(0,5).map((crawlingImg, index)=>(
-          <CanvasItem size={"xs"} imageUrl={crawlingImg.img} key={index}
-          feedIdx={crawlingImg.url}
+          <CanvasItem size={"xs"} list={crawlingImg} key={index} up={false}
           />
         ))}
         {/* </ScrollMenu> */}

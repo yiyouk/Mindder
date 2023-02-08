@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 import api from "../../api/api";
 import FollowButton from '../../commons/ui/FollowButton';
@@ -20,30 +20,29 @@ const Wrapper = styled.div`
     margin-top: 0.9rem;
 `;
 
-
-function FollowItem({userIdx, status, nickname, imgSrc}) {
-    const [isFollow, setIsFollow] = useState({status})
+// status : true이면 언팔로우, false이면 팔로우
+function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
+    const [followOrUnfollow, setfollowOrUnfollow] = useState(followStatus)
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followingList, setFollowingList ] = useState([]);
-
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         myFollowing();
-    }, [isFollow])
-
+    }, [])
 
     // 팔로우 여부 확인
     const myFollowing = async() => {
         try{
             const response = await api.get(`/my/followings/${myIdx}`);
             setFollowingList(response.data.data)
-            console.log(response.data)
-            {
-                Object.keys(followingList).find(key => followingList[key].targetUserIdx === {userIdx})?
-                    setIsFollow(true)
-                    : 
-                    setIsFollow(false)
-            }
+            // console.log(response.data.data)
+            // {
+            //     Object.keys(followingList).find(key => followingList[key].targetUserIdx === {userIdx})?
+            //         setfollowOrUnfollow(true)
+            //         : 
+            //         setfollowOrUnfollow(false)
+            // }
         } catch(e) {
             console.error(e)
         }
@@ -52,7 +51,7 @@ function FollowItem({userIdx, status, nickname, imgSrc}) {
     const followAPI = useCallback(async () => {
         try {
             const response = await api.post(`/my/follows/${userIdx}`);
-            setIsFollow((isFollow) => !isFollow);
+            setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
             console.log(response.data)
         } catch (e) {
             console.error(e);
@@ -62,20 +61,24 @@ function FollowItem({userIdx, status, nickname, imgSrc}) {
     const unFollowAPI = useCallback(async () => {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
-            setIsFollow((isFollow) => !isFollow);
+            setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
             console.log(response.data)
         } catch (e) {
             console.error(e);
         }
     })
+
     const handleFollowState = () => {
-        if (isFollow) {
+        if (followOrUnfollow) {
           unFollowAPI();
+          console.log("언팔로우 시도")
         } else {
           followAPI();
+          console.log("팔로우 시도")
         }
+
       };
-    console.log(status)
+      
     return (
         <Wrapper>
 
@@ -84,8 +87,8 @@ function FollowItem({userIdx, status, nickname, imgSrc}) {
             </ProfileContainer>
             {myIdx === userIdx? 
                 null:
-                <FollowButton onClick={handleFollowState} active={status}>
-                {status ? '팔로잉' : '팔로우'}
+                <FollowButton onClick={handleFollowState} active={followOrUnfollow}>
+                {followOrUnfollow ? '언팔로우' : '팔로우'}
                 </FollowButton>
             }
         </Wrapper>
