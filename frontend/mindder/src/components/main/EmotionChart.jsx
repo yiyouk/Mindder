@@ -39,8 +39,6 @@ const Emo  = styled.img`
 function EmotionChart () {
     const navigate = useNavigate();
     const [statistics, setStatistics] = useState([]);
-    const [month, setMonth] = useState();
-    const [day, setDay] = useState();
 
     //정보 가져오기
     useEffect(()=>{
