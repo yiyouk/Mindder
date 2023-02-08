@@ -15,7 +15,8 @@ import {FiPlusCircle} from "react-icons/fi";
 import {IoArrowBackCircle} from "react-icons/io5";
 
 const Wrapper = styled.div`
-    margin: 3rem 0 0 0;
+    /* margin: 3rem 0 0 0; */
+    /* border:1px solid; */
 `;
 
 const Box = styled.div`

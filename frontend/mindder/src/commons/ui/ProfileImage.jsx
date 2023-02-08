@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, {css} from "styled-components";
 
@@ -58,14 +59,16 @@ ProfileImage.defaultProps = {
     size: "m",
   };
 
-function ProfileImage({size, userIdx}) {
+function ProfileImage({size, userIdx, imgSrc}) {
+    // console.log(imgSrc)
+    const profileImg = useSelector((state)=>state.USER.profileImg)
     const navigate = useNavigate();
     const onClick = () => {
       navigate(`/${userIdx}`);
     };
     return (
         <ProfileImg onClick={onClick} size={size}>
-            <img src={UserImg} alt="프로필이미지" />
+            <img src={`data:image/png;base64,${imgSrc}`} alt="프로필이미지" />
         </ProfileImg>
     );
 }
