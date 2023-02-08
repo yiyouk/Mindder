@@ -76,10 +76,4 @@
 		<result column="update_date" property="updateDate" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
-	<resultMap type="StatisticsDto" id="statistics">
-		<result column="emote_idx" property="emoteIdx" />
-		<result column="emote_color_tag" property="emoteColorTag" />
-		<result column="update_date" property="updateDate" />
-		<result column="file_idx" property="fileIdx" />
-	</resultMap>
 </mapper>
