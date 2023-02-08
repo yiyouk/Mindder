@@ -31,9 +31,9 @@ function CanvasAlbumList({size, list, up}){
   return (
     <AlbumWrapper>
       <AlbumContainer>
-        {list.map((feed, index) => (
+        {list ? list.map((feed, index) => (
           <CanvasItem size={size} list={feed} key={index} up={up}/>   
-        ))}
+        )): null}
       </AlbumContainer>
     </AlbumWrapper>  
   );
