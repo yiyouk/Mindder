@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Colors16 } from "../../redux/reducers";
 import styled, {css} from "styled-components";
 
@@ -49,7 +49,6 @@ const DropDown = styled.button`
     position: relative;
 `;
 
-//박스 전체 컨테이너
 const ListContainer = styled.span`
   background-color: white;
   border-radius: 0.3rem;
@@ -57,10 +56,12 @@ const ListContainer = styled.span`
   position: absolute;
   display:none;
   ${DropDown}:active & {
-    display: block;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
   }
   ${DropDown}:focus & {
-    display: block;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
   }
 `;
 
@@ -83,6 +84,8 @@ function Modify() {
     const [socialId, setSocialId] = useState("");
     const [fileIdx, setFileIdx] = useState();
     const [base64, setBase64] = useState("");
+
+    const myIdx = useSelector((state)=>state.USER.myIdx);
 
     //정보 가져오기
     useEffect(()=>{
@@ -197,29 +200,39 @@ function Modify() {
     
     const handleChange = (e) => {
         e.preventDefault();
-        fileUpload(e.target.files[0]);
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = function(){
+            console.log('result', reader.result)
+            const base64 = reader.result
+            setBase64(base64)
+            fileUpload(base64)
+        }
+        
     };
 
-    const fileUpload = async(file) =>{
-        // const formData = new FormData();
-        // formData.append('file', file);
-        // console.log(formData)
-        // try {
-        //     const response = await api.post(`/file`, {
-        //         // upfile: file
-        //     });
+    const fileUpload = async(base64File) =>{
+        try {
+            const response = await api.post(`/file`, 
+            {
+                originalFile:`${Date.now()}_${myIdx}_profile.webp`,
+                base64:base64File.split(',')[1],
+            });
             
-        //     if(response.data.success){
-        //         console(response)
-        //     } else{
-        //         console("실패했지렁")
-        //     }
+            if(response.data.success){
+                console.log(response)
+                setFileIdx(response.data)
+                // dispatch(SAVE_profileImgIdx(response.data))
+            } else{
+                console.log("실패했지렁")
+            }
              
-        // } catch (e) {
-        //     alert("오류 발생!");
-        //     console.error(e);
-        //     navigate("/error");
-        // }
+        } catch (e) {
+            alert("오류 발생!");
+            console.error(e);
+            navigate("/error");
+        }
     }
 
 ////////////////////////////////////파일 업로드////////////
