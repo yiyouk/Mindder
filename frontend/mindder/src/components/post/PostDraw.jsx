@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 import { Colors16 } from "../../redux/reducers";
 
+
 const Wrapper = styled.div`
     width: calc(100% - 1rem);
     height:31rem;
@@ -39,6 +40,7 @@ const CanvasDiv = styled.div`
 `
 
 function PostDraw(props){
+  const {canvasRef, imageSaved} = props
   const getGuideImg = async(todayColor, setCrawlingList) => {
     if (!todayColor){
       alert('감정색이 선택되지 않았습니다')
@@ -81,7 +83,7 @@ function PostDraw(props){
         {/* </ScrollMenu> */}
       </CrawlingsHere>
       <CanvasDiv>
-        <Canvas/>
+        <Canvas imageSaved={imageSaved} canvasRef={canvasRef}/>
       </CanvasDiv>
     </Wrapper>
   );
