@@ -43,4 +43,8 @@ public interface FeedsService {
 	// 페이징 처리를 위한 피드 카운트
 	public int getTotalCount(Criteria criteria);
 
+	public int neighborFeedCount(Criteria criteria);
+
+	public int popularFeedCounting(Criteria criteria);
+
 }
