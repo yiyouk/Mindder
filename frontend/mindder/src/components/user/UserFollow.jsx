@@ -1,59 +1,141 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import api from "../../api/api";
-
+import { useSelector, useDispatch } from "react-redux";
 import Follower from "../../commons/ui/Follower";
 import Following from "../../commons/ui/Following";
+import FollowButton from "../../commons/ui/FollowButton";
 import BookMarkImg from "../../assets/images/bookmark.png"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
-    width: 330px;
+    width: 80vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0rem 1.6rem;
+    padding: 0.2rem 1.6rem;
     border-bottom: 2px solid #7767FD;
 
 `;
 
 const SavedButton = styled.div`
-    align-self: end;
+    align-self: center;
     margin: 7px;
     border-width: 1px;
     cursor: pointer;
 `;
 
+export const Follow = styled.div`
+    display: flex;
+    justify-content:space-between;
+    width:7rem;
+    /* border:1px solid; */
+`
 
-function UserFollow({userIdx}) {
+export const CountHere = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+`
+
+function UserFollow({isMine, follower, following, data}) {
     const navigate = useNavigate();
+    const userIdx = parseInt(useParams().userId);
+    const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followers, setFollowers ] = useState(0);
     const [ followings, setFollowings ] = useState(0);
+    const [ isFollow, setIsFollow ] = useState(data);
+    const [ followersCount, setFollowersCount ] = useState('...');
+    const [ followingsCount, setFollowingsCount ] = useState('...');
+    const [ followingList, setFollowingList ] = useState([]);
+
+    useEffect(()=>{
+        getFollowerInfo()
+        getFollowingInfo()
+    },[])
+
+    const getFollowerInfo = async() => {
+        try{
+            const response = await api.get(`/my/followers/${userIdx}`);
+            console.log(response.data)
+            setFollowersCount(response.data.data.length);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const getFollowingInfo = async() => {
+        try{
+            const response = await api.get(`/my/followings/${userIdx}`);
+            console.log(response.data)
+            setFollowingsCount(response.data.data.length);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const followAPI = useCallback(async () => {
+        try {
+            const response = await api.post(`/my/follows/${userIdx}`);
+            setIsFollow((isFollow) => !isFollow);
+            console.log(response)
+        } catch (e) {
+            console.error(e);
+        }
+      });
+
+    const unFollowAPI = useCallback(async () => {
+        try {
+            const response = await api.delete(`/my/follows/${userIdx}`);
+            setIsFollow((isFollow) => !isFollow);
+            console.log(response)
+        } catch (e) {
+            console.error(e);
+        }
+    })
 
     
-    useEffect(() => {
-        console.log('팔로우..')
-        console.log(userIdx)
-        // getUserFollow();
-    }, [])
-    
-    // const getUserFollow = async() => {
-    //     try{
-    //         const response = await ap
-    //     }
-    // }
+    const handleFollowState = () => {
+        if (isFollow) {
+          unFollowAPI();
+        } else {
+          followAPI();
+        }
+      };
+
     return (
         <Wrapper>
-            {/* 유저가 나 일 경우 보이는 버튼 */}
+            {isMine?
                 <SavedButton onClick={() => {
-                    navigate("../0/saved")}}>
+                    navigate(`/saved`)}}>
                         <img src={BookMarkImg}/>
                 </SavedButton>
-            {/* 유저가 다른 사람일 경우 보이는 버튼 */}
-                {/* <FollowButton/> */}
-            <Follower /> 
-            <Following />
-            
+            :
+                <FollowButton  active={isFollow} onClick={handleFollowState} >
+                {isFollow? '팔로잉' : '팔로우'}
+                </FollowButton>
+            }
+            <Follow>
+                <CountHere onClick={()=>{
+                    isMine?
+                    navigate(`/${myIdx}/followers`)
+                    :
+                    navigate(`/${userIdx}/followers`)
+                }}>
+                    <span>팔로워</span>
+                    <span>{followersCount} </span>
+                </CountHere>
+                <CountHere onClick={()=>{
+                    isMine?
+                    navigate(`/${myIdx}/following`)
+                    :
+                    navigate(`/${userIdx}/following`)
+                }}>
+                    <span>팔로잉</span>
+                    <span>{followingsCount} </span>
+                </CountHere>
+            </Follow>
         </Wrapper>
     );
 }

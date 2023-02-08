@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
-
-import BookMarkImg from "../../assets/images/bookmark.png"
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -33,15 +32,17 @@ const MyFeedBtn = styled.a`
 
 function UserMenu(props) {
     const navigate = useNavigate();
+    const myIdx = useSelector((state)=>state.USER.myIdx);
+    
     return (
         <Wrapper>
             <MyFeedBtn onClick={() => {
-                navigate("../user/")}}>
+                navigate(`/${myIdx}/`)}}>
                     내 피드
             </MyFeedBtn>
             
             <CalendarBtn onClick={() => {
-                navigate("../0/calendar")}}>
+                navigate(`/calendar`)}}>
                     감정달력
             </CalendarBtn>
 

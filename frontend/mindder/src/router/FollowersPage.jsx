@@ -7,7 +7,12 @@ import FollowItem from "../components/user/FollowItem";
 import Follower from "../commons/ui/Follower";
 import Following from "../commons/ui/Following";
 
+import PrevImg from "../assets/images/back.png"
+import { Follow, CountHere } from "../components/user/UserFollow";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { SAVE_followerCount, } from "../redux/reducers";
+
 const Wrapper = styled.div`
     /* padding: 16px; */
     /* width: 100vw; */
@@ -20,73 +25,83 @@ const Wrapper = styled.div`
 export const FollowContainer = styled.div`
     width: 100%;
     display: flex;
+    border-top: 2px solid #7767FD;
     & > * {
         width: 50%;
     }
+    /* border:1px solid; */
+    display:flex;
+    justify-content:center;
 
 `
 
-function FollowersPage() {
+export const Prev = styled.div`
+align-self: flex-start;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background-image:url(${PrevImg});
+    background-size: 55%;
+    background-position:center;
+    background-position-x:8px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+`
 
-    const [userIdx, setUserIdx] = useState()
+function FollowersPage() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const followingList = useSelector((state)=>state.USER.followingList)
     const [followerList, setFollowerList] = useState([])
-    const [followingList, setFollowingList] = useState([])
-    const myIdx = useSelector((state)=>state.USER.userIdx);
-    const otherIdx = useSelector((state)=>state.USER.otherUserIdx);
-    
+    const [followingListState, setFollowingListState] = useState(followingList)
+    const userIdx = useParams().userId;
+    const myIdx = useSelector((state) => state.USER.myIdx)
+    const followingCount = useSelector((state)=>state.USER.followingCount)
 
     useEffect(() => {
-        getUserIdx();
-        console.log(userIdx)
+        setFollowingListState(followingList)
+        getFollowerInfo();
     }, [])
 
-    
-    useEffect(() => {
-        getFollowerInfo();
-        getFollowingInfo();
-        console.log(userIdx)
-    }, [userIdx])
-
-
-    const getUserIdx = () => {
-        if(otherIdx !== myIdx){
-            setUserIdx(otherIdx)
-        } else{
-            setUserIdx(myIdx)
-        }
-    }
-
-    // // 팔로워 리스트 받아옴
+    // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
+        
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
-                setFollowerList(response.data.data);
+            console.log(response.data)
+            setFollowerList(response.data.data);
+            dispatch(SAVE_followerCount(response.data.data.length))
+            console.log(response.data.data.length)
         } catch (e) {
             console.error(e);
         }
     }
-
-    // 팔로잉 리스트 받아옴
-    const getFollowingInfo = async() => {
-        try{
-            const response = await api.get(`/my/followings/${userIdx}`);
-                setFollowingList(response.data.data);
-        } catch (e) {
-            console.error(e);
-        }
-    }
+    
 
     return (
         <Wrapper>
+            <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
-                <Follower follower={followerList.length}/>
-                <Following following={followingList.length}/>
+            <Follow>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/followers`)
+                }}>
+                    <span>팔로워</span>
+                    <span>{followerList.length || "..."} </span>
+                </CountHere>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/following`)
+                }}>
+                    <span>팔로잉</span>
+                    <span>{followingCount} </span>
+                </CountHere>
+            </Follow>
             </FollowContainer>
                 {!followerList || followerList.length === 0? (
                     <div>팔로우 목록이 존재하지 않습니다.</div>
                 ):(
-                    followerList.map((follower, idx) => (
-                        <FollowItem data={follower} key={idx}></FollowItem>
+                    followerList.map((myFollower, idx) => (
+                        <FollowItem userIdx={myFollower.userIdx} followStatus={followingListState.includes(myFollower.userIdx)} nickname={myFollower.nickname} key={idx} imgSrc={myFollower.base64}></FollowItem>
                     ))
                 )}
         </Wrapper>
