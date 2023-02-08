@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -70,13 +71,18 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> realtimeFeed() {
-		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed();
+	public List<FeedListDto> realtimeFeed(Criteria criteria) {
+		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed(criteria);
 	}
 
 	@Override
-	public List<FeedListDto> popularArticle() {
-		return sqlSession.getMapper(FeedsMapper.class).popularArticle();
+	public List<FeedListDto> popularFeed(Criteria criteria) {
+		return sqlSession.getMapper(FeedsMapper.class).popularFeed(criteria);
+	}
+
+	@Override
+	public int getTotalCount(Criteria criteria) {
+		return sqlSession.getMapper(FeedsMapper.class).getTotalCount(criteria);
 	}
 
 }
