@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.mindder.statistics.model.StatisticsDto;
+import com.ssafy.mindder.my.model.FeedsRecentDto;
 
 @Mapper
 public interface StatisticsMapper {
 	
 	// 통게 조회
-	public List<StatisticsDto> selectStatistics() throws SQLException;
+	public List<FeedsRecentDto> selectStatistics() throws SQLException;
 
 }

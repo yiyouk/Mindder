@@ -45,6 +45,7 @@
 		<result column="user_idx" property="userIdx" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
+		<result column="update_date" property="updateDate" />
 	</resultMap>
 	<resultMap type="CommentsListDto" id="comment">
 		<result column="comment_idx" property="commentIdx" />
@@ -71,12 +72,6 @@
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="FeedsRecentDto" id="recent">
-		<result column="emote_idx" property="emoteIdx" />
-		<result column="emote_color_tag" property="emoteColorTag" />
-		<result column="update_date" property="updateDate" />
-		<result column="file_idx" property="fileIdx" />
-	</resultMap>
-	<resultMap type="StatisticsDto" id="statistics">
 		<result column="emote_idx" property="emoteIdx" />
 		<result column="emote_color_tag" property="emoteColorTag" />
 		<result column="update_date" property="updateDate" />

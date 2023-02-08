@@ -4,7 +4,7 @@
 	namespace="com.ssafy.mindder.statistics.model.mapper.StatisticsMapper">
 	<!-- 통계 조회 -->
 	<select id="selectStatistics"
-		resultMap="com.ssafy.resultmaps.statistics">
+		resultMap="com.ssafy.resultmaps.recent">
 		SELECT 
 		    e.emote_idx, ec.emote_color_tag, e.update_date, ecp.file_idx
 		FROM
