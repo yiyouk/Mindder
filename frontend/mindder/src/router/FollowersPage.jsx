@@ -15,11 +15,11 @@ import { SAVE_followerCount, } from "../redux/reducers";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
-    /* width: 100vw; */
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 `;
 
 export const FollowContainer = styled.div`
@@ -65,7 +65,6 @@ function FollowersPage() {
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
-        
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
             console.log(response.data)
@@ -93,7 +92,7 @@ function FollowersPage() {
                     navigate(`/${userIdx}/following`)
                 }}>
                     <span>팔로잉</span>
-                    <span>{followingCount} </span>
+                    <span>{followingListState.length} </span>
                 </CountHere>
             </Follow>
             </FollowContainer>

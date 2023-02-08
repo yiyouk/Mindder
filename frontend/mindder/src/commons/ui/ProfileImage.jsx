@@ -66,9 +66,10 @@ function ProfileImage({size, userIdx, imgSrc}) {
     const onClick = () => {
       navigate(`/${userIdx}`);
     };
+    const src = imgSrc? `data:image/png;base64,${imgSrc}` : UserImg
     return (
         <ProfileImg onClick={onClick} size={size}>
-            <img src={`data:image/png;base64,${imgSrc}`} alt="프로필이미지" />
+            <img src={src} alt="프로필이미지" />
         </ProfileImg>
     );
 }
