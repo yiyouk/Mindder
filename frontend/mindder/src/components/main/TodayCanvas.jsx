@@ -59,9 +59,9 @@ const Text = styled.div`
 function TodayCanvas(props) {
     const navigate = useNavigate();
     const nickName = useSelector((state)=>state.USER.nickName);
-    const [emoteIdx, setEmoteIdx] = useState();
-    const [emoteColorTag, setEmoteColorTag] = useState();
-    const [updateDate, setUpdateDate] = useState();
+    const [emoteIdx, setEmoteIdx] = useState(0);
+    const [emoteColorTag, setEmoteColorTag] = useState(0);
+    const [updateDate, setUpdateDate] = useState("");
     const [list, setList] = useState([]);
 
   //정보 가져오기
