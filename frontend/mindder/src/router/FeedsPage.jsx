@@ -148,8 +148,8 @@ function FeedsPage() {
                     return(
                         <Box key={index}>  
                             <Container>
-                                {recentFeeds.data.length === 0? recentFeeds.comment2 : recentFeeds.comment}
-                                {recentFeeds.data.length === 0? null:<FiPlusCircle color="#7767FD" size="20" style={{position:'relative', left:'0.3rem'}} onClick={() => {onClick(recentFeeds.id)}}/>}
+                                {recentFeeds.data.length === 0 ? recentFeeds.comment2 : recentFeeds.comment}
+                                {recentFeeds.data.length === 0 ? null:<FiPlusCircle color="#7767FD" size="20" style={{position:'relative', left:'0.3rem'}} onClick={() => {onClick(recentFeeds.id)}}/>}
                             </Container>
                             {recentFeeds.data.length === 0 ? <Dum src={blank}/> : <CanvasList size="s" up={false} list={recentFeeds.data.slice(0,3)}/>}
                         </Box>
