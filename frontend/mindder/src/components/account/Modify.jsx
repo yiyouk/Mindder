@@ -92,8 +92,6 @@ function Modify() {
         getUserInfo();
     }, [])
 
-    console.log(myColor);
-
     //닉네임 입력중
     const handleNickname = e => {
         setNicknameCheck(false);
@@ -283,10 +281,10 @@ function Modify() {
         <div className="col-12">  
             <label className="form-label">나의 색</label>
             <DropDown>
-                <PickColor mypick = {Colors16[myColor-1].code}/>
+                <PickColor mypick = {Colors16[myColor].code}/>
                 <ListContainer>
                     {Colors16.map((color)=>(
-                        <ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>
+                        color.id !== 0 ?<ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>:null
                     ))} 
                 </ListContainer>
             </DropDown>     
