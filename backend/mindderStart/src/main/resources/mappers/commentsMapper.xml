@@ -9,15 +9,14 @@
 	</insert>
 	<!--댓글 삭제 -->
 	<update id="deleteComment" parameterType="int">
-	update  feedcomment 
-	set is_deleted = 1
-	where comment_idx = #{commentIdx};
+		update  feedcomment 
+		set is_deleted = 1
+		where comment_idx = #{commentIdx};
 	</update>
-	
 	<!--댓글 리스트 조회 -->
 	<select id="commentList" parameterType="int" resultMap="com.ssafy.resultmaps.comment">
-	select c.comment_idx, u.nickname, c.text, c.update_date,u.user_idx
-	from mainuser u join feedcomment c on u.user_idx=c.user_idx
-	where c.is_deleted !=1 and 	c.feed_idx= #{feedIdx};
+		select c.comment_idx, u.nickname, c.text, c.update_date, u.user_idx, u.file_idx
+		from mainuser u join feedcomment c on u.user_idx=c.user_idx
+		where c.is_deleted !=1 and c.feed_idx= #{feedIdx};
 	</select>
-</mapper>
+</mapper>                                  
