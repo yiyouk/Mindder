@@ -19,7 +19,6 @@ import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
-import com.ssafy.mindder.statistics.model.StatisticsDto;
 import com.ssafy.mindder.statistics.model.service.StatisticsService;
 
 import io.swagger.annotations.ApiOperation;
