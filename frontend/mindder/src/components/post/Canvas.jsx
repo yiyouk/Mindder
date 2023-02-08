@@ -2,11 +2,11 @@ import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import TrashImg from "../../assets/images/trash.png"
-import SaveImg from "../../assets/images/saveButton.png"
+// import SaveImg from "../../assets/images/saveButton.png"
 import EraserImg from "../../assets/images/eraser.png"
 import FillImg from "../../assets/images/paint.png"
 import { useDispatch } from "react-redux";
-import { SAVE_userDrawing } from "../../redux/reducers";
+// import { SAVE_userDrawing } from "../../redux/reducers";
 
 
 // #### styled ####
@@ -70,9 +70,11 @@ const PaintTool = styled.button`
     cursor: pointer;
 `
     
-function Draw() {
-    const dispatch = useDispatch()
-    const canvasRef = useRef(null);
+function Draw({canvasRef, imageSaved}) {
+    
+    // PostPage에서 받아옴
+    // const dispatch = useDispatch()
+    // const canvasRef = useRef(null);
 
     const [ctx, setCtx] = useState([]);
     const [isDrawing, setIsDrawing] = useState('');
@@ -207,14 +209,14 @@ function Draw() {
         };
 
     
-    // -- 그린거 저장 어케하지 -- /
-        const imageSaved = () => {
-            const canvas = canvasRef.current;
-            console.log(canvas)
-            const image = canvas.toDataURL('image/webp', 0.5);
-            console.log(image)
-            dispatch(SAVE_userDrawing(image))
-        }
+    // -- 그림저장 PostPage로 이동 -- / 
+        // const imageSaved = () => {
+        //     const canvas = canvasRef.current;
+        //     console.log(canvas)
+        //     const image = canvas.toDataURL('image/webp', 0.5);
+        //     console.log(image)
+        //     dispatch(SAVE_userDrawing(image))
+        // }
             return (
                 <Wrapper>
                     <Canva ref={canvasRef}
@@ -251,7 +253,7 @@ function Draw() {
                         <PaintTool img={FillImg} onClick={fillAll}></PaintTool>
                         <PaintTool img={EraserImg} onClick={eraseMode}></PaintTool>
                         <PaintTool img={TrashImg} onClick={eraseAll}></PaintTool>
-                        <PaintTool img={SaveImg} onClick={imageSaved}></PaintTool>
+                        {/* <PaintTool img={SaveImg} onClick={imageSaved}></PaintTool> */}
                     </Container>
                  
                 </Wrapper>
