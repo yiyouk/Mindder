@@ -132,7 +132,6 @@ function UserPage(props) {
             setProfile(response.data.data.base64);
     }
 
-
     // 피드 요청
     async function getUserFeeds(){ // async, await을 사용하는 경우
         if (userIdx !== myIdx){
