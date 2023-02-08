@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 const BtnColor = {
     'main' : '#7767FD'
 }
+
 const StyledFollowButton = styled.button`
      background-color: ${({ active }) => {
         if (active) {
