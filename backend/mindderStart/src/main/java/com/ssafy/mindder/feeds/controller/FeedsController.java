@@ -257,18 +257,19 @@ public class FeedsController {
 	@GetMapping("/recommendation")
 	public ApiResponse<?> recommendation(@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("recommendation - 호출");
+
 		try {
 
 			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
-			System.out.println(recommendation);
 
+			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
 			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < recommendation.size(); i++) {
-				Map<String, String> file = fileService.findFile(recommendation.get(i).getFileIdx(), filePath);
-				recommendation.get(i).setBase64(file.get("base64"));
-				recommendation.get(i).setExtension(file.get("extension"));
-			}
+//			for (int i = 0; i < recommendation.size(); i++) {
+//				Map<String, String> file = fileService.findFile(recommendation.get(i).getFileIdx(), filePath);
+//				recommendation.get(i).setBase64(file.get("base64"));
+//				recommendation.get(i).setExtension(file.get("extension"));
+//			}
+
 			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,17 +288,16 @@ public class FeedsController {
 			// 페이징 처리를 위함
 			int total = feedsService.getTotalCount(criteria);
 			List<FeedListDto> popularArticle = feedsService.popularFeed(criteria);
-			System.out.println(criteria.getPageNum());
-			System.out.println(criteria.getAmount());
-			page.put("Feeds", popularArticle);
-			page.put("pageMaker", new FeedsPageDto(criteria, total));
 
 			// 이미지 set 코드 작성
-//			for (int i = 0; i < popularArticle.size(); i++) {
-//				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
-//				popularArticle.get(i).setBase64(file.get("base64"));
-//				popularArticle.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < popularArticle.size(); i++) {
+				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
+				popularArticle.get(i).setBase64(file.get("base64"));
+				popularArticle.get(i).setExtension(file.get("extension"));
+			}
+
+			page.put("Feeds", popularArticle);
+			page.put("pageMaker", new FeedsPageDto(criteria, total));
 
 			System.out.println(popularArticle);
 			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
@@ -320,11 +320,12 @@ public class FeedsController {
 			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(criteria);
 
 			// 이미지 set 코드 작성
-//			for (int i = 0; i < realtimeFeed.size(); i++) {
-//				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
-//				realtimeFeed.get(i).setBase64(file.get("base64"));
-//				realtimeFeed.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < realtimeFeed.size(); i++) {
+				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+				realtimeFeed.get(i).setBase64(file.get("base64"));
+				realtimeFeed.get(i).setExtension(file.get("extension"));
+			}
+
 			page.put("Feeds", realtimeFeed);
 			page.put("pageMaker", new FeedsPageDto(criteria, total));
 			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
