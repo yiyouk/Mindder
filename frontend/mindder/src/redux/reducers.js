@@ -224,6 +224,9 @@ const userStateSlice = createSlice({
       state.userDrawing = action.payload
       console.log(`유저가 그린 그림 : ${state.userDrawing}`)
     },
+    // SAVE_profileImgIdx(){
+
+    // }
   }
 })
 
