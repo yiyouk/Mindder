@@ -57,20 +57,21 @@ function LoginPage(props) {
                 const userIdx = response.data.data.userIdx;
 
                 //원래 쿠키가 있다면?
-                if(getCookie("is_login") !== undefined){
+                if(!getCookie("is_login")){
                     //쿠키 삭제
-                    removeCookie("is_login")
                     //전역 변수 삭제
-                    dispatch(DELETE_TOKEN("is_login"))
+                    dispatch(DELETE_TOKEN())
                     dispatch(SAVE_nickName(""))
                     dispatch(SAVE_myIdx(null))
+
+                    removeCookie("is_login")
                 }
                         
                 //쿠키 새롭게 세팅
                 setCookie("is_login", accessToken);
 
                 //전역 변수 세팅
-                dispatch(SET_TOKEN(accessToken));
+                dispatch(SET_TOKEN("is_login", accessToken));
                 dispatch(SAVE_nickName(nickname))
                 dispatch(SAVE_myIdx(userIdx))
                 navigate("/");

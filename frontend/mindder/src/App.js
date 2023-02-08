@@ -43,7 +43,7 @@ function App(props) {
             dispatch(SET_TOKEN(getCookie("is_login")));
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
         } else { //쿠키에 정보가 없으면 tonken 초기화
-            dispatch(DELETE_TOKEN(getCookie("is_login")));
+            dispatch(DELETE_TOKEN());
         }
     }, [])
 

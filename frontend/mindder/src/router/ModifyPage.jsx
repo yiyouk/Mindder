@@ -3,7 +3,7 @@ import React from "react";
 import Modify from "../components/account/Modify";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { removeCookie } from "../api/cookie";
+import { getCookie, removeCookie } from "../api/cookie";
 import { useDispatch, useSelector } from "react-redux";
 
 import api from "../api/api";
@@ -27,10 +27,11 @@ function ModifyPage(props) {
         if(!response.data.success){
             alert("로그아웃 실패! 다시 시도해주세요.");
         } else {
-            removeCookie("is_login")
-            dispatch(DELETE_TOKEN("is_login"));
+            dispatch(DELETE_TOKEN());
             dispatch(SAVE_nickName(""));
             dispatch(SAVE_myIdx(null));
+            removeCookie("is_login");
+            console.log(getCookie("is_login"))
             navigate('/')
         }
     }
