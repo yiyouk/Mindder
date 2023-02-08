@@ -1,10 +1,12 @@
 package com.ssafy.mindder.comments.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import com.ssafy.mindder.comments.model.service.CommentsService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +37,11 @@ public class CommentsController {
 	private CommentsService commentsService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private FileService fileService;
+
+	@Value("${file.path.upload-files}")
+	private String filePath;
 
 	private static final Logger logger = LoggerFactory.getLogger(CommentsController.class);
 
@@ -79,9 +87,14 @@ public class CommentsController {
 		logger.info("feedIdx - 호출");
 
 		try {
-			List<CommentsListDto> comment = commentsService.commentList(feedIdx);
-			System.out.println(comment);
-			return ApiResponse.success(SuccessCode.READ_COMMENT_LIST, comment);
+			List<CommentsListDto> commentList = commentsService.commentList(feedIdx);
+			for (int i = 0; i < commentList.size(); i++) {
+				Map<String, String> file = fileService.findFile(commentList.get(i).getFileIdx(), filePath);
+				commentList.get(i).setBase64(file.get("base64"));
+				commentList.get(i).setExtension(file.get("extension"));
+			}
+			System.out.println(commentList);
+			return ApiResponse.success(SuccessCode.READ_COMMENT_LIST, commentList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("writeFeeds - 메인 피드 댓글 리스트 불러오는 중 에러 발생");
