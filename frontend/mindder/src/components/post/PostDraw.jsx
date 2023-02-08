@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas";
 import api from '../../api/api'
-import CanvasItem from "../../commons/list/CanvasItem";
+import CrawItem from "../../commons/list/CrawItem";
 import { useSelector } from "react-redux";
 import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 import { Colors16 } from "../../redux/reducers";
@@ -76,9 +76,7 @@ function PostDraw(props){
       <CrawlingsHere>
         {/* <ScrollMenu wheel={true}> 스크롤 오류나서 일단 5개만 잘라서 받아놓음 */} 
         {crawlingList.slice(0,5).map((crawlingImg, index)=>(
-          <CanvasItem size={"xs"} imageUrl={crawlingImg.img} key={index}
-          feedIdx={crawlingImg.url}
-          />
+          <CrawItem size="xs" imageUrl={crawlingImg.img} key={index} feedIdx={crawlingImg.url}/>
         ))}
         {/* </ScrollMenu> */}
       </CrawlingsHere>
