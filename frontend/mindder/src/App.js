@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN } from "./redux/reducers";
 
 import api from "./api/api"
+import "./index.css"
 
 // Pages
 import MainLayout from './Layout/MainLayout'
