@@ -1,11 +1,11 @@
 // 추천 캔버스 개별 컴포넌트
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {FaHeart, FaComment} from "react-icons/fa";
 import styled, { css } from "styled-components";
-import CanvasSample from "../../assets/images/CanvasSample.png"
 
 
-
+//크기 디자인
 const sizeStyles = css`
   /*크기*/
   ${({size}) => css`
@@ -17,7 +17,7 @@ const sizeStyles = css`
 
 const sizes = {
 
-    // 디테일
+    // 디테일 게시글
     "l": {
         height: '22rem',
         width: '22rem'
@@ -25,14 +25,14 @@ const sizes = {
 
     // 프로필
     "m": {
-        height: '10rem',
-        width: '10rem',
+        height: '11rem',
+        width: '11rem',
     },
 
     // 추천피드
     "s": {
-        height: '6.5rem',
-        width: '6.5rem',
+        height: '7rem',
+        width: '7rem',
     },
 
     // 크롤링이미지
@@ -45,35 +45,73 @@ const sizes = {
 
 CanvasItem.defaultProps = {
     size: "s",
+    up: true
   };
+//////////////
 
-
-const RecoCanvas = styled.div`
-  ${sizeStyles}
-  /* background-image:url(${(props)=>props.imageUrl}); */
-  background-image:url(${(props)=>(props.imageUrl? props.imageUrl : CanvasSample)});
-  background-size:cover;
-  filter: drop-shadow(0px 1.5px 1.5px rgba(0, 0, 0, 0.25));
+const Wrapper = styled.div`
   border-radius: 4px;
+  position: relative;
   cursor: pointer;
-`;
+  box-shadow: 0.01rem 0.01rem 0.01rem rgba(119, 119, 119, 0.3);
+  margin: 0.2rem;
+`
 
+const CanvaConContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  bottom: 0.1em;
+  right: 0.1em;
+`
 
-function CanvasItem({size, feedIdx, imageUrl, commentCount, likeTotalCount}) {
+const CanvaImgStyle = styled.img`
+  ${sizeStyles}
+  `
+
+const CanvaConStyle = styled.div`
+  width: 100%; 
+  display: flex;
+  align-items: center;
+  color: grey;
+  margin: 0.5em;
+  & > img{
+    width: 1.2em;
+    margin-right: 0.2em;
+  }
+`
+
+function CanvasItem({size, list, up}) {
   const navigate = useNavigate();
+
+  //피드는 클릭시 상세 페이지로
   const onClick = () => {
-    navigate(`/f/${feedIdx}`);
+    navigate(`/f/${list.feedIdx}`);
   };
 
   // 크롤링 이미지는 일단 새창에서 열리게 함
   const toExternal = () => {
-    console.log(`외부 페이지 열기`)
-    window.open(feedIdx, '_blank')
+    window.open(list.feedIdx, '_blank')
   };
 
   return(
-    <RecoCanvas onClick={isNaN(feedIdx)? toExternal : onClick} size ={size} commentCount={commentCount} likeTotalCount={likeTotalCount} imageUrl={imageUrl}
-    />
+    <Wrapper onClick={isNaN(list.feedIdx)? toExternal : onClick}>
+      <CanvaImgStyle size ={size} src={"data:image/" + list.extension + ";base64," + list.base64}/>
+      <CanvaConContainer>
+          { up ? 
+          <>
+            <CanvaConStyle>
+              <FaHeart color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
+              {list.likeTotalCount}
+            </CanvaConStyle>
+            <CanvaConStyle>
+              <FaComment color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
+              {list.commentCount}
+            </CanvaConStyle>
+          </>
+          : null}
+      </CanvaConContainer>
+    </Wrapper>
   )
 }
 
