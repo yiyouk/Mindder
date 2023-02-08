@@ -63,12 +63,16 @@ export const ProfileEditBtn = styled.div`
 function UserPage(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const exProfile = useSelector((state)=>state.USER.profileImg)
+    const exNickname = useSelector((state)=>state.USER.nickName)
+    const followwerCount = useSelector((state)=>state.USER.followerCount)
+    const followingCount = useSelector((state)=>state.USER.followingCount)
 
     // 회원정보
-    const [profile, setProfile] = useState("");
-    const [nickname, setNickname] = useState("");
-    const [following, setFollowing] = useState(0);
-    const [follower, setFollower] = useState(0);
+    const [profile, setProfile] = useState(""||exProfile);
+    const [nickname, setNickname] = useState(""||exNickname);
+    const [following, setFollowing] = useState(0||followingCount);
+    const [follower, setFollower] = useState(0||followwerCount);
     const [userFeeds, setUserFeeds] = useState([]);
 
     // 로그인 되어 있는 유저의 팔로잉 정보
@@ -83,11 +87,16 @@ function UserPage(props) {
 
     useEffect(() => {
         setIsMine(Boolean(userIdx===myIdx))
+        setProfile(exProfile)
+        setNickname(exNickname)
+        setFollower(followwerCount)
+        setFollowing(followingCount)
         myFollowing();
         // getUserId();
-        getOthersInfo();
-        getUserFeeds();
+        // getOthersInfo();
+        // getUserFeeds();
     }, [myIdx])
+    console.log(follower,following)
     
 
     // 로그인 되어 있는 유저의 팔로잉 정보 저장
@@ -129,8 +138,8 @@ function UserPage(props) {
             console.log("타인의 피드입니다")
             try {
                 const response = await api.get(`/my/feeds/${userIdx}`, null);
+                console.log(response.data)
                 if(response.data.success===true){
-                    console.log(response.data)
                     const userFeedList = response.data.data
                     setUserFeeds(userFeedList)
                 } else {
@@ -144,8 +153,8 @@ function UserPage(props) {
             console.log("내 피드입니다.")
             try {
                 const response = await api.get(`/my/feeds/`, null);
+                console.log(response.data)
                 if(response.data.success===true){
-                    console.log(response.data)
                     const userFeedList = response.data.data
                     setUserFeeds(userFeedList)
                 } else {
@@ -164,7 +173,7 @@ function UserPage(props) {
         <Wrapper>
             {/* 여기는 유저페이지 */}
             <ProfileContainer>
-                <Profile imgsize="m" namesize="m" name={nickname} userIdx={isMine? myIdx : userIdx}></Profile>
+                <Profile imgsize="m" namesize="m" name={nickname} userIdx={isMine? myIdx : userIdx} imgSrc={profile}></Profile>
                 { isMine ?
                     <ProfileEditBtn 
                         onClick={() => {
@@ -176,7 +185,7 @@ function UserPage(props) {
                 }
             </ProfileContainer>
             
-            <UserFollow isMine={isMine}/>
+            <UserFollow isMine={isMine} followerCount={follower} followingCount={following}/>
             {isMine?
                 <UserMenuSub></UserMenuSub>
                 :
