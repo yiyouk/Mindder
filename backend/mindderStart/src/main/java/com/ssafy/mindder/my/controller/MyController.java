@@ -245,6 +245,9 @@ public class MyController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			FeedsRecentDto feedsRecentDto = myService.findMyFeedsRecent(userIdx);
+			Map<String, String> file = fileService.findFile(feedsRecentDto.getFileIdx(), filePath);
+			feedsRecentDto.setBase64(file.get("base64"));
+			feedsRecentDto.setExtension(file.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_MY_FEEDS_RECENT, feedsRecentDto);
 		} catch (Exception e) {
 			e.printStackTrace();

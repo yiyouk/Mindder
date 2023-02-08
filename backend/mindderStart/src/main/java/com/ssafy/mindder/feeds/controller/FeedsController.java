@@ -66,7 +66,7 @@ public class FeedsController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
-			int fileIdx = feedsDto.getFeedIdx();
+			int fileIdx = feedsDto.getFileIdx();
 			if (fileIdx == 0 || fileIdx == 3 || fileIdx == 301 || fileIdx == 302) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
 			}

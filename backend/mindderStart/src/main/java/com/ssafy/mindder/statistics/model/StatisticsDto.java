@@ -1,4 +1,4 @@
-package com.ssafy.mindder.my.model;
+package com.ssafy.mindder.statistics.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class FeedsRecentDto {
+public class StatisticsDto {
 
 	private int emoteIdx;
 	private String emoteColorTag;
 	private String updateDate;
-	private int fileIdx;
-	private String base64;
-	private String extension;
 
 }
