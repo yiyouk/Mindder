@@ -40,9 +40,12 @@ public enum SuccessCode {
 	READ_MY_CALENDAR_LIST(SUCCESS, "월별 캘린더 목록 조회 성공"), CREATE_MY_FOLLOW(SUCCESS, "팔로우 등록 성공"),
 	DELETE_MY_FOLLOW(SUCCESS, "팔로우 취소 성공"), READ_MY_FEEDS_RECENT(SUCCESS, "최근 피드의 감정, 색 조회 성공"),
 
-	// scrap
+	// scraps
 	CREATE_SCRAP(SUCCESS, "스크랩 등록 성공"), DELETE_SCRAP(SUCCESS, "스크랩 삭제 성공"),
 	READ_MY_SCRAP_LIST(SUCCESS, "내 스크랩 목록 조회 성공"),
+	
+	// statistics
+	READ_STATISTICS_LIST(SUCCESS, "통계 조회 성공"),
 
 	// email
 	READ_EMAIL_CONFIRM(SUCCESS, "인증 코드 발급 성공"), READ_TEMP_PASSWORD(SUCCESS, "임시 비밀번호 발급 성공"),
