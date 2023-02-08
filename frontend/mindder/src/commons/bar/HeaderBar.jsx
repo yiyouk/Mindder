@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { tokenAction, userAction } from "./redux/store";
 
 import { useSelector } from "react-redux";
 
 const Wrapper = styled.div`
-    background-color:white;
+    background-color: white;
     align-items: center;
     display: flex;
     justify-content: space-between;
     margin: 0.25rem 0;
+    width: 100vw;
 `;
 
 const Nick = styled.div`

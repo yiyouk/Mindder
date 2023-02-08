@@ -28,6 +28,11 @@ const sizes = {
         height: '11rem',
         width: '11rem',
     },
+    // 프로필
+    "ms": {
+      height: '10rem',
+      width: '10rem',
+    },
 
     // 추천피드
     "s": {
@@ -89,13 +94,8 @@ function CanvasItem({size, list, up}) {
     navigate(`/f/${list.feedIdx}`);
   };
 
-  // 크롤링 이미지는 일단 새창에서 열리게 함
-  const toExternal = () => {
-    window.open(list.feedIdx, '_blank')
-  };
-
   return(
-    <Wrapper onClick={isNaN(list.feedIdx)? toExternal : onClick}>
+    <Wrapper onClick={onClick}>
       <CanvaImgStyle size ={size} src={"data:image/" + list.extension + ";base64," + list.base64}/>
       <CanvaConContainer>
           { up ? 
