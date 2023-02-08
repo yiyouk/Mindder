@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Face11 from "../../assets/images/happy.png"
 
 const Wrapper = styled.div`
-  width:360px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,7 +176,7 @@ const Calendar = () => {
   // - 일부터 월까지 요일 반환 - //
   const returnWeek = useCallback(() => {
     const weekArr = week.map((item, idx) => {
-      return <div>{item}</div>
+      return <div key={idx}>{item}</div>
     });
     return weekArr;
   }, []);

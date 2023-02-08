@@ -7,7 +7,12 @@ import FollowItem from "../components/user/FollowItem";
 import Follower from "../commons/ui/Follower";
 import Following from "../commons/ui/Following";
 import { FollowContainer } from "./FollowersPage";
-import { useSelector } from "react-redux";
+import {Prev} from "./FollowersPage";
+import { Follow, CountHere } from "../components/user/UserFollow";
+
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { SAVE_followingCount, SAVE_followingList } from "../redux/reducers";
 
 
 const Wrapper = styled.div`
@@ -20,65 +25,58 @@ const Wrapper = styled.div`
 `;
 
 function FollowingPage(props) {
-
-    const [userIdx, setUserIdx] = useState()
-    const [followerList, setFollowerList] = useState([])
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [followingList, setFollowingList] = useState([])
-    const myIdx = useSelector((state)=>state.USER.userIdx);
-    const otherIdx = useSelector((state)=>state.USER.otherUserIdx);
-    
-    
-    useEffect(() => {
-        getUserIdx();
-        console.log(userIdx)
-    }, [])
+    const userIdx = parseInt(useParams().userId);
+    const myIdx = useSelector((state) => state.USER.myIdx)
+    const followerCount = useSelector((state)=>state.USER.followerCount)
 
-    
     useEffect(() => {
-        getFollowerInfo();
         getFollowingInfo();
-        console.log(userIdx)
-    }, [userIdx])
-
-    const getUserIdx = () => {
-        if(otherIdx !== myIdx){
-            setUserIdx(otherIdx)
-        } else{
-            setUserIdx(myIdx)
-        }
-    }
+    }, [])
     
-    // // 팔로워 리스트 받아옴
-    const getFollowerInfo = async() => {
-        try{
-            const response = await api.get(`/my/followers/${userIdx}`);
-                setFollowerList(response.data.data);
-        } catch (e) {
-            console.error(e);
-        }
-    }
 
-    // 팔로잉 리스트 받아옴
+    // 내가 팔로잉하는 리스트 받아옴
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
-                setFollowingList(response.data.data);
+            console.log(response.data)
+            setFollowingList(response.data.data);
+            dispatch(SAVE_followingCount(response.data.data.length))
+            const lst = response.data.data.map((ele)=>ele.targetUserIdx)
+            console.log(lst)
+            dispatch(SAVE_followingList(lst))
         } catch (e) {
             console.error(e);
         }
     }
+    // console.log(followingList)
 
     return (
         <Wrapper>
+            <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
-                <Follower follower={followerList.length}/>
-                <Following following={followingList.length}/>
+            <Follow>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/followers`)
+                }}>
+                    <span>팔로워</span>
+                    <span>{followerCount} </span>
+                </CountHere>
+                <CountHere onClick={()=>{
+                    navigate(`/${userIdx}/following`)
+                }}>
+                    <span>팔로잉</span>
+                    <span>{followingList.length || "..."} </span>
+                </CountHere>
+            </Follow>
             </FollowContainer>
                 {!followingList || followingList.length === 0? (
-                    <div>팔로우 목록이 존재하지 않습니다.</div>
+                    <div>팔로잉 목록이 존재하지 않습니다.</div>
                 ):(
                     followingList.map((following, idx) => (
-                        <FollowItem data={following} key={idx}></FollowItem>
+                        <FollowItem userIdx={following.targetUserIdx} followStatus={true} nickname={following.nickname} key={idx} imgSrc={following.base64}></FollowItem>
                     ))
                 )}
         </Wrapper>
