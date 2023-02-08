@@ -3,8 +3,8 @@ import { createSlice, combineReducers } from "@reduxjs/toolkit";
 export const Emoticons = [
   {
     id : 0,
-    name:"화남",
-    en:"aggro"
+    name:"더미",
+    en:"dumm"
   },
   {
       id:1,
@@ -91,9 +91,9 @@ export const Emoticons = [
 export const Colors16 = [
   {
     id : 0,
-    name:"빨강",
-    code:"#F56161",
-    en:"red",
+    name:"더미",
+    code:"#FFFFFFF",
+    en:"dumm",
   },
   {
     id:1,

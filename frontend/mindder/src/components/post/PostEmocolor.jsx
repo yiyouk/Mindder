@@ -29,7 +29,7 @@ function PostEmocolor(props){
       imgSrc={imgSrc}
       />
       <CardContainer columnGap={1}>
-        {Colors16.map((color)=>(
+        {Colors16.slice(1).map((color)=>(
           <div onClick={(e)=>{onClick(e)}} id={color.name} key={color.id}>
             <EmoColors
             key={color.id} colorCode={color.code} colorName={color.name}
