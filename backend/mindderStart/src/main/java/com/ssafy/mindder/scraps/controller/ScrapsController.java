@@ -21,7 +21,6 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
-import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.scraps.model.service.ScrapsService;
 import com.ssafy.mindder.util.JwtService;
@@ -86,7 +85,7 @@ public class ScrapsController {
 		}
 	}
 
-	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedsParameterDto.class)
+	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
 	@GetMapping("/my")
 	public ApiResponse<?> myScrapList(@RequestHeader("access_token") String accessToken) {
 
