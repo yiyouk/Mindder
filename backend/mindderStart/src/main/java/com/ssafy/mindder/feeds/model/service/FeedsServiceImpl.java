@@ -85,4 +85,14 @@ public class FeedsServiceImpl implements FeedsService {
 		return sqlSession.getMapper(FeedsMapper.class).getTotalCount(criteria);
 	}
 
+	@Override
+	public int neighborFeedCount(Criteria criteria) {
+		return sqlSession.getMapper(FeedsMapper.class).neighborFeedCount(criteria);
+	}
+
+	@Override
+	public int popularFeedCounting(Criteria criteria) {
+		return sqlSession.getMapper(FeedsMapper.class).popularFeedCounting(criteria);
+	}
+
 }
