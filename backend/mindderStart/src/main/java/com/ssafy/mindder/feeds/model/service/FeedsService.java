@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.model.service;
 
 import java.util.List;
 
+import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -34,9 +35,16 @@ public interface FeedsService {
 	public List<FeedListDto> recommendation(int userIdx);
 
 	// 주간 인기글 리스트 조회
-	public List<FeedListDto> popularArticle();
+	public List<FeedListDto> popularFeed(Criteria criteria);
 
 	// 실시간 작성된 게시글 리스트 조회
-	public List<FeedListDto> realtimeFeed();
+	public List<FeedListDto> realtimeFeed(Criteria criteria);
+
+	// 페이징 처리를 위한 피드 카운트
+	public int getTotalCount(Criteria criteria);
+
+	public int neighborFeedCount(Criteria criteria);
+
+	public int popularFeedCounting(Criteria criteria);
 
 }
