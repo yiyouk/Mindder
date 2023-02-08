@@ -26,11 +26,11 @@ const Wrapper = styled.div`
 
 const positionFixed = css`
     position: fixed;
-    bottom: 0rem;
+    bottom: 2rem;
 `;
 const positionSticky = css`
     position: sticky;
-    bottom: 2.5rem;
+    bottom: 2rem;
 `;
 
 //게시글 사진
@@ -87,6 +87,7 @@ const Bottom = styled.div`
 function FeedDetailPage(props) {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx);
+    const nickName = useSelector((state)=>state.USER.nickName);
     const {feedIdx} = useParams();
     const textareaVal = useRef();
     const [nickname, setNickname] = useState("");
@@ -121,6 +122,7 @@ function FeedDetailPage(props) {
     //정보 가져오기
     useEffect(()=>{
         getFeed();
+        setPlaceholder(nickName + "(으)로 댓글달기")
         window.addEventListener('scroll', onScroll) 
         return ()=>{
             window.removeEventListener('scroll', onScroll)
@@ -143,7 +145,6 @@ function FeedDetailPage(props) {
 
             if (response.data.success){
                 setNickname(response.data.data.nickname);
-                setPlaceholder(response.data.data.nickname + "(으)로 댓글달기")
                 setUpdateDate(response.data.data.updateDate);
                 setCommentCount(response.data.data.commentCount);
                 setLikeTotalCount(response.data.data.likeTotalCount);
