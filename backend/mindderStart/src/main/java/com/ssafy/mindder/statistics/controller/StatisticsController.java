@@ -18,7 +18,7 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.file.model.service.FileService;
-import com.ssafy.mindder.statistics.model.StatisticsDto;
+import com.ssafy.mindder.my.model.FeedsRecentDto;
 import com.ssafy.mindder.statistics.model.service.StatisticsService;
 
 import io.swagger.annotations.ApiOperation;
@@ -40,13 +40,13 @@ public class StatisticsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
-	@ApiOperation(value = "통계 조회", notes = "통계 정보를 반환한다.", response = StatisticsDto.class)
+	@ApiOperation(value = "통계 조회", notes = "통계 정보를 반환한다.", response = FeedsRecentDto.class)
 	@GetMapping()
 	ApiResponse<?> statisticsList(@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("statisticsList - 호출");
 		try {
-			List<StatisticsDto> statistics = statisticsService.findStatistics();
+			List<FeedsRecentDto> statistics = statisticsService.findStatistics();
 			for (int i = 0; i < statistics.size(); i++) {
 				Map<String, String> file = fileService.findFile(statistics.get(i).getFileIdx(), filePath);
 				statistics.get(i).setBase64(file.get("base64"));
