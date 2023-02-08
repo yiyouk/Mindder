@@ -16,9 +16,9 @@ public class FeedListDto {
 	private int fileIdx;
 	private int userIdx;
 	private String nickname;
-	private String updateDate;
 	private int commentCount;
 	private int likeTotalCount;
+	private String updateDate;
 	private String base64;
 	private String extension;
 }

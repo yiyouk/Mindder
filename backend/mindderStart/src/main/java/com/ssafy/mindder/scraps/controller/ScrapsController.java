@@ -1,10 +1,12 @@
 package com.ssafy.mindder.scraps.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
@@ -20,7 +21,7 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.feeds.model.FeedListDto;
-import com.ssafy.mindder.feeds.model.FeedsParameterDto;
+import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.scraps.model.service.ScrapsService;
 import com.ssafy.mindder.util.JwtService;
 
@@ -36,12 +37,18 @@ public class ScrapsController {
 	private ScrapsService scrapsService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private FileService fileService;
+
+	@Value("${file.path.upload-files}")
+	private String filePath;
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
 	@ApiOperation(value = "스크랩 등록", notes = "스크랩을 등록한다.")
 	@PostMapping("/{feedIdx}")
-	public ApiResponse<?> scrapAdd(@RequestHeader("access_token") String accessToken, @PathVariable("feedIdx") @ApiParam(value = "등록할 피드번호.", required = true) int feedIdx) {
+	public ApiResponse<?> scrapAdd(@RequestHeader("access_token") String accessToken,
+			@PathVariable("feedIdx") @ApiParam(value = "등록할 피드번호.", required = true) int feedIdx) {
 
 		logger.debug("scrapAdd - 호출 : " + feedIdx);
 		try {
@@ -78,7 +85,7 @@ public class ScrapsController {
 		}
 	}
 
-	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedsParameterDto.class)
+	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
 	@GetMapping("/my")
 	public ApiResponse<?> myScrapList(@RequestHeader("access_token") String accessToken) {
 
@@ -86,6 +93,11 @@ public class ScrapsController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<FeedListDto> scrapList = scrapsService.findMyScraps(userIdx);
+			for (int i = 0; i < scrapList.size(); i++) {
+				Map<String, String> file = fileService.findFile(scrapList.get(i).getFileIdx(), filePath);
+				scrapList.get(i).setBase64(file.get("base64"));
+				scrapList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_MY_SCRAP_LIST, scrapList);
 		} catch (Exception e) {
 			e.printStackTrace();

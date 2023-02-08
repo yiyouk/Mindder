@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ssafy.mindder.statistics.model.mapper.StatisticsMapper">
+	<!-- 통계 조회 -->
+	<select id="selectStatistics"
+		resultMap="com.ssafy.resultmaps.recent">
+		SELECT 
+		    e.emote_idx, ec.emote_color_tag, e.update_date, ecp.file_idx
+		FROM
+		    (SELECT 
+		        ANY_VALUE(emote_idx) AS emote_idx, update_date
+		    FROM
+		        (SELECT 
+		        COUNT(emote_idx) AS emote_idx_count, emote_idx, update_date
+		    FROM
+		        mainfeed
+		    WHERE
+		        update_date BETWEEN DATE_ADD(NOW(), INTERVAL - 1 WEEK) AND NOW()
+		    GROUP BY emote_idx , update_date
+		    ORDER BY update_date , emote_idx_count DESC) AS t1
+		    GROUP BY update_date) AS e
+		        INNER JOIN
+		    (SELECT 
+		        t3.emote_color_idx, t3.update_date, f.emote_color_tag
+		    FROM
+		        (SELECT 
+		        ANY_VALUE(emote_color_idx) AS emote_color_idx, update_date
+		    FROM
+		        (SELECT 
+		        COUNT(emote_color_idx) AS emote_color_count,
+		            emote_color_idx,
+		            update_date
+		    FROM
+		        mainfeed
+		    WHERE
+		        update_date BETWEEN DATE_ADD(NOW(), INTERVAL - 1 WEEK) AND NOW()
+		    GROUP BY emote_color_idx , update_date
+		    ORDER BY update_date , emote_color_count DESC) t2
+		    GROUP BY update_date) AS t3
+		    INNER JOIN feedemotecolor f ON f.emote_color_idx = t3.emote_color_idx) AS ec ON e.update_date = ec.update_date
+		        INNER JOIN
+		    feedemotecomplete ecp ON ec.emote_color_idx = ecp.emote_color_idx
+		        AND e.emote_idx = ecp.emote_idx;
+	</select>
+</mapper>

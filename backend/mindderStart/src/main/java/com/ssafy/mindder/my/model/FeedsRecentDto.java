@@ -1,4 +1,4 @@
-package com.ssafy.mindder.comments.model;
+package com.ssafy.mindder.my.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,11 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentsListDto {
+public class FeedsRecentDto {
 
-	private int commentIdx;
-	private String nickname;
-	private String feedComment;
+	private int emoteIdx;
+	private String emoteColorTag;
 	private String updateDate;
-	private int userIdx;
 	private int fileIdx;
 	private String base64;
 	private String extension;
