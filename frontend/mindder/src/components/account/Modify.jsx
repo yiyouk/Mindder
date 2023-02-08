@@ -92,8 +92,6 @@ function Modify() {
         getUserInfo();
     }, [])
 
-    console.log(myColor);
-
     //닉네임 입력중
     const handleNickname = e => {
         setNicknameCheck(false);
@@ -221,8 +219,9 @@ function Modify() {
             });
             
             if(response.data.success){
+                console.log("통ㅅ니성공?")
                 console.log(response)
-                setFileIdx(response.data)
+                setFileIdx(response.data.data)
                 // dispatch(SAVE_profileImgIdx(response.data))
             } else{
                 console.log("실패했지렁")
@@ -239,7 +238,7 @@ function Modify() {
 
 //사진 프로필 삭제하기
     const handleProfileDelete = e => {
-        setFileIdx(110);
+        setFileIdx(305);
     }
 
     return(
@@ -248,7 +247,7 @@ function Modify() {
             <div className="col-12">
             <label className="form-label"> 사진</label>
             <div className="center-container">
-                <Profile scr={base64}/>
+                <Profile src={base64}/>
             </div>
             <div className="logo-container">
                 <input className="white-black-line-btn" type="button" value="수정" onClick={handleButtonClick}/>
@@ -283,10 +282,10 @@ function Modify() {
         <div className="col-12">  
             <label className="form-label">나의 색</label>
             <DropDown>
-                <PickColor mypick = {Colors16[myColor-1].code}/>
+                <PickColor mypick = {Colors16[myColor].code}/>
                 <ListContainer>
                     {Colors16.map((color)=>(
-                        <ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>
+                        color.id !== 0 ?<ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>:null
                     ))} 
                 </ListContainer>
             </DropDown>     

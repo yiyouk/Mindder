@@ -52,7 +52,7 @@ const Side = styled.div`
 
 const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
   const navigate = useNavigate();
-  const [Text, setText] = useState()
+  const [Text, setText] = useState("")
   const [toggle, setToggle] = useState(isPublic);
   // const [isPublic, setIsPublic] = useState(isPublic);
 

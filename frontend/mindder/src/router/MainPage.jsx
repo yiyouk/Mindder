@@ -23,7 +23,6 @@ const Body = styled.div`
 
 function MainPage(props) {
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
-
     if(!isLoggedIn){
         return (
             <Home></Home>

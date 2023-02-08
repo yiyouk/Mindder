@@ -43,7 +43,10 @@ const Line = styled.div`
 `
 
 function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
-    // const E = Emoticons.find(emote=>emote.id===emoteIdx).id;
+    // const E = Emoticons.find(emote=>emote.id===emoteIdx).id
+    // console.log("어쩌라구요")
+    // console.log(emoteIdx)
+    // console.log(emoteColorIdx)
     const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.webp`)
 
     return (

@@ -15,9 +15,9 @@ const Wrapper = styled.div`
 function CanvasList({list, size, up}) {
     return (
         <Wrapper>
-            {list.map((feed, index) => {
+            {list ? list.map((feed, index) => {
               return <CanvasItem list={feed} key={index} size={size} up={up}/>;
-            })}
+            }) : null}
         </Wrapper>
     );
 }

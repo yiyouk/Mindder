@@ -1,11 +1,61 @@
 // 회원가입-정보 등록
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styled, {css} from "styled-components";
+import { Colors16 } from "../../redux/reducers";
 
 //비동기 동신
 import api from "../../api/api";
 
 import '../../assets/css/main.css';
+
+const colortyles = css`
+  ${({mypick}) => css`
+    background-color: ${mypick};
+  `}
+`;
+//누르면 나오는거
+const DropDown = styled.button`
+    background-color: white;
+    border: none;
+    outline:none;
+    position: relative;
+`;
+
+const ListContainer = styled.span`
+  background-color: white;
+  border-radius: 0.3rem;
+  border: solid 0.05rem gray;
+  position: absolute;
+  display:none;
+  ${DropDown}:active & {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+  }
+  ${DropDown}:focus & {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+  }
+`;
+
+const PickColor = styled.div`
+    ${colortyles}
+    margin-top: 1rem;
+    width: 2rem;
+    height: 2rem;
+    border: solid 0.01rem rgb(231, 231, 231);
+`;
+
+const ColorStyled = styled.div`
+    ${colortyles}
+    width: 1.5rem;
+    height: 1.5rem;
+    border: solid 0.01rem rgb(231, 231, 231);
+    &:hover {
+        outline: 0.03rem solid black;
+    }
+    margin: 0.5rem;
+`;
 
 function JoinRegister({email}) {
   const navigate = useNavigate();
@@ -35,9 +85,10 @@ function JoinRegister({email}) {
   }
 
     
-  //내 색 입력중
-  const handleMyColor = e => {
-  }
+     //색 선택하기
+     const handlePickColor = (e) =>{
+        setMyColor(e);
+    }
 
   //닉네임 중복 확인
   const handleCheckNick = e => {
@@ -131,8 +182,15 @@ function JoinRegister({email}) {
                 {/* {passwordCheckB ? null : <label className="warning">비밀번호를 확인하세요.</label>} */}
             </div>
             <div className="col-12">
-                <label htmlFor="myColor" className="form-label" >나의 색</label>
-                <input value={myColor} type="text" name="myColor" id="myColor"  onChange={handleMyColor}/>
+                <label className="form-label">나의 색</label>
+                <DropDown>
+                    <PickColor mypick = {Colors16[myColor].code}/>
+                    <ListContainer>
+                        {Colors16.map((color)=>(
+                            color.id !== 0 ?<ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>:null
+                        ))} 
+                    </ListContainer>
+                </DropDown>     
             </div>
             <div className="center-container">
             <input className="maincolor-white-btn" type="button" value="가입하기" onClick={join}/>
