@@ -64,7 +64,7 @@ function PostEmoTag(props) {
             imgSrc={imgSrc}
             />
             <CardContainer columnGap={0.2}>
-                {Emoticons.map((emo)=>( 
+                {Emoticons.slice(1).map((emo)=>( 
                     <EmotionTag
                     key={emo.id} id={emo.id}
                     onClick={(e)=>{onClick(e, emo)}}

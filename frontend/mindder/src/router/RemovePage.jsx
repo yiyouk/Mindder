@@ -17,13 +17,12 @@ function RemovePage(props) {
         try{
             const response = await api.delete(`/users`, null);
             if(response.data.success){                
-                
-                dispatch(DELETE_TOKEN("is_login"))
+                dispatch(DELETE_TOKEN());
                 dispatch(SAVE_nickName(""));
                 dispatch(SAVE_myIdx(null));
                 removeCookie("is_login")
                 alert("회원퇼퇴가 완료 되었습니다.");
-                navigate("/");
+                navigate('/');
             } else{
                 alert("회원퇼퇴 실패! 재시도 부탁드립니다.");
             }
