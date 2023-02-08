@@ -45,6 +45,7 @@
 		<result column="user_idx" property="userIdx" />
 		<result column="comment_count" property="commentCount" />
 		<result column="like_total_count" property="likeTotalCount" />
+		<result column="update_date" property="updateDate" />
 	</resultMap>
 	<resultMap type="CommentsListDto" id="comment">
 		<result column="comment_idx" property="commentIdx" />
