@@ -144,23 +144,42 @@
    
    <!-- 주간 작성된 피드 인기 글 리스트로 조회   -->
    <!-- 현재일 기준으로 +7일 hit글 높은 순으로 조회 -->
-    <select id ="popularArticle"  parameterType="int"   resultMap="com.ssafy.resultmaps.feedList">
-	select distinct f.feed_idx, f.user_idx, f.file_idx,u.nickname,f.feed_hit,
-		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
-		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
-	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
-	WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() and f.is_deleted = 0 and f.is_public=1
-	order by f.feed_hit DESC
+    <select id ="popularFeed"  resultMap="com.ssafy.resultmaps.feedList">
+	<![CDATA[ 
+	select * 
+ 	from  (
+        select distinct f.feed_idx, rank() over (order by f.feed_hit DESC) as rnum,f.user_idx, f.file_idx,u.nickname,f.feed_hit,
+        (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+        (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+    from mainfeed f join  mainuser u on f.user_idx=u.user_idx
+    WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() and f.is_deleted = 0 and f.is_public=1 
+
+    )as m
+        where rnum >(#{pageNum}-1)*10  and rnum <=(#{pageNum}*#{amount});
+    ]]>
    </select>
    
   
    <!-- 실시간 작성된 피드 리스트 조회 -->
     <select id ="realtimeFeed" resultMap="com.ssafy.resultmaps.feedList">
-	select distinct f.feed_idx, f.user_idx, f.file_idx,u.nickname,
+ 	<![CDATA[ 
+ 	select * 
+ 	from
+ 	(
+ 		select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
 		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
 		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
-	from mainfeed f join  mainuser u on f.user_idx=u.user_idx
-	WHERE f.is_deleted = 0 and f.is_public=1
-	order by f.feed_idx DESC
+		from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
+		WHERE f.is_deleted = 0 and f.is_public=1
+		order by f.feed_idx DESC
+    ) as m
+    where rnum >(#{pageNum}-1)*#{amount}  and rnum <=(#{pageNum}*#{amount});
+   ]]>
    </select>
+   
+   <select id ="getTotalCount" resultType="int">
+	select count(*) from mainfeed where is_deleted =0 and is_public=1
+	</select>
+  
+   
 </mapper>
