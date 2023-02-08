@@ -11,25 +11,19 @@ import MyPageImg from "../../assets/images/icon4.png";
 import PostImg from "../../assets/images/icon5.png";
 
 const Wrapper = styled.nav`
-    position: fixed;
-    bottom: 0;
-    right: 0.03rem;
-    /* width: 100rem; */
-    height: 2.5rem;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    height: 2.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     background-color:white;
     align-items: center;
     display: flex;
     box-shadow: 0 -2px 2px 1px rgba(119, 103, 253, 0.15);
-    /* border:1px solid green; */
+    width: 100vw;
 `;
 
 const NavMenu = styled.div`
     width: 20vw;
-    /* height: 10vh; */
     text-align: center;
-    padding-left: 0px;
 `
 
 const Image = styled.img`
