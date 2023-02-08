@@ -22,6 +22,11 @@ const sizes = {
         height: '22rem',
         width: '22rem'
     },
+    
+    "ml": {
+      height: '20rem',
+      width: '20rem'    
+    },
 
     // 프로필
     "m": {
@@ -55,10 +60,12 @@ CanvasItem.defaultProps = {
 //////////////
 
 const Wrapper = styled.div`
+  border: 0.01rem solid rgba(219, 219, 219, 0.3);
   border-radius: 4px;
   position: relative;
   cursor: pointer;
-  box-shadow: 0.01rem 0.01rem 0.01rem rgba(119, 119, 119, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgba(194, 194, 194, 0.3);
+  
   margin: 0.2rem;
 `
 
