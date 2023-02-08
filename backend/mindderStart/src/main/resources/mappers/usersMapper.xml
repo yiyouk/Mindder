@@ -42,7 +42,7 @@
 	</update>
 	<update id="updateUser" parameterType="UsersDto">
 		update mainuser
-		set nickname = #{nickname}, emote_color_idx = #{emoteColorIdx}
+		set nickname = #{nickname}, emote_color_idx = #{emoteColorIdx},file_idx = #{fileIdx}
 		where user_idx = #{userIdx}
 	</update>
 	<update id="changePassword" parameterType="UsersDto">
