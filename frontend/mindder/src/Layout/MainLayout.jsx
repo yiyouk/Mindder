@@ -4,15 +4,28 @@ import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 
 const Bodysuit = styled.div`
-    //위 옆 아래..
-    padding: 0.5rem 1rem 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0em 0em 0em;
 `;
+
+const Body = styled.div`
+    padding: 1em 0 1.2em 0;
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    overflow:scroll;
+`
 
 const MainLayout =()=>{
     return(
         <Bodysuit>
             <HeaderBar/>
-            <Outlet/>
+            <Body>
+                <Outlet/>
+            </Body>
             <NaviBar/>
         </Bodysuit>
     )
