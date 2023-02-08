@@ -18,5 +18,8 @@ public class CommentsListDto {
 	private String feedComment;
 	private String updateDate;
 	private int userIdx;
+	private int fileIdx;
+	private String base64;
+	private String extension;
 
 }
