@@ -17,11 +17,12 @@ import { SAVE_followingCount, SAVE_followingList } from "../redux/reducers";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
-    /* width: 100vw; */
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    /* border: 1px solid; */
 `;
 
 function FollowingPage(props) {
@@ -34,7 +35,7 @@ function FollowingPage(props) {
 
     useEffect(() => {
         getFollowingInfo();
-    }, [])
+    }, [followingList])
     
 
     // 내가 팔로잉하는 리스트 받아옴
