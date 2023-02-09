@@ -83,7 +83,7 @@
          select m.feed_idx,m.user_idx, m.file_idx 
          from mainfeed m,
             (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f
-         where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0
+         where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0 and m.user_idx!=#{userIdx}
       ) f 
       left join (
       select nickname, user_idx
