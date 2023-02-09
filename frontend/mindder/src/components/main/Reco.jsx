@@ -17,8 +17,9 @@ function Reco() {
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/feeds/recommendation`);
-            console.log(response)
-            setFeeds(response.data.data);
+            if(response.data.data !== null){
+                setFeeds(response.data.data);
+            }
         } catch (e) {
             console.error(e);
             navigate("/error");
@@ -27,7 +28,7 @@ function Reco() {
 
     return (
         <div> 
-            <CanvasList up={false} list={feeds}/> 
+            <CanvasList size = "s" up={false} list={feeds}/> 
         </div>
     );
 }
