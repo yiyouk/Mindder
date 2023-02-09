@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -63,7 +62,6 @@ public class FirebaseCloudMessageService {
 				.createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
 
 		googleCredentials.refreshIfExpired();
-		System.out.println(googleCredentials.getAccessToken().getTokenValue());
 		return googleCredentials.getAccessToken().getTokenValue();
 	}
 }
