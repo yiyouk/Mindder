@@ -24,5 +24,9 @@ public class SearchesServiceImpl implements SearchesService {
 	public List<UsersDto> findUser(String word) throws Exception {
 		return searchesMapper.searchUser(word);
 	}
+	@Override
+	public List<String> findHash(String word) throws Exception {
+		return searchesMapper.searchHash(word);
+	}
 
 }

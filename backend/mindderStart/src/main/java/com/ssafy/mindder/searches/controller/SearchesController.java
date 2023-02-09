@@ -32,4 +32,15 @@ public class SearchesController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
+	@GetMapping("/hash/{word}")
+	public ApiResponse<?> searchHash(@PathVariable("word") String word){
+		
+		try {
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,searchesService.findHash(word));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
 }
