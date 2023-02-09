@@ -169,11 +169,11 @@ public class FeedsController {
 			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
 
 			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < neighborList.size(); i++) {
-				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
-				neighborList.get(i).setBase64(file.get("base64"));
-				neighborList.get(i).setExtension(file.get("extension"));
-			}
+//			for (int i = 0; i < neighborList.size(); i++) {
+//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+//				neighborList.get(i).setBase64(file.get("base64"));
+//				neighborList.get(i).setExtension(file.get("extension"));
+//			}
 
 			page.put("Feeds", neighborList);
 			page.put("pageMaker", new FeedsPageDto(criteria, total));
