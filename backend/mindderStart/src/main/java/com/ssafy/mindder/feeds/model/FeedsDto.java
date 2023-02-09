@@ -14,7 +14,6 @@ import lombok.ToString;
 public class FeedsDto {
 
 	private int feedIdx;
-	private String socialId;
 	private String updateDate;
 	private String updateTime;
 	private boolean isPublic;

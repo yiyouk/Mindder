@@ -14,6 +14,7 @@ import lombok.ToString;
 public class FeedsRecentDto {
 
 	private int emoteIdx;
+	private int emoteColorIdx;
 	private String emoteColorTag;
 	private String updateDate;
 	private int fileIdx;
