@@ -31,7 +31,9 @@ public interface FeedsService {
 	FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 메인 추천 게시물 리스트 조회
-	public List<FeedListDto> recommendation(int userIdx);
+	public List<FeedListDto> recommendation1(int userIdx);
+
+	public List<FeedListDto> recommendation2(int userIdx);
 
 	// 주간 인기글 리스트 조회
 	public List<FeedListDto> popularFeed(Criteria criteria);
