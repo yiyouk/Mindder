@@ -268,16 +268,29 @@ public class FeedsController {
 		try {
 
 			int userIdx = jwtService.getUserIdx(accessToken);
+			List<FeedListDto> recommendation1 = feedsService.recommendation1(userIdx);
 
-			List<FeedListDto> recommendation = feedsService.recommendation(userIdx);
-			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < recommendation.size(); i++) {
-				Map<String, String> file = fileService.findFile(recommendation.get(i).getFileIdx(), filePath);
-				recommendation.get(i).setBase64(file.get("base64"));
-				recommendation.get(i).setExtension(file.get("extension"));
+			// 회원가입 직후의 유저 -> 회원가입 시 선택했던 컬러로 추천해줌
+			if (recommendation1 == null || recommendation1.isEmpty()) {
+				List<FeedListDto> recommendation2 = feedsService.recommendation2(userIdx);
+				// 이미지 관련 코드 -> 이게 맞나,,,?
+				for (int i = 0; i < recommendation2.size(); i++) {
+					Map<String, String> file = fileService.findFile(recommendation2.get(i).getFileIdx(), filePath);
+					recommendation2.get(i).setBase64(file.get("base64"));
+					recommendation2.get(i).setExtension(file.get("extension"));
+				}
+				return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation2);
 			}
 
-			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation);
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < recommendation1.size(); i++) {
+				Map<String, String> file = fileService.findFile(recommendation1.get(i).getFileIdx(), filePath);
+				recommendation1.get(i).setBase64(file.get("base64"));
+				recommendation1.get(i).setExtension(file.get("extension"));
+			}
+
+			// 널값이 아닐 때 회원가입 시 선택했던 색으로 조회
+			return ApiResponse.success(SuccessCode.READ_RECOMMENDATION_FEED, recommendation1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("recommendation - 추천 글 불러오기 실패");
