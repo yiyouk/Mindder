@@ -243,7 +243,6 @@ public class UsersController {
 			if (temp == null) {
 				usersService.joinUser(usersDto);
 			} else if (temp.isDeleted()) {
-				System.out.println("살려줘");
 				usersDto.setUserIdx(temp.getUserIdx());
 				usersService.deletedJoinUser(usersDto);
 

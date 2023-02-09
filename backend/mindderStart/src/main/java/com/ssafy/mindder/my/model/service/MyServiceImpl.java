@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
+import com.ssafy.mindder.my.model.FollowerDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.mapper.MyMapper;
@@ -35,7 +36,7 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
-	public List<FollowsDto> findMyFollowers(int userIdx) throws Exception {
+	public List<FollowerDto> findMyFollowers(int userIdx) throws Exception {
 		return sqlSession.getMapper(MyMapper.class).selectMyFollowers(userIdx);
 	}
 	

@@ -1,21 +1,33 @@
 import React, {useState, useEffect} from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Colors16, Emoticons } from "../../redux/reducers";
+import styled from "styled-components";
+
+import LogoWW from "../../assets/images/LogoWW.png"
 
 import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
+import dayjs from 'dayjs';
+
 import api from "../../api/api"
-import CanvasItem from "../../commons/list/CanvasItem";
 
 // 오늘의 캔버스
 const Container = styled.div`
-    margin-top: 0.5rem;
     color: white;
-    width: 22rem;
-    height: 11rem;
+    width: 100vw;
+    height: 11em;
     background-color:#7767FD;
-    border-radius:20px;
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+`;
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
@@ -25,15 +37,13 @@ const Part = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 10rem;
+    justify-content: center;
+    justify-items: center;
+    width: 9.5rem;
 `;
 
 //작은 텍스트 영역
 const SmallContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
     padding-top: 1rem;
 `;
 
@@ -48,13 +58,21 @@ const InitUser = styled.img`
 
 //@@님, 컨버스 기록
 const TextHeader = styled.div`
+    font-weight: 600;
     font-size: 1rem;
 `;
 
 //멘트
 const Text = styled.div`
-    font-size: 0.85rem;
-    margin-bottom: 0.1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.01rem;
+`;
+
+const HeaderLogo = styled.img`
+  background-color:  #7767FD;
+  margin-left: 0.5rem;
+  width: 6rem;
+  height: 2.5rem;
 `;
 
 function TodayCanvas(props) {
@@ -75,12 +93,13 @@ function TodayCanvas(props) {
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/feeds/recent`);
-            console.log(response)
-            setEmoteIdx(response.data.data.emoteIdx);
-            setEmoteColorTag(response.data.data.emoteColorTag);
-            setUpdateDate(response.data.data.updateDate);
-            setBase64(response.data.data.base64);
-            setExtension(response.data.data.extension);
+            if(response.data.data !== null){
+                setEmoteIdx(response.data.data.emoteIdx);
+                setEmoteColorTag(response.data.data.emoteIdx);
+                setUpdateDate(response.data.data.updateDate);
+                setBase64(response.data.data.base64);
+                setExtension(response.data.data.extension);
+            }
         } catch (e) {
             console.error(e);
             navigate("/error");
@@ -89,38 +108,38 @@ function TodayCanvas(props) {
 
     return (
         <Container>
-            {emoteIdx !== null? 
-            <>
-            <Part>
-                <InitUser src={"data:image/" + extension + ";base64," + base64}/>
-            </Part>
-            <Part>
-                <div>
+                {emoteIdx !== 0? 
+                <>
+                <Part>
+                    <InitUser src={"data:image/" + extension + ";base64," + base64}/>
+                </Part>
+                <Part>
+                        <TextHeader>{nickName} 님,</TextHeader>
+                        <SmallContainer/>
+                        <Text>{dayjs(updateDate).get('y')}년 &nbsp;
+                        {dayjs(updateDate).get('M')+1}월 &nbsp;
+                        {dayjs(updateDate).get('D')}일
+                        </Text>
+                        <Text>캔버스 기록</Text>
+                        <Text>#{Emoticons[emoteIdx].name} &nbsp;
+                        #{Colors16[emoteColorTag].name}</Text>
+                </Part>
+                </>
+                :
+                <>
+                <Part>
+                    <InitUser src={TodayCanvasImg} onClick={() => {navigate("/post")}}/>
+                </Part>
+                <Part>
                     <TextHeader>{nickName}님,</TextHeader>
-                    <TextHeader>캔버스 기록</TextHeader>
                     <SmallContainer>
-                        <Text>{updateDate}</Text>
-                        <Text>#{emoteColorTag}</Text>
-                        <Text>#{emoteIdx}</Text>
+                        <Text>Mindder에서</Text>
+                        <Text>감정을 그려봐요</Text>
                     </SmallContainer>
-                </div>
-            </Part>
-            </>
-            :
-            <>
-            <Part>
-                <InitUser src={TodayCanvasImg} onClick={() => {navigate("/post")}}/>
-            </Part>
-            <Part>
-                <TextHeader>{nickName}님,</TextHeader>
-                <SmallContainer>
-                    <Text>Mindder에서</Text>
-                    <Text>감정을 그려봐요</Text>
-                </SmallContainer>
-            </Part>
-            </>      
-            }
-        </Container>
+                </Part>
+                </>      
+                }
+            </Container>
     );
 }
 
