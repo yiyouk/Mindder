@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
-import com.ssafy.mindder.alarms.model.FcmMessageDto;
+import com.ssafy.mindder.alarms.model.MessageDto;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.MediaType;
@@ -21,7 +21,7 @@ import okhttp3.Response;
 
 @Component 
 @RequiredArgsConstructor
-public class FirebaseCloudMessageService {
+public class FCMService {
 
 	private final String API_URL = "https://fcm.googleapis.com/v1/projects/ssafy8th-mindder/messages:send";
 	private final ObjectMapper objectMapper;
@@ -44,9 +44,9 @@ public class FirebaseCloudMessageService {
 
 	private String makeMessage(String targetToken, String title, String body)
 			throws JsonProcessingException {
-		FcmMessageDto fcmMessage = FcmMessageDto.builder()
-				.message(FcmMessageDto.Message.builder().token(targetToken)
-						.notification(FcmMessageDto.Notification.builder().title(title).body(body).image(null).build())
+		MessageDto fcmMessage = MessageDto.builder()
+				.message(MessageDto.Message.builder().token(targetToken)
+						.notification(MessageDto.Notification.builder().title(title).body(body).image(null).build())
 						.build())
 				.validate_only(false).build();
 

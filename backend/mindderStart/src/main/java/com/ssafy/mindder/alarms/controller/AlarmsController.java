@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.alarms.model.AlarmsDto;
-import com.ssafy.mindder.alarms.model.service.FirebaseCloudMessageService;
+import com.ssafy.mindder.alarms.model.service.FCMService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/alarms")
 public class AlarmsController {
 
-	private final FirebaseCloudMessageService firebaseCloudMessageService;
+	private final FCMService firebaseCloudMessageService;
 
 	@PostMapping()
 	public ApiResponse<?> pushMessage(@RequestBody AlarmsDto alarmsDto) throws IOException {
