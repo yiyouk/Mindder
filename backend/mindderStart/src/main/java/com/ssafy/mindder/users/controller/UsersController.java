@@ -29,6 +29,7 @@ import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.users.model.service.UsersService;
 import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.SHA256;
+import com.ssafy.mindder.util.UnicodeKorean;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -46,7 +47,7 @@ public class UsersController {
 	private FileService fileService;
 	@Autowired
 	private EmailService emailService;
-
+	UnicodeKorean unicodeKorean = new UnicodeKorean();
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
 	@Value("${file.path.upload-files}")
@@ -117,6 +118,7 @@ public class UsersController {
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			usersDto.setUserIdx(idx);
+			usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 			usersService.updateUser(usersDto);
 			return ApiResponse.success(SuccessCode.UPDATE_USER, fileService.findFile(usersDto.getFileIdx(), filePath));
 		} catch (Exception e) {
@@ -236,6 +238,8 @@ public class UsersController {
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
 			usersDto.setPassword(encryPassword);
+			usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+			System.out.println(temp);
 			if (temp == null) {
 				usersService.joinUser(usersDto);
 			} else if (temp.isDeleted()) {

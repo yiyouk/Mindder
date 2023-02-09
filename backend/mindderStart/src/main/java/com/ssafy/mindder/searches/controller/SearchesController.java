@@ -12,6 +12,7 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.searches.model.SearchesDto;
 import com.ssafy.mindder.searches.model.service.SearchesService;
+import com.ssafy.mindder.util.UnicodeKorean;
 
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -20,12 +21,24 @@ import com.ssafy.mindder.searches.model.service.SearchesService;
 public class SearchesController {
 	@Autowired
 	private SearchesService searchesService;
+	UnicodeKorean unicodeKorean = new UnicodeKorean();
 	
 	@GetMapping("/users/{word}")
 	public ApiResponse<?> searchUser(@PathVariable("word") String word){
 		
 		try {
-			return ApiResponse.success(SuccessCode.READ_SEARCHES_USER,searchesService.findUser(word));
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_USER,searchesService.findUser(unicodeKorean.KtoE(word)));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	@GetMapping("/hash/{word}")
+	public ApiResponse<?> searchHash(@PathVariable("word") String word){
+		
+		try {
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,searchesService.findHash(word));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
