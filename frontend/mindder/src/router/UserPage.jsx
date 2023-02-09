@@ -93,11 +93,10 @@ function UserPage(props) {
         setFollower(followwerCount)
         setFollowing(followingCount)
         myFollowing();
+        // getUserFeeds();
         // getUserId();
         // getOthersInfo();
-        // getUserFeeds();
     }, [myIdx])
-    console.log(follower,following)
     
 
     // 로그인 되어 있는 유저의 팔로잉 정보 저장
@@ -166,8 +165,6 @@ function UserPage(props) {
             }
         }
     }
-
-
     
     return (
         <Wrapper>
@@ -185,7 +182,8 @@ function UserPage(props) {
                 }
             </ProfileContainer>
             
-            <UserFollow isMine={isMine} followerCount={follower} followingCount={following}/>
+            {/* isfollowing 팔로잉 여부 넣어주면됨 */}
+            <UserFollow isMine={isMine} followerCount={follower} followingCount={following} isfollowing={''}/>
             {isMine?
                 <UserMenuSub></UserMenuSub>
                 :

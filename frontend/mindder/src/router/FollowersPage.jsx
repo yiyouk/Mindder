@@ -53,15 +53,14 @@ function FollowersPage() {
     const dispatch = useDispatch()
     const followingList = useSelector((state)=>state.USER.followingList)
     const [followerList, setFollowerList] = useState([])
-    // const [followingListState, setFollowingListState] = useState(followingList)
     const userIdx = useParams().userId;
     const myIdx = useSelector((state) => state.USER.myIdx)
-    const followingCount = useSelector((state)=>state.USER.followingCount)
+    const followerCount = useSelector((state)=>state.USER.followerCount)
 
     useEffect(() => {
         // setFollowingListState(followingList)
         getFollowerInfo();
-    }, [followerList])
+    }, [followerCount])
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
