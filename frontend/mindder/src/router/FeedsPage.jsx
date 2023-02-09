@@ -76,7 +76,7 @@ function FeedsPage() {
             const response = await api.get(`/feeds/realtime-feed`);
 
             if(response.data.success){
-                // console.log(response.data.data.Feeds)
+                console.log(response.data.data.Feeds)
                 setRealtimeFeeds(response.data.data.Feeds);
             } else {
                 alert("데이터를 조회하지 못했습니다.");
@@ -111,6 +111,7 @@ function FeedsPage() {
     const getNeighborFeeds = async() => { // async, await을 사용하는 경우
         try {
             const response = await api.get(`/feeds/neighbors`);    
+
             if(response.data.success){
                 setNeighborFeeds(response.data.data.Feeds)
             } else {

@@ -35,7 +35,7 @@ function FollowingPage(props) {
 
     useEffect(() => {
         getFollowingInfo();
-    }, [followingList])
+    }, [])
     
 
     // 내가 팔로잉하는 리스트 받아옴
