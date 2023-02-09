@@ -60,8 +60,13 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> recommendation(int userIdx) {
-		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
+	public List<FeedListDto> recommendation1(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation1(userIdx);
+	}
+
+	@Override
+	public List<FeedListDto> recommendation2(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation2(userIdx);
 	}
 
 	@Override
