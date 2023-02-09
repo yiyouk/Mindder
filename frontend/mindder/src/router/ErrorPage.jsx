@@ -38,7 +38,7 @@ function ErrorPage(props) {
             <IoAlertCircle color="#7767FD" size="130"/>
             <div>요청하신 페이지를 찾을 수 없습니다</div>
             <M/>
-            <Button onClick={() => navigate(-1)}>이전화면</Button>
+            <Button onClick={() => navigate("/")}>홈으로</Button>
         </Wrapper>
     );
 }
