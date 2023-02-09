@@ -231,6 +231,7 @@ public class UsersController {
 	@PostMapping("/join")
 	public ApiResponse<?> join(@RequestBody UsersDto usersDto) {
 		logger.debug("join - 호출");
+		System.out.println(usersDto);
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
