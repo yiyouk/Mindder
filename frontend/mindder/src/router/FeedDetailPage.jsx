@@ -26,8 +26,8 @@ const Wrapper = styled.div`
 
 const positionFixed = css`
     position: fixed;
-    bottom: 2rem;
-`;
+    bottom: 3rem;
+`
 const positionSticky = css`
     position: sticky;
     bottom: 2rem;

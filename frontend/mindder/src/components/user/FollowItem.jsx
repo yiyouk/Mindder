@@ -7,6 +7,7 @@ import FollowButton from '../../commons/ui/FollowButton';
 import Profile from '../../commons/ui/Profile';
 import ProfileImage from '../../commons/ui/ProfileImage';
 import ProfileName from '../../commons/ui/ProfileName';
+import { SAVE_followingCount } from '../../redux/reducers';
 import { ProfileContainer } from '../../router/UserPage';
 
 const Wrapper = styled.div`
@@ -26,6 +27,8 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followingList, setFollowingList ] = useState([]);
     const dispatch = useDispatch()
+    const followingCount = useSelector((state)=>state.USER.followingCount)
+    const followCount = useSelector((state)=>state.USER.followCount)
 
     useEffect(()=>{
         myFollowing();
@@ -52,6 +55,8 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
         try {
             const response = await api.post(`/my/follows/${userIdx}`);
             setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
+             
+            dispatch(SAVE_followingCount(followingCount-1))
             console.log(response.data)
         } catch (e) {
             console.error(e);
@@ -62,6 +67,7 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
             setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
+            dispatch(SAVE_followingCount(followingCount+1))
             console.log(response.data)
         } catch (e) {
             console.error(e);

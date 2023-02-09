@@ -76,9 +76,11 @@ function FeedsPage() {
             const response = await api.get(`/feeds/realtime-feed`);
 
             if(response.data.success){
-                setRealtimeFeeds(response.data.data);
+                // console.log(response.data.data.Feeds)
+                setRealtimeFeeds(response.data.data.Feeds);
             } else {
                 alert("데이터를 조회하지 못했습니다.");
+                console.log('err')
             }
 
         } catch (e) {
@@ -94,9 +96,10 @@ function FeedsPage() {
             const response = await api.get(`/feeds/popular-feed`);
             
             if(response.data.success){
-                setPopularFeeds(response.data.data)
+                setPopularFeeds(response.data.data.Feeds)
             } else {
                 alert("데이터를 조회하지 못했습니다.");
+                console.log('err')
             }
         } catch (e) {
             console.error(e);
@@ -107,12 +110,12 @@ function FeedsPage() {
     //이웃 데이터 피드 가져오기
     const getNeighborFeeds = async() => { // async, await을 사용하는 경우
         try {
-            const response = await api.get(`/feeds/neighbors`);
-
+            const response = await api.get(`/feeds/neighbors`);    
             if(response.data.success){
-                setNeighborFeeds(response.data.data)
+                setNeighborFeeds(response.data.data.Feeds)
             } else {
                 alert("데이터를 조회하지 못했습니다.");
+                console.log(response.data)
             }
         } catch (e) {
             console.error(e);
