@@ -11,4 +11,5 @@ import com.ssafy.mindder.users.model.UsersDto;
 public interface SearchesMapper {
 	List<UsersDto> searchUser(String word) throws Exception;
 	List<String> searchNomal(String word) throws Exception;
+	List<String> searchHash(String word) throws Exception;
 }
