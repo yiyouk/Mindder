@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
@@ -182,15 +183,15 @@ public class MyController {
 	}
 
 	@ApiOperation(value = "월별 캘린더 조회", notes = "월에 해당하는 캘린더 정보를 반환한다.", response = CalendarDto.class)
-	@GetMapping("/calendars/{month}")
+	@GetMapping("/calendars")
 	public ApiResponse<?> myCalendarList(@RequestHeader("access_token") String accessToken,
-			@PathVariable("month") @ApiParam(value = "월", required = true) int month) {
+			@RequestParam("year") int year, @RequestParam("month") int month) {
 
-		logger.debug("myCalendarList - 호출 : " + month);
+		logger.debug("myCalendarList - 호출 : ");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 
-			List<CalendarDto> calendarList = myService.findMyCalendars(month, userIdx);
+			List<CalendarDto> calendarList = myService.findMyCalendars(year, month, userIdx);
 			for (int i = 0; i < calendarList.size(); i++) {
 				Map<String, String> file = fileService.findFile(calendarList.get(i).getFileIdx(), filePath);
 				calendarList.get(i).setBase64(file.get("base64"));
