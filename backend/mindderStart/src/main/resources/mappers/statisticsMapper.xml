@@ -6,7 +6,7 @@
 	<select id="selectStatistics"
 		resultMap="com.ssafy.resultmaps.recent">
 		SELECT 
-		    e.emote_idx, ec.emote_color_idx, ec.emote_color_tag, e.update_date, ecp.file_idx
+		    e.emote_idx, ec.emote_color_tag, e.update_date, ecp.file_idx
 		FROM
 		    (SELECT 
 		        ANY_VALUE(emote_idx) AS emote_idx, update_date
