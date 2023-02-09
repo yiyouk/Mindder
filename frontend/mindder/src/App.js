@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {
     BrowserRouter,
     Routes,
-    Route
+    Route,
 } from "react-router-dom";
 
 import { getCookie } from "./api/cookie";
@@ -14,6 +14,8 @@ import "./index.css"
 
 // Pages
 import MainLayout from './Layout/MainLayout'
+import NoNaviLayout from './Layout/NoNaviLayout'
+import CommonLayout from './Layout/CommonLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
 import UserPage from './router/UserPage';
@@ -36,6 +38,7 @@ import SearchTagPage from "./router/SearchTagPage";
 import ErrorPage from "./router/ErrorPage";
 
 function App(props) {
+    // const navigate = useNavigate();
     const dispatch = useDispatch()
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
@@ -44,6 +47,7 @@ function App(props) {
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
         } else { //쿠키에 정보가 없으면 tonken 초기화
             dispatch(DELETE_TOKEN());
+            // navigate("/");
         }
     }, [])
 
@@ -69,10 +73,20 @@ function App(props) {
         <BrowserRouter>
                 <Routes>
                     {/* 오직 홈만 */}
-                    <Route path="" element={<MainPage />} />
-
-                    {/* 헤더 필요함 + 공백 */}
                     <Route element={<MainLayout/>}>
+                        <Route path="" element={<MainPage />} />
+                    </Route>
+
+                    {/* 헤더만 필요함 */}
+                    <Route element={<NoNaviLayout/>}>
+                        <Route path="join" element={<JoinPage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="accounts/password/find" element={<PwFindPage />} />
+                        <Route path="error" element={<ErrorPage />} />
+                    </Route>
+
+                    {/* 헤더 필요함 + 하단바 */}
+                    <Route element={<CommonLayout/>}>
                         <Route path=":userId" element={<UserPage />} />
                         <Route path="feeds" element={<FeedsPage />} />
                         <Route path="search" element={<SearchPage />} />
@@ -80,18 +94,14 @@ function App(props) {
                         <Route path="f/:feedIdx" element={<FeedDetailPage />} />
                         <Route path=":userId/followers" element={<FollowersPage />} />
                         <Route path=":userId/following" element={<FollowingPage />} />
-                        <Route path="join" element={<JoinPage />} />
-                        <Route path="login" element={<LoginPage />} />
                         <Route path="accounts/edit" element={<ModifyPage />} />
                         <Route path="post" element={<PostPage />} />
                         <Route path="accounts/password/change" element={<PwChangePage />} />
-                        <Route path="accounts/password/find" element={<PwFindPage />} />
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path="saved" element={<SavedPage />} />
                         <Route path="search/:keyword/nickname" element={<SearchNamePage />} />
                         <Route path="search/:keyword" element={<SearchResPage />} />
                         <Route path="search/:keyword/canvas" element={<SearchTagPage />} />
-                        <Route path="error" element={<ErrorPage />} />
                     </Route>
                 </Routes>
         </BrowserRouter>
