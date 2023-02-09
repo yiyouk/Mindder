@@ -10,7 +10,6 @@ import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
-import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
@@ -42,7 +41,7 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedsNeighborDto> neighborFeed(int userIdx) throws Exception {
+	public List<FeedListDto> neighborFeed(int userIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).neighborFeed(userIdx);
 	}
 
@@ -61,8 +60,13 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> recommendation(int userIdx) {
-		return sqlSession.getMapper(FeedsMapper.class).recommendation(userIdx);
+	public List<FeedListDto> recommendation1(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation1(userIdx);
+	}
+
+	@Override
+	public List<FeedListDto> recommendation2(int userIdx) {
+		return sqlSession.getMapper(FeedsMapper.class).recommendation2(userIdx);
 	}
 
 	@Override

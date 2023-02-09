@@ -28,7 +28,7 @@
 		where f.user_idx = #{userIdx} and f.is_deleted = 0 and f.is_public = 1;
 	</select>
 	<!-- 팔로워 목록 조회 -->
-	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.follow">
+	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.follower">
 		select f.follow_idx, f.target_user_idx, f.user_idx, u.nickname, u.file_idx
 		from userfollow f 
 		join mainuser u 
@@ -47,7 +47,9 @@
 	<select id="selectMyCalendars" parameterType="int" resultMap="com.ssafy.resultmaps.calendar">
 		select calendar_idx, calendar_date, file_idx, user_idx 
 		from feedcalendar 
-		where user_idx = #{userIdx} and month(calendar_date) = #{month};	
+		where user_idx = #{userIdx} 
+		and year(calendar_date) = #{year} 
+		and month(calendar_date) = #{month};	
 	</select>
 	<!-- 팔로우 검색 -->
 	<select id="selectFollow" parameterType="int" resultType="String">
@@ -63,7 +65,7 @@
 	</delete>
 	<!-- 최근에 쓴 피드의 감정, 색상 조회 -->
 	<select id="selectMyFeedsRecent" parameterType="int" resultMap="com.ssafy.resultmaps.recent">
-		select f.emote_idx, e.emote_color_tag, f.update_date, f.file_idx 
+		select f.emote_idx, e.emote_color_idx, e.emote_color_tag, f.update_date, f.file_idx 
 		from mainfeed f
 		join feedemotecolor e
 		on f.emote_color_idx = e.emote_color_idx

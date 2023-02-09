@@ -23,7 +23,9 @@ public enum SuccessCode {
 
 	// password
 	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
-
+	//searhes
+	READ_SEARCHES_USER(SUCCESS,"유저 검색"),
+	READ_SEARCHES_HASH(SUCCESS,"해쉬 검색"),
 	// feeds
 	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
 	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
