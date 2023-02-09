@@ -30,7 +30,7 @@ public interface MyMapper {
 	public List<FollowsDto> selectMyFollowings(int userIdx) throws SQLException;
 
 	// 월별 캘린더 조회
-	public List<CalendarDto> selectMyCalendars(int month, int userIdx) throws SQLException;
+	public List<CalendarDto> selectMyCalendars(int year, int month, int userIdx) throws SQLException;
 	
 	// 팔로우 검색
 	public String selectFollow(int userIdx, int targetUserIdx) throws SQLException;
