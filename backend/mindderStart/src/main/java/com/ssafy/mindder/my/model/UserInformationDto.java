@@ -13,15 +13,16 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UserInformationDto {
 	
-	int userIdx;
-	String email;
-	String nickname;
-	int fileIdx;
-	int emoteColorIdx;
-	String socialId = null;
-	int followerCount;
-	int followingCount;
-	String base64;
-	String extension;
+	private int userIdx;
+	private String email;
+	private String nickname;
+	private int fileIdx;
+	private int emoteColorIdx;
+	private String socialId = null;
+	private int followerCount;
+	private int followingCount;
+	private boolean followed;
+	private String base64;
+	private String extension;
 	
 }
