@@ -45,8 +45,8 @@ public class MyServiceImpl implements MyService {
 	}
 	
 	@Override
-	public List<CalendarDto> findMyCalendars(int month, int userIdx) throws Exception {
-		return sqlSession.getMapper(MyMapper.class).selectMyCalendars(month, userIdx);
+	public List<CalendarDto> findMyCalendars(int year, int month, int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectMyCalendars(year, month, userIdx);
 	}
 	
 	@Override
