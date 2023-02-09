@@ -21,7 +21,7 @@ public class SearchesController {
 	@Autowired
 	private SearchesService searchesService;
 	
-	@GetMapping("/user/{word}")
+	@GetMapping("/users/{word}")
 	public ApiResponse<?> searchUser(@PathVariable("word") String word){
 		
 		try {
