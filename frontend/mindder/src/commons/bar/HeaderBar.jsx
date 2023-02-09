@@ -9,13 +9,13 @@ const Wrapper = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin: 0.25rem 0;
-    width: 100vw;
+    padding: 0.3rem 0m;
+    width: 95vw;
 `;
 
 const Nick = styled.div`
     color: #404040;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     font-size: 0.9rem;
 `;
 
