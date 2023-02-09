@@ -21,6 +21,8 @@ public enum SuccessCode {
 	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"), READ_FILE_BEAR(SUCCESS, "곰돌이파일 조회 성공"),
 	READ_FILE_BASE64(SUCCESS, "파일 Base64 조회 성공"),
 
+	//searches
+	READ_SEARCHES_USER(SUCCESS,"유저 검색 성공"),
 	// password
 	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
 

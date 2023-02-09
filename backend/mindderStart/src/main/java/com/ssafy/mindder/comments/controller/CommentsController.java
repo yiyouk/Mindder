@@ -100,7 +100,6 @@ public class CommentsController {
 			logger.debug("writeFeeds - 메인 피드 댓글 리스트 불러오는 중 에러 발생");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
-
 	}
 
 }
