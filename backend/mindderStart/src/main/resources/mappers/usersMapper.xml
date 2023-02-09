@@ -32,8 +32,8 @@
 		where nickname =#{nickname}
 	</select>
 	<insert id="joinUser" parameterType="UsersDto">
-		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id)
-		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId})
+		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag)
+		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
 		update mainuser
@@ -42,7 +42,7 @@
 	</update>
 	<update id="updateUser" parameterType="UsersDto">
 		update mainuser
-		set nickname = #{nickname}, emote_color_idx = #{emoteColorIdx},file_idx = #{fileIdx}
+		set nickname = #{nickname}, emote_color_idx = #{emoteColorIdx},file_idx = #{fileIdx},find_tag=#{findTag}
 		where user_idx = #{userIdx}
 	</update>
 	<update id="changePassword" parameterType="UsersDto">
