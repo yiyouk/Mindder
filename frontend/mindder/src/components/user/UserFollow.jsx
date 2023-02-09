@@ -40,7 +40,7 @@ export const CountHere = styled.div`
 `
 
 function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
-    console.log(isMine)
+
     const navigate = useNavigate();
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);

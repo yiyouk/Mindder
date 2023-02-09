@@ -54,7 +54,8 @@ export const ProfileContainer = styled.div`
 
 export const ProfileEditBtn = styled.div`
     width: 1rem;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-right:0.5rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -63,78 +64,32 @@ export const ProfileEditBtn = styled.div`
 function UserPage(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const exProfile = useSelector((state)=>state.USER.profileImg)
-    const exNickname = useSelector((state)=>state.USER.nickName)
-    const followwerCount = useSelector((state)=>state.USER.followerCount)
-    const followingCount = useSelector((state)=>state.USER.followingCount)
 
-    // 회원정보
-    const [profile, setProfile] = useState(""||exProfile);
-    const [nickname, setNickname] = useState(""||exNickname);
-    const [following, setFollowing] = useState(0||followingCount);
-    const [follower, setFollower] = useState(0||followwerCount);
-    const [userFeeds, setUserFeeds] = useState([]);
-
-    // 로그인 되어 있는 유저의 팔로잉 정보
-    const myFollow = useSelector((state)=>state.USER.myFollowing)
-    
-    // 유저 아이디
+    // 내껀지 타인껀지 확인.
+    const [isMine, setIsMine] = useState()
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);
-
-    // const [isFollow, setIsFollow] = useState(myFollow.includes(userIdx));
-    const [isMine, setIsMine] = useState(Boolean(userIdx===myIdx))
-
-    useEffect(() => {
-        getOthersInfo()
-        setIsMine(Boolean(userIdx===myIdx))
-        setProfile(exProfile)
-        setNickname(exNickname)
-        setFollower(followwerCount)
-        setFollowing(followingCount)
-        myFollowing();
-        // getUserFeeds();
-        // getUserId();
-        // getOthersInfo();
-    }, [myIdx])
-    
-
-    // 로그인 되어 있는 유저의 팔로잉 정보 저장
-    const myFollowing = async () => {
-        try {
-            const response = await api.get(`/my/followings/${myIdx}`);
-            const followList = response.data.data.map((a) => a.targetUserIdx);
-            console.log(followList)
-            dispatch(SAVE_followingList(followList))
-        } catch (e) {
-            console.error(e);
-        }
-    }; 
-    
-    // 'myIdx'와 'userIdx' 비교 (같으면? otherUserIdx => null로 / 다르면? otherUseridx에 userIdx 저장)
-    const getUserId = () => {
-        if(userIdx !== myIdx){
-            console.log(userIdx, myIdx)
-            dispatch(SAVE_otherUserIdx(userIdx))
-        } else if(userIdx === myIdx) {
-            dispatch(SAVE_otherUserIdx(null))
+    const userCheck =  () => {
+        if (myIdx && (userIdx===myIdx)){
+            setIsMine(true)        
+        } else if (myIdx && (userIdx!==myIdx)){
+            setIsMine(false)
+        } else {
+            console.log("아직 유저확인이 안됐다")
         }
     }
-
-    // 유저 정보 (닉네임, 팔로잉수, 팔로워수, 프로필이미지)
-    const getOthersInfo = async() => {
+    const getUsersInfo = async() => {
         const response = await api.get(`/my/information/${userIdx}`);
-        console.log(response)
-            setNickname(response.data.data.nickname);
-            setFollowing(response.data.data.followingCount);
-            setFollower(response.data.data.followerCount);
-            setProfile(response.data.data.base64);
+        console.log(response.data.data)
+        setNickname(response.data.data.nickname);
+        setFollowingCount(response.data.data.followingCount);
+        setFollowerCount(response.data.data.followerCount);
+        setProfile(response.data.data.base64);
+        setIsFollowing(response.data.data.followed)
     }
-
-    // 피드 요청
     async function getUserFeeds(){ // async, await을 사용하는 경우
-        if (userIdx !== myIdx){
-            console.log("타인의 피드입니다")
+        if (isMine===false){
+            console.log("타인 페이지 피드목록 조회")
             try {
                 const response = await api.get(`/my/feeds/${userIdx}`, null);
                 console.log(response.data)
@@ -148,8 +103,8 @@ function UserPage(props) {
                 console.error(e);
                 navigate("/error");
             }
-        } else {
-            console.log("내 피드입니다.")
+        } else if (isMine===true) {
+            console.log("내 피드목록 조회")
             try {
                 const response = await api.get(`/my/feeds/`, null);
                 console.log(response.data)
@@ -163,27 +118,47 @@ function UserPage(props) {
                 console.error(e);
                 navigate("/error");
             }
+        } else {
+            console.log("아직 유저확인이 안됐다!")
         }
     }
+
+    useEffect(() => { 
+        // 1. 마이페이지인지 타인인지 확인 후
+        userCheck()
+        // 2. 유저정보랑 피드목록 불러옴.
+        getUsersInfo()
+        getUserFeeds()
+    }, [userIdx, myIdx, isMine])
+
+    // 회원정보
+    const [profile, setProfile] = useState("");
+    const [nickname, setNickname] = useState("Mindder...");
+    const [followingCount, setFollowingCount] = useState('..');
+    const [followerCount, setFollowerCount] = useState('..');
+    const [userFeeds, setUserFeeds] = useState([]);
+    const [isFollowing, setIsFollowing] = useState()
     
     return (
         <Wrapper>
             {/* 여기는 유저페이지 */}
             <ProfileContainer>
                 <Profile imgsize="m" namesize="m" name={nickname} userIdx={isMine? myIdx : userIdx} imgSrc={profile}></Profile>
-                { isMine ?
-                    <ProfileEditBtn 
-                        onClick={() => {
-                        navigate("../accounts/edit")
+                { isMine 
+                ?
+                <ProfileEditBtn 
+                    onClick={() => {
+                    navigate("../accounts/edit")
                     }}>
-                        <img src={EditBtn}/>
-                    </ProfileEditBtn>
-                    :null
+                    <img src={EditBtn}/>
+                </ProfileEditBtn>
+                :null
                 }
+                <p>{`나의 페이지 : ${isMine}`}</p>
             </ProfileContainer>
             
             {/* isfollowing 팔로잉 여부 넣어주면됨 */}
-            <UserFollow isMine={isMine} followerCount={follower} followingCount={following} isfollowing={''}/>
+            <UserFollow isMine={isMine} followerCount={followerCount} followingCount={followingCount} isfollowing={isFollowing}/>
             {isMine?
                 <UserMenuSub></UserMenuSub>
                 :
