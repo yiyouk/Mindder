@@ -15,11 +15,11 @@ import { SAVE_followerCount, } from "../redux/reducers";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
-    /* width: 100vw; */
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 `;
 
 export const FollowContainer = styled.div`
@@ -53,19 +53,18 @@ function FollowersPage() {
     const dispatch = useDispatch()
     const followingList = useSelector((state)=>state.USER.followingList)
     const [followerList, setFollowerList] = useState([])
-    const [followingListState, setFollowingListState] = useState(followingList)
+    // const [followingListState, setFollowingListState] = useState(followingList)
     const userIdx = useParams().userId;
     const myIdx = useSelector((state) => state.USER.myIdx)
     const followingCount = useSelector((state)=>state.USER.followingCount)
 
     useEffect(() => {
-        setFollowingListState(followingList)
+        // setFollowingListState(followingList)
         getFollowerInfo();
-    }, [])
+    }, [followerList])
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
-        
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
             console.log(response.data)
@@ -93,7 +92,7 @@ function FollowersPage() {
                     navigate(`/${userIdx}/following`)
                 }}>
                     <span>팔로잉</span>
-                    <span>{followingCount} </span>
+                    <span>{followingList.length} </span>
                 </CountHere>
             </Follow>
             </FollowContainer>
@@ -101,7 +100,7 @@ function FollowersPage() {
                     <div>팔로우 목록이 존재하지 않습니다.</div>
                 ):(
                     followerList.map((myFollower, idx) => (
-                        <FollowItem userIdx={myFollower.userIdx} followStatus={followingListState.includes(myFollower.userIdx)} nickname={myFollower.nickname} key={idx} imgSrc={myFollower.base64}></FollowItem>
+                        <FollowItem userIdx={myFollower.userIdx} followStatus={followingList.includes(myFollower.userIdx)} nickname={myFollower.nickname} key={idx} imgSrc={myFollower.base64}></FollowItem>
                     ))
                 )}
         </Wrapper>
