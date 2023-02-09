@@ -33,7 +33,7 @@
 	</select>
 	<insert id="joinUser" parameterType="UsersDto">
 		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id)
-		value(#{email},#{nickname},#{password},now(),#{emoteColor},#{socialId})
+		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
 		update mainuser
@@ -77,7 +77,7 @@
 	</select>
 	<update id="deletedJoinUser" parameterType="UsersDto">
 		update mainuser
-		set email = #{email},nickname=#{nickname},password=#{password},create_date = now(),emote_color_idx = #{emoteColor},social_id = #{socialId},is_deleted = 0, update_date = now()
+		set email = #{email},nickname=#{nickname},password=#{password},create_date = now(),emote_color_idx = #{emoteColorIdx},social_id = #{socialId},is_deleted = 0, update_date = now()
 		where user_idx = #{userIdx}
 	</update>
 </mapper>
