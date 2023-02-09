@@ -20,5 +20,9 @@ public class SearchesServiceImpl implements SearchesService {
 		return new SearchesDto(searchesMapper.searchUser(word),
 				searchesMapper.searchNomal(word));
 	}
+	@Override
+	public List<UsersDto> findUser(String word) throws Exception {
+		return searchesMapper.searchUser(word);
+	}
 
 }
