@@ -1,8 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
 import { useSelector } from "react-redux";
+import { Colors16, Emoticons } from "../../redux/reducers";
+import styled from "styled-components";
+
+import LogoP from "../../assets/images/LogoP.png"
 
 const Wrapper = styled.div`
     background-color: white;
@@ -14,9 +16,13 @@ const Wrapper = styled.div`
 `;
 
 const Nick = styled.div`
-    color: #404040;
-    padding-right: 0.5rem;
     font-size: 0.9rem;
+    padding-right: 0.5rem;
+`;
+
+const HeaderLogo = styled.img`
+  width: 6rem;
+  height: 2.5rem;
 `;
 
 function TopBar(props) {
@@ -25,7 +31,7 @@ function TopBar(props) {
 
   return (
     <Wrapper>
-      <div className="headerLogo" onClick={() => {navigate("/");}}></div>
+      <HeaderLogo src={LogoP} onClick={() => {navigate("/");}}/>
       {NickName ==="" ? null : <Nick> {NickName} 님 </Nick>}
     </Wrapper>
   )
