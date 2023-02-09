@@ -68,6 +68,12 @@
 		<result column="target_user_idx" property="targetUserIdx" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
+	<resultMap type="FollowerDto" id="follower">
+		<result column="follow_idx" property="followIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="target_user_idx" property="targetUserIdx" />
+		<result column="file_idx" property="fileIdx" />
+	</resultMap>
 	<resultMap type="FeedsBearDto" id="bear">
 		<result column="emote_idx" property="emoteIdx" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
