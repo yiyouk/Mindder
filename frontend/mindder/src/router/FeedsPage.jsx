@@ -56,6 +56,7 @@ function FeedsPage() {
         getRealtimeFeeds()
         getPopularFeeds();
         getNeighborFeeds();
+        setLevel(0);
     }, [])
 
     //컴포넌트 바꿔치기
@@ -75,12 +76,10 @@ function FeedsPage() {
         try {
             const response = await api.get(`/feeds/realtime-feed`);
 
-            if(response.data.success){
-                console.log(response.data.data.Feeds)
+            if (response.data.success){
                 setRealtimeFeeds(response.data.data.Feeds);
             } else {
-                alert("데이터를 조회하지 못했습니다.");
-                console.log('err')
+                alert("실시간 피드를 조회하지 못했습니다.");
             }
 
         } catch (e) {
@@ -95,11 +94,10 @@ function FeedsPage() {
         try {
             const response = await api.get(`/feeds/popular-feed`);
             
-            if(response.data.success){
+            if (response.data.success){
                 setPopularFeeds(response.data.data.Feeds)
             } else {
-                alert("데이터를 조회하지 못했습니다.");
-                console.log('err')
+                alert("인기 피드를 조회하지 못했습니다.");
             }
         } catch (e) {
             console.error(e);
@@ -115,8 +113,7 @@ function FeedsPage() {
             if(response.data.success){
                 setNeighborFeeds(response.data.data.Feeds)
             } else {
-                alert("데이터를 조회하지 못했습니다.");
-                console.log(response.data)
+                alert("이웃 피드를 조회하지 못했습니다.");
             }
         } catch (e) {
             console.error(e);
@@ -152,8 +149,11 @@ function FeedsPage() {
                     return(
                         <Box key={index}>  
                             <Container>
-                                {recentFeeds.data.length === 0 ? recentFeeds.comment2 : recentFeeds.comment}
-                                {recentFeeds.data.length === 0 ? null:<FiPlusCircle color="#7767FD" size="20" style={{position:'relative', left:'0.3rem'}} onClick={() => {onClick(recentFeeds.id)}}/>}
+                                {recentFeeds.data.length === 0 ? recentFeeds.comment2 :
+                                <>
+                                    {recentFeeds.comment}
+                                    <FiPlusCircle color="#7767FD" size="20" style={{position:'relative', left:'0.3rem'}} onClick={() => {onClick(recentFeeds.id)}}/>
+                                </>}
                             </Container>
                             {recentFeeds.data.length === 0 ? <Dum src={blank}/> : <CanvasList size="s" up={false} list={recentFeeds.data.slice(0,3)}/>}
                         </Box>

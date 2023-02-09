@@ -41,8 +41,8 @@ const sizes = {
 
     // 추천피드
     "s": {
-        height: '7rem',
-        width: '7rem',
+        height: '6.5em',
+        width: '6.5em',
     },
 
     // 크롤링이미지
@@ -60,12 +60,11 @@ CanvasItem.defaultProps = {
 //////////////
 
 const Wrapper = styled.div`
-  border: 0.01rem solid rgba(219, 219, 219, 0.3);
+  border: 0.02rem solid rgba(219, 219, 219, 0.3);
   border-radius: 4px;
   position: relative;
   cursor: pointer;
   box-shadow: 0.1rem 0.1rem 0.1rem rgba(194, 194, 194, 0.3);
-  
   margin: 0.2rem;
 `
 
