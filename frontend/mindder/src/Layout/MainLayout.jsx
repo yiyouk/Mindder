@@ -1,33 +1,33 @@
-import NaviBar from '../commons/bar/NaviBar';
-import HeaderBar from "../commons/bar/HeaderBar";
 import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
+import { useSelector} from "react-redux";
 
 const Bodysuit = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5em 0em 0em 0em;
+    background-color:  #7767FD;
+    width: 100vw;
+    height: 100vh;
 `;
 
-const Body = styled.div`
-    padding: 1em 0 1.2em 0;
-    height: 80vh;
+const Bodysuit2 = styled.div`
     width: 100vw;
-    display: flex;
-    justify-content: center;
-    overflow:scroll;
-`
+    height: 100vh;
+`;
 
 const MainLayout =()=>{
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
+
     return(
-        <Bodysuit>
-            <HeaderBar/>
-            <Body>
+        <>
+            {isLoggedIn ? 
+            <Bodysuit2>
                 <Outlet/>
-            </Body>
-            <NaviBar/>
-        </Bodysuit>
+            </Bodysuit2>
+            :
+            <Bodysuit>
+                <Outlet/>
+            </Bodysuit> 
+            }
+        </>
     )
 
 }

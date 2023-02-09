@@ -34,10 +34,12 @@ const SmallContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    padding-top: 1rem;
 `;
 
 //없을때 사진
 const InitUser = styled.img`
+    background-color: white;
     border-radius: 1rem;
     height: 8.5rem;
     width: 8.5rem;
@@ -46,13 +48,12 @@ const InitUser = styled.img`
 
 //@@님, 컨버스 기록
 const TextHeader = styled.div`
-    font-size: 1.2rem;
-    padding-bottom: 1rem;
+    font-size: 1rem;
 `;
 
 //멘트
 const Text = styled.div`
-    font-size: 1rem;
+    font-size: 0.85rem;
     margin-bottom: 0.1rem;
 `;
 
@@ -62,7 +63,8 @@ function TodayCanvas(props) {
     const [emoteIdx, setEmoteIdx] = useState(0);
     const [emoteColorTag, setEmoteColorTag] = useState(0);
     const [updateDate, setUpdateDate] = useState("");
-    const [list, setList] = useState([]);
+    const [base64, setBase64] = useState("");
+    const [extension, setExtension] = useState("");
 
   //정보 가져오기
     useEffect(()=>{
@@ -73,14 +75,12 @@ function TodayCanvas(props) {
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/feeds/recent`);
-            setEmoteIdx(response.data.emoteIdx);
-            setEmoteColorTag(response.data.emoteColorTag);
-            setUpdateDate(response.data.updateDate);
-            setList([{
-                feedIdx: response.data.feedIdx,
-                base64: response.data.base64,
-                extension: response.data.extension
-            }])
+            console.log(response)
+            setEmoteIdx(response.data.data.emoteIdx);
+            setEmoteColorTag(response.data.data.emoteColorTag);
+            setUpdateDate(response.data.data.updateDate);
+            setBase64(response.data.data.base64);
+            setExtension(response.data.data.extension);
         } catch (e) {
             console.error(e);
             navigate("/error");
@@ -89,18 +89,19 @@ function TodayCanvas(props) {
 
     return (
         <Container>
-            {updateDate ? 
+            {emoteIdx !== null? 
             <>
             <Part>
-                <CanvasItem size="ms" list={list} up={false}/>
+                <InitUser src={"data:image/" + extension + ";base64," + base64}/>
             </Part>
             <Part>
                 <div>
-                    <TextHeader>{nickName}님, 캔버스 기록</TextHeader>
+                    <TextHeader>{nickName}님,</TextHeader>
+                    <TextHeader>캔버스 기록</TextHeader>
                     <SmallContainer>
-                        <Text>{emoteIdx}</Text>
+                        <Text>{updateDate}</Text>
                         <Text>#{emoteColorTag}</Text>
-                        <Text>#{updateDate}</Text>
+                        <Text>#{emoteIdx}</Text>
                     </SmallContainer>
                 </div>
             </Part>
