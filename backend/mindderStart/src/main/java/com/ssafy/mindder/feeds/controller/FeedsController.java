@@ -33,7 +33,6 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
-import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsPageDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
@@ -166,7 +165,7 @@ public class FeedsController {
 			int total = feedsService.neighborFeedCount(criteria);
 			int userIdx = jwtService.getUserIdx(accessToken);
 
-			List<FeedsNeighborDto> neighborList = feedsService.neighborFeed(userIdx);
+			List<FeedListDto> neighborList = feedsService.neighborFeed(userIdx);
 
 			// 이미지 관련 코드 -> 이게 맞나,,,?
 			for (int i = 0; i < neighborList.size(); i++) {
