@@ -11,6 +11,7 @@
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
 		<result column="file_idx" property="fileIdx" />
+		<result column="find_tag" property="findTag" />
 	</resultMap>
 	<resultMap type="UserInformationDto" id="userInformation">
 		<result column="user_idx" property="userIdx" />
