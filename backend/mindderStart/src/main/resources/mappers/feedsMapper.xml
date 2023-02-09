@@ -118,9 +118,9 @@
    
    
    <!-- 메인 페이지 추천 피드 리스트 반환 -->
-   <select id="recommendation" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
+   <select id="recommendation1" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
  	select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
- 	(select nickname from mainuser where user_idx=#{userIdx})as 'nickname',
+ 	(select nickname from mainuser where user_idx=f.user_idx)as 'nickname',
    (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
    (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
    from 
@@ -130,7 +130,7 @@
       where (
          select emote_color_idx
          from mainfeed 
-         where user_idx= #{userIdx}
+         where user_idx= #{userIdx} and is_deleted = 0 and is_public=1
          order by update_date DESC
          limit 1
          ) = emote_color_idx and user_idx != #{userIdx} and is_deleted = 0 and is_public=1
@@ -140,6 +140,21 @@
    order by f.feed_hit DESC
    </select>
    
+
+     <!-- 회원가입 직후 메인 페이지 추천 피드글 보여주기 (회원가입 시 선택했던 색을 바탕으로 추천 )-->
+	<select id="recommendation2" parameterType="int"  resultMap="com.ssafy.resultmaps.feedList">
+	   select f.feed_idx, f.user_idx ,f.file_idx,
+	(select nickname from mainuser u where u.user_idx=f.user_idx) as 'nickname',
+	(select count(*) from feedcomment c where c.feed_idx=f.feed_idx) as'comment_count',
+	(select count(*) from feedlike l where l.feed_idx= f.feed_idx) as 'like_total_count'
+	from mainfeed f join 
+		(select f.feed_idx, f.file_idx
+		from mainfeed f join mainuser u on f.emote_color_idx=u.emote_color_idx
+		where u.user_idx=#{userIdx}) as m1
+	on f.feed_idx=m1.feed_idx
+   </select>
+  
+  
    
    <!-- 주간 작성된 피드 인기 글 리스트로 조회   -->
    <!-- 현재일 기준으로 +7일 hit글 높은 순으로 조회 -->
@@ -231,5 +246,7 @@ from (select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_coun
    
    </select>
    
+   
+
    
 </mapper>
