@@ -39,27 +39,28 @@ export const CountHere = styled.div`
     justify-content:center;
 `
 
-function UserFollow({isMine, follower, following, data}) {
+function UserFollow({isMine, followerCount, followingCount, data}) {
+    console.log(followerCount, followingCount)
     const navigate = useNavigate();
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followers, setFollowers ] = useState(0);
     const [ followings, setFollowings ] = useState(0);
     const [ isFollow, setIsFollow ] = useState(data);
-    const [ followersCount, setFollowersCount ] = useState('...');
-    const [ followingsCount, setFollowingsCount ] = useState('...');
+    // const [ followersCount, setFollowersCount ] = useState('...' ||followerCount);
+    // const [ followingsCount, setFollowingsCount ] = useState('...'||followingCount);
     const [ followingList, setFollowingList ] = useState([]);
 
     useEffect(()=>{
-        getFollowerInfo()
-        getFollowingInfo()
+        // getFollowerInfo()
+        // getFollowingInfo()
     },[])
 
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
             console.log(response.data)
-            setFollowersCount(response.data.data.length);
+            // setFollowersCount(response.data.data.length);
         } catch (e) {
             console.error(e);
         }
@@ -69,7 +70,7 @@ function UserFollow({isMine, follower, following, data}) {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
             console.log(response.data)
-            setFollowingsCount(response.data.data.length);
+            // setFollowingsCount(response.data.data.length);
         } catch (e) {
             console.error(e);
         }
@@ -124,7 +125,7 @@ function UserFollow({isMine, follower, following, data}) {
                     navigate(`/${userIdx}/followers`)
                 }}>
                     <span>팔로워</span>
-                    <span>{followersCount} </span>
+                    <span>{followerCount} </span>
                 </CountHere>
                 <CountHere onClick={()=>{
                     isMine?
@@ -133,7 +134,7 @@ function UserFollow({isMine, follower, following, data}) {
                     navigate(`/${userIdx}/following`)
                 }}>
                     <span>팔로잉</span>
-                    <span>{followingsCount} </span>
+                    <span>{followingCount} </span>
                 </CountHere>
             </Follow>
         </Wrapper>
