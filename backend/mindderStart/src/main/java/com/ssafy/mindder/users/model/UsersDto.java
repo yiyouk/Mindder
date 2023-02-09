@@ -21,4 +21,5 @@ public class UsersDto {
 	boolean isDeleted;
 	int emoteColorIdx;
 	int fileIdx;
+	String findTag;
 }
