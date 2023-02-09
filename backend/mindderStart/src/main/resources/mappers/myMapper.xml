@@ -47,7 +47,9 @@
 	<select id="selectMyCalendars" parameterType="int" resultMap="com.ssafy.resultmaps.calendar">
 		select calendar_idx, calendar_date, file_idx, user_idx 
 		from feedcalendar 
-		where user_idx = #{userIdx} and month(calendar_date) = #{month};	
+		where user_idx = #{userIdx} 
+		and year(calendar_date) = #{year} 
+		and month(calendar_date) = #{month};	
 	</select>
 	<!-- 팔로우 검색 -->
 	<select id="selectFollow" parameterType="int" resultType="String">
