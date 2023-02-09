@@ -80,8 +80,10 @@ public class MyController {
 		try {
 			UserInformationDto userDto = myService.findUser(targetUserIdx);
 			int userIdx = jwtService.getUserIdx(accessToken);
-			if (myService.findFollow(userIdx, targetUserIdx) != null) {
-				userDto.setFollowed(true);
+			if (targetUserIdx != userIdx) {
+				if (myService.findFollow(userIdx, targetUserIdx) != null) {
+					userDto.setFollowed(true);
+				}
 			}
 			Map<String, String> file = fileService.findFile(userDto.getFileIdx(), filePath);
 			userDto.setBase64(file.get("base64"));
