@@ -4,14 +4,13 @@ import styled from "styled-components";
 import api from '../api/api'
 
 import FollowItem from "../components/user/FollowItem";
-import Follower from "../commons/ui/Follower";
-import Following from "../commons/ui/Following";
 
 import PrevImg from "../assets/images/back.png"
 import { Follow, CountHere } from "../components/user/UserFollow";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SAVE_followerCount, } from "../redux/reducers";
+import { useLocation } from "react-router-dom";
 
 const Wrapper = styled.div`
     /* padding: 16px; */
@@ -51,16 +50,23 @@ align-self: flex-start;
 function FollowersPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const location = useLocation()
+    const isMine = location.state.status
+    const followerCount = location.state.followerCount
+    const followingCount = location.state.followingCount
+    console.log(location.state)
+    const [ followers, setFollowers ] = useState(".." || followerCount);
+    const [ followings, setFollowings ] = useState(".." || followingCount);
     const followingList = useSelector((state)=>state.USER.followingList)
     const [followerList, setFollowerList] = useState([])
     const userIdx = useParams().userId;
     const myIdx = useSelector((state) => state.USER.myIdx)
-    const followerCount = useSelector((state)=>state.USER.followerCount)
 
     useEffect(() => {
-        // setFollowingListState(followingList)
+        setFollowers(followerCount)
+        setFollowings(followingCount)
         getFollowerInfo();
-    }, [followerCount])
+    }, [location])
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
@@ -69,29 +75,33 @@ function FollowersPage() {
             console.log(response.data)
             setFollowerList(response.data.data);
             dispatch(SAVE_followerCount(response.data.data.length))
-            console.log(response.data.data.length)
         } catch (e) {
             console.error(e);
         }
     }
     
+    const onClick = (path) => {
+        if (isMine) {
+            navigate(`/${myIdx}/${path}`, {state:{
+                status:isMine, followerCount:followers, followingCount:followings}}) 
+        } else {
+            navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followers, followingCount:followings}})
+        }
+
+    }
 
     return (
         <Wrapper>
             <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
             <Follow>
-                <CountHere onClick={()=>{
-                    navigate(`/${userIdx}/followers`)
-                }}>
+                <CountHere onClick={()=>{onClick("followers")}}>
                     <span>팔로워</span>
-                    <span>{followerList.length || "..."} </span>
+                    <span>{followers} </span>
                 </CountHere>
-                <CountHere onClick={()=>{
-                    navigate(`/${userIdx}/following`)
-                }}>
+                <CountHere onClick={()=>{onClick("following")}}>
                     <span>팔로잉</span>
-                    <span>{followingList.length} </span>
+                    <span>{followings} </span>
                 </CountHere>
             </Follow>
             </FollowContainer>
@@ -99,7 +109,13 @@ function FollowersPage() {
                     <div>팔로우 목록이 존재하지 않습니다.</div>
                 ):(
                     followerList.map((myFollower, idx) => (
-                        <FollowItem userIdx={myFollower.userIdx} followStatus={followingList.includes(myFollower.userIdx)} nickname={myFollower.nickname} key={idx} imgSrc={myFollower.base64}></FollowItem>
+                        <FollowItem 
+                        userIdx={myFollower.userIdx} 
+                        followStatus={myFollower.followed} 
+                        nickname={myFollower.nickname} 
+                        imgSrc={myFollower.base64}
+                        key={idx} 
+                        />
                     ))
                 )}
         </Wrapper>
