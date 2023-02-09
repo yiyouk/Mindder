@@ -9,7 +9,6 @@ import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
-import com.ssafy.mindder.feeds.model.FeedsNeighborDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 
@@ -42,7 +41,7 @@ public interface FeedsMapper {
 	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws SQLException;
 
 	// 사용자 이웃 피드 목록 조회
-	public List<FeedsNeighborDto> neighborFeed(int userIdx) throws SQLException;
+	public List<FeedListDto> neighborFeed(int userIdx) throws SQLException;
 
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws SQLException;
@@ -57,7 +56,9 @@ public interface FeedsMapper {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 추천 피드 목록 조회
-	public List<FeedListDto> recommendation(int userIdx);
+	public List<FeedListDto> recommendation1(int userIdx);
+
+	public List<FeedListDto> recommendation2(int userIdx);
 
 	// 주간 인기글 리스트 조회
 	public List<FeedListDto> popularFeed(Criteria criteria);

@@ -10,6 +10,7 @@
 		<result column="is_deleted" property="isDeleted" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
+		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="UserInformationDto" id="userInformation">
 		<result column="user_idx" property="userIdx" />
@@ -52,6 +53,7 @@
 		<result column="nickname" property="nickname" />
 		<result column="text" property="feedComment" />
 		<result column="update_date" property="updateDate" />
+		<result column="file_idx" property="fileIdx" />
 		<result column="user_idx" property="userIdx" />
 	</resultMap>
 	<resultMap type="CalendarDto" id="calendar">
@@ -66,6 +68,12 @@
 		<result column="target_user_idx" property="targetUserIdx" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
+	<resultMap type="FollowerDto" id="follower">
+		<result column="follow_idx" property="followIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="target_user_idx" property="targetUserIdx" />
+		<result column="file_idx" property="fileIdx" />
+	</resultMap>
 	<resultMap type="FeedsBearDto" id="bear">
 		<result column="emote_idx" property="emoteIdx" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
@@ -73,6 +81,7 @@
 	</resultMap>
 	<resultMap type="FeedsRecentDto" id="recent">
 		<result column="emote_idx" property="emoteIdx" />
+		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="emote_color_tag" property="emoteColorTag" />
 		<result column="update_date" property="updateDate" />
 		<result column="file_idx" property="fileIdx" />

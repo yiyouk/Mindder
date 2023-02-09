@@ -109,6 +109,7 @@ function FeedsPage() {
     const getNeighborFeeds = async() => { // async, await을 사용하는 경우
         try {
             const response = await api.get(`/feeds/neighbors`);    
+
             if(response.data.success){
                 setNeighborFeeds(response.data.data.Feeds)
             } else {

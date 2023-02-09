@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
@@ -24,6 +25,7 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
+import com.ssafy.mindder.my.model.FollowerDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.service.MyService;
@@ -74,15 +76,21 @@ public class MyController {
 
 	@ApiOperation(value = "회원 정보 조회 (타인페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
 	@GetMapping("/information/{userIdx}")
-	ApiResponse<?> otherUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx,
+	ApiResponse<?> otherUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx,
 			@RequestHeader("access_token") String accessToken) {
 		logger.debug("otherUserDetails - 호출");
 		try {
-			UserInformationDto userDto = myService.findUser(userIdx);
-			System.out.println(userDto.getFileIdx());
+			UserInformationDto userDto = myService.findUser(targetUserIdx);
+			int userIdx = jwtService.getUserIdx(accessToken);
+			if (targetUserIdx != userIdx) {
+				if (myService.findFollow(userIdx, targetUserIdx) != null) {
+					userDto.setFollowed(true);
+				}
+			}
 			Map<String, String> file = fileService.findFile(userDto.getFileIdx(), filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
+			
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,8 +148,12 @@ public class MyController {
 
 		logger.debug("myFollowerList - 호출 : " + userIdx);
 		try {
-			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
+			List<FollowerDto> followerList = myService.findMyFollowers(userIdx);
 			for (int i = 0; i < followerList.size(); i++) {
+				int followerUserIdx = followerList.get(i).getUserIdx();
+				if (myService.findFollow(userIdx, followerUserIdx) != null) {
+					followerList.get(i).setFollowed(true);
+				}
 				Map<String, String> file = fileService.findFile(followerList.get(i).getFileIdx(), filePath);
 				followerList.get(i).setBase64(file.get("base64"));
 				followerList.get(i).setExtension(file.get("extension"));
@@ -176,15 +188,15 @@ public class MyController {
 	}
 
 	@ApiOperation(value = "월별 캘린더 조회", notes = "월에 해당하는 캘린더 정보를 반환한다.", response = CalendarDto.class)
-	@GetMapping("/calendars/{month}")
+	@GetMapping("/calendars")
 	public ApiResponse<?> myCalendarList(@RequestHeader("access_token") String accessToken,
-			@PathVariable("month") @ApiParam(value = "월", required = true) int month) {
+			@RequestParam("year") int year, @RequestParam("month") int month) {
 
-		logger.debug("myCalendarList - 호출 : " + month);
+		logger.debug("myCalendarList - 호출 : ");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 
-			List<CalendarDto> calendarList = myService.findMyCalendars(month, userIdx);
+			List<CalendarDto> calendarList = myService.findMyCalendars(year, month, userIdx);
 			for (int i = 0; i < calendarList.size(); i++) {
 				Map<String, String> file = fileService.findFile(calendarList.get(i).getFileIdx(), filePath);
 				calendarList.get(i).setBase64(file.get("base64"));
