@@ -10,15 +10,19 @@ import { useSelector } from "react-redux";
 const Bodysuit = styled.div`
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
+    width: 100vw;
+    height: 100vh;
     padding: 0.5em 0em 0em 0em;
 `;
+
 const Body = styled.div`
-    padding: 1em 0 1.2em 0;
+    padding: 1em 0 3em 0;
     height: 80vh;
-    overflow:scroll;
     width: 100vw;
+    display: flex;
+    justify-content: center;
+    overflow:scroll;
 `
 
 function MainPage(props) {
