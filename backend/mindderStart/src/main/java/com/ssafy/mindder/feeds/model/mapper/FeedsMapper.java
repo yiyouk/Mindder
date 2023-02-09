@@ -56,7 +56,9 @@ public interface FeedsMapper {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 추천 피드 목록 조회
-	public List<FeedListDto> recommendation(int userIdx);
+	public List<FeedListDto> recommendation1(int userIdx);
+
+	public List<FeedListDto> recommendation2(int userIdx);
 
 	// 주간 인기글 리스트 조회
 	public List<FeedListDto> popularFeed(Criteria criteria);
