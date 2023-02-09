@@ -39,14 +39,14 @@ export const CountHere = styled.div`
     justify-content:center;
 `
 
-function UserFollow({isMine, followerCount, followingCount, data}) {
-    console.log(followerCount, followingCount)
+function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
+    console.log(isMine)
     const navigate = useNavigate();
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followers, setFollowers ] = useState(0);
     const [ followings, setFollowings ] = useState(0);
-    const [ isFollow, setIsFollow ] = useState(data);
+    const [ isFollow, setIsFollow ] = useState(isfollowing);
     // const [ followersCount, setFollowersCount ] = useState('...' ||followerCount);
     // const [ followingsCount, setFollowingsCount ] = useState('...'||followingCount);
     const [ followingList, setFollowingList ] = useState([]);
@@ -80,7 +80,7 @@ function UserFollow({isMine, followerCount, followingCount, data}) {
         try {
             const response = await api.post(`/my/follows/${userIdx}`);
             setIsFollow((isFollow) => !isFollow);
-            console.log(response)
+            console.log(response.data)
         } catch (e) {
             console.error(e);
         }
@@ -90,12 +90,11 @@ function UserFollow({isMine, followerCount, followingCount, data}) {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
             setIsFollow((isFollow) => !isFollow);
-            console.log(response)
+            console.log(response.data)
         } catch (e) {
             console.error(e);
         }
     })
-
     
     const handleFollowState = () => {
         if (isFollow) {
@@ -114,7 +113,7 @@ function UserFollow({isMine, followerCount, followingCount, data}) {
                 </SavedButton>
             :
                 <FollowButton  active={isFollow} onClick={handleFollowState} >
-                {isFollow? '팔로잉' : '팔로우'}
+                {isFollow? '언팔로우' : '팔로우'}
                 </FollowButton>
             }
             <Follow>
