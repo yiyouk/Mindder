@@ -6,22 +6,24 @@ import styled from "styled-components";
 import Profile from "../../commons/ui/Profile";
 import CanvasItem from "../../commons/list/CanvasItem";
 
+
 import api from "../../api/api";
+import dayjs from 'dayjs';
 
 const Wrapper = styled.div`
-      align-items: center;
-      justify-content: center;
-      
-
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* border:1px solid black; */
 `;
 
 
+
 const ScrapFeedsItemContainer = styled.div`
-    margin-bottom: 2rem;
+    margin: 1rem 0;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
-    justify-content: center;
 `
 const ProfileContainer = styled.div`
     display: flex;
@@ -32,6 +34,12 @@ const ProfileContainer = styled.div`
        color: grey;
        margin-top: 1rem;
     }
+`
+
+const M = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 function ScrapFeedsList(props){
@@ -46,6 +54,7 @@ function ScrapFeedsList(props){
   const getScrapFeeds = async() => {
       try {
           const response = await api.get(`/scraps/my`);
+          console.log(response)
           if(response.data.success){
               console.log(response.data.data);
               setScrapFeeds(response.data.data)
@@ -58,21 +67,24 @@ function ScrapFeedsList(props){
           console.error(e);
           navigate("/error");
       }
-  }
+    }
+
 return (
 
     <Wrapper>
         { !scrapFeeds || scrapFeeds.length === 0? ( 
-            <div>저장한 글이 없습니다.</div>   
+            <M>
+                <div>저장한 글이 없습니다.</div>   
+            </M>
         ):(
             <>
                 {scrapFeeds.map((feeds, idx) => (
-                    <ScrapFeedsItemContainer>
+                    <ScrapFeedsItemContainer key={idx}>
                         <ProfileContainer>
-                            <Profile imgsize='s' userIdx={feeds.userIdx} namesize='s' name={feeds.nickname}/>
-                            <span>{feeds.updateDate}</span>
+                            <Profile key={idx} imgsize='s' userIdx={feeds.userIdx} namesize='s' name={feeds.nickname}/>
+                            <span>{dayjs(feeds.updateDate).get('year')}년 {dayjs(feeds.updateDate).get('month')}월 {dayjs(feeds.updateDate).get('date')}일</span>
                         </ProfileContainer>
-                        <CanvasItem size='ml' list={feeds} up={true} />
+                        <CanvasItem key={idx} size='ml' list={feeds} up={true} />
                     </ScrapFeedsItemContainer>
                     ))
                 }
