@@ -25,6 +25,7 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
+import com.ssafy.mindder.my.model.FollowerDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.service.MyService;
@@ -147,8 +148,12 @@ public class MyController {
 
 		logger.debug("myFollowerList - 호출 : " + userIdx);
 		try {
-			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
+			List<FollowerDto> followerList = myService.findMyFollowers(userIdx);
 			for (int i = 0; i < followerList.size(); i++) {
+				int followerUserIdx = followerList.get(i).getUserIdx();
+				if (myService.findFollow(userIdx, followerUserIdx) != null) {
+					followerList.get(i).setFollowed(true);
+				}
 				Map<String, String> file = fileService.findFile(followerList.get(i).getFileIdx(), filePath);
 				followerList.get(i).setBase64(file.get("base64"));
 				followerList.get(i).setExtension(file.get("extension"));
