@@ -7,5 +7,11 @@
 		where nickname like CONCAT('%',#{word},'%')
 		limit 5
 	</select>
-	
+	<select id="searchHash" parameterType="String" resultType="String">
+		select hash
+		from nomalhash
+		where hash like CONCAT('%',#{word},'%')
+		group by hash
+		limit 5
+	</select>
 </mapper>
