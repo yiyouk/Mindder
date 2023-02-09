@@ -34,7 +34,7 @@ function Home(props) {
                 <img className="logo" src={Logo}/>
             </div>
             <div className="center-container">
-                <button className="login-btn" onClick={() => {navigate("/login");}}>로그인</button>
+                <div className="login-btn" onClick={() => {navigate("/login");}}>로그인</div>
                 <Lnaver className="pad"/>
                 <div className="naver"><img src={naver_login} style={{width:"10.5rem"}}/></div>
                 <Lnaver className="pad"/>
