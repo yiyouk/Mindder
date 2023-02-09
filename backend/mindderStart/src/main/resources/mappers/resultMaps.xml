@@ -10,6 +10,7 @@
 		<result column="is_deleted" property="isDeleted" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
+		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="UserInformationDto" id="userInformation">
 		<result column="user_idx" property="userIdx" />
