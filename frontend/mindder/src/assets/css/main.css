@@ -7,13 +7,6 @@
     margin: 1rem 3rem 0 3rem;
 }
 
-.headerLogo{
-    width: 7rem;
-    height: 2.5rem;
-    background-image:url("../images/LogoP.png");
-    background-size: 7rem;
-}
-
 .col-12{
     display: flex;
     flex-direction: column;

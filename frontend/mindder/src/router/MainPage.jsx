@@ -4,8 +4,9 @@ import styled from "styled-components";
 import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
 import NaviBar from '../commons/bar/NaviBar';
-import HeaderBar from "../commons/bar/HeaderBar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import LogoWW from "../assets/images/LogoWW.png"
 
 const Bodysuit = styled.div`
     display: flex;
@@ -13,20 +14,35 @@ const Bodysuit = styled.div`
     align-items: center;
     width: 100vw;
     height: 100vh;
-    padding: 0.5em 0em 0em 0em;
 `;
 
 const Body = styled.div`
-    padding: 1em 0 3em 0;
+    padding: 0 0 3em 0;
     height: 80vh;
     width: 100vw;
     display: flex;
     justify-content: center;
-    overflow:scroll;
 `
 
+const Wrapper = styled.div`
+    background-color: #7767FD;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+`;
+
+const HeaderLogo = styled.img`
+    background-color: #7767FD;
+    width: 6rem;
+    height: 2.5rem;
+    padding-left: 0.5rem;
+`;
+
 function MainPage(props) {
-    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
+
     if(!isLoggedIn){
         return (
             <Home></Home>
@@ -34,7 +50,9 @@ function MainPage(props) {
     } else {
         return (
             <Bodysuit>
-                <HeaderBar></HeaderBar>
+                <Wrapper>
+                    <HeaderLogo src={LogoWW}/>
+                </Wrapper>
                 <Body>
                     <LoginHome></LoginHome>
                 </Body>
