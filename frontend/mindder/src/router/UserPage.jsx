@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import api from "../api/api";
-import { SAVE_otherUserIdx } from "../redux/reducers";
-import { SAVE_followingList } from "../redux/reducers";
 
 import UserMenuSub from "../components/user/UserMenuSub";
 import UserFollow from "../components/user/UserFollow";
@@ -137,6 +135,7 @@ function UserPage(props) {
     const [followingCount, setFollowingCount] = useState('..');
     const [followerCount, setFollowerCount] = useState('..');
     const [userFeeds, setUserFeeds] = useState([]);
+    // 내가 지금보는 유저 팔로우했는지 여부
     const [isFollowing, setIsFollowing] = useState()
     
     return (

@@ -2,10 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import api from '../api/api'
-import FollowMenu from "../components/user/FollowMenu";
 import FollowItem from "../components/user/FollowItem";
-import Follower from "../commons/ui/Follower";
-import Following from "../commons/ui/Following";
 import { FollowContainer } from "./FollowersPage";
 import {Prev} from "./FollowersPage";
 import { Follow, CountHere } from "../components/user/UserFollow";
@@ -13,6 +10,7 @@ import { Follow, CountHere } from "../components/user/UserFollow";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SAVE_followingCount, SAVE_followingList } from "../redux/reducers";
+import { useLocation } from "react-router-dom";
 
 
 const Wrapper = styled.div`
@@ -26,17 +24,27 @@ const Wrapper = styled.div`
 `;
 
 function FollowingPage(props) {
+    // useNavigate에서 state로 넘긴 데이터를 받아준다.
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const location = useLocation()
+    const isMine = location.state.status? location.state.status : ''
+    const followingCount = useSelector((state)=>state.USER.followingCount)
+    const followerCount = useSelector((state)=>state.USER.followerCount)
+    console.log(location.state)
+    const [ followers, setFollowers ] = useState(".." || followerCount);
+    const [ followings, setFollowings ] = useState(".." || followingCount);
     const [followingList, setFollowingList] = useState([])
+    // const [isMine, setIsMine] = useState()
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state) => state.USER.myIdx)
-    const followerCount = useSelector((state)=>state.USER.followerCount)
 
     useEffect(() => {
+        // setIsMine(ismine)
+        setFollowers(followerCount)
+        setFollowings(followingCount)
         getFollowingInfo();
-    }, [])
-    
+    }, [location])
 
     // 내가 팔로잉하는 리스트 받아옴
     const getFollowingInfo = async() => {
@@ -45,31 +53,34 @@ function FollowingPage(props) {
             console.log(response.data)
             setFollowingList(response.data.data);
             dispatch(SAVE_followingCount(response.data.data.length))
-            const lst = response.data.data.map((ele)=>ele.targetUserIdx)
-            console.log(lst)
-            dispatch(SAVE_followingList(lst))
         } catch (e) {
             console.error(e);
         }
     }
     // console.log(followingList)
 
+    const onClick = (path) => {
+        if (isMine) {
+            navigate(`/${myIdx}/${path}`, {state:{
+                status:isMine, followerCount:followers, followingCount:followings}}) 
+        } else {
+            navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followers, followingCount:followings}})
+        }
+
+    }
+
     return (
         <Wrapper>
             <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
             <FollowContainer>
             <Follow>
-                <CountHere onClick={()=>{
-                    navigate(`/${userIdx}/followers`)
-                }}>
+                <CountHere onClick={()=>{onClick("followers")}}>
                     <span>팔로워</span>
-                    <span>{followerCount} </span>
+                    <span>{followers} </span>
                 </CountHere>
-                <CountHere onClick={()=>{
-                    navigate(`/${userIdx}/following`)
-                }}>
+                <CountHere onClick={()=>{onClick("following")}}>
                     <span>팔로잉</span>
-                    <span>{followingList.length || "..."} </span>
+                    <span>{followings} </span>
                 </CountHere>
             </Follow>
             </FollowContainer>
@@ -77,7 +88,15 @@ function FollowingPage(props) {
                     <div>팔로잉 목록이 존재하지 않습니다.</div>
                 ):(
                     followingList.map((following, idx) => (
-                        <FollowItem userIdx={following.targetUserIdx} followStatus={true} nickname={following.nickname} key={idx} imgSrc={following.base64}></FollowItem>
+                        <FollowItem 
+                        userIdx={following.targetUserIdx} 
+                        followStatus={true} 
+                        nickname={following.nickname} 
+                        imgSrc={following.base64}
+                        followerCount={followers}
+                        followingCount={followings}
+                        key={idx} 
+                        />
                     ))
                 )}
         </Wrapper>
