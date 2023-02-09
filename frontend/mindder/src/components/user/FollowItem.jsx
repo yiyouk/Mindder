@@ -22,13 +22,13 @@ const Wrapper = styled.div`
 `;
 
 // status : true이면 언팔로우, false이면 팔로우
-function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
+function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, followingCount}) {
     const [followOrUnfollow, setfollowOrUnfollow] = useState(followStatus)
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followingList, setFollowingList ] = useState([]);
     const dispatch = useDispatch()
-    const followingCount = useSelector((state)=>state.USER.followingCount)
-    const followCount = useSelector((state)=>state.USER.followCount)
+    const [ followers, setFollowers ] = useState(".." || followerCount);
+    const [ followings, setFollowings ] = useState(".." || followingCount);
 
     useEffect(()=>{
         myFollowing();
@@ -54,10 +54,8 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
     const followAPI = useCallback(async () => {
         try {
             const response = await api.post(`/my/follows/${userIdx}`);
-            setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
-             
-            dispatch(SAVE_followingCount(followingCount-1))
-            console.log(response.data)
+            setfollowOrUnfollow((followStatus) => !followStatus);
+            setFollowers(followers+1)
         } catch (e) {
             console.error(e);
         }
@@ -66,9 +64,8 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc}) {
     const unFollowAPI = useCallback(async () => {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
-            setfollowOrUnfollow((followOrUnfollow) => !followOrUnfollow);
-            dispatch(SAVE_followingCount(followingCount+1))
-            console.log(response.data)
+            setfollowOrUnfollow((followStatus) => !followStatus);
+            setFollowers(followers-1)
         } catch (e) {
             console.error(e);
         }
