@@ -231,16 +231,13 @@ public class UsersController {
 	@PostMapping("/join")
 	public ApiResponse<?> join(@RequestBody UsersDto usersDto) {
 		logger.debug("join - 호출");
-		System.out.println(usersDto);
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
 			usersDto.setPassword(encryPassword);
-			System.out.println(temp);
 			if (temp == null) {
 				usersService.joinUser(usersDto);
 			} else if (temp.isDeleted()) {
-				System.out.println("살려줘");
 				usersDto.setUserIdx(temp.getUserIdx());
 				usersService.deletedJoinUser(usersDto);
 
