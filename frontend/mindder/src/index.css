@@ -5,6 +5,7 @@ body {
   align-items: center;
   min-height: 100vh; /* 현재 웹스크린의 높이 100%를 최소 높이로 설정 */
   margin: 0;
+  font-family: 'SUIT-Regular';
 }
 
 @media (min-width: 650px) {
@@ -28,3 +29,9 @@ body {
   min-height: 100vh;
 }
 
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
