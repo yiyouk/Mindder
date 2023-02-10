@@ -32,9 +32,6 @@ import PwChangePage from "./router/PwChangePage";
 import PwFindPage from "./router/PwFindPage";
 import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
-import SearchNamePage from "./router/SearchNamePage";
-import SearchResPage from "./router/SearchResPage";
-import SearchTagPage from "./router/SearchTagPage";
 import ErrorPage from "./router/ErrorPage";
 
 function App(props) {
@@ -99,9 +96,6 @@ function App(props) {
                         <Route path="accounts/password/change" element={<PwChangePage />} />
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path="saved" element={<SavedPage />} />
-                        <Route path="search/:keyword/nickname" element={<SearchNamePage />} />
-                        <Route path="search/:keyword" element={<SearchResPage />} />
-                        <Route path="search/:keyword/canvas" element={<SearchTagPage />} />
                     </Route>
                 </Routes>
         </BrowserRouter>
