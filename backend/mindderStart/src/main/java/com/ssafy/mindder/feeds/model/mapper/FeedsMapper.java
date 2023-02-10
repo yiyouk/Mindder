@@ -11,6 +11,7 @@ import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
+import com.ssafy.mindder.feeds.model.HashParserDto;
 
 @Mapper
 public interface FeedsMapper {
@@ -72,5 +73,8 @@ public interface FeedsMapper {
 	public int neighborFeedCount(Criteria criteria);
 
 	public int popularFeedCounting(Criteria criteria);
+
+	// 해시태그 -> 파싱해서 테이블에 저장
+	public int hashTagParser(List<HashParserDto> hashParser);
 
 }

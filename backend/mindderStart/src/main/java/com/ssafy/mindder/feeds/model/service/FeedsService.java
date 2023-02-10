@@ -8,6 +8,7 @@ import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
+import com.ssafy.mindder.feeds.model.HashParserDto;
 
 public interface FeedsService {
 
@@ -47,5 +48,8 @@ public interface FeedsService {
 	public int neighborFeedCount(Criteria criteria);
 
 	public int popularFeedCounting(Criteria criteria);
+
+	// 해시태그 작성 후 #을 기준으로 파싱해서 해시 테이블에 저장
+	public boolean hashTagParser(List<HashParserDto> hashParser);
 
 }
