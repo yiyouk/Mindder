@@ -1,11 +1,15 @@
 FROM node:16 as builder
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json /usr/src/app/package.json
+RUN mkdir /app
+WORKDIR /app
+RUN mkdir ./build
+ADD ./build ./build
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
 RUN npm install --silent
 RUN npm install react-scripts@1.1.1 -g --silent
-COPY . /usr/src/app
+COPY . /app
 RUN npm run build
 
 # production environment
