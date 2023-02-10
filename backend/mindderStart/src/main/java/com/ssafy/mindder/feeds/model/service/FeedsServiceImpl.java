@@ -12,6 +12,7 @@ import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
+import com.ssafy.mindder.feeds.model.HashParserDto;
 import com.ssafy.mindder.feeds.model.mapper.FeedsMapper;
 
 @Service
@@ -22,7 +23,6 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
-
 		sqlSession.getMapper(FeedsMapper.class).writeCalendar(feedsDto);
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
 	}
@@ -97,6 +97,13 @@ public class FeedsServiceImpl implements FeedsService {
 	@Override
 	public int popularFeedCounting(Criteria criteria) {
 		return sqlSession.getMapper(FeedsMapper.class).popularFeedCounting(criteria);
+	}
+
+	@Override
+	public boolean hashTagParser(List<HashParserDto> hashParser) {
+		// 메인피드의 해시태그를 파싱해서 해시 테이블에 저장
+		return sqlSession.getMapper(FeedsMapper.class).hashTagParser(hashParser) == 1;
+
 	}
 
 }
