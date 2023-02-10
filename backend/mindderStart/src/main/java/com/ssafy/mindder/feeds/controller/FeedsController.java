@@ -68,11 +68,11 @@ public class FeedsController {
 	public ApiResponse<?> searchesFeed(@PathVariable("word") String word) {
 		try {
 			List<FeedListDto> neighborList = feedsService.searchesFeed(word);
-//			for (int i = 0; i < neighborList.size(); i++) {
-//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
-//				neighborList.get(i).setBase64(file.get("base64"));
-//				neighborList.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < neighborList.size(); i++) {
+				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+				neighborList.get(i).setBase64(file.get("base64"));
+				neighborList.get(i).setExtension(file.get("extension"));
+			}
 			return ApiResponse.success(SuccessCode.READ_SEARCHE_FEED, neighborList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
