@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Colors16, Emoticons } from "../../redux/reducers";
 import styled from "styled-components";
 
 import LogoP from "../../assets/images/LogoP.png"
@@ -11,7 +10,6 @@ const Wrapper = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 0.3rem 0m;
     width: 95vw;
 `;
 
@@ -22,7 +20,7 @@ const Nick = styled.div`
 
 const HeaderLogo = styled.img`
   width: 6rem;
-  height: 2.5rem;
+  height: 6vh;
 `;
 
 function TopBar(props) {
