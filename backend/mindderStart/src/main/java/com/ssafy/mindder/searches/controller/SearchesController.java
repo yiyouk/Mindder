@@ -1,19 +1,29 @@
 package com.ssafy.mindder.searches.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
-import com.ssafy.mindder.searches.model.SearchesDto;
+import com.ssafy.mindder.feeds.controller.FeedsController;
+import com.ssafy.mindder.searches.model.BooksDto;
 import com.ssafy.mindder.searches.model.service.SearchesService;
 import com.ssafy.mindder.util.UnicodeKorean;
-
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -22,26 +32,61 @@ public class SearchesController {
 	@Autowired
 	private SearchesService searchesService;
 	UnicodeKorean unicodeKorean = new UnicodeKorean();
-	
+	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
+
 	@GetMapping("/users/{word}")
-	public ApiResponse<?> searchUser(@PathVariable("word") String word){
-		
+	public ApiResponse<?> searchUser(@PathVariable("word") String word) {
+
 		try {
-			return ApiResponse.success(SuccessCode.READ_SEARCHES_USER,searchesService.findUser(unicodeKorean.KtoE(word)));
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_USER,
+					searchesService.findUser(unicodeKorean.KtoE(word)));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
+
 	@GetMapping("/hash/{word}")
-	public ApiResponse<?> searchHash(@PathVariable("word") String word){
-		
+	public ApiResponse<?> searchHash(@PathVariable("word") String word) {
+
 		try {
-			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,searchesService.findHash(unicodeKorean.KtoE(word)));
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,
+					searchesService.findHash(unicodeKorean.KtoE(word)));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	@GetMapping("/books")
+	public ApiResponse<?> searchbookList(@RequestHeader("access_token") String accessToken,
+			@RequestParam("keyword") String keyword) {
+
+		logger.debug("searchbookList - 호출");
+		String url = "https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&KeyWord=" + keyword
+				+ "&KeyRecentPublish=0&OutStock=0&ViewType=Detail&SortOrder=2&CustReviewCount=0&CustReviewRank=0&KeyFullWord="
+				+ keyword + "&KeyLastWord=" + keyword
+				+ "&CategorySearch=&chkKeyTitle=&chkKeyAuthor=&chkKeyPublisher=&chkKeyISBN=&chkKeyTag=&chkKeyTOC=&chkKeySubject=&ViewRowCount=25&SuggestKeyWord=";
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(url).get();
+			Elements elements = doc.select("div#Search3_Result div.ss_book_box");
+			List<BooksDto> bookList = new ArrayList<>();
+			for (int i = 0; i < 15; i++) {
+				BooksDto booksDto = new BooksDto();
+				String title = elements.get(i).select("a.bo3").text();
+				String link = elements.get(i).select("a").attr("href");
+				String img = elements.get(i).select("img.front_cover").attr("src");
+				booksDto.setTitle(title);
+				booksDto.setLink(link);
+				booksDto.setImage(img);
+				bookList.add(booksDto);
+			}
+
+			return ApiResponse.success(SuccessCode.READ_BOOK_LIST, bookList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("searchbookList - 도서 목록 조회 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
