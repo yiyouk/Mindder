@@ -84,6 +84,12 @@ public class SearchesController {
 				String title = elements.get(i).select("a.bo3").text();
 				String link = elements.get(i).select("a").attr("href");
 				String img = elements.get(i).select("img.front_cover").attr("src");
+				if (img == "") {
+					img = elements.get(i).select("img.i_cover").attr("src");
+					if (img == "") {
+						img = elements.get(i).select("img").attr("src");
+					}
+				}
 				booksDto.setTitle(title);
 				booksDto.setLink(link);
 				booksDto.setImage(img);
