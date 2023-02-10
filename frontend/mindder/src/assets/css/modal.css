@@ -16,8 +16,8 @@
   }
 
   .modal > section {
-    width: 90%;
-    height: 41%;
+    width: 21.5rem;
+    height: 40%;
     margin: 0 auto;
     border-radius: 0.3rem;
     background-color: #fff;
@@ -54,7 +54,7 @@
   }
 
   .modal > section > textarea{
-    margin: 1rem 0.3rem 0.3rem 0.3rem;
+    margin: 1rem 0.5rem 0.3rem 0.5rem;
     border: none;
     border-bottom: solid 0.6px rgb(231, 231, 231);
   }
