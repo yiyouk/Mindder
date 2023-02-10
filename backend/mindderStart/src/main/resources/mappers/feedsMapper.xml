@@ -109,12 +109,12 @@
    
    <!-- 이웃의 게시글 리스트 -->
    <select id ="neighborFeed" parameterType="int" resultMap="com.ssafy.resultmaps.feedList">
-   	select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count, u.nickname
+   	select f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count, u.nickname,f.update_date f,update_time
          from 
         (
-         select m.feed_idx,m.user_idx, m.file_idx 
+         select m.feed_idx,m.user_idx, m.file_idx , m.update_date, m.update_time
          from mainfeed m,
-            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx} ) f
+            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx}) f
          where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0 and m.user_idx!=#{userIdx}
       ) f 
       left join (
@@ -137,6 +137,7 @@
              group by feed_idx 
         ) as l
                 on f.feed_idx = l.feed_idx 
+		order by update_date DESC, update_time DESC;
    
    
    </select>
