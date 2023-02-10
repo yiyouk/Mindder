@@ -38,7 +38,7 @@ public class SearchesController {
 	public ApiResponse<?> searchHash(@PathVariable("word") String word){
 		
 		try {
-			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,searchesService.findHash(word));
+			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,searchesService.findHash(unicodeKorean.KtoE(word)));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
