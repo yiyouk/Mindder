@@ -8,10 +8,10 @@ function Scraps({myScrap, feedIdx}) {
   const navigate = useNavigate();
   const [scrap, setScrap] = useState(myScrap);
 
-  //정보 가져오기
-  // useEffect(()=>{
-      
-  // }, [scrap])
+ // 정보 가져오기
+  useEffect(()=>{
+    setScrap(myScrap);
+  }, [myScrap])
 
   //스크랩등록
   const scrapRegister = async() => {
@@ -19,8 +19,10 @@ function Scraps({myScrap, feedIdx}) {
       console.log(feedIdx)
       const response = await api.post(`/scraps/${feedIdx}`);
       
-      setScrap(!scrap);
-      console.log(response);
+      if(response.data.success){
+        setScrap(!scrap);
+        console.log(response);
+      }
       
     } catch (e) {
       alert("오류 발생!");
@@ -34,10 +36,10 @@ function Scraps({myScrap, feedIdx}) {
     console.log(feedIdx)
     try {
       const response = await api.delete(`/scraps/${feedIdx}`);
-      
-      setScrap(!scrap);
-      console.log(response);
-      
+      if(response.data.success){
+        setScrap(!scrap);
+        console.log(response);
+      }
     } catch (e) {
       alert("오류 발생!");
       console.error(e);
