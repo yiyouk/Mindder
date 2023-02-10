@@ -72,6 +72,7 @@ public class FeedsController {
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
+
 			int fileIdx = feedsDto.getFileIdx();
 			if (fileIdx == 0) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
@@ -98,10 +99,9 @@ public class FeedsController {
 					index++;
 
 					hashParser.add(hash);
-
 				}
 
-				// System.out.println(hashParser);
+				System.out.println(hashParser);
 				// feedIdx를 기준으로 service에 요청
 				feedsService.hashTagParser(hashParser);
 
@@ -122,7 +122,40 @@ public class FeedsController {
 		logger.info("modifyFeed - 호출 {}", feedsDto);
 		try {
 			// 수정 후에도 네비 페이지 버튼에 머무를 수 있게 설정 -> 아직 구현 안함!
+
 			feedsService.modifyFeed(feedsDto);
+
+			// 만약, 해시태그가 입력된다면 파싱해서 넣어줌
+			if (feedsDto.getNormalTag() != null) {
+				// feedIdx를 가져옴 -> 추후 해시태그 테이블에서 삭제를 하기 위함
+				int feedIdx = feedsDto.getFeedIdx();
+				feedsService.hashTagDelete(feedIdx);
+
+				// 해시태그를 파싱해서 다시 넣어주기 위한 코드
+				List<HashParserDto> hashParser = new ArrayList<>();
+
+				// #을 기준으로 파싱
+				String tmp = feedsDto.getNormalTag();
+				tmp = tmp.substring(1);
+				List<String> normalTag = Arrays.asList(tmp.split("#"));
+
+				int index = 0;
+				for (String s : normalTag) {
+					HashParserDto hash = new HashParserDto();
+					hash.setFeedIdx(feedIdx);
+					String tmp2 = '#' + s;
+					hash.setHash(tmp2);
+					hash.setFind_tag(unicodeKorean.KtoE(tmp2));
+					index++;
+
+					hashParser.add(hash);
+				}
+
+				// System.out.println(hashParser);
+				// feedIdx를 기준으로 service에 요청
+				feedsService.hashTagParser(hashParser);
+			}
+
 			return ApiResponse.success(SuccessCode.UPDATE_MAIN_FEED);
 
 		} catch (Exception e) {

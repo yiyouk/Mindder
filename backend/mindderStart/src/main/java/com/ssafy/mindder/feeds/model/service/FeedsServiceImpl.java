@@ -32,11 +32,15 @@ public class FeedsServiceImpl implements FeedsService {
 		sqlSession.getMapper(FeedsMapper.class).deleteFeedScrap(feedIdx);
 		sqlSession.getMapper(FeedsMapper.class).deleteFeedComment(feedIdx);
 		sqlSession.getMapper(FeedsMapper.class).deleteFeedLike(feedIdx);
+		sqlSession.getMapper(FeedsMapper.class).hashTagDelete(feedIdx);
 		return sqlSession.getMapper(FeedsMapper.class).deleteMainFeed(feedIdx) == 1;
 	}
 
 	@Override
 	public boolean modifyFeed(FeedsUpdateDto boardDto) throws Exception {
+		// 피드글 수정 시 -> 해시태그 테이블에서 관련 idx 태그들을 모두 삭제 후
+
+		// 다시 파싱해서 insert해줘야함
 		return sqlSession.getMapper(FeedsMapper.class).modifyFeed(boardDto);
 	}
 
@@ -104,6 +108,11 @@ public class FeedsServiceImpl implements FeedsService {
 		// 메인피드의 해시태그를 파싱해서 해시 테이블에 저장
 		return sqlSession.getMapper(FeedsMapper.class).hashTagParser(hashParser) == 1;
 
+	}
+
+	@Override
+	public boolean hashTagDelete(int feedIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).hashTagDelete(feedIdx) == 1;
 	}
 
 }

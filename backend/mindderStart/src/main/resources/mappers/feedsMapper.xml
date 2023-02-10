@@ -23,7 +23,6 @@
 </insert>
 
    
-   
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
       insert into feedcalendar 
@@ -39,21 +38,32 @@
    where feed_idx = #{feedIdx};
    </update>
    
-   <update id="deleteFeedLike" parameterType="int">
+   <delete id="deleteFeedLike" parameterType="int">
 	   	   delete from feedlike
 	   where feed_idx=#{feedIdx};
-   </update>
+   </delete>
    
-   <update id="deleteFeedComment" parameterType="int">
+   <delete id="deleteFeedComment" parameterType="int">
    update feedcomment 
    set is_deleted = 1
    where feed_idx = #{feedIdx};
-   </update>
+   </delete>
    
-   <update id="deleteFeedScrap" parameterType="int" >
+   <delete id="deleteFeedScrap" parameterType="int">
 	delete from feedscrap
 	where feed_idx=#{feedIdx};
-   </update>
+   </delete>
+   
+   <!-- 글 삭제 후 해시태그 테이블에서도 삭제 (hard delete)-->
+   <!--
+   	 테이블에서 키값을 이용한 update나 delete만을 허용하도록 되어 있음 
+   	 따라서, 서브쿼리를 이용해서 새로운 테이블을 생성후 조건에 부합한 컬럼명 선택하여 삭제해줌 
+   -->
+	<delete id="hashTagDelete"  parameterType="int">
+	delete from normalhash
+	where hash_idx In (select h.hash_idx from (select * from normalhash where feed_idx=#{feedIdx})as h);
+	
+	</delete>
    
    <!-- 피드글 수정-->
    <update id ="modifyFeed" parameterType="FeedsUpdateDto">
