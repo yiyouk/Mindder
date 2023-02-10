@@ -205,6 +205,7 @@ const initialState = {
   followerCount:null,
   userDrawing:null,
   profileImg:null,
+  customTag:null,
 }
 
 const userStateSlice = createSlice({
@@ -255,6 +256,10 @@ const userStateSlice = createSlice({
       state.userDrawing = action.payload
       console.log(`유저가 그린 그림 : 저장 성공`)
     },
+    SAVE_customTag(state, action){
+      state.customTag = action.payload
+      console.log(`기타 감정 : ${state.customTag}`)
+    },
     // SAVE_profileImgIdx(){
 
     // }
@@ -294,5 +299,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;
