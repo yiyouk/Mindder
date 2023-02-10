@@ -11,7 +11,7 @@ import MyPageImg from "../../assets/images/icon4.png";
 import PostImg from "../../assets/images/icon5.png";
 
 const Wrapper = styled.nav`
-    height: 2.7em;
+    height: 6vh;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
     background-color:white;

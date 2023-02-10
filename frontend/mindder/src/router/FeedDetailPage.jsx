@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled, {css} from "styled-components";
 import {GiPadlock} from "react-icons/gi";
+import { FaCommentDots } from "react-icons/fa";
+
 //비동기 통신
 import api from "../api/api";
 
@@ -14,23 +16,12 @@ import FeedManage from "../components/feed/FeedManage";
 import EmoManage from "../components/feed/EmoManage";
 import Scraps from "../components/feed/Scraps";
 
-
 const Wrapper = styled.div`
     max-width: 21.5rem;
     width: 21.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-`;
-
-const positionFixed = css`
-    position: fixed;
-    bottom: 3rem;
-`
-const positionSticky = css`
-    position: sticky;
-    bottom: 2rem;
 `;
 
 //게시글 사진
@@ -74,14 +65,25 @@ const InputStyled = styled.input`
     `
 
 const Bottom = styled.div`
+    /* position:sticky; */
+    /* bottom:0rem; */
     width: 21em;
     display: flex;
     justify-content: space-between;
-    padding: 0.2rem 0;
+    align-items:flex-end;
+    margin-top: 3rem;
     border-top: solid 0.6px rgb(231, 231, 231);
     background-color: white;
-    ${(props)=>props.scrollEvent? positionSticky : positionFixed};    
+    & > .icon {
+        position:absolute;
+        bottom:5rem;
+        right:1.3rem;
+        /* position:fixed; */
+        /* left:19rem; */
+        /* bottom:0.5rem; */
+    }
 `
+
 
 ///////////////////////컴포넌트 시작/////////////////
 function FeedDetailPage(props) {
@@ -109,10 +111,11 @@ function FeedDetailPage(props) {
     const [myScrap, setMyScrap] = useState(false);
     const [isPublic, setIsPublic] = useState(false);
     const [scrollEvent, setScrollEvent] = useState(false);
+    const [showCommentInput, setShowCommentInput] = useState(false)
 
     const onScroll = () => {
         // 스크롤이 60px 이상 내려가면 트루로 바꿈
-        if (window.scrollY > 10){
+        if (window.scrollY > 60){
             setScrollEvent(true)
         } else {
             setScrollEvent(false)
@@ -211,6 +214,11 @@ function FeedDetailPage(props) {
         setMyLikeType(num);
     }
 
+    const handleCommentInput = () => {
+        setShowCommentInput((showCommentInput=>!showCommentInput))
+        textareaVal.current.scrollIntoView({behavior:'smooth'})
+        console.log(textareaVal)
+    }
     return (
         <Wrapper>
             <SideContainer>
@@ -227,9 +235,10 @@ function FeedDetailPage(props) {
             </SideContainer2>
             <Context emoteIdx={emoteIdx} emoteColorIdx={emoteColorIdx} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
             <CommentList commentCount={commentCount} feedIdx={feedIdx} />
-            <Bottom scrollEvent={scrollEvent}>
-                <TexetAreaStyled ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>
-                <InputStyled type="button" value ="게시"  onClick={uploadComment}/>
+            <Bottom show={showCommentInput}>
+                <TexetAreaStyled className="textInput" ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>
+                <InputStyled className="inputBtn" type="button" value ="게시"  onClick={uploadComment}/>
+                <FaCommentDots className="icon" color=" #7767FD" size="28" onClick={handleCommentInput}/>
             </Bottom>
         </Wrapper>
     );
