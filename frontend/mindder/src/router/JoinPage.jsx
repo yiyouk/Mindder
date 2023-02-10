@@ -18,8 +18,8 @@ function JoinPage(props) {
         if(number >= 1) navigate("/login");
             
     }
-
-    if(number == 0){
+    console.log(email)
+    if(number === 0){
         return (
             <div id ="main">
                 <header>
@@ -31,7 +31,7 @@ function JoinPage(props) {
                 </div>
             </div>
         );
-    } else  if(number == 1) {
+    } else  if(number === 1) {
         return (
             <div id ="main">
             <header>
