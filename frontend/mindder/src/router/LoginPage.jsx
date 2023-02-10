@@ -29,8 +29,6 @@ function LoginPage(props) {
 
     //로그인 시도했을때
     const handleSubmit = e => {
-        console.log(email);
-        console.log(password);
         console.log("로그인 시도")
         if(email === ""){
             alert("이메일을 입력해주세요.");
@@ -87,32 +85,32 @@ function LoginPage(props) {
     
     return (
         <div id="main">
-        <header>
-            <h2>로그인</h2>
-        </header>
-        <form className="box">
-            <div className="col-12">
-                <label htmlFor="email" className="form-label"> 이메일</label>
-                <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}/>
+            <header>
+                <h2> 로그인 </h2>
+            </header>
+            <form className="box">
+                <div className="col-12">
+                    <label htmlFor="email" className="form-label"> 이메일</label>
+                    <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}/>
+                </div>
+                <div className="col-12">
+                    <label htmlFor= "password"className="form-label">비밀번호</label>
+                    <input value={password} type="password" name="password" id="password" placeholder=" 비밀번호" autoComplete="off" onChange={handleChangePw}/>
+                </div>
+                <div className="center-container">
+                    <input className="maincolor-white-btn" type="button" value="로그인" onClick={handleSubmit}/>
+                </div>
+            </form>
+            <div className="right-container">
+                <span className="text-black" onClick={() => {
+                        navigate("/accounts/password/find");
+                    }}>비밀번호 찾기</span> 
+                <span className="text-black">|</span> 
+                <span className="text-black" onClick={() => {
+                        navigate("/join");
+                }}>회원가입</span>
             </div>
-            <div className="col-12">
-                <label htmlFor= "password"className="form-label">비밀번호</label>
-                <input value={password} type="password" name="password" id="password" placeholder=" 비밀번호" onChange={handleChangePw}/>
-            </div>
-            <div className="center-container">
-                <input className="maincolor-white-btn" type="button" value="로그인" onClick={handleSubmit}/>
-            </div>
-        </form>
-        <div className="right-container">
-            <span className="text-black" onClick={() => {
-                      navigate("/accounts/password/find");
-                  }}>비밀번호 찾기</span> 
-            <span className="text-black">|</span> 
-            <span className="text-black" onClick={() => {
-                      navigate("/join");
-            }}>회원가입</span>
         </div>
-    </div>
     );
 }
 
