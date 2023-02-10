@@ -1,14 +1,7 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-// import { ContentsContainer, UsersContainer } from "./SearchResult";
-// import { HeaderBtnContainer } from "./SearchResult";
-// import { Header } from "./SearchResult";
-// import BackIcon from "../../assets/images/back.png";
-// import FollowItem from "../user/FollowItem";
-// import { useNavigate } from "react-router-dom";
-// import { CanvasContainer } from "./SearchResult";
-// import CanvasItem from "../../commons/list/CanvasItem";
-// import FeedsAlbumList from "../feed/FeedsAlbumList";
+
+import api from "../../api/api"
 
 const Wrapper = styled.div`
     /* padding: 0; */
@@ -22,22 +15,32 @@ const Wrapper = styled.div`
 `;
 
 
-function SearchCanvas (props){
+function SearchCanvas ({result}){
   // const navigate = useNavigate()
+    
   
+  //태그에 맞는 결과 보여주기
+    // const searchUsers = async(result) => {
+    //     if(keyword.length >= 1){
+    //         try {
+    //             const response = await api.get(`/searches/users/${keyword}`); 
+    //             if(response.data.success){
+    //                 setNickNameRes(response.data.data);
+    //                 setKind(false);
+    //             } 
+    //             console.log(response.data.data)
+                
+    //         } catch (e) {
+    //             console.error(e);
+    //             navigate("/error");
+    //         }
+    //     } else {
+    //         setNickNameRes([]);
+    //     }
+    // }
   return (
     <Wrapper>
-      {/* <CanvasContainer>
-        <HeaderBtnContainer>
-          <Header>'검색어' 태그를 포함한 캔버스</Header>
-          <button type="button" className="img_btn"
-          onClick={()=>{
-            navigate("/search/:keyword")
-          }}
-          ><img id = "back_btn" src={BackIcon}/></button>
-        </HeaderBtnContainer>
-        <FeedsAlbumList></FeedsAlbumList>
-      </CanvasContainer> */}
+
     </Wrapper>
   )
 }
