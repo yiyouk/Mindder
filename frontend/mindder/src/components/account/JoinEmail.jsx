@@ -6,12 +6,12 @@ import EmailImg from "../../assets/images/email.png"
 //비동기 동신
 import api from "../../api/api";
 
-function JoinEmail(props) {
+function JoinEmail({getData}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailCheck, setEmailCheck] = useState(false); //이메일 중복 완료 여부
   const [inputCode, setInputCode] = useState(""); //사용자 입력 인증 번호
-  const [sendCode, setSendCode] = useState(""); //실제 인증 번호
+  const [sendCode, setSendCode] = useState("0"); //실제 인증 번호
 
 
   //이메일 중복 확인 데이터
@@ -77,9 +77,8 @@ function JoinEmail(props) {
 
   //이메일 번호 인증 확인 클릭시
   const handleEmailCheck = e => {
-    //백엔드 미구현 일단  ok하기 쓰기
     if(inputCode === sendCode){
-      props.getData(email);
+      getData(email);
       alert("이메일 인증이 완료되었습니다.");  
     } else if(!setEmailCheck){
       alert("이메일 중복확인 후 이메일 인증을 완료해주세요.");  
