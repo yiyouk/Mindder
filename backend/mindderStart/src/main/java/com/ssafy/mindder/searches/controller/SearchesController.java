@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
@@ -23,6 +22,7 @@ import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
 import com.ssafy.mindder.searches.model.BooksDto;
 import com.ssafy.mindder.searches.model.service.SearchesService;
+import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.UnicodeKorean;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -31,6 +31,8 @@ import com.ssafy.mindder.util.UnicodeKorean;
 public class SearchesController {
 	@Autowired
 	private SearchesService searchesService;
+	@Autowired
+	private JwtService jwtService;
 	UnicodeKorean unicodeKorean = new UnicodeKorean();
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
@@ -59,16 +61,21 @@ public class SearchesController {
 	}
 
 	@GetMapping("/books")
-	public ApiResponse<?> searchbookList(@RequestHeader("access_token") String accessToken,
-			@RequestParam("keyword") String keyword) {
+	public ApiResponse<?> searchbookList(@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("searchbookList - 호출");
-		String url = "https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&KeyWord=" + keyword
-				+ "&KeyRecentPublish=0&OutStock=0&ViewType=Detail&SortOrder=2&CustReviewCount=0&CustReviewRank=0&KeyFullWord="
-				+ keyword + "&KeyLastWord=" + keyword
-				+ "&CategorySearch=&chkKeyTitle=&chkKeyAuthor=&chkKeyPublisher=&chkKeyISBN=&chkKeyTag=&chkKeyTOC=&chkKeySubject=&ViewRowCount=25&SuggestKeyWord=";
-		Document doc = null;
+		
 		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			String keyword = searchesService.findKeyword(userIdx);
+			if (keyword == null) {
+				keyword = "감성";
+			}
+			String url = "https://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=All&KeyWord=" + keyword
+					+ "&KeyRecentPublish=0&OutStock=0&ViewType=Detail&SortOrder=2&CustReviewCount=0&CustReviewRank=0&KeyFullWord="
+					+ keyword + "&KeyLastWord=" + keyword
+					+ "&CategorySearch=&chkKeyTitle=&chkKeyAuthor=&chkKeyPublisher=&chkKeyISBN=&chkKeyTag=&chkKeyTOC=&chkKeySubject=&ViewRowCount=25&SuggestKeyWord=";
+			Document doc = null;
 			doc = Jsoup.connect(url).get();
 			Elements elements = doc.select("div#Search3_Result div.ss_book_box");
 			List<BooksDto> bookList = new ArrayList<>();
