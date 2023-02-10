@@ -17,6 +17,8 @@ public interface FeedsService {
 	// 피드 삭제
 	public boolean deleteFeed(int feedIdx) throws Exception;
 
+	public boolean hashTagDelete(int feedIdx) throws Exception;
+
 	// 피드 수정
 	public boolean modifyFeed(FeedsUpdateDto feedsDto) throws Exception;
 
