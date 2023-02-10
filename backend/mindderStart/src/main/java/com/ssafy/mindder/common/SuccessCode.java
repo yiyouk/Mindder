@@ -13,19 +13,21 @@ public enum SuccessCode {
 	/*
 	 * 등록/생성: CREATE, 조회: READ, 수정: UPDATE, 삭제/취소: DELETE
 	 */
-	
+
 	// alarms
 	CREATE_PUSH_ALARMS(SUCCESS, "푸시 알림 전송 성공"),
-	
+
 	// file
 	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"), READ_FILE_BEAR(SUCCESS, "곰돌이파일 조회 성공"),
 	READ_FILE_BASE64(SUCCESS, "파일 Base64 조회 성공"),
 
 	// password
 	UPDATE_PASSWORD(SUCCESS, "비밀번호 변경 성공"),
-	//searhes
-	READ_SEARCHES_USER(SUCCESS,"유저 검색"),
-	READ_SEARCHES_HASH(SUCCESS,"해쉬 검색"),
+
+	// searhes
+	READ_SEARCHES_USER(SUCCESS, "유저 검색 성공"), READ_SEARCHES_HASH(SUCCESS, "해쉬 검색 성공"),
+	READ_BOOK_LIST(SUCCESS, "도서 목록 조회 성공"),
+
 	// feeds
 	CREATE_MAIN_FEED(SUCCESS, "메인 피드 글 등록 성공"), UPDATE_MAIN_FEED(SUCCESS, "메인 피드 글 수정 성공"),
 	DELETE_MAIN_FEED(SUCCESS, "메인 피드 글 삭제 성공"), READ_DETAIL_MAIN_FEED(SUCCESS, "메인 피드 글 상세보기 성공"),
@@ -49,7 +51,7 @@ public enum SuccessCode {
 	// scraps
 	CREATE_SCRAP(SUCCESS, "스크랩 등록 성공"), DELETE_SCRAP(SUCCESS, "스크랩 삭제 성공"),
 	READ_MY_SCRAP_LIST(SUCCESS, "내 스크랩 목록 조회 성공"),
-	
+
 	// statistics
 	READ_STATISTICS_LIST(SUCCESS, "통계 조회 성공"),
 
