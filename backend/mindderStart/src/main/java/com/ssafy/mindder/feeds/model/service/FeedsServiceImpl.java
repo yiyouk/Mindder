@@ -106,4 +106,10 @@ public class FeedsServiceImpl implements FeedsService {
 
 	}
 
+	@Override
+	public List<FeedListDto> searchesFeed(String word) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(FeedsMapper.class).searchesFeed(word);
+	}
+
 }

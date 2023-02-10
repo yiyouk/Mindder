@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.mindder.feeds.model.mapper.FeedsMapper">
-   
+    <select id="searchesFeed" parameterType="String" resultMap="com.ssafy.resultmaps.feedList" >
+		select distinct f.feed_idx, f.user_idx, f.file_idx, feed_hit,
+ 		(select nickname from mainuser where user_idx=f.user_idx)as 'nickname',
+   		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+   		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+		from mainfeed f join (SELECT feed_idx FROM normalhash where hash = #{word}) nm on f.feed_idx = nm.feed_idx
+		order by feed_hit desc
+   </select>
    <!-- 공개여부 -> default값은 공개로 -->
    <insert id="writeFeed" parameterType="FeedsDto">
       insert into mainfeed 
