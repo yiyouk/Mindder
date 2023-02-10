@@ -96,7 +96,7 @@ function CommentListItem({getData, commentCount, comment}) {
 
     return (
             <Wrapper>
-                <ProfileImage size = "xs" userIdx={comment.userIdx}></ProfileImage>
+                <ProfileImage base64={comment.base64} extension={comment.extension} size = "xs" userIdx={comment.userIdx}/>
                 <Main>
                     <SideContainer>
                         <CommentInfo>
