@@ -1,6 +1,7 @@
 package com.ssafy.mindder.feeds.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +37,11 @@ import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsPageDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
+import com.ssafy.mindder.feeds.model.HashParserDto;
 import com.ssafy.mindder.feeds.model.service.FeedsService;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.util.JwtService;
+import com.ssafy.mindder.util.UnicodeKorean;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -54,6 +57,7 @@ public class FeedsController {
 	private JwtService jwtService;
 	@Autowired
 	private FileService fileService;
+	private UnicodeKorean unicodeKorean = new UnicodeKorean();
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
 	// 스웨거 테스트를 위한 전역 변수 설정
@@ -73,6 +77,36 @@ public class FeedsController {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
 			}
 			feedsService.writeFeed(feedsDto);
+
+			// 해시태그를 작성했다면 파싱해서 넣어줘야함!
+			if (feedsDto.getNormalTag() != null) {
+				int feedIdx = feedsDto.getFeedIdx();
+				List<HashParserDto> hashParser = new ArrayList<>();
+
+				// #을 기준으로 파싱
+				String tmp = feedsDto.getNormalTag();
+				tmp = tmp.substring(1);
+				List<String> normalTag = Arrays.asList(tmp.split("#"));
+
+				int index = 0;
+				for (String s : normalTag) {
+					HashParserDto hash = new HashParserDto();
+					hash.setFeedIdx(feedIdx);
+					String tmp2 = '#' + s;
+					hash.setHash(tmp2);
+					hash.setFind_tag(unicodeKorean.KtoE(tmp2));
+					index++;
+
+					hashParser.add(hash);
+
+				}
+
+				// System.out.println(hashParser);
+				// feedIdx를 기준으로 service에 요청
+				feedsService.hashTagParser(hashParser);
+
+			}
+
 			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
 		} catch (Exception e) {
 			e.printStackTrace();
