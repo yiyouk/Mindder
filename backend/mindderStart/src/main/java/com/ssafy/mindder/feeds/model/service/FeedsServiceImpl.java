@@ -115,4 +115,10 @@ public class FeedsServiceImpl implements FeedsService {
 		return sqlSession.getMapper(FeedsMapper.class).hashTagDelete(feedIdx) == 1;
 	}
 
+	@Override
+	public List<FeedListDto> searchesFeed(String word) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(FeedsMapper.class).searchesFeed(word);
+	}
+
 }

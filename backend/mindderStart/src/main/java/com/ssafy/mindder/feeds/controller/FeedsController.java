@@ -63,7 +63,22 @@ public class FeedsController {
 	// 스웨거 테스트를 위한 전역 변수 설정
 	@Value("${file.path.upload-files}")
 	private String filePath;
-
+	@GetMapping("/searches/{word}")
+	public ApiResponse<?> searchesFeed(@PathVariable("word") String word ){
+		try {
+			List<FeedListDto> neighborList = feedsService.searchesFeed(word);
+//			for (int i = 0; i < neighborList.size(); i++) {
+//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+//				neighborList.get(i).setBase64(file.get("base64"));
+//				neighborList.get(i).setExtension(file.get("extension"));
+//			}
+			return ApiResponse.success(SuccessCode.READ_SEARCHE_FEED,neighborList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
 	@ApiOperation(value = "메인 피드 글 작성", notes = "새로운 피드의 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = FeedsDto.class)
 	@PostMapping
 	public ApiResponse<?> writeFeeds(@RequestBody FeedsDto feedsDto, @RequestHeader("access_token") String accessToken)

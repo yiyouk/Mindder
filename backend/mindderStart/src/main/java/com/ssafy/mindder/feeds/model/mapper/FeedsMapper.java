@@ -78,5 +78,5 @@ public interface FeedsMapper {
 
 	// 해시태그 -> 파싱해서 테이블에 저장
 	public int hashTagParser(List<HashParserDto> hashParser);
-
+	public List<FeedListDto> searchesFeed(String word)throws SQLException;
 }
