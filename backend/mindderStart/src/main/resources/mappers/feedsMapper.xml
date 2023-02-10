@@ -7,7 +7,22 @@
       insert into mainfeed 
       (update_date,update_time,is_public,main_text,normal_tag,is_deleted, user_idx,emote_idx, emote_color_idx, feed_hit, file_idx)
       values(curdate(), curtime(), #{isPublic},#{mainText}, #{normalTag},0, #{userIdx}, #{emoteIdx},#{emoteColorIdx},0, #{fileIdx})
+    <selectKey keyProperty="feedIdx" resultType="int" order="AFTER">
+          SELECT LAST_INSERT_ID()
+    </selectKey>
    </insert>
+   
+   <!-- 태그 작성 후 #을 기준으로 파싱 -->
+   <insert id="hashTagParser" parameterType="java.util.List">
+    INSERT INTO normalhash
+        (feed_idx, hash, find_tag)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+        (#{item.feedIdx}, #{item.hash},#{item.find_tag})
+    </foreach>
+</insert>
+
+   
    
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
    <insert id="writeCalendar" parameterType="FeedsDto">
