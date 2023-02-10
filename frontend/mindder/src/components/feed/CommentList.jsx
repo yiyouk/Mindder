@@ -17,6 +17,7 @@ const Wrapper = styled.div`
         color: gray;
         margin-bottom: 1rem;
     }
+    /* border:1px solid; */
 `;
 
 function CommentList({feedIdx, commentCount}) {

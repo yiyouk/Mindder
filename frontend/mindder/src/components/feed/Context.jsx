@@ -18,6 +18,7 @@ const Wrapper = styled.div`
     border-bottom: solid 0.6px rgb(231, 231, 231);
     padding-bottom: 0.5rem;
     margin-top: 0.5rem;
+    /* border:1px solid */
 `;
 
 const ContextStyled = styled.div`
