@@ -4,13 +4,13 @@
 	<select id="searchUser" parameterType="String" resultMap="com.ssafy.resultmaps.user">
 		select user_idx ,file_idx, nickname
 		from mainuser
-		where find_tag like CONCAT('%',#{word},'%')
+		where find_tag like CONCAT(#{word},'%')
 		limit 5
 	</select>
 	<select id="searchHash" parameterType="String" resultType="String">
 		select hash
-		from nomalhash
-		where hash like CONCAT('%',#{word},'%')
+		from normalhash
+		where find_tag like CONCAT(#{word},'%')
 		group by hash
 		limit 5
 	</select>
