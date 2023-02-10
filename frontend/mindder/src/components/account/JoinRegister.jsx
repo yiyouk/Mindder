@@ -27,6 +27,8 @@ const ListContainer = styled.span`
   border-radius: 0.3rem;
   border: solid 0.05rem gray;
   position: absolute;
+  top:-3rem;
+  right: 0.1rem;
   display:none;
   ${DropDown}:active & {
     display:grid;
@@ -40,7 +42,6 @@ const ListContainer = styled.span`
 
 const PickColor = styled.div`
     ${colortyles}
-    margin-top: 1rem;
     width: 2rem;
     height: 2rem;
     border: solid 0.01rem rgb(231, 231, 231);
@@ -160,10 +161,10 @@ function JoinRegister({email}) {
       }
 
   return (
-        <form className="box">
+        <div className="box">
             <div className="col-12">
                 <label className="form-label"> 이메일</label>
-                <p> {email} </p>
+                <div className="logo-container"> {email} </div>
             </div>
             <div className="col-12">
                 <label htmlFor="nickname" className="form-label"> 닉네임</label>
@@ -186,7 +187,7 @@ function JoinRegister({email}) {
                 <DropDown>
                     <PickColor mypick = {Colors16[myColor].code}/>
                     <ListContainer>
-                        {Colors16.map((color)=>(
+                        {Colors16.slice(1).map((color)=>(
                             color.id !== 0 ?<ColorStyled mypick={color.code} onClick={()=>handlePickColor(color.id)} key={color.id}/>:null
                         ))} 
                     </ListContainer>
@@ -195,7 +196,7 @@ function JoinRegister({email}) {
             <div className="center-container">
             <input className="maincolor-white-btn" type="button" value="가입하기" onClick={join}/>
             </div>
-        </form>
+        </div>
   )
 }
 
