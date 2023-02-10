@@ -3,8 +3,7 @@ import styled from "styled-components";
 import EmoHeader from "./EmoHeader";
 import TodayEmotion from "./TodayEmotion";
 import EmoColors from "./EmoColors";
-import { Wrapper } from "./PostEmotag";
-import { CardContainer } from "./PostEmotag";
+import { Wrapper,CardContainer,Guitar } from "./PostEmotag";
 import { Colors16, SAVE_todayColor } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,7 +11,8 @@ function PostEmocolor(props){
   const selectedSrc = useSelector((state)=>state.USER.emotagSrc)
   const selectedEmo = useSelector((state)=>state.USER.todayEmotion)
   const dispatch = useDispatch()
-
+  const tagCheck = useSelector((state)=>state.USER.todayEmotion)
+  const userInput = useSelector((state)=>state.USER.customTag)
   const [imgSrc, setImgSrc] = useState(selectedSrc)
 
   const onClick = (e) => {
@@ -22,12 +22,15 @@ function PostEmocolor(props){
     setImgSrc(updatedSrc)
     dispatch(SAVE_todayColor(name))
   }
+
+
   return (
     <Wrapper>
       <EmoHeader text="감정의 색을 채워주세요"/>
       <TodayEmotion
       imgSrc={imgSrc}
       />
+      <Guitar state={true} > {tagCheck==="기타"? userInput:null} </Guitar>
       <CardContainer columnGap={1}>
         {Colors16.slice(1).map((color)=>(
           <div onClick={(e)=>{onClick(e)}} id={color.name} key={color.id}>

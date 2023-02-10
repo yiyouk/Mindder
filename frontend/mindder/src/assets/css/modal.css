@@ -59,6 +59,12 @@
     border-bottom: solid 0.6px rgb(231, 231, 231);
   }
 
+  .modal > section > input{
+    margin: 1rem 0.3rem 0.3rem 0.3rem;
+    border: none;
+    border-bottom: solid 0.6px rgb(231, 231, 231);
+  }
+
   .modal.openModal {
     display: flex;
     align-items: center;
