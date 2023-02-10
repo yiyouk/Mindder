@@ -50,7 +50,7 @@ const Side = styled.div`
 `
 
 
-const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
+const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
   const navigate = useNavigate();
   const [Text, setText] = useState("")
   const [toggle, setToggle] = useState(isPublic);
@@ -63,7 +63,11 @@ const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
 
   //현재 글
   useEffect(()=>{
-      setText(mainText);
+      if(normalTag===null){
+        setText(mainText);
+      }else{
+        setText(mainText + normalTag);
+      }
   }, [open])
 
 
@@ -74,11 +78,18 @@ const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
 
    //댓글 수정하기 비동기 통신
    const modifyPost = async() => { // async, await을 사용하는 경우
+      const getNormalTag = Text.match(/#[^\s#]+/g)
+      const normalTag = getNormalTag ? getNormalTag.join('') : getNormalTag
+
+      const getMainText = Text.replace(/#[^\s#]+/g, '').split(' ').filter(function(item) {
+        return item !== ''})
+      const mainText = getMainText ? getMainText.join(' ') : getMainText
+      
     try {
         const response = await api.patch(`/feeds`,{
           feedIdx: feedIdx,
-          mainText: Text,
-          normalTag: "#바꾸냐고왜",
+          mainText: mainText,
+          normalTag: normalTag,
           public: toggle
         });
         
@@ -103,7 +114,7 @@ const Modal = ({open, close, mainText, feedIdx, isPublic}) => {
           <header>
             글 수정하기
           </header>
-          <textarea cols="44" rows="10" value={Text} onChange={handleText}/>
+          <textarea cols="43" rows="10" value={Text} onChange={handleText}/>
           <Side>
             <Container>
               <Toggle onClick={clickedToggle} toggle={toggle}>
