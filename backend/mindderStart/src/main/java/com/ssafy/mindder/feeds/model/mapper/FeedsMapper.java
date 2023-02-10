@@ -29,6 +29,8 @@ public interface FeedsMapper {
 
 	public int deleteFeedScrap(int feedIdx) throws SQLException;
 
+	public int hashTagDelete(int feedIdx) throws SQLException;
+
 	// 피드 수정
 	public boolean modifyFeed(FeedsUpdateDto boardDto) throws SQLException;
 
