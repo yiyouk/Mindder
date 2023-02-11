@@ -9,14 +9,14 @@ import { Colors16 } from "../../redux/reducers";
 
 
 const Wrapper = styled.div`
-    width: calc(100% - 1rem);
+    /* width: calc(100% - 1rem);
     height:31rem;
-    display: grid;
+    display: grid; */
     /* flex-direction:column; */
     /* justify-content:center; */
     /* align-items:center; */
-    margin-top:1rem;
-    margin-right:0.5rem;
+    /* margin-top:1rem;
+    margin-right:0.5rem; */
     & > * {
       width:inherit;
     }
