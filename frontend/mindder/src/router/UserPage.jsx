@@ -153,7 +153,7 @@ function UserPage(props) {
                 </ProfileEditBtn>
                 :null
                 }
-                <p>{`나의 페이지 : ${isMine}`}</p>
+                {/* <p>{`나의 페이지 : ${isMine}`}</p> */}
             </ProfileContainer>
             
             {/* isfollowing 팔로잉 여부 넣어주면됨 */}

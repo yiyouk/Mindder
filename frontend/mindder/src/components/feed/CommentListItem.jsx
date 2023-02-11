@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -58,10 +58,26 @@ const X = styled.span`
     color: rgb(67, 67, 67);
 `
 
-function CommentListItem({getData, commentCount, comment}) {
+function CommentListItem({getData, commentCount, comment, userIdx}) {
+    console.log(userIdx)
     const navigate = useNavigate();
     const MyIdx = useSelector((state)=>state.USER.myIdx);
-    
+    const [profileImg, setProfileImg] = useState(null)
+
+    // 댓글별 프로필이미지
+    const getProfile = async()=>{
+        try {
+            const response = await api.get(`/my/information/${userIdx}`);
+            // console.log(response.data)
+            if(response.data.success){
+                setProfileImg(response.data.data.base64)
+            }
+        } catch(err) {
+            console.log(err)
+        }
+    }
+    getProfile()
+
     //닉네임 클릭시 해당 유저 페이지 이동
     const onClick = () => {
         navigate(`/${comment.userIdx}`);
@@ -94,9 +110,11 @@ function CommentListItem({getData, commentCount, comment}) {
         }
     }
 
+
     return (
             <Wrapper>
-                <ProfileImage base64={comment.base64} extension={comment.extension} size = "xs" userIdx={comment.userIdx}/>
+                <ProfileImage base64={comment.base64} extension={comment.extension} size = "xs" userIdx={comment.userIdx} imgSrc={profileImg}
+                />
                 <Main>
                     <SideContainer>
                         <CommentInfo>
