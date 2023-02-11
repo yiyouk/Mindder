@@ -15,6 +15,7 @@ import CommentList from "../components/feed/CommentList";
 import FeedManage from "../components/feed/FeedManage";
 import EmoManage from "../components/feed/EmoManage";
 import Scraps from "../components/feed/Scraps";
+import { async } from "q";
 
 const Wrapper = styled.div`
     max-width: 21.5rem;
@@ -112,6 +113,7 @@ function FeedDetailPage(props) {
     const [isPublic, setIsPublic] = useState(false);
     const [scrollEvent, setScrollEvent] = useState(false);
     const [showCommentInput, setShowCommentInput] = useState(false)
+    const [profileImg, setProfileImg] = useState(null)
 
     const onScroll = () => {
         // 스크롤이 60px 이상 내려가면 트루로 바꿈
@@ -122,11 +124,24 @@ function FeedDetailPage(props) {
         }
     }
 
+    const getProfile = async(userIdx)=>{
+        try {
+            const response = await api.get(`/my/information/${userIdx}`);
+            console.log(response.data)
+            if(response.data.success){
+                setProfileImg(response.data.data.base64)
+            }
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     //정보 가져오기
     useEffect(()=>{
         getFeed();
         setPlaceholder(nickName + "(으)로 댓글달기")
-        window.addEventListener('scroll', onScroll) 
+        window.addEventListener('scroll', onScroll)
+         
         return ()=>{
             window.removeEventListener('scroll', onScroll)
         }
@@ -143,9 +158,8 @@ function FeedDetailPage(props) {
    const getFeed = async() => {
         try {
             const response = await api.get(`/feeds/${feedIdx}`);
-            console.log("피드정보는 바로~");
-            console.log(response);
-
+            console.log("피드정보는 바로 -->");
+            console.log(response.data);
             if (response.data.success){
                 setNickname(response.data.data.nickname);
                 setUpdateDate(response.data.data.updateDate);
@@ -163,6 +177,7 @@ function FeedDetailPage(props) {
                 setMyScrap(response.data.data.myScrap);
                 setIsPublic(response.data.data.public);
                 setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
+                await getProfile(response.data.data.userIdx)
             }  else {
                 alert("정보를 불러오지 못했습니다.");
                 navigate("/");
@@ -222,7 +237,7 @@ function FeedDetailPage(props) {
     return (
         <Wrapper>
             <SideContainer>
-                <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s"/>
+                <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s" imgSrc={profileImg}/>
                 <div>
                     {isPublic ? null:<GiPadlock color=" #7767FD" size="22" style={{position:'relative', top:'3.2rem', left:'3rem'}}/>}
                     {myIdx === postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
