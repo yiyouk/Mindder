@@ -74,7 +74,6 @@
   /*---------- 날짜 한칸 한칸 ----------*/
   .react-calendar__tile {
     max-width: 100%;
-    padding: 10px 6.6667px;
     background: none;
     text-align: center;
     line-height: 16px;
@@ -84,10 +83,12 @@
   }
   /*---------- 오늘 날짜 타일 ----------*/
   .react-calendar__tile--now {
-    background-color: #D0CBFF;
-    border-radius: 50%;
+    background-color: #ebe9ff;
+    padding: 0;
+    border-radius: 10px;
     font-weight: bold;
     color: #7767FD;
+    box-shadow: rgba(97, 69, 124, 0.25) 0px 0px 3px 0px;
   }
   
   
@@ -104,6 +105,11 @@
     }
     abbr[title] {
       text-decoration: none;
+    }
+
+    .react-calendar__month-view__days__day {
+      padding: 0;
+      margin: 0.2rem;
     }
     
     /*---------- 주말 글씨 색상 ----------*/
