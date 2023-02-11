@@ -86,7 +86,7 @@ function Draw({canvasRef, imageSaved}) {
     // const canvasRef = useRef(null);
 
     const [ctx, setCtx] = useState([]);
-    const [isDrawing, setIsDrawing] = useState(true);
+    const [isDrawing, setIsDrawing] = useState(false);
     const [erase, setErase] = useState(false);
     const [isFill, setIsFill] = useState(false)
     const [mode, setMode] = useState("brush");
@@ -181,7 +181,6 @@ function Draw({canvasRef, imageSaved}) {
             const canvas = canvasRef.current;
             prev.push(canvas.toDataURL());
         }
-
 
     // -- 마우스 클릭 -- //
         const initDraw = () => {
@@ -286,7 +285,7 @@ function Draw({canvasRef, imageSaved}) {
                         <Stroke onClick={handleStrokeWidth}><div style={{ strokeWidth: 20}}/></Stroke>
                         <PaintTool img={BrushImg} onClick={brushMode} mode={isDrawing}></PaintTool>
                         <PaintTool img={FillImg} onClick={fillAll} mode={isFill}></PaintTool>
-                        <PaintTool img={EraserImg} onClick={eraseMode} mode={erase  }></PaintTool>
+                        <PaintTool img={EraserImg} onClick={eraseMode} mode={erase}></PaintTool>
                         <PaintTool img={UndoImg} onClick={onClickUndo}></PaintTool>
                         <PaintTool img={TrashImg} onClick={eraseAll}></PaintTool>
                     </Container>
