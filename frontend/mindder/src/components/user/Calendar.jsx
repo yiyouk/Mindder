@@ -1,59 +1,91 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState, useCallback } from "react";
+import { Colors16, Emoticons } from "../../redux/reducers";
 import Calendar from 'react-calendar';
 import '../../assets/css/calendar.css';
-import Face11 from "../../assets/images/happy.png";
+import BearFace from "../../assets/images/face_none.png";
+
+import { useNavigate } from "react-router-dom";
 
 import api from "../../api/api";
+import dayjs from 'dayjs';
 
 function Cal() {
-  const [emoDay, setEmoDay] = useState([]);
+    const [loading, setLoding] = useState(false);
+    const navigate = useNavigate();
+    const [value, onChange] = useState(new Date());
+    const [emoDay, setEmoDay] = useState({});
+    // const src = imgSrc? `data:image/png;base64,${imgSrcbase64}` : UserImg
 
-  const getEmoDay = async() => {
-    const year = value.getFullYear()
-    const month = value.getMonth() + 1
-    console.log("달력입니다", year, month)
-    try {
-      const response = await api.get(`/my/calendars?year=${year}&month=${month}`);
-      setEmoDay(response)
-      console.log(response)
-    } catch (error) {
-      console.log(error)
+
+    const getEmoDay = useCallback(async() => {
+        const year = value.getFullYear()
+        const month = value.getMonth() + 1
+       
+        try {
+            const response = await api.get(`/my/calendars?year=${year}&month=${month}`);
+            // setEmoDay(await response.data.data)
+            const emoDate = response.data.data
+            for (const key in emoDate) {
+                emoDay[emoDate[key].calendarDate] = `data:image/${emoDate[key].extension};base64,${emoDate[key].base64}`
+            }
+            setLoding(true);
+            console.log(emoDay)
+            // for (const key in emoDay)
+        } catch (error) {
+            console.log(error)
+            navigate("/error");
+        }
+    })
+    
+    // 곰돌이 색이름, 감정이름 받아서 이미지 수정하기
+    const test = (date)=>{
+        if (!emoDay) {
+            return
+            <div>
+                <img src={BearFace} alt="데이터없어요" style={{width: '35px', height: '35px'}}/>
+            </div>
+        } else {
+            console.log(emoDay[dayjs(date).format('YYYY-MM-DD')])
+            // const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.webp`)
+            if (!emoDay[dayjs(date).format('YYYY-MM-DD')]) {
+                return(
+                    <div>
+                        <img src={BearFace} alt="데이터없어요" style={{width: '35px', height: '35px'}}/>
+                        {/* <img src={imgSrc} alt="감정태그" /> */}
+                    </div>
+                    )
+            } else {
+                return(
+                    <div>
+                        <img src={emoDay[dayjs(date).format('YYYY-MM-DD')]} style={{width: '35px', height: '35px'}}/>
+                    </div>
+                )
+            }
+        }
     }
-}
 
-//   const {data} = useQuery(["logDate", month], async() => {
-//     const year = data.year
-//     const month = data.month
-//     console.log("달력입니다", year, month)
-//     try {
-//       const response = await api.get(`/my/calendars?year${year}=&month=${month}`);
-      
-//     } catch (error) {
-//       console.log(error)
-//     }
-// })
 
-  
-  const [value, onChange] = useState(new Date());
+    useEffect(() => {
+        getEmoDay()
+    }, [emoDay])
 
-  useEffect(() => {
-    getEmoDay()
-    // console.log(value.getDate())
-    // console.log('캘린더')
-  }, [])
-  return (
-    <div>
-      <Calendar 
-        onChange={onChange} 
-        value={value}
-        formatDay = {(locale, date) => date.toLocaleString('en', {day: 'numeric'})}
-        next2Label={null}
-        prev2Label={null}
-        showNeighboringMonth={false}
-        />
+    // if (loading) {
+    //     return
 
-    </div>
-  );
+    // }
+    return (
+        <div>
+            <Calendar 
+                onClickDay={null}
+                onChange={onChange} 
+                value={value}
+                formatDay = {(locale, date) => date.toLocaleString('en', {day: 'numeric'})}
+                next2Label={null}
+                prev2Label={null}
+                showNeighboringMonth={false}
+                tileContent = {({ date })=>test(date)}
+            />
+        </div>
+    );
 }
 export default Cal;

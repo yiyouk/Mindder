@@ -1,5 +1,5 @@
 // 라우터 폴더는 uri기준으로 각각 파일 작성
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostEmoTag from "../components/post/PostEmotag";
@@ -48,8 +48,21 @@ const Next = styled.div`
     background-repeat: no-repeat;
 `
 
-
 function PostPage(props) {
+
+    useEffect(() => {
+  
+        document.body.style.cssText = `
+            position: fixed; 
+            top: -${window.scrollY}px;
+            overflow-y: scroll;
+            width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = "";
+            window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+        }
+}, []);
 
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
@@ -111,14 +124,14 @@ function PostPage(props) {
             return(
                 <Wrapper>
                     <Btndiv>
-                    <IoArrowBackCircleSharp color="#7767FD" size="35"
-                    onClick={()=>{
-                        setLevel(level-1)
-                    }}
-                    /><IoArrowForwardCircleSharp color="#7767FD" size="35"
-                    onClick={()=>{
-                        setLevel(level+1)
-                        imageSaved()
+                        <IoArrowBackCircleSharp color="#7767FD" size="35"
+                        onClick={()=>{
+                            setLevel(level-1)
+                        }}
+                        /><IoArrowForwardCircleSharp color="#7767FD" size="35"
+                        onClick={()=>{
+                            setLevel(level+1)
+                            imageSaved()
                     }}/>
                     </Btndiv>
                     <PostDraw imageSaved={imageSaved} canvasRef={canvasRef}/>
