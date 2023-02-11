@@ -55,7 +55,9 @@ function CommentList({feedIdx, commentCount}) {
         <Wrapper>
             <span className="CC"> 댓글({comments.length})</span>
             {comments.map((comment, index) => {
-                return <CommentListItem getData={getData} commentCount={commentCount} key={index} comment={comment} />;
+                return <CommentListItem getData={getData} commentCount={commentCount} key={index} comment={comment} 
+                userIdx={comment.userIdx}
+                />;
             })}
         </Wrapper>
     );
