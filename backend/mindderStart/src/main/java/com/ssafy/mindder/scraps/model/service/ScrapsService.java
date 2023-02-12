@@ -2,7 +2,7 @@ package com.ssafy.mindder.scraps.model.service;
 
 import java.util.List;
 
-import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.scraps.model.ScrapListDto;
 
 public interface ScrapsService {
 	
@@ -16,6 +16,6 @@ public interface ScrapsService {
 	public void removeScrap(int userIdx, int feedIdx) throws Exception;
 	
 	// 스크랩 목록 조회
-	public List<FeedListDto> findMyScraps(int userIdx) throws Exception;
+	public List<ScrapListDto> findMyScraps(int userIdx) throws Exception;
  
 }
