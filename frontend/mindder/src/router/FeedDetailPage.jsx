@@ -127,7 +127,6 @@ function FeedDetailPage(props) {
     const getProfile = async(userIdx)=>{
         try {
             const response = await api.get(`/my/information/${userIdx}`);
-            console.log(response.data)
             if(response.data.success){
                 setProfileImg(response.data.data.base64)
             }
@@ -232,7 +231,6 @@ function FeedDetailPage(props) {
     const handleCommentInput = () => {
         setShowCommentInput((showCommentInput=>!showCommentInput))
         textareaVal.current.scrollIntoView({behavior:'smooth'})
-        console.log(textareaVal)
     }
     return (
         <Wrapper>

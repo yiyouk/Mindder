@@ -7,23 +7,32 @@ import api from "../api/api";
 import SearchNickname from "../components/search/SearchNickname";
 import SearchCanvas from "../components/search/SearchCanvas";
 import ErrorPage from "./ErrorPage";
+import CrawItem from "../commons/list/CrawItem";
 
 import { IoArrowBackCircle } from "react-icons/io5";
 import { BiSearch } from "react-icons/bi";
 
-
 const Wrapper = styled.div`
     padding-top: 1rem;
-    height: 70vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
 `;
+
+//영역 타이틀
+const Text = styled.div`
+    padding-bottom: 1rem;
+    color: black;
+    font-weight: 600;
+    font-size: 1.15rem;
+`
 
 const InputContainer = styled.div`
   width: 22rem;
   display:flex;
   justify-content:center;
   border-bottom : 0.1rem solid #7767FD;
+  padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 `
 
@@ -35,50 +44,34 @@ const SearchInput = styled.input`
   margin-right: 0.5rem;
   `
 
-const RecentSearch = styled.div`
-  height: 20rem;
-  align-self:flex-start;
-  `
-const RecentHeader = styled.span`
-    font-size: 1rem;
-    font-weight: 600;
+//검색 결과 창 전체
+const ResultContainer = styled.div`
+    margin-top: 0.5rem;
+    width: 20rem;
 `
 
-//누르면 나오는거
-const DropDown = styled.div`
-    background-color: white;
-    border: none;
-    outline:none;
-    position: relative;
-`;
-
-//박스 전체 컨테이너
-const ListContainer = styled.div`
-  background-color: white;
-  width: 20rem;
-  height: 28rem;
-  overflow-y: scroll;
-  border-radius: 0.5rem;
-  position: absolute;
-  display:none;
-  ${DropDown}:active & {
-      display: block;
-    }
-    ${DropDown}:focus & {
-        display: block;
-  }
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  `;
-
-  //검색 글자 한줄
-  const Container = styled.div`
+//검색 글자 한줄
+const Container = styled.div`
     width: 20rem;
-    padding-bottom: 0.7rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     color: black;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    `
+
+//크롤링 구역
+const CrawContainer = styled.div`
+    width: 20rem;
+    position: absolute;
+    bottom: 3rem;
+`
+
+//크롤링 영역
+const CrawlingsHere = styled.div`
+    display: flex;
+    justify-content: center;
+    height: 8rem;
 `
 
 function SearchPage (props){
@@ -87,12 +80,14 @@ function SearchPage (props){
     const [keyword, setKeyword] = useState("");
     const [recent, setRecent] = useState("")
     const [level, setLevel] = useState(0); //검색창 보기 0, 자세히 보기 1
-    const [kind, setKind] = useState(true); //true은 키워드, false은 닉네임
+    const [kind, setKind] = useState(false); //true은 키워드, false은 닉네임
     const [tagRes, setTagRes] = useState([]);  //일반 태크 검색 결과
     const [nickNameRes, setNickNameRes] = useState([]);  //닉네임 컴색 결과
+    const [craw, setCraw] = useState([]);  //책 크롤링 결과
 
     //0.02초마다 실행되도록
     useEffect(()=>{
+        getBook();
         setAlert(false)
         const timer = setInterval(() => setAlert(true), 20);
         return ()=>{setTimeout(() => {clearInterval(timer); setAlert(false);}, 20);}
@@ -126,14 +121,28 @@ function SearchPage (props){
     //     }
     // }
 
+    //추천 책 목록 가져오기
+    const getBook = async() => { 
+        try {
+            const response = await api.get(`/searches/books`);    
+
+            if(response.data.success){
+                setCraw(response.data.data)
+            } 
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
     //유저 검색하기
     const searchUsers = async(keyword) => {
+        setKind(false);
         if(keyword.length >= 1){
             try {
                 const response = await api.get(`/searches/users/${keyword}`); 
                 if(response.data.success){
                     setNickNameRes(response.data.data);
-                    setKind(false);
                 } 
                 console.log(response.data.data) 
             } catch (e) {
@@ -147,13 +156,13 @@ function SearchPage (props){
 
     //노말태그 검색하기
     const searchHash = async(keyword) => { 
+        setKind(true);
         if(keyword.length >= 2){
             try {
                 const response = await api.get(`/searches/hash/%23${keyword.substr(1)}`);    
     
                 if(response.data.success){
                     setTagRes(response.data.data);
-                    setKind(true);
                 } 
                 console.log(response.data.data)
             } catch (e) {
@@ -165,22 +174,31 @@ function SearchPage (props){
         }
     }
 
+    const checkTage = (e) => {
+        setKeyword(e);
+        setLevel(level+1);
+    }
+
     if(level === 0){
         return (
             <Wrapper>
-            <DropDown>
             <InputContainer>
                 <SearchInput value={keyword} type="text" placeholder="검색어를 입력해주세요" onChange={handleKeyword}/>
                 <BiSearch color="#7767FD" size="30" onClick={()=>setLevel(level+1)}/>
             </InputContainer>
-            <ListContainer>
+            <ResultContainer>
                 {kind ?
                 (tagRes.length === 0 ?
-                    null :
                 <>
+                    <Text> 검색 결과 없음 </Text> 
+                    <div> # 검색시, 해당 태그를 포함하는 게시글 검색 가능</div>
+                </>
+                :
+                <>
+                    <Text> 검색 결과</Text>
                       {tagRes.map((info, index) => {
                         return(
-                        <Container key={index} onClick={()=>setLevel(level+1)}>
+                        <Container key={index} onClick={()=>checkTage(info)}>
                             {info}
                         </Container>
                         )
@@ -189,8 +207,13 @@ function SearchPage (props){
                 )
                 :
                 (nickNameRes.length ===0 ?
-                    null :
                 <>
+                    <Text> 검색 결과 없음 </Text> 
+                    <div> # 검색시, 해당 태그를 포함하는 게시글 검색 가능</div>
+                </>
+                :
+                <>
+                    <Text> 검색 결과</Text>
                     {nickNameRes.map((info, index) => {
                         return(
                         <Container key={index} onClick={()=> navigate(`/${info.userIdx}`)}>
@@ -201,23 +224,29 @@ function SearchPage (props){
                 </>
                 )
                 }
-            </ListContainer>
-            </DropDown>
-            <RecentSearch>
-            <RecentHeader>최근 검색어</RecentHeader>
-            {/* <감정태그/> */}
-            </RecentSearch>
+            </ResultContainer>
+            <CrawContainer>
+                <Text>회원님을 위한 추천 도서</Text>
+                <CrawlingsHere>
+                    {craw.slice(0,3).map((info, index)=>(
+                        <CrawItem size="s" imageUrl={info.image} key={index} feedIdx={info.link}/>
+                    ))}
+                </CrawlingsHere>
+            </CrawContainer>
         </Wrapper>
         );
     } else if(level === 1) {
         return (
-            <>
-                <IoArrowBackCircle color="#7767FD" size="40" onClick={()=>setLevel(level-1)}/>
+            <Wrapper>
+                <Container>
+                    <IoArrowBackCircle color="#7767FD" size="40" onClick={()=>setLevel(level-1)}/>
+                </Container>
                 { kind ?
-                <SearchCanvas result={tagRes}/>:
-                <SearchNickname result={nickNameRes}/>
+                    <SearchCanvas keyword={keyword}/>
+                    :
+                    <SearchNickname keyword={keyword} result={nickNameRes}/>
                 }
-            </>
+            </Wrapper>
         );
     }else{
         <ErrorPage></ErrorPage>
