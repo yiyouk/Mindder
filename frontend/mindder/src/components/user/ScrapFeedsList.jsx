@@ -50,15 +50,15 @@ function ScrapFeedsList(props){
       getScrapFeeds();
   }, [])
 
+
   // 스크랩 글 가져오기
   const getScrapFeeds = async() => {
       try {
           const response = await api.get(`/scraps/my`);
-          console.log(response)
+          console.log(response.data)
           if(response.data.success){
               console.log(response.data.data);
               setScrapFeeds(response.data.data)
-          
           } else {
               alert("데이터를 조회하지 못했습니다.");
           }
@@ -81,7 +81,7 @@ return (
                 {scrapFeeds.map((feeds, idx) => (
                     <ScrapFeedsItemContainer key={idx}>
                         <ProfileContainer>
-                            <Profile key={idx} imgsize='s' userIdx={feeds.userIdx} namesize='s' name={feeds.nickname}/>
+                            <Profile key={idx} imgsize='s' userIdx={feeds.userIdx} namesize='s' name={feeds.nickname} imgSrc={feeds.userBase64}/>
                             <span>{dayjs(feeds.updateDate).get('year')}년 {dayjs(feeds.updateDate).get('month')}월 {dayjs(feeds.updateDate).get('date')}일</span>
                         </ProfileContainer>
                         <CanvasItem key={idx} size='ml' list={feeds} up={true} />
