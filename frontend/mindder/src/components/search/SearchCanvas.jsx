@@ -1,46 +1,61 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import CanvasAlbumList from "../../commons/list/CanvasAlbumList"
 import styled from "styled-components";
 
 import api from "../../api/api"
 
+import {IoAlertCircle} from "react-icons/io5";
+
 const Wrapper = styled.div`
-    /* padding: 0; */
-    width: calc(100% - 2rem);
-    height:31.5rem;
-    display: grid;
+    display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    /* border:1px solid blue; */
+    align-items: center;
 `;
 
+const Text = styled.div`
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #606060;
+`;
 
-function SearchCanvas ({result}){
-  // const navigate = useNavigate()
-    
-  
-  //태그에 맞는 결과 보여주기
-    // const searchUsers = async(result) => {
-    //     if(keyword.length >= 1){
-    //         try {
-    //             const response = await api.get(`/searches/users/${keyword}`); 
-    //             if(response.data.success){
-    //                 setNickNameRes(response.data.data);
-    //                 setKind(false);
-    //             } 
-    //             console.log(response.data.data)
-                
-    //         } catch (e) {
-    //             console.error(e);
-    //             navigate("/error");
-    //         }
-    //     } else {
-    //         setNickNameRes([]);
-    //     }
-    // }
+function SearchCanvas ({keyword}){
+  const navigate = useNavigate()
+  const [result, setResult] = useState([]);
+  //정보 가져오기
+  useEffect(()=>{
+    searchCanvas();
+  }, [keyword])
+
+  const searchCanvas = async() => {
+    try {
+      console.log(keyword)
+      const response = await api.get(`/feeds/searches/%23${keyword.substr(1)}`);
+      console.log(response)
+      if (response.data.success){
+          setResult(response.data.data);
+      }  
+    } catch (e) {
+        console.error(e);
+        navigate("/error");
+    }
+  }
+
   return (
     <Wrapper>
-
+          {result.length === 0 ?
+      <>
+        <IoAlertCircle color="#7767FD" size="100" style={{padding:'1rem'}}/>
+        <Text>검색어 태그를 포함한</Text>
+        <Text>게시글이 없습니다.</Text>
+      </>
+      :
+      <>
+          <Text>'{keyword}' 태그를 포함한 게시글</Text>
+          <CanvasAlbumList size="m" list={result} up={true}/>
+      </>
+    }
     </Wrapper>
   )
 }
