@@ -11,6 +11,8 @@ const sizeStyles = css`
     height: ${sizes[size].height};
     width: ${sizes[size].width};
     font-size: ${sizes[size].fontsize};
+    margin-left: ${sizes[size].margin};
+    margin-right: ${sizes[size].margin};
   `}
 `;
 
@@ -33,10 +35,11 @@ const sizes = {
       width: '10rem',
     },
 
-    // 추천피드
+    // 검색창에서 사용
     "s": {
         height: '7rem',
-        width: '7rem',
+        width: '5rem',
+        margin: '0.65rem'
     },
 
     // 크롤링이미지
@@ -53,18 +56,15 @@ CrawItem.defaultProps = {
 //////////////
 
 const RecoCanvas = styled.div`
-  ${sizeStyles}
-  background-image:url(${(props)=>props.imageUrl});
-  background-size:cover;
-  filter: drop-shadow(0px 1.5px 1.5px rgba(0, 0, 0, 0.25));
-  border-radius: 4px;
-  cursor: pointer;
+    ${sizeStyles}
+    background-image:url(${(props)=>props.imageUrl});
+    background-size:cover;
+    filter: drop-shadow(0px 1.5px 1.5px rgba(0, 0, 0, 0.25));
+    border-radius: 4px;
+    cursor: pointer;
 `;
 
 function CrawItem({size, imageUrl, feedIdx}) {
-  const navigate = useNavigate();
-
-  // 크롤링 이미지는 일단 새창에서 열리게 함
   const toExternal = () => {
     window.open(feedIdx, '_blank')
   };
