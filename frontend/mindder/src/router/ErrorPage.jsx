@@ -30,6 +30,7 @@ const Button = styled.button`
 const M = styled.div`
     margin: 2rem;
 `;
+
 function ErrorPage(props) {
     const navigate = useNavigate();
 
