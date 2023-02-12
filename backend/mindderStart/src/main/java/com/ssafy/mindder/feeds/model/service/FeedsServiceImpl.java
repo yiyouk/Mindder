@@ -23,8 +23,17 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
-		sqlSession.getMapper(FeedsMapper.class).writeCalendar(feedsDto);
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
+	}
+	
+	@Override
+	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).selectFileIdx(emoteIdx, emoteColorIdx);
+	}
+	
+	@Override
+	public void addCalendar(int userIdx, int emoteCompleteFileIdx) throws Exception {
+		sqlSession.getMapper(FeedsMapper.class).insertCalendar(userIdx, emoteCompleteFileIdx);
 	}
 
 	@Override
