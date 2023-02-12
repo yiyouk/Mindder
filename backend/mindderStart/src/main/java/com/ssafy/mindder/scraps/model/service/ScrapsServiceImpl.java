@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.mindder.feeds.model.FeedListDto;
+import com.ssafy.mindder.scraps.model.ScrapListDto;
 import com.ssafy.mindder.scraps.model.mapper.ScrapsMapper;
 
 @Service
@@ -31,7 +31,7 @@ public class ScrapsServiceImpl implements ScrapsService {
 	}
 	
 	@Override
-	public List<FeedListDto> findMyScraps(int userIdx) throws Exception {
+	public List<ScrapListDto> findMyScraps(int userIdx) throws Exception {
 		return sqlSession.getMapper(ScrapsMapper.class).selectMyScraps(userIdx);
 	}
 

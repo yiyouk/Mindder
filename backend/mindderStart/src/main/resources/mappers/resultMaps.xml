@@ -49,6 +49,15 @@
 		<result column="like_total_count" property="likeTotalCount" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
+	<resultMap type="ScrapListDto" id="scrapList">
+		<result column="feed_idx" property="feedIdx" />
+		<result column="file_idx" property="fileIdx" />
+		<result column="user_idx" property="userIdx" />
+		<result column="user_profile_idx" property="userProfileIdx" />
+		<result column="comment_count" property="commentCount" />
+		<result column="like_total_count" property="likeTotalCount" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
 	<resultMap type="CommentsListDto" id="comment">
 		<result column="comment_idx" property="commentIdx" />
 		<result column="nickname" property="nickname" />
