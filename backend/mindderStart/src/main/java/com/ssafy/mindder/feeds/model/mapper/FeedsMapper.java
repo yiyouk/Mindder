@@ -18,7 +18,9 @@ public interface FeedsMapper {
 	// 피드 작성
 	public int writeFeed(FeedsDto feedsDto) throws SQLException;
 
-	public int writeCalendar(FeedsDto feedsDto) throws SQLException;
+	public int selectFileIdx(int emoteIdx, int emoteColorIdx) throws SQLException;
+
+	public void insertCalendar(int userIdx, int emoteCompleteFileIdx) throws SQLException;
 
 	// 피드 삭제
 	public int deleteMainFeed(int feedIdx) throws SQLException;
@@ -78,5 +80,7 @@ public interface FeedsMapper {
 
 	// 해시태그 -> 파싱해서 테이블에 저장
 	public int hashTagParser(List<HashParserDto> hashParser);
-	public List<FeedListDto> searchesFeed(String word)throws SQLException;
+
+	public List<FeedListDto> searchesFeed(String word) throws SQLException;
+
 }

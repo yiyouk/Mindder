@@ -53,5 +53,11 @@ public interface FeedsService {
 
 	// 해시태그 작성 후 #을 기준으로 파싱해서 해시 테이블에 저장
 	public boolean hashTagParser(List<HashParserDto> hashParser);
-	public List<FeedListDto> searchesFeed(String word)throws Exception;
+
+	public List<FeedListDto> searchesFeed(String word) throws Exception;
+
+	// emoteIdx, emoteColorIdx로 완성된 곰돌이 이모지 FileIdx 조회
+	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception;
+
+	public void addCalendar(int userIdx, int emoteCompleteFileIdx) throws Exception;
 }
