@@ -20,8 +20,8 @@ import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.controller.FeedsController;
-import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.file.model.service.FileService;
+import com.ssafy.mindder.scraps.model.ScrapListDto;
 import com.ssafy.mindder.scraps.model.service.ScrapsService;
 import com.ssafy.mindder.util.JwtService;
 
@@ -85,18 +85,21 @@ public class ScrapsController {
 		}
 	}
 
-	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = FeedListDto.class)
+	@ApiOperation(value = "스크랩 목록 조회", notes = "유저 번호에 해당하는 피드의 목록을 반환한다.", response = ScrapListDto.class)
 	@GetMapping("/my")
 	public ApiResponse<?> myScrapList(@RequestHeader("access_token") String accessToken) {
 
 		logger.debug("myScrapList - 호출 : ");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
-			List<FeedListDto> scrapList = scrapsService.findMyScraps(userIdx);
+			List<ScrapListDto> scrapList = scrapsService.findMyScraps(userIdx);
 			for (int i = 0; i < scrapList.size(); i++) {
 				Map<String, String> file = fileService.findFile(scrapList.get(i).getFileIdx(), filePath);
 				scrapList.get(i).setBase64(file.get("base64"));
 				scrapList.get(i).setExtension(file.get("extension"));
+				file = fileService.findFile(scrapList.get(i).getUserProfileIdx(), filePath);
+				scrapList.get(i).setUserBase64("base64");
+				scrapList.get(i).setUserExtension(file.get("extension"));
 			}
 			return ApiResponse.success(SuccessCode.READ_MY_SCRAP_LIST, scrapList);
 		} catch (Exception e) {
