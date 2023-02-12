@@ -33,6 +33,7 @@ import PwFindPage from "./router/PwFindPage";
 import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
 import ErrorPage from "./router/ErrorPage";
+import KakaoAuthRedirect from "./social/KakaoAuthRedirect";
 
 function App(props) {
     // const navigate = useNavigate();
@@ -97,6 +98,7 @@ function App(props) {
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path="saved" element={<SavedPage />} />
                     </Route>
+                    <Route path="/oauth/callback/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
         </BrowserRouter>
     );
