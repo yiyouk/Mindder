@@ -98,7 +98,7 @@ public class ScrapsController {
 				scrapList.get(i).setBase64(file.get("base64"));
 				scrapList.get(i).setExtension(file.get("extension"));
 				file = fileService.findFile(scrapList.get(i).getUserProfileIdx(), filePath);
-				scrapList.get(i).setUserBase64("base64");
+				scrapList.get(i).setUserBase64(file.get("base64"));
 				scrapList.get(i).setUserExtension(file.get("extension"));
 			}
 			return ApiResponse.success(SuccessCode.READ_MY_SCRAP_LIST, scrapList);
