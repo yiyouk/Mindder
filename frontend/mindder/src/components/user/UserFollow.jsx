@@ -101,9 +101,9 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
                 <BsBookmarkFill color="#7767FD" size="20" onClick={() => {navigate(`/saved`)}}/>
             </CountHere>
             :
-                <FollowButton  active={following} onClick={handleFollowState} >
+            <FollowButton  active={following} onClick={handleFollowState} >
                 {following? '팔로잉' : '팔로우'}
-                </FollowButton>
+            </FollowButton>
             }
             <Follow>
                 <CountHere onClick={()=>{onClick("followers")}}>
