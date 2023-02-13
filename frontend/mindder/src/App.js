@@ -14,7 +14,7 @@ import "./index.css"
 
 // Pages
 import MainLayout from './Layout/MainLayout'
-import NoNaviLayout from './Layout/NoNaviLayout'
+import OnlyTopBarLayout from './Layout/OnlyTopBarLayout'
 import CommonLayout from './Layout/CommonLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
@@ -76,7 +76,7 @@ function App(props) {
                     </Route>
 
                     {/* 헤더만 필요함 */}
-                    <Route element={<NoNaviLayout/>}>
+                    <Route element={<OnlyTopBarLayout/>}>
                         <Route path="join" element={<JoinPage />} />
                         <Route path="login" element={<LoginPage />} />
                         <Route path="accounts/password/find" element={<PwFindPage />} />
