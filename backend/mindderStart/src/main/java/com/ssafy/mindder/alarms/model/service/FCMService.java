@@ -1,7 +1,7 @@
 package com.ssafy.mindder.alarms.model.service;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,6 @@ public class FCMService {
 				.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
 				.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8").build();
 
-		System.out.println(request.body().toString());
 		Response response = client.newCall(request).execute();
 
 		System.out.println(response.body().string());
@@ -50,7 +49,6 @@ public class FCMService {
 						.build())
 				.validate_only(false).build();
 
-		System.out.println(fcmMessage);
 		return objectMapper.writeValueAsString(fcmMessage);
 	}
 
@@ -59,7 +57,7 @@ public class FCMService {
 
 		GoogleCredentials googleCredentials = GoogleCredentials
 				.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
-				.createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
+				.createScoped(Arrays.asList("https://www.googleapis.com/auth/cloud-platform"));
 
 		googleCredentials.refreshIfExpired();
 		return googleCredentials.getAccessToken().getTokenValue();
