@@ -75,6 +75,7 @@ public class FeedsController {
 			}
 			return ApiResponse.success(SuccessCode.READ_SEARCHE_FEED, neighborList);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
@@ -89,13 +90,10 @@ public class FeedsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
 
-			if (feedsDto.getFileIdx() == 0) {
+			int fileIdx = feedsDto.getFileIdx();
+			if (fileIdx == 0) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
 			}
-			int emoteIdx = feedsDto.getEmoteIdx();
-			int emoteColorIdx = feedsDto.getEmoteColorIdx();
-			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
-			feedsService.addCalendar(userIdx, emoteCompleteFileIdx);
 			feedsService.writeFeed(feedsDto);
 
 			// 해시태그를 작성했다면 파싱해서 넣어줘야함!
@@ -254,11 +252,11 @@ public class FeedsController {
 			List<FeedListDto> neighborList = feedsService.neighborFeed(userIdx);
 
 			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < neighborList.size(); i++) {
-				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
-				neighborList.get(i).setBase64(file.get("base64"));
-				neighborList.get(i).setExtension(file.get("extension"));
-			}
+//			for (int i = 0; i < neighborList.size(); i++) {
+//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+//				neighborList.get(i).setBase64(file.get("base64"));
+//				neighborList.get(i).setExtension(file.get("extension"));
+//			}
 
 			page.put("Feeds", neighborList);
 			page.put("pageMaker", new FeedsPageDto(criteria, total));
@@ -292,6 +290,7 @@ public class FeedsController {
 					+ "-draw?c3apidt=p67950521402&cr=ec&gclid=Cj0KCQiAz9ieBhCIARIsACB0oGJBB98nHvnTniAE-kjspSDdkQWfpIcWxlh0IFv7ed-Mr8cMmg1vLicaAiz5EALw_wcB&gclsrc=aw.ds&kw=%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%8B%A4%EC%9A%B4&pl=PPC_GOO_KR_IG-567002744555";
 
 			Document doc = Jsoup.connect(url).get();
+
 			List<FeedsCrawlDto> list = new ArrayList<>();
 
 			Elements links = doc.select(".mui-b5j3lh-item-sstkGridItem-item");
