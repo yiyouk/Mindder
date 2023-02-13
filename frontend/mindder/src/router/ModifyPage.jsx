@@ -25,7 +25,7 @@ function ModifyPage(props) {
     const logout = async() => {
         const response = await api.get(`/users/logout`);
         if(!response.data.success){
-            alert("로그아웃 실패! 다시 시도해주세요.");
+            console.log("로그아웃실패")
         } else {
             dispatch(DELETE_TOKEN());
             dispatch(SAVE_nickName(""));

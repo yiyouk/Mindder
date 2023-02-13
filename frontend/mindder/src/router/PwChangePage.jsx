@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import api from "../api/api"
-
+import Swal from "sweetalert2";
 import '../assets/css/main.css';
 
 function PwChangePage(props) {
@@ -26,13 +26,37 @@ function PwChangePage(props) {
   
   const findPassword = () => {
     if(passwordNow === ""){
-      alert("현재 비밀번호를 입력해주세요.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '현재 비밀번호를 입력해주세요.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
     } else if(passwordNew === ""){
-      alert("새 비밀번호를 입력해주세요.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '새 비밀번호를 입력해주세요.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
     } else if(passwordNewCheck === ""){
-      alert("새 비밀번호 확인을 입력해주세요.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '새 비밀번호 확인을 입력해주세요.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
     } else if(passwordNew !== passwordNewCheck){
-      alert("새 비밀번호와 새 비밀번호 확인 값이 다릅니다.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '새 비밀번호와 새 비밀번호 확인 값이 다릅니다.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
     } else{
       getPassord();
     }
@@ -46,7 +70,13 @@ function PwChangePage(props) {
 
     console.log(response.data)
     if(!response.data.success){
-        alert("현재 비밀번호가 일치하지 않습니다.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '현재 비밀번호가 일치하지 않습니다.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
     } else {
       changePassword();
     }
@@ -59,10 +89,22 @@ function PwChangePage(props) {
     });
 
       if(response.data.success){
-        alert("비밀번호 변경 완료");
+        Swal.fire({
+          icon: 'success',               
+          width: 300,
+          iconColor: '#7767FD',
+          text: '비밀번호 변경 완료', 
+          confirmButtonColor: '#7767FD',
+          confirmButtonText: '확인',})
         navigate("/accounts/edit")
       } else{
-        alert("비밀번호 변경 실패! 다시 시도해주세요.")
+        Swal.fire({
+          icon: 'warning',               
+          width: 300,
+          iconColor: '#7767FD',
+          text: '비밀번호 변경 실패! 다시 시도해주세요.', 
+          confirmButtonColor: '#7767FD',
+          confirmButtonText: '확인',})
       }
   }
   

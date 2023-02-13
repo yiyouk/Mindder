@@ -43,7 +43,7 @@ function CommentList({feedIdx, commentCount}) {
                 console.log(response.data.data);
                 setComments(response.data.data)
             } else {
-                alert("데이터를 조회하지 못했습니다.");
+                console.log("조회 실패")
             }
         } catch (e) {
             console.error(e);

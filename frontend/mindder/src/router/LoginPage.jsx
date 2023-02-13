@@ -7,7 +7,7 @@ import { useDispatch} from "react-redux";
 
 //비동기 동신
 import api from "../api/api";
-
+import Swal from "sweetalert2";
 import '../assets/css/main.css';
 import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
 
@@ -31,9 +31,21 @@ function LoginPage(props) {
     const handleSubmit = e => {
         console.log("로그인 시도")
         if(email === ""){
-            alert("이메일을 입력해주세요.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '이메일을 입력해주세요.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else if(password === ""){
-            alert("비밀번호를 입력해주세요.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '비밀번호를 입력해주세요.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else{
             getUser();                                                                                      
         }
@@ -74,7 +86,13 @@ function LoginPage(props) {
                 dispatch(SAVE_myIdx(userIdx))
                 navigate("/");
             } else{
-                alert("로그인 정보를 다시 확인해주세요.");
+                Swal.fire({
+                    icon: 'warning',               
+                    width: 300,
+                    iconColor: '#7767FD',
+                    text: '로그인 정보를 다시 확인해주세요.', 
+                    confirmButtonColor: '#7767FD',
+                    confirmButtonText: '확인',})
             }
             
         } catch (e) {
