@@ -38,19 +38,19 @@ const Text  = styled.div`
 
 const Date  = styled.div`
     color: #2e2e2e;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
 `;
 
 const Date2  = styled.div`
     color: #31259f;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 600;
     margin-bottom: 0.2rem;
 `;
 
 const Emo  = styled.img`
-    width: 2rem;
-    height: 2rem;
+    width: 1.7rem;
+    height: 1.7rem;
 `;
 
 function EmotionChart () {
