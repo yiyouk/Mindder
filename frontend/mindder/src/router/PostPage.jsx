@@ -8,7 +8,7 @@ import PostDraw from "../components/post/PostDraw";
 import PostCommentwrite from "../components/post/PostCommentwrite";
 import NextImg from "../assets/images/arrow.png";
 import { useDispatch, useSelector } from "react-redux";
-import { SAVE_userDrawing } from "../redux/reducers";
+import { SAVE_todayColor, SAVE_todayEmotion, SAVE_userDrawing } from "../redux/reducers";
 
 
 import Swal from "sweetalert2";
@@ -64,6 +64,8 @@ function PostPage(props) {
             const scrollY = document.body.style.top;
             document.body.style.cssText = "";
             window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+            dispatch(SAVE_todayEmotion(null))
+            dispatch(SAVE_todayColor(null))
         }
 }, []);
 
