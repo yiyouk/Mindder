@@ -96,4 +96,9 @@
 		<result column="update_date" property="updateDate" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
+	<resultMap type="AlarmsUserDto" id="alarmsUser">
+		<result column="emote_idx" property="deviceToken" />
+		<result column="emote_color_idx" property="receiveUserNickname" />
+		<result column="emote_color_tag" property="senderUserNickname" />
+	</resultMap>
 </mapper>
