@@ -70,8 +70,6 @@ function FollowingPage(props) {
         }
     }
 
-
-
     return (
         <Wrapper>
             <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
