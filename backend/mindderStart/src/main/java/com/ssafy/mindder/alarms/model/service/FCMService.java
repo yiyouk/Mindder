@@ -20,7 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-@Component 
+@Component
 @RequiredArgsConstructor
 public class FCMService {
 
@@ -42,8 +42,7 @@ public class FCMService {
 		System.out.println(response.body().string());
 	}
 
-	private String makeMessage(AlarmsUserDto alarmsUserDto, int alarmType)
-			throws JsonProcessingException {
+	private String makeMessage(AlarmsUserDto alarmsUserDto, int alarmType) throws JsonProcessingException {
 		
 		String targetToken = alarmsUserDto.getDeviceToken();
 		String title = "Mindder";
@@ -56,7 +55,7 @@ public class FCMService {
 		} else if (alarmType == 3) {
 			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림을 좋아합니다.";
 		}
-		
+
 		MessageDto fcmMessage = MessageDto.builder()
 				.message(MessageDto.Message.builder().token(targetToken)
 						.notification(MessageDto.Notification.builder().title(title).body(body).image(null).build())

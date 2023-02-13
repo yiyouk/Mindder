@@ -97,8 +97,8 @@
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 	<resultMap type="AlarmsUserDto" id="alarmsUser">
-		<result column="emote_idx" property="deviceToken" />
-		<result column="emote_color_idx" property="receiveUserNickname" />
-		<result column="emote_color_tag" property="senderUserNickname" />
+		<result column="device_token" property="deviceToken" />
+		<result column="receiver_nickname" property="receiveUserNickname" />
+		<result column="sender_nickname" property="senderUserNickname" />
 	</resultMap>
 </mapper>
