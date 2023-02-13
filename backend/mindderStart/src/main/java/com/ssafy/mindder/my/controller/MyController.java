@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.mindder.alarms.model.AlarmsUserDto;
+import com.ssafy.mindder.alarms.model.service.AlarmsService;
+import com.ssafy.mindder.alarms.model.service.FCMService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -48,6 +51,10 @@ public class MyController {
 	private JwtService jwtService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private FCMService fcmService;
+	@Autowired
+	private AlarmsService alarmsService;
 
 	@Value("${file.path.upload-files}")
 	private String filePath;
@@ -222,6 +229,13 @@ public class MyController {
 				return ApiResponse.error(ErrorCode.VALIDATION_FOLLOW_EXCEPTION);
 			}
 			myService.addMyFollow(userIdx, targetUserIdx);
+			
+			// 알림 등록
+			alarmsService.addFollowAlarm(userIdx, targetUserIdx);
+			// 알림 전송
+			AlarmsUserDto alarmsUserDto = alarmsService.findDeviceToken(userIdx, targetUserIdx);
+			fcmService.sendMessageTo(alarmsUserDto, 1);
+			
 			return ApiResponse.success(SuccessCode.CREATE_MY_FOLLOW);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
+import com.ssafy.mindder.alarms.model.AlarmsUserDto;
 import com.ssafy.mindder.alarms.model.MessageDto;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class FCMService {
 	private final String API_URL = "https://fcm.googleapis.com/v1/projects/ssafy8th-mindder/messages:send";
 	private final ObjectMapper objectMapper;
 
-	public void sendMessageTo(String targetToken, String title, String body) throws IOException {
-		String message = makeMessage(targetToken, title, body);
+	public void sendMessageTo(AlarmsUserDto alarmsUserDto, int alarmType) throws IOException {
+		String message = makeMessage(alarmsUserDto, alarmType);
 
 		System.out.println(message);
 		OkHttpClient client = new OkHttpClient();
@@ -41,8 +42,21 @@ public class FCMService {
 		System.out.println(response.body().string());
 	}
 
-	private String makeMessage(String targetToken, String title, String body)
+	private String makeMessage(AlarmsUserDto alarmsUserDto, int alarmType)
 			throws JsonProcessingException {
+		
+		String targetToken = alarmsUserDto.getDeviceToken();
+		String title = "Mindder";
+		String body = null;
+		
+		if (alarmType == 1) {
+			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님을 팔로우하기 시작했습니다.";
+		} else if (alarmType == 2) {
+			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림에 댓글을 달았습니다.";
+		} else if (alarmType == 3) {
+			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림을 좋아합니다.";
+		}
+		
 		MessageDto fcmMessage = MessageDto.builder()
 				.message(MessageDto.Message.builder().token(targetToken)
 						.notification(MessageDto.Notification.builder().title(title).body(body).image(null).build())
