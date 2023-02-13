@@ -48,7 +48,7 @@ function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
     // console.log("어쩌라구요")
     // console.log(emoteIdx)
     // console.log(emoteColorIdx)
-    const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.webp`)
+    const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.png`)
 
     return (
         <Wrapper>

@@ -12,12 +12,12 @@ const EmoName = styled.div`
 
 function EmoTag(props){
   // const imgSrc = require(`../../assets/images/face${props.emoId}.png`)
-  const webpSrc = require(`../../assets/images/face${props.emoId}.webp`)
+  const png = require(`../../assets/images/face${props.emoId}.png`)
 
   return(
     <>
       <Image width={48}
-        webp={webpSrc}
+        webp={png}
         // src={imgSrc} 
       />
       <EmoName
