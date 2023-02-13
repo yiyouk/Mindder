@@ -52,34 +52,42 @@ function FollowersPage() {
     const dispatch = useDispatch()
     const location = useLocation()
     const isMine = location.state.status
-    const followerCount = location.state.followerCount
-    const followingCount = location.state.followingCount
-    console.log(location.state)
-    const [ followers, setFollowers ] = useState(".." || followerCount);
-    const [ followings, setFollowings ] = useState(".." || followingCount);
-    const followingList = useSelector((state)=>state.USER.followingList)
+    const [ followers, setFollowers ] = useState("..");
+    const [ followings, setFollowings ] = useState("..");
     const [followerList, setFollowerList] = useState([])
-    const userIdx = useParams().userId;
+    const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state) => state.USER.myIdx)
 
     useEffect(() => {
-        setFollowers(followerCount)
-        setFollowings(followingCount)
+        getFollowingInfo();
         getFollowerInfo();
-    }, [location])
+    }, [])
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
-            console.log(response.data)
-            setFollowerList(response.data.data);
-            dispatch(SAVE_followerCount(response.data.data.length))
+            // console.log(response.data)
+            if (response.data){
+                setFollowerList(response.data.data);
+                setFollowers(response.data.data.length)
+                dispatch(SAVE_followerCount(response.data.data.length))
+            }
         } catch (e) {
             console.error(e);
         }
     }
     
+    const getFollowingInfo = async() => {
+        try{
+            const response = await api.get(`/my/followings/${userIdx}`);
+            // console.log(response.data)
+            setFollowings(response.data.data.length);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     const onClick = (path) => {
         if (isMine) {
             navigate(`/${myIdx}/${path}`, {state:{
@@ -87,7 +95,14 @@ function FollowersPage() {
         } else {
             navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followers, followingCount:followings}})
         }
+    }
 
+    const handleFollowChange = (followCount)=>{
+        console.log(isMine)
+        if (isMine){
+            setFollowings(followCount)
+            console.log(`현재보고있는유저 팔로잉 수 : ${followCount}`)
+        }
     }
 
     return (
@@ -114,6 +129,8 @@ function FollowersPage() {
                         followStatus={myFollower.followed} 
                         nickname={myFollower.nickname} 
                         imgSrc={myFollower.base64}
+                        followChange={handleFollowChange}
+                        followingCount={followings}
                         key={idx} 
                         />
                     ))
