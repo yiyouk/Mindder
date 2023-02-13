@@ -93,9 +93,10 @@ function TodayCanvas(props) {
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/feeds/recent`);
+            console.log(response)
             if(response.data.data !== null){
                 setEmoteIdx(response.data.data.emoteIdx);
-                setEmoteColorTag(response.data.data.emoteIdx);
+                setEmoteColorTag(response.data.data.emoteColorIdx);
                 setUpdateDate(response.data.data.updateDate);
                 setBase64(response.data.data.base64);
                 setExtension(response.data.data.extension);
