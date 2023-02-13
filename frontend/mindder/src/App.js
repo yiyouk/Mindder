@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
     BrowserRouter,
     Routes,
-    Route,
+    Route
 } from "react-router-dom";
 
 import { getCookie } from "./api/cookie";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN, SAVE_followerCount, SAVE_profileImg, SAVE_followingCount } from "./redux/reducers";
 
 import api from "./api/api"
@@ -14,7 +14,7 @@ import "./index.css"
 
 // Pages
 import MainLayout from './Layout/MainLayout'
-import NoNaviLayout from './Layout/NoNaviLayout'
+import OnlyTopBarLayout from './Layout/OnlyTopBarLayout'
 import CommonLayout from './Layout/CommonLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
@@ -35,8 +35,8 @@ import SavedPage from "./router/SavedPage";
 import ErrorPage from "./router/ErrorPage";
 import KakaoAuthRedirect from "./social/KakaoAuthRedirect";
 
+
 function App(props) {
-    // const navigate = useNavigate();
     const dispatch = useDispatch()
     //store에 엑세스토큰, 닉네임, 유저인덱스 저장
     useEffect(()=>{
@@ -45,11 +45,9 @@ function App(props) {
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
         } else { //쿠키에 정보가 없으면 tonken 초기화
             dispatch(DELETE_TOKEN());
-            // navigate("/");
         }
     }, [])
 
-    
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/information`);
@@ -76,7 +74,7 @@ function App(props) {
                     </Route>
 
                     {/* 헤더만 필요함 */}
-                    <Route element={<NoNaviLayout/>}>
+                    <Route element={<OnlyTopBarLayout/>}>
                         <Route path="join" element={<JoinPage />} />
                         <Route path="login" element={<LoginPage />} />
                         <Route path="accounts/password/find" element={<PwFindPage />} />
