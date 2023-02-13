@@ -8,7 +8,7 @@ import UserImg from "../../assets/images/CanvasSample.png"
 
 //비동기 동신
 import api from "../../api/api";
-
+import Swal from "sweetalert2";
 import '../../assets/css/main.css';
 
 const colortyles = css`
@@ -110,9 +110,21 @@ function Modify() {
     //닉네임 중복 확인
     const handleCheckNick = e => {
         if(nickname === ""){
-            alert("닉네임 입력해주세요.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '닉네임을 입력해주세요.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else if(nicknameOrigin === nickname) {
-            alert("원래 닉네임 입니다.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '원래 닉네임입니다.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         }else{
             getNick();                                                            
         }
@@ -125,9 +137,21 @@ function Modify() {
             
             if(response.data.data.available){
                 setNicknameCheck(true);
-                alert("사용 가능한 닉네임입니다.");
+                Swal.fire({
+                    icon: 'success',               
+                    width: 300,
+                    iconColor: '#7767FD',
+                    text: '사용 가능한 닉네임입니다.', 
+                    confirmButtonColor: '#7767FD',
+                    confirmButtonText: '확인',})
             } else{
-                alert("이미 존재하는 닉네임입니다.");
+                Swal.fire({
+                    icon: 'warning',               
+                    width: 300,
+                    iconColor: '#7767FD',
+                    text: '이미 존재하는 닉네임입니다.', 
+                    confirmButtonColor: '#7767FD',
+                    confirmButtonText: '확인',})
             }
             
         } catch (e) {
@@ -144,9 +168,21 @@ function Modify() {
         }
 
         if(nickname === ""){
-            alert("닉네임 입력해주세요.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '닉네임을 입력해주세요.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else if(!nicknameCheck){
-            alert("닉네임 중복 확인을 완료해주세요.");                                                                             
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '닉네임 중복 확인을 완료해주세요.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})                                                                               
         } else {
             sendInfo();
         }
@@ -168,7 +204,6 @@ function Modify() {
             }
             
         } catch (e) {
-            alert("오류 발생!");
             console.error(e);
             navigate("/error");
         }
@@ -188,7 +223,6 @@ function Modify() {
             navigate(`/${myIdx}`)
              
         } catch (e) {
-            alert("오류 발생!");
             console.error(e);
             navigate("/error");
         }
@@ -234,7 +268,6 @@ function Modify() {
             }
              
         } catch (e) {
-            alert("오류 발생!");
             console.error(e);
             navigate("/error");
         }

@@ -7,6 +7,7 @@ import { FaCommentDots } from "react-icons/fa";
 
 //비동기 통신
 import api from "../api/api";
+import Swal from "sweetalert2";
 
 //디자인
 import Profile from "../commons/ui/Profile";
@@ -178,11 +179,10 @@ function FeedDetailPage(props) {
                 setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
                 await getProfile(response.data.data.userIdx)
             }  else {
-                alert("정보를 불러오지 못했습니다.");
+                console.log("조회 실패")
                 navigate("/");
             }
         } catch (e) {
-            alert("오류 발생!");
             console.error(e);
             navigate("/error");
         }
@@ -191,9 +191,21 @@ function FeedDetailPage(props) {
     //댓글 업로드
     const uploadComment = () => {
         if(comment !== "" && comment.length > 100){
-            alert("100자를 초과했습니다.")
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '100자를 초과했습니다.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else if (!comment) {
-            alert('댓글이 없어요~')
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '작성된 글이 없어요', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else {
             sendComment();
         }
@@ -209,15 +221,14 @@ function FeedDetailPage(props) {
             console.log(response);
    
             if (response.data.success){
-                alert("댓글 작성 성공!");
                 getFeed();
                 setComment("");
-            }  else {
-                alert("댓글 작성에 실패했습니다. 다시 시도해주세요.");
+            } else {
+                console.log("작성 실패")
+    
             }
 
         } catch (e) {
-            alert("오류 발생!");
             console.error(e);
             navigate("/error");
         }
