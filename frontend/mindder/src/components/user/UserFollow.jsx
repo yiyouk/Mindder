@@ -1,41 +1,44 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
 import api from "../../api/api";
-import { useSelector, useDispatch } from "react-redux";
 
 import FollowButton from "../../commons/ui/FollowButton";
-import BookMarkImg from "../../assets/images/bookmark.png"
-import { useNavigate, useParams } from "react-router-dom";
+import { BsBookmarkFill } from "react-icons/bs";
 
 const Wrapper = styled.div`
-    width: 80vw;
+    width: 15.3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.2rem 1.6rem;
-    border-bottom: 2px solid #7767FD;
-
 `;
 
-const SavedButton = styled.div`
-    align-self: center;
-    margin: 7px;
-    border-width: 1px;
-    cursor: pointer;
-`;
-
-export const Follow = styled.div`
+const Follow = styled.div`
     display: flex;
     justify-content:space-between;
-    width:7rem;
-    /* border:1px solid; */
+    width: 6rem;
 `
 
 export const CountHere = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
+`
+const Text = styled.span`
+    font-size: 1.4rem;
+    font-weight: 600;
+`
+const Text2 = styled.span`
+    font-size: 0.9rem;
+    color: #707070;
+`
+
+const Text3 = styled.span`
+    font-size: 0.6rem;
+    color: #707070;
+    margin-bottom: 0.3rem;
 `
 
 function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
@@ -79,7 +82,7 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
         } else {
           followAPI();
         }
-      };
+    };
 
     const onClick = (path) => {
         if (isMine) {
@@ -88,29 +91,28 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
         } else {
             navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followers, followingCount:followings}})
         }
-
     }
 
     return (
-        <Wrapper>
+        <Wrapper>      
             {isMine?
-                <SavedButton onClick={() => {
-                    navigate(`/saved`)}}>
-                        <img src={BookMarkImg}/>
-                </SavedButton>
+            <CountHere>
+                <Text3>스크랩</Text3>
+                <BsBookmarkFill color="#7767FD" size="20" onClick={() => {navigate(`/saved`)}}/>
+            </CountHere>
             :
-                <FollowButton  active={following} onClick={handleFollowState} >
+            <FollowButton  active={following} onClick={handleFollowState} >
                 {following? '팔로잉' : '팔로우'}
-                </FollowButton>
+            </FollowButton>
             }
             <Follow>
                 <CountHere onClick={()=>{onClick("followers")}}>
-                    <span>팔로워</span>
-                    <span>{followers} </span>
+                    <Text2>팔로워</Text2>
+                    <Text>{followers} </Text>
                 </CountHere>
                 <CountHere onClick={()=>{onClick("following")}}>
-                    <span>팔로잉</span>
-                    <span>{followings} </span>
+                    <Text2>팔로잉</Text2>
+                    <Text>{followings} </Text>
                 </CountHere>
             </Follow>
         </Wrapper>

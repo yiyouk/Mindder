@@ -30,7 +30,7 @@
 		order by f.feed_idx desc;
 	</select>
 	<!-- 팔로워 목록 조회 -->
-	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.follower">
+	<select id="selectMyFollowers" parameterType="int" resultMap="com.ssafy.resultmaps.follow">
 		select f.follow_idx, f.target_user_idx, f.user_idx, u.nickname, u.file_idx
 		from userfollow f 
 		join mainuser u 

@@ -5,46 +5,44 @@ import api from '../api/api'
 
 import FollowItem from "../components/user/FollowItem";
 
-import PrevImg from "../assets/images/back.png"
-import { Follow, CountHere } from "../components/user/UserFollow";
+import {IoArrowBackCircle} from "react-icons/io5";
+import { Line } from "./UserPage";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SAVE_followerCount, } from "../redux/reducers";
 import { useLocation } from "react-router-dom";
 
 const Wrapper = styled.div`
-    /* padding: 16px; */
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
 `;
 
-export const FollowContainer = styled.div`
-    width: 100%;
+const Wrapper2 = styled.div`
+    width: 95vw;
     display: flex;
-    border-top: 2px solid #7767FD;
-    & > * {
-        width: 50%;
-    }
-    /* border:1px solid; */
-    display:flex;
-    justify-content:center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+`;
 
+const Follow = styled.div`
+    display: flex;
+    justify-content:space-around;
+    width: 19rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
 `
 
-export const Prev = styled.div`
-align-self: flex-start;
-    width: 42px;
-    height: 42px;
-    border: none;
-    background-image:url(${PrevImg});
-    background-size: 55%;
-    background-position:center;
-    background-position-x:8px;
-    background-repeat: no-repeat;
-    cursor: pointer;
+const Text = styled.span`
+    font-size: 1rem;
+    font-weight: 600;
+`
+
+const Text2 = styled.span`
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 `
 
 function FollowersPage() {
@@ -52,6 +50,7 @@ function FollowersPage() {
     const dispatch = useDispatch()
     const location = useLocation()
     const isMine = location.state.status
+    const [ pageNickName, setPageNickName ] = useState("");
     const [ followers, setFollowers ] = useState("..");
     const [ followings, setFollowings ] = useState("..");
     const [followerList, setFollowerList] = useState([])
@@ -61,13 +60,26 @@ function FollowersPage() {
     useEffect(() => {
         getFollowingInfo();
         getFollowerInfo();
+        getNickName();
     }, [])
+
+    // 내 팔로워 목록 조회
+    const getNickName = async() => {
+        try{
+            const response = await api.get(`/my/information/${userIdx}`);
+            if (response.data.success){
+                setPageNickName(response.data.data.nickname);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
-            // console.log(response.data)
+            console.log(response.data)
             if (response.data){
                 setFollowerList(response.data.data);
                 setFollowers(response.data.data.length)
@@ -101,30 +113,25 @@ function FollowersPage() {
         console.log(isMine)
         if (isMine){
             setFollowings(followCount)
-            console.log(`현재보고있는유저 팔로잉 수 : ${followCount}`)
         }
     }
 
     return (
         <Wrapper>
-            <Prev onClick={() => {navigate(`/${userIdx}`);}}/>
-            <FollowContainer>
+            <Wrapper2>
+                <IoArrowBackCircle size ="33" color="#7767FD" onClick={() => {navigate(`/${userIdx}`);}}/>
+                <Text2>{pageNickName}의</Text2>
+            </Wrapper2>
             <Follow>
-                <CountHere onClick={()=>{onClick("followers")}}>
-                    <span>팔로워</span>
-                    <span>{followers} </span>
-                </CountHere>
-                <CountHere onClick={()=>{onClick("following")}}>
-                    <span>팔로잉</span>
-                    <span>{followings} </span>
-                </CountHere>
+                <Text onClick={()=>{onClick("followers")}}>팔로워 {followers} 명</Text>
+                <span onClick={()=>{onClick("following")}}>팔로잉 {followings} 명 </span>
             </Follow>
-            </FollowContainer>
-                {!followerList || followerList.length === 0? (
-                    <div>팔로우 목록이 존재하지 않습니다.</div>
-                ):(
-                    followerList.map((myFollower, idx) => (
-                        <FollowItem 
+            <Line/>
+            {(!followerList || followerList.length === 0)? 
+                <div>팔로우 목록이 존재하지 않습니다.</div>
+            :
+                followerList.map((myFollower, idx) => (
+                    <FollowItem 
                         userIdx={myFollower.userIdx} 
                         followStatus={myFollower.followed} 
                         nickname={myFollower.nickname} 
@@ -132,9 +139,9 @@ function FollowersPage() {
                         followChange={handleFollowChange}
                         followingCount={followings}
                         key={idx} 
-                        />
-                    ))
-                )}
+                    />
+                ))
+                }
         </Wrapper>
     );
 }

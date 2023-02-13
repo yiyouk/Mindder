@@ -21,10 +21,9 @@ function RemovePage(props) {
                 dispatch(SAVE_nickName(""));
                 dispatch(SAVE_myIdx(null));
                 removeCookie("is_login")
-                alert("회원퇼퇴가 완료 되었습니다.");
                 navigate('/');
             } else{
-                alert("회원퇼퇴 실패! 재시도 부탁드립니다.");
+                navigate("/error"); 
             }
         } catch (e) {
             console.error(e);

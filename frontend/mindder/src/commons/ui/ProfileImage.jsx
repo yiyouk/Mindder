@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled, {css} from "styled-components";
 
 // 임시 user Img
-import UserImg from "../../assets/images/CanvasSample.png"
+import UserImg from "../../assets/images/default.png"
 
 const sizeStyles = css`
   /*크기*/
@@ -19,8 +19,8 @@ const sizeStyles = css`
 const sizes = {
     // 회원정보 수정
     l: {
-        height: '10rem',
-        width: '10rem',
+        height: '8rem',
+        width: '8rem',
     },
 
     // 유저페이지

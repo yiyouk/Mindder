@@ -94,11 +94,10 @@ const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
         });
         
         if(response.data.success){
-            alert("게시글 수정 성공");
             window.location.replace(`/f/${feedIdx}`)
-        } else{
-            alert("게시글 수정 실패! 다시 시도해주세요.");
-        }
+        } else{ 
+          console.log("수정 실패")
+      }
         
     } catch (e) {
         console.error(e);
