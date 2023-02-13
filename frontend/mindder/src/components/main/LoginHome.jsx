@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const HeaderBar = styled.div`
-    color:  #eeecff;
+    color: #eeecff;
     width: 7rem;
     height: 3rem;
     position: relative;
@@ -52,12 +52,12 @@ function LoginHome(props) {
             <TodayCanvas/>
             <ContainerT>
                 <HeaderText>추천 캔버스</HeaderText>
-                <HeaderBar> & .....</HeaderBar>
+                <HeaderBar>  /.....</HeaderBar>
                 <Reco/>
             </ContainerT>
             <ContainerT>
                 <HeaderText>마인더 통계</HeaderText>
-                <HeaderBar> & .....</HeaderBar>
+                <HeaderBar>  /.....</HeaderBar>
                 <EmotionChart/>
             </ContainerT>
         </Wrapper>
