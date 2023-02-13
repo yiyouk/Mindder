@@ -9,7 +9,6 @@ import Modal from "../../commons/ui/Modal"
 import { useSelector, useDispatch } from "react-redux";
 import { Emoticons, SAVE_customTag, SAVE_emotagSrc, SAVE_todayEmotion } from "../../redux/reducers";
 
-
 export const Wrapper = styled.div`
     width: calc(100% - 1rem) !important;
     height:31rem;
@@ -63,7 +62,7 @@ function PostEmoTag(props) {
 
     const dispatch = useDispatch()
 
-    const [imgSrc, setImgSrc] = useState(selectedEmo)
+    const [imgSrc, setImgSrc] = useState(require(`../../assets/images/face16.png`))
 
     //모달창 열기
     const openModal = () => {
@@ -77,7 +76,7 @@ function PostEmoTag(props) {
 
     const onClick = (e, emo) => {
         // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
-        const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.webp`)
+        const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
         setImgSrc(selectedSrc)
         dispatch(SAVE_emotagSrc(selectedSrc))
         dispatch(SAVE_todayEmotion(emo.name))
@@ -101,6 +100,7 @@ function PostEmoTag(props) {
             <EmoHeader text="오늘의 감정은 어떤가요?"/>
             <TodayEmotion
             imgSrc={imgSrc}
+
             />
             <Guitar state={inputState} > {userInput} </Guitar>
             <CardContainer columnGap={0.2}>
