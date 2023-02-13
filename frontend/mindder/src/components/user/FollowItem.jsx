@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 // status : true이면 언팔로우, false이면 팔로우
-function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, followingCount}) {
+function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, followingCount, followChange}) {
     const [followOrUnfollow, setfollowOrUnfollow] = useState(followStatus)
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const [ followingList, setFollowingList ] = useState([]);
@@ -39,13 +39,6 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
         try{
             const response = await api.get(`/my/followings/${myIdx}`);
             setFollowingList(response.data.data)
-            // console.log(response.data.data)
-            // {
-            //     Object.keys(followingList).find(key => followingList[key].targetUserIdx === {userIdx})?
-            //         setfollowOrUnfollow(true)
-            //         : 
-            //         setfollowOrUnfollow(false)
-            // }
         } catch(e) {
             console.error(e)
         }
@@ -64,6 +57,7 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
     const unFollowAPI = useCallback(async () => {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
+            // console.log(response.data)
             setfollowOrUnfollow((followStatus) => !followStatus);
             setFollowers(followers-1)
         } catch (e) {
@@ -75,11 +69,17 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
         if (followOrUnfollow) {
           unFollowAPI();
           console.log("언팔로우 시도")
+          if (followChange){
+            followChange(followingCount-1)
+          }
         } else {
           followAPI();
           console.log("팔로우 시도")
+        if (followChange){
+            followChange(followingCount+1)
         }
-
+        }
+        
       };
       
     return (
@@ -91,7 +91,7 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
             {myIdx === userIdx? 
                 null:
                 <FollowButton onClick={handleFollowState} active={followOrUnfollow}>
-                {followOrUnfollow ? '언팔로우' : '팔로우'}
+                {followOrUnfollow ? '팔로잉' : '팔로우'}
                 </FollowButton>
             }
         </Wrapper>

@@ -100,7 +100,7 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
                 </SavedButton>
             :
                 <FollowButton  active={following} onClick={handleFollowState} >
-                {following? '언팔로우' : '팔로우'}
+                {following? '팔로잉' : '팔로우'}
                 </FollowButton>
             }
             <Follow>

@@ -68,7 +68,7 @@ function UserPage(props) {
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const userCheck =  () => {
-        if (myIdx && (userIdx===myIdx)){
+        if (myIdx && (userIdx==myIdx)){
             setIsMine(true)        
         } else if (myIdx && (userIdx!==myIdx)){
             setIsMine(false)
