@@ -1,6 +1,8 @@
+import React, {useEffect} from "react";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import NaviBar from '../commons/bar/NaviBar';
 import HeaderBar from "../commons/bar/HeaderBar";
-import { Outlet } from 'react-router-dom';
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -24,6 +26,15 @@ const Dumm = styled.div`
 `
 
 const CommonLayout =()=>{
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
+
+    useEffect(()=>{
+        if(!isLoggedIn){
+            navigate("/");
+        }
+    }, [isLoggedIn])
+
     return(
         <Wrapper>
             <HeaderBar/>
