@@ -83,7 +83,7 @@
   }
   /*---------- 오늘 날짜 타일 ----------*/
   .react-calendar__tile--now {
-    background-color: #ebe9ff;
+    background-color: #FFFFFF;
     padding: 0;
     border-radius: 10px;
     font-weight: bold;
