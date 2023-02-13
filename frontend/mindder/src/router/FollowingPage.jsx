@@ -5,11 +5,10 @@ import api from '../api/api'
 import FollowItem from "../components/user/FollowItem";
 import { FollowContainer } from "./FollowersPage";
 import {Prev} from "./FollowersPage";
-import { Follow, CountHere } from "../components/user/UserFollow";
+import { CountHere } from "../components/user/UserFollow";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { SAVE_followingCount, SAVE_followingList } from "../redux/reducers";
 import { useLocation } from "react-router-dom";
 
 
@@ -22,6 +21,12 @@ const Wrapper = styled.div`
     /* justify-content: center; */
     /* border: 1px solid; */
 `;
+
+const Follow = styled.div`
+    display: flex;
+    justify-content:space-between;
+    width: 15rem;
+`
 
 function FollowingPage(props) {
     // useNavigate에서 state로 넘긴 데이터를 받아준다.
