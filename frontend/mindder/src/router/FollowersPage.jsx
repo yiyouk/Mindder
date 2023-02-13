@@ -57,17 +57,17 @@ function FollowersPage() {
     const [followerList, setFollowerList] = useState([])
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state) => state.USER.myIdx)
-
     useEffect(() => {
         getFollowingInfo();
         getFollowerInfo();
     }, [])
+    console.log(`${userIdx}의 페이지에요`)
 
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
-            // console.log(response.data)
+            console.log(response.data)
             if (response.data){
                 setFollowerList(response.data.data);
                 setFollowers(response.data.data.length)
