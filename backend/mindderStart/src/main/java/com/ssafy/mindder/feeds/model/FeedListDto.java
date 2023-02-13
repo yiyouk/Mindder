@@ -22,4 +22,5 @@ public class FeedListDto {
 	private int likeTotalCount;
 	private String base64;
 	private String extension;
+	private int pageNum;
 }
