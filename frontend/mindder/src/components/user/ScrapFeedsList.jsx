@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Profile from "../../commons/ui/Profile";
 import CanvasItem from "../../commons/list/CanvasItem";
 
-
 import api from "../../api/api";
 import dayjs from 'dayjs';
 
@@ -17,14 +16,13 @@ const Wrapper = styled.div`
     /* border:1px solid black; */
 `;
 
-
-
 const ScrapFeedsItemContainer = styled.div`
     margin: 1rem 0;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
 `
+
 const ProfileContainer = styled.div`
     display: flex;
     align-items: center;
