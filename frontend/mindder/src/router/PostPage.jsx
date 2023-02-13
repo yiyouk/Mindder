@@ -7,10 +7,11 @@ import PostEmocolor from "../components/post/PostEmocolor";
 import PostDraw from "../components/post/PostDraw";
 import PostCommentwrite from "../components/post/PostCommentwrite";
 import NextImg from "../assets/images/arrow.png";
-import MainPage from "./MainPage";
 import { useDispatch, useSelector } from "react-redux";
 import { SAVE_userDrawing } from "../redux/reducers";
 
+
+import Swal from "sweetalert2";
 import {IoArrowForwardCircleSharp, IoArrowBackCircleSharp} from "react-icons/io5";
 
 const Wrapper = styled.div`
@@ -94,7 +95,14 @@ function PostPage(props) {
                         if (checkUserState.todayEmotion){
                             setLevel(level+1)
                         } else {
-                            alert("감정을 선택해주세요")
+                            Swal.fire({
+                                icon: 'warning',               
+                                width: 300,
+                                iconColor: '#7767FD',
+                                text: '감정을 선택해주세요', 
+                                confirmButtonColor: '#7767FD',
+                                confirmButtonText: '확인',
+                              });
                         }
                     }}
                     />
@@ -115,7 +123,14 @@ function PostPage(props) {
                         if (checkUserState.todayColor){
                             setLevel(level+1)
                         } else {
-                            alert("색을 채워주세요")
+                            Swal.fire({
+                                icon: 'warning',               
+                                width: 300,
+                                iconColor: '#7767FD',
+                                text: '색을 채워주세요', 
+                                confirmButtonColor: '#7767FD',
+                                confirmButtonText: '확인',
+                            });
                         }
                     }}/>
                     </Btndiv>

@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 //비동기 동신
 import api from "../api/api";
+import Swal from "sweetalert2";
 
 import "../assets/css/main.css";
 
@@ -45,7 +46,13 @@ function PwFindPage(props) {
   //이메일 입력했다면 존재 확인
   const handleCheckEmail = e => {
     if(email === ""){
-        alert("이메일을 입력해주세요.");
+        Swal.fire({
+          icon: 'warning',               
+          width: 300,
+          iconColor: '#7767FD',
+          text: '이메일을 입력해주세요.', 
+          confirmButtonColor: '#7767FD',
+          confirmButtonText: '확인',})
     } else{
         getCheckEmail();//이메일 존재 확인                                                                  
     }
@@ -57,13 +64,25 @@ function PwFindPage(props) {
         const response = await api.get(`/users/check-email/${email}`, null);
 
         if(response.data.data.available){
-            alert("등록되지 않은 이메일입니다.");
+          Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '등록되지 않은 이메일입니다.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})
         } else{
             setEmailCheck(true);
         }
         
     } catch (e) {
-        alert("올바른 이메일 형식이 아닙니다.");
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '올바른 이메일 형식이 아닙니다.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})
         console.error(e);
         navigate("/error");
     }
@@ -74,7 +93,13 @@ function PwFindPage(props) {
     if(emailCheck){
       sendNewEamil();
     } else{
-      alert("이메일 확인을 완료해주세요");                                                                             
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD',
+        text: '이메일 확인을 완료해주세요.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인',})                                                          
     }
   }
 
@@ -83,10 +108,22 @@ function PwFindPage(props) {
       try {
           const response = await api.patch(`/users/temp-password/${email}`);
           if(response.data.success){
-            alert(`${email} 로 새 비밀번호가 발송되었습니다.`);
+            Swal.fire({
+              icon: 'warning',               
+              width: 300,
+              iconColor: '#7767FD',
+              text: `${email} 로 새 비밀번호가 발송되었습니다.`, 
+              confirmButtonColor: '#7767FD',
+              confirmButtonText: '확인',})    
             navigate("/login");
           } else {
-            alert("올바른 이메일 형식이 아닙니다.");
+            Swal.fire({
+              icon: 'warning',               
+              width: 300,
+              iconColor: '#7767FD',
+              text: '올바른 이메일 형식이 아닙니다.', 
+              confirmButtonColor: '#7767FD',
+              confirmButtonText: '확인',}) 
           }
       } catch (e) {
           console.error(e);
