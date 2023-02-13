@@ -1,4 +1,3 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; 
@@ -10,7 +9,6 @@ import UserMenuSub from "../components/user/UserMenuSub";
 import UserFollow from "../components/user/UserFollow";
 import ProfileName from "../commons/ui/ProfileName";
 import ProfileImage from "../commons/ui/ProfileImage";
-import CanvasAlbumList from "../commons/list/CanvasAlbumList";
 
 import { AiTwotoneSetting} from "react-icons/ai";
 
@@ -20,18 +18,6 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: flex-start;
 `;
-const AlbumWrapper = styled.div`
-    width: 21rem;
-    margin: 0.5rem 0 0.25rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    & > * {
-        color: grey;
-        font-size: 0.8rem;
-    }
-`
 
 export const ProfileContainer = styled.div`
     width: 88vw;
@@ -51,6 +37,7 @@ export const ProfileContainer2 = styled.div`
 export const Line = styled.div`
     width: 100vw;
     border-bottom: 0.1rem solid #7767FD;
+    margin-bottom: 0.2rem;
 `;
 
 export const ProfileEditBtn = styled.div`
@@ -141,12 +128,8 @@ function UserPage(props) {
             <ProfileContainer>
                 <ProfileName userIdx={isMine? myIdx : userIdx} size="l" name={nickname}/>
                 <div>
-                    { isMine 
-                    ?
-                    <AiTwotoneSetting size="20" color="#7767FD"
-                    onClick={() => {
-                        navigate("../accounts/edit")
-                    }}/>
+                    { isMine ?
+                    <AiTwotoneSetting size="20" color="#7767FD" onClick={() => { navigate("/accounts/edit") }}/> 
                     :null
                     }
                 </div>
@@ -156,10 +139,7 @@ function UserPage(props) {
                 <UserFollow isMine={isMine} followerCount={followerCount} followingCount={followingCount} isfollowing={isFollowing}/>
             </ProfileContainer2>
             <Line/>
-            {/* isfollowing 팔로잉 여부 넣어주면됨 */}
-            
             <UserMenuSub isMine={isMine} list={userFeeds}></UserMenuSub>
-                
         </Wrapper>
     );
 }

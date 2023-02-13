@@ -9,23 +9,22 @@ import FollowButton from "../../commons/ui/FollowButton";
 import { BsBookmarkFill } from "react-icons/bs";
 
 const Wrapper = styled.div`
-    width: 65vw;
+    width: 15.3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 `;
 
-export const Follow = styled.div`
+const Follow = styled.div`
     display: flex;
     justify-content:space-between;
-    width: 6.5rem;
+    width: 6rem;
 `
 
 export const CountHere = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
 `
 const Text = styled.span`
     font-size: 1.4rem;
@@ -34,6 +33,12 @@ const Text = styled.span`
 const Text2 = styled.span`
     font-size: 0.9rem;
     color: #707070;
+`
+
+const Text3 = styled.span`
+    font-size: 0.6rem;
+    color: #707070;
+    margin-bottom: 0.3rem;
 `
 
 function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
@@ -91,7 +96,10 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
     return (
         <Wrapper>      
             {isMine?
+            <CountHere>
+                <Text3>스크랩</Text3>
                 <BsBookmarkFill color="#7767FD" size="20" onClick={() => {navigate(`/saved`)}}/>
+            </CountHere>
             :
                 <FollowButton  active={following} onClick={handleFollowState} >
                 {following? '팔로잉' : '팔로우'}

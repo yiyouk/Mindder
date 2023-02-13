@@ -6,7 +6,7 @@ import api from '../api/api'
 import FollowItem from "../components/user/FollowItem";
 
 import PrevImg from "../assets/images/back.png"
-import { Follow, CountHere } from "../components/user/UserFollow";
+import { CountHere } from "../components/user/UserFollow";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SAVE_followerCount, } from "../redux/reducers";
@@ -45,6 +45,12 @@ align-self: flex-start;
     background-position-x:8px;
     background-repeat: no-repeat;
     cursor: pointer;
+`
+
+const Follow = styled.div`
+    display: flex;
+    justify-content:space-between;
+    width: 6rem;
 `
 
 function FollowersPage() {
