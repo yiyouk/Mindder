@@ -1,8 +1,10 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Colors16 } from "../../redux/reducers";
+import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx } from "../../redux/reducers";
 import styled, {css} from "styled-components";
+import ProfileImage from "../../commons/ui/ProfileImage"
+import UserImg from "../../assets/images/CanvasSample.png"
 
 //비동기 동신
 import api from "../../api/api";
@@ -76,13 +78,14 @@ const PickColor = styled.div`
 function Modify() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const profileIdx = useSelector((state)=>state.USER.profileImgFileIdx)
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
     const [nicknameCheck, setNicknameCheck] = useState(true);
     const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
-    const [fileIdx, setFileIdx] = useState();
+    const [fileIdx, setFileIdx] = useState(profileIdx);
     const [base64, setBase64] = useState("");
 
     const myIdx = useSelector((state)=>state.USER.myIdx);
@@ -96,6 +99,7 @@ function Modify() {
     const handleNickname = e => {
         setNicknameCheck(false);
         setNickname(e.target.value);
+        dispatch(SAVE_nickName(e.target.value))
     }
 
    //색 선택하기
@@ -160,7 +164,7 @@ function Modify() {
                 setnicknameOrigin(response.data.data.nickname);
                 setMyColor(response.data.data.emoteColorIdx);
                 setSocialId(response.data.data.socialId);
-                setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
+                setBase64("data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
             }
             
         } catch (e) {
@@ -172,6 +176,7 @@ function Modify() {
 
     //정보 수정하기
     const sendInfo = async() => {
+        console.log(fileIdx)
         try {
             const response = await api.patch(`/users`, {
                 nickname: nickname,
@@ -179,7 +184,8 @@ function Modify() {
                 fileIdx: fileIdx
             });
             
-            window.location.replace("/accounts/edit")
+            // window.location.replace("/accounts/edit")
+            navigate(`/${myIdx}`)
              
         } catch (e) {
             alert("오류 발생!");
@@ -219,10 +225,10 @@ function Modify() {
             });
             
             if(response.data.success){
-                console.log("통ㅅ니성공?")
-                console.log(response)
+                console.log("통신성공?")
+                console.log(response.data)
                 setFileIdx(response.data.data)
-                // dispatch(SAVE_profileImgIdx(response.data))
+                dispatch(SAVE_profileImgFileIdx(response.data.data))
             } else{
                 console.log("실패했지렁")
             }
@@ -247,7 +253,12 @@ function Modify() {
             <div className="col-12">
             <label className="form-label"> 사진</label>
             <div className="center-container">
-                <Profile src={base64}/>
+                {/* <Profile src={base64}/> */}
+                <ProfileImage
+                imgSrc={base64.split(',')[1]}
+                size="l"
+                />
+                
             </div>
             <div className="logo-container">
                 <input className="white-black-line-btn" type="button" value="수정" onClick={handleButtonClick}/>
@@ -270,7 +281,7 @@ function Modify() {
         <div className="col-12">
             <label className="form-label">비밀번호</label>
             <div className="center-container">  
-            <input className="white-black-line-btn" type="button" value = "비밀번호 수정"
+            <input className="white-black-line-btn" type="button" value ="비밀번호 수정"
               onClick={() => {
                   navigate("/accounts/password/change");
               }}/>
