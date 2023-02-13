@@ -144,7 +144,7 @@ input {
 }
 
 .white-black-line-btn{
-    width: 6rem;
+    width: 6.5rem;
     height: 2.5em;
     color: black;
     font-size: 0.8rem;
@@ -184,6 +184,7 @@ input {
 .logo-container{
     display: flex;
     align-items: center;
+    justify-content: space-around;
     margin-top: 0.2rem;
     margin-bottom: 0.7rem;
 }
