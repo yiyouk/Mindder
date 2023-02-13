@@ -11,13 +11,16 @@ import {IoGridSharp, IoGridOutline} from "react-icons/io5";
 import {BsCalendarCheck, BsCalendarCheckFill} from "react-icons/bs";
 
 const Wrapper = styled.div`
+    width: 21rem;
+    display: flex;
+    justify-content: space-between;
     padding-top: 0.5rem;
+    padding-bottom: 0.2rem;
 `;
 
 const Memu = styled.div`
     position: relative;
-    left: 8rem;
-    bottom : 0.5rem;
+    bottom : 1rem;
     width: 6rem;
     height: 1.5rem;
     display: flex;
@@ -58,23 +61,24 @@ function UserMenu({isMine, list}) {
     return (
         <>
             {isMine ?
-            <Memu>
+            <Wrapper>
+                { kind ? <span>내 피드</span> : <span>감정 캘린더</span>}
                 { kind ?
-                <>
+                <Memu>
                     <CircleP onClick={onClick}><IoGridSharp size="25" color="#ffffff"/></CircleP>
                     <CircleW onClick={onClick}><BsCalendarCheckFill size="22"  color="#7767FD"/></CircleW>
-                </>
+                </Memu>
                 :
-                <>
+                <Memu>
                     <CircleW onClick={onClick}><IoGridOutline size="21" color="#7767FD"/></CircleW>
                     <CircleP onClick={onClick}><BsCalendarCheck size="24" color="#ffffff"/></CircleP>
-                </>
+                </Memu>
                 }   
-            </Memu>
+            </Wrapper>
             :
             null
             }
-            <Wrapper>
+            <>
                 { kind ?
                 (!list || list.length === 0) ? 
                     <span>감정피드가 존재하지 않습니다.</span>
@@ -83,7 +87,7 @@ function UserMenu({isMine, list}) {
                 :
                 <Calendar/>
                 }
-            </Wrapper>
+            </>
         </>
     );
 }
