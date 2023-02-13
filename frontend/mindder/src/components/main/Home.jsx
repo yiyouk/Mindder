@@ -8,6 +8,8 @@ import styled from "styled-components";
 import naver_login from "../../assets/images/naver_login.png";
 import kakao_login from "../../assets/images/kakao_login.png";
 
+import { KAKAO_AUTH_URL } from "../../social/OAuth";
+
 const Top = styled.div`
     width: 22rem;
     height: 4rem;
@@ -36,9 +38,11 @@ function Home(props) {
             <div className="center-container">
                 <div className="login-btn" onClick={() => {navigate("/login");}}>로그인</div>
                 <Lnaver className="pad"/>
-                <div className="naver"><img src={naver_login} style={{width:"10.5rem"}}/></div>
+                <div className="naver"><img src={naver_login} style={{width:"10.5rem"}}
+                /></div>
                 <Lnaver className="pad"/>
-                <img src={kakao_login} style={{width:"11.5rem"}}/>
+                <img src={kakao_login} style={{width:"11.5rem"}} 
+                onClick={()=>{window.open(KAKAO_AUTH_URL, '_blank')}}/>
                 <Lnaver className="pad"/>
             </div>
             <div className="right-container">

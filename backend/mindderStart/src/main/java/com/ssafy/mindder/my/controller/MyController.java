@@ -143,7 +143,7 @@ public class MyController {
 
 	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로워 목록을 반환한다.", response = UsersDto.class)
 	@GetMapping("/followers/{userIdx}")
-	public ApiResponse<?> myFollowerList(
+	public ApiResponse<?> myFollowerList(@RequestHeader("access_token") String accessToken,
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
 		logger.debug("myFollowerList - 호출 : " + userIdx);
@@ -168,7 +168,7 @@ public class MyController {
 
 	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로잉 목록을 반환한다.", response = UsersDto.class)
 	@GetMapping("/followings/{userIdx}")
-	public ApiResponse<?> myFollowingList(
+	public ApiResponse<?> myFollowingList(@RequestHeader("access_token") String accessToken,
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
 		logger.debug("myFollowingList - 호출 : " + userIdx);

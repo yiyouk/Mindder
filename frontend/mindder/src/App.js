@@ -14,7 +14,7 @@ import "./index.css"
 
 // Pages
 import MainLayout from './Layout/MainLayout'
-import NoNaviLayout from './Layout/NoNaviLayout'
+import OnlyTopBarLayout from './Layout/OnlyTopBarLayout'
 import CommonLayout from './Layout/CommonLayout'
 import MainPage from './router/MainPage';
 import PostPage from './router/PostPage';
@@ -33,6 +33,7 @@ import PwFindPage from "./router/PwFindPage";
 import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
 import ErrorPage from "./router/ErrorPage";
+import KakaoAuthRedirect from "./social/KakaoAuthRedirect";
 
 function App(props) {
     // const navigate = useNavigate();
@@ -75,7 +76,7 @@ function App(props) {
                     </Route>
 
                     {/* 헤더만 필요함 */}
-                    <Route element={<NoNaviLayout/>}>
+                    <Route element={<OnlyTopBarLayout/>}>
                         <Route path="join" element={<JoinPage />} />
                         <Route path="login" element={<LoginPage />} />
                         <Route path="accounts/password/find" element={<PwFindPage />} />
@@ -97,6 +98,7 @@ function App(props) {
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path="saved" element={<SavedPage />} />
                     </Route>
+                    <Route path="/oauth/callback/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
         </BrowserRouter>
     );
