@@ -1,6 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useSelector} from "react-redux";
 
 const Bodysuit = styled.div`
     background-color:  #7767FD;
@@ -14,7 +15,7 @@ const Bodysuit2 = styled.div`
 `;
 
 const MainLayout =()=>{
-    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated)
+    const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
 
     return(
         <>
