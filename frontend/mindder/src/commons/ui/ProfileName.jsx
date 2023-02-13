@@ -7,6 +7,7 @@ const sizeStyles = css`
   /*크기*/
   ${({size}) => css`
     font-size: ${sizes[size].fontsize};
+    font-weight: ${sizes[size].weightsize};
   `}
 `;
 
@@ -14,9 +15,9 @@ const sizeStyles = css`
 const sizes = {
     // 
     l: {
-        fontsize: '1.5rem'
+        fontsize: '1.2rem',
+        weightsize: '600'
     },
-
     // 프로필
     m: {
         fontsize: '1rem'
@@ -40,6 +41,7 @@ export const Nickname = styled.div`
 // size 입력 없을 경우 default 값은 m!
 ProfileName.defaultProps = {
     size: "m",
+    weightsize: 300
   };
 
 
