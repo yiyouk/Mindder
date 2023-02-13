@@ -35,21 +35,22 @@ public class AlarmsController {
 	private JwtService jwtService;
 	@Autowired
 	private AlarmsService alarmsService;
+	@Autowired
+	private FCMService firebaseCloudMessageService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
-	private final FCMService firebaseCloudMessageService;
-
-	@PostMapping()
-	public ApiResponse<?> pushMessage(@RequestBody AlarmsDto alarmsDto) throws IOException {
-
-		try {
-			firebaseCloudMessageService.sendMessageTo(alarmsDto.getTargetToken(), alarmsDto.getTitle(),
-					alarmsDto.getBody());
-			return ApiResponse.success(SuccessCode.CREATE_PUSH_ALARMS);
-		} catch (Exception e) {
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
+//	@PostMapping()
+//	public ApiResponse<?> pushMessage(@RequestBody AlarmsDto alarmsDto) throws IOException {
+//
+//		try {
+//			firebaseCloudMessageService.sendMessageTo(alarmsDto.getTargetToken(), alarmsDto.getTitle(),
+//					alarmsDto.getBody());
+//			return ApiResponse.success(SuccessCode.CREATE_PUSH_ALARMS);
+//		} catch (Exception e) {
+//			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+//		}
+//	}
 	
 	@ApiOperation(value = "fcm 토큰 등록", notes = "fcm에서 발급받은 토큰을 유저 테이블에 등록한다.")
 	@PostMapping("/join")
