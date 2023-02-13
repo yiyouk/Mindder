@@ -5,7 +5,6 @@ import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
 import NaviBar from '../commons/bar/NaviBar';
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import LogoWW from "../assets/images/LogoWW.png"
 
 const Bodysuit = styled.div`
@@ -39,8 +38,7 @@ const HeaderLogo = styled.img`
     padding-left: 0.5rem;
 `;
 
-function MainPage(props) {
-    const navigate = useNavigate();
+function MainPage() {
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
 
     if(!isLoggedIn){
@@ -49,7 +47,7 @@ function MainPage(props) {
         );
     } else {
         return (
-            <>
+            <Bodysuit>
                 <Wrapper>
                     <HeaderLogo src={LogoWW}/>
                 </Wrapper>
@@ -57,7 +55,7 @@ function MainPage(props) {
                     <LoginHome></LoginHome>
                 </Body>
                 <NaviBar></NaviBar>
-            </>
+            </Bodysuit>
         );
     }
 }
