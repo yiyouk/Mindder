@@ -4,7 +4,7 @@ import EmoHeader from "./EmoHeader";
 import TodayEmotion from "./TodayEmotion";
 import EmoColors from "./EmoColors";
 import { Wrapper,CardContainer,Guitar } from "./PostEmotag";
-import { Colors16, SAVE_todayColor } from "../../redux/reducers";
+import { Colors16, SAVE_emotagSrc, SAVE_todayColor } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 
 function PostEmocolor(props){
@@ -20,6 +20,7 @@ function PostEmocolor(props){
     const updatedSrc = require(`../../assets/images/mindder_bear/${selectedEmo}/${name}.png`)
     setImgSrc(updatedSrc)
     dispatch(SAVE_todayColor(name))
+    dispatch(SAVE_emotagSrc(updatedSrc))
   }
 
 
