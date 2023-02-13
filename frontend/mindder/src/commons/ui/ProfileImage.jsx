@@ -19,8 +19,8 @@ const sizeStyles = css`
 const sizes = {
     // 회원정보 수정
     l: {
-        height: '10rem',
-        width: '10rem',
+        height: '8rem',
+        width: '8rem',
     },
 
     // 유저페이지
