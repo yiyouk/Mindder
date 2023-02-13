@@ -49,7 +49,7 @@ function MainPage(props) {
         );
     } else {
         return (
-            <Bodysuit>
+            <>
                 <Wrapper>
                     <HeaderLogo src={LogoWW}/>
                 </Wrapper>
@@ -57,7 +57,7 @@ function MainPage(props) {
                     <LoginHome></LoginHome>
                 </Body>
                 <NaviBar></NaviBar>
-            </Bodysuit>
+            </>
         );
     }
 }
