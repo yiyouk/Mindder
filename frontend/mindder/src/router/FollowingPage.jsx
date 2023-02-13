@@ -29,22 +29,17 @@ function FollowingPage(props) {
     const dispatch = useDispatch()
     const location = useLocation()
     const isMine = location.state.status? location.state.status : ''
-    const followingCount = useSelector((state)=>state.USER.followingCount)
     const followerCount = useSelector((state)=>state.USER.followerCount)
-    console.log(location.state)
-    const [ followers, setFollowers ] = useState(".." || followerCount);
-    const [ followings, setFollowings ] = useState(".." || followingCount);
+    const [ followings, setFollowings ] = useState("..");
     const [followingList, setFollowingList] = useState([])
     // const [isMine, setIsMine] = useState()
     const userIdx = parseInt(useParams().userId);
     const myIdx = useSelector((state) => state.USER.myIdx)
-
+    
     useEffect(() => {
         // setIsMine(ismine)
-        setFollowers(followerCount)
-        setFollowings(followingCount)
         getFollowingInfo();
-    }, [location])
+    }, [])
 
     // 내가 팔로잉하는 리스트 받아옴
     const getFollowingInfo = async() => {
@@ -52,7 +47,7 @@ function FollowingPage(props) {
             const response = await api.get(`/my/followings/${userIdx}`);
             console.log(response.data)
             setFollowingList(response.data.data);
-            dispatch(SAVE_followingCount(response.data.data.length))
+            setFollowings(response.data.data.length)
         } catch (e) {
             console.error(e);
         }
@@ -62,12 +57,20 @@ function FollowingPage(props) {
     const onClick = (path) => {
         if (isMine) {
             navigate(`/${myIdx}/${path}`, {state:{
-                status:isMine, followerCount:followers, followingCount:followings}}) 
+                status:isMine, followerCount:followerCount, followingCount:followings}}) 
         } else {
-            navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followers, followingCount:followings}})
+            navigate(`/${userIdx}/${path}`, {state:{status:isMine,followerCount:followerCount, followingCount:followings}})
         }
-
     }
+
+    const handleFollowChange = (followCount)=>{
+        if (isMine){
+            setFollowings(followCount)
+            console.log(followCount)
+        }
+    }
+
+
 
     return (
         <Wrapper>
@@ -76,7 +79,7 @@ function FollowingPage(props) {
             <Follow>
                 <CountHere onClick={()=>{onClick("followers")}}>
                     <span>팔로워</span>
-                    <span>{followers} </span>
+                    <span>{followerCount} </span>
                 </CountHere>
                 <CountHere onClick={()=>{onClick("following")}}>
                     <span>팔로잉</span>
@@ -93,7 +96,8 @@ function FollowingPage(props) {
                         followStatus={true} 
                         nickname={following.nickname} 
                         imgSrc={following.base64}
-                        followerCount={followers}
+                        followerCount={followerCount}
+                        followChange={handleFollowChange}
                         followingCount={followings}
                         key={idx} 
                         />
