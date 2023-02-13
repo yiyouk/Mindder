@@ -52,9 +52,9 @@ public class MyController {
 	@Autowired
 	private FileService fileService;
 	@Autowired
-	private FCMService fcmService;
-	@Autowired
 	private AlarmsService alarmsService;
+	@Autowired
+	private FCMService fcmService;
 
 	@Value("${file.path.upload-files}")
 	private String filePath;
@@ -83,7 +83,8 @@ public class MyController {
 
 	@ApiOperation(value = "회원 정보 조회 (타인페이지)", notes = "유저 번호에 해당하는 유저 정보를 반환한다.", response = UserInformationDto.class)
 	@GetMapping("/information/{userIdx}")
-	public ApiResponse<?> otherUserDetails(@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx,
+	public ApiResponse<?> otherUserDetails(
+			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int targetUserIdx,
 			@RequestHeader("access_token") String accessToken) {
 		logger.debug("otherUserDetails - 호출");
 		try {
@@ -97,7 +98,7 @@ public class MyController {
 			Map<String, String> file = fileService.findFile(userDto.getFileIdx(), filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
-			
+
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,14 +229,15 @@ public class MyController {
 			if (myService.findFollow(userIdx, targetUserIdx) != null) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FOLLOW_EXCEPTION);
 			}
+
+			// 팔로우 등록
 			myService.addMyFollow(userIdx, targetUserIdx);
-			
 			// 알림 등록
 			alarmsService.addFollowAlarm(userIdx, targetUserIdx);
 			// 알림 전송
 			AlarmsUserDto alarmsUserDto = alarmsService.findDeviceToken(userIdx, targetUserIdx);
 			fcmService.sendMessageTo(alarmsUserDto, 1);
-			
+
 			return ApiResponse.success(SuccessCode.CREATE_MY_FOLLOW);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -263,7 +265,7 @@ public class MyController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-	
+
 	@ApiOperation(value = "가장 최근에 쓴 피드의 감정, 색상 조회", notes = "피드의 감정과 색상을 반환한다.", response = FeedsRecentDto.class)
 	@GetMapping("/feeds/recent")
 	public ApiResponse<?> myFeedsRecentDetails(@RequestHeader("access_token") String accessToken) throws Exception {
