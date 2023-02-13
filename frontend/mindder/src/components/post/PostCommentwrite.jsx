@@ -7,6 +7,8 @@ import api from '../../api/api'
 import {Emoticons} from "../../redux/reducers";
 import {Colors16} from "../../redux/reducers";
 
+import { FeedInfoContainer, FeenInfo } from "./PostDraw";
+
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -32,6 +34,7 @@ const CommentDiv = styled.textarea`
   font-family: 'Inter';
   margin-top: 1rem;
   margin-bottom: 1rem;
+  ::placeholder
 `
 
 const BottomDiv = styled.div`
@@ -98,7 +101,9 @@ function PostCommentwrite(props){
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
   const emoColor = useSelector((state)=>state.USER.todayColor)
   const myIdx = useSelector((state)=>state.USER.myIdx)
-  const placeHolder = "오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)"
+  let placeHolder = "오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#10;&#13;&#10; 안녕?"
+  const todayColor = useSelector((state)=>state.USER.todayColor)
+  const todayEmo = useSelector((state)=>state.USER.todayEmotion)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
   const clickedToggle = () => {
@@ -152,9 +157,13 @@ function PostCommentwrite(props){
 
   return (
     <Wrapper>
+      <FeedInfoContainer>
+        <FeenInfo>{`#${todayColor}`}</FeenInfo>
+        <FeenInfo>{`#${todayEmo}`}</FeenInfo>
+      </FeedInfoContainer>
       <CanvasDiv src={userDraw}>
       </CanvasDiv>
-      <CommentDiv placeholder={placeHolder} onChange={onChange}/>
+      <CommentDiv placeholder="오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#13;&#13;#감정 #그림 #마인더" onChange={onChange}/>
       <BottomDiv>
         <Container>
           <Toggle onClick={clickedToggle} toggle={isPublic}>
