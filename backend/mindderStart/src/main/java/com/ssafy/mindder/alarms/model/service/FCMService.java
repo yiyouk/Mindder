@@ -36,7 +36,6 @@ public class FCMService {
 				.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
 				.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8").build();
 
-		System.out.println(request.body().toString());
 		Response response = client.newCall(request).execute();
 
 		System.out.println(response.body().string());
@@ -49,7 +48,6 @@ public class FCMService {
 						.build())
 				.validate_only(false).build();
 
-		System.out.println(fcmMessage);
 		return objectMapper.writeValueAsString(fcmMessage);
 	}
 
