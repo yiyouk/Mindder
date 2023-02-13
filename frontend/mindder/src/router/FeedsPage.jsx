@@ -79,7 +79,7 @@ function FeedsPage() {
             if (response.data.success){
                 setRealtimeFeeds(response.data.data.Feeds);
             } else {
-                alert("실시간 피드를 조회하지 못했습니다.");
+                console.error("조회실패");
             }
 
         } catch (e) {
@@ -97,7 +97,7 @@ function FeedsPage() {
             if (response.data.success){
                 setPopularFeeds(response.data.data.Feeds)
             } else {
-                alert("인기 피드를 조회하지 못했습니다.");
+                console.error("조회실패");
             }
         } catch (e) {
             console.error(e);
@@ -113,7 +113,7 @@ function FeedsPage() {
             if(response.data.success){
                 setNeighborFeeds(response.data.data.Feeds)
             } else {
-                alert("이웃 피드를 조회하지 못했습니다.");
+                console.error("조회실패");
             }
         } catch (e) {
             console.error(e);

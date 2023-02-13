@@ -87,12 +87,11 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
     try {
       const response = await api.delete(`/likes/${feedIdx}`);
       if(response.data.success){
-        getData(0);
+        getData(0);      
       } else{
-        alert("다시 시도해주세요.")
+          console.log("다시 시도해주세요.")
       }
     } catch (e) {
-        alert("오류 발생!");
         console.error(e);
         navigate("/error");
     }
@@ -119,11 +118,10 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
       if(response.data.success){
         getData(num);
       }else{
-        alert("다시 시도해주세요.");
+          console.log("다시 시도해주세요.")
       }
 
     } catch (e) {
-        alert("오류 발생!");
         console.error(e);
         navigate("/error");
     }
@@ -138,13 +136,12 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
         });
   
         if(response.data.success){
-          getData(num);
+          getData(num);     
         }else{
-          alert("다시 시도해주세요.");
+            console.log("다시 시도해주세요.")
         }
   
       } catch (e) {
-          alert("오류 발생!");
           console.error(e);
           navigate("/error");
       }
