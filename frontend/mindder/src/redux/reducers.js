@@ -194,7 +194,7 @@ export const Colors16 = [
 ]
 
 const initialState = {
-  emotagSrc:'/static/media/face16.9ddc3c40a4f252ded077.webp',
+  emotagSrc:"../../assets/images/face16.png",
   todayEmotion:null,
   todayColor:null,
   nickName:"",
@@ -206,6 +206,7 @@ const initialState = {
   userDrawing:null,
   profileImg:null,
   customTag:null,
+  profileImgFileIdx:null,
 }
 
 const userStateSlice = createSlice({
@@ -222,7 +223,7 @@ const userStateSlice = createSlice({
     },
     SAVE_emotagSrc(state, action){
       state.emotagSrc = action.payload
-      console.log(`이미지src : ${state.emotagSrc}`)
+      console.log(`이미지src : 저장 성공`)
     },
     SAVE_nickName(state, action){
       state.nickName = action.payload
@@ -237,7 +238,7 @@ const userStateSlice = createSlice({
       console.log(`otherUserIdx : ${state.otherUserIdx}`)
     },
     SAVE_followingList(state, action){
-      state.followingList = action.payload
+      state.followingList.push(action.payload) 
       console.log(`followingList : ${state.followingList}`)
     },
     SAVE_profileImg(state, action){
@@ -260,9 +261,10 @@ const userStateSlice = createSlice({
       state.customTag = action.payload
       console.log(`기타 감정 : ${state.customTag}`)
     },
-    // SAVE_profileImgIdx(){
-
-    // }
+    SAVE_profileImgFileIdx(state, action){
+      state.profileImgFileIdx = action.payload
+      console.log(`프로필 이미지 저장성공 : ${state.profileImgFileIdx}`)
+    },
   }
 })
 
@@ -299,5 +301,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag } = userStateSlice.actions;
+export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;

@@ -5,4 +5,15 @@
 	<update id="updateToken" parameterType="TokenUpdateDto">
 		update mainuser set device_token = #{deviceToken} where user_idx = #{userIdx};
 	</update>
+	<!-- 알림을 보낸 / 받을 유저 정보 조회 -->
+	<select id="selectDeviceToken" parameterType="int" resultMap="com.ssafy.resultmaps.alarmsUser">
+		select (select nickname from mainuser where user_idx = #{senderUserIdx}) as sender_nickname, 
+				nickname as receiver_nickname, device_token
+		from mainuser
+		where user_idx = #{receiverUserIdx};
+	</select>
+	<!-- 팔로우 알림 등록 -->
+	<insert id="insertFollowAlarm" parameterType="int">
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx) values(1, #{userIdx} ,#{targetUserIdx});
+	</insert>
 </mapper>

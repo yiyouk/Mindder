@@ -82,12 +82,10 @@ function FeedManage({normalTag, mainText, feedIdx, isPublic}) {
             const response = await api.delete(`feeds/${feedIdx}`);
             
             if(response.data.success){
-                alert("게시글 삭제 성공");
                 navigate(`/${myIdx}`);
             } else{
-                alert("게시글 삭제 실패! 다시 시도해주세요.");
+                console.log('삭제 실패')
             }
-            
         } catch (e) {
             console.error(e);
             navigate("/error");

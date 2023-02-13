@@ -25,7 +25,6 @@ function Scraps({myScrap, feedIdx}) {
       }
       
     } catch (e) {
-      alert("오류 발생!");
       console.error(e);
       navigate("/error");
     }
@@ -41,7 +40,6 @@ function Scraps({myScrap, feedIdx}) {
         console.log(response);
       }
     } catch (e) {
-      alert("오류 발생!");
       console.error(e);
       navigate("/error");
     }

@@ -6,7 +6,7 @@ import { Colors16 } from "../../redux/reducers";
 
 //비동기 동신
 import api from "../../api/api";
-
+import Swal from "sweetalert2";
 import '../../assets/css/main.css';
 
 const colortyles = css`
@@ -95,7 +95,13 @@ function JoinRegister({email}) {
   const handleCheckNick = e => {
     // console.log(email);
     if(nickname === ""){
-        alert("닉네임 입력해주세요.");
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '닉네임을 입력해주세요.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})
     } else{
         getNick();                                                                                 
     }
@@ -107,9 +113,21 @@ function JoinRegister({email}) {
         const response = await api.get(`/users/check-nickname/${nickname}`, null);
         if(response.data.data.available){
             setNicknameCheck(true);
-            alert("사용 가능한 닉네임입니다.");
+            Swal.fire({
+                icon: 'success',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '사용 가능한 닉네임입니다.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         } else{
-            alert("이미 존재하는 닉네임입니다.");
+            Swal.fire({
+                icon: 'warning',               
+                width: 300,
+                iconColor: '#7767FD',
+                text: '이미 존재하는 닉네임입니다.', 
+                confirmButtonColor: '#7767FD',
+                confirmButtonText: '확인',})
         }
         
     } catch (e) {
@@ -121,13 +139,37 @@ function JoinRegister({email}) {
   //회원가입시도
   const join = e => {
     if(nickname === ""){
-        alert("닉네임 입력해주세요.");
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '닉네임을 입력해주세요.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})
     } else if(!nicknameCheck){
-        alert("닉네임 확인을 완료해주세요.");                                                                             
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '닉네임 중복 확인을 완료해주세요.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})                                                  
     } else if(password !== passwordCheck){
-        alert("비밀번호와 확인 비밀번호가 다릅니다.");                                                                             
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '비밀번호와 확인 비밀번호가 다릅니다.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})                                                           
     } else if(myColor ===""){
-        alert("나의 색을 선택해주세요.");                                                                             
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '나의 색을 선택해주세요.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})                                                           
     } else {
         getjoin();
     }
@@ -148,10 +190,22 @@ function JoinRegister({email}) {
             
             
             if(response.data.success){
-                alert("회웝가입이 완료되었습니다.");
+                Swal.fire({
+                    icon: 'success',               
+                    width: 300,
+                    iconColor: '#7767FD',
+                    text: '회원가입이 완료되었습니다.', 
+                    confirmButtonColor: '#7767FD',
+                    confirmButtonText: '확인',})
                 navigate("/login");
             } else{
-                alert("오류입니다. 다시 시도해주세요.");
+                Swal.fire({
+                    icon: 'warning',               
+                    width: 300,
+                    iconColor: '#7767FD',
+                    text: '오류입니다. 다시 시도해주세요.', 
+                    confirmButtonColor: '#7767FD',
+                    confirmButtonText: '확인',})         
                 navigate("/error");
             }
             

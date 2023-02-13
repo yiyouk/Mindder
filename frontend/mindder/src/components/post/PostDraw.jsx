@@ -6,7 +6,7 @@ import CrawItem from "../../commons/list/CrawItem";
 import { useSelector } from "react-redux";
 import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 import { Colors16 } from "../../redux/reducers";
-
+import Swal from "sweetalert2";
 
 const Wrapper = styled.div`
     /* width: calc(100% - 1rem);
@@ -39,11 +39,19 @@ const CanvasDiv = styled.div`
   border-radius: 19px;
 `
 
+
 function PostDraw(props){
   const {canvasRef, imageSaved} = props
   const getGuideImg = async(todayColor, setCrawlingList) => {
     if (!todayColor){
-      alert('감정색이 선택되지 않았습니다')
+      Swal.fire({
+        icon: 'warning',               
+        width: 300,
+        iconColor: '#7767FD', 
+        text: '감정색이 선택되지 않았습니다.', 
+        confirmButtonColor: '#7767FD',
+        confirmButtonText: '확인'
+      });
       return
     }
     

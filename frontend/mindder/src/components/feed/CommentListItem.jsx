@@ -96,10 +96,9 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
             const response = await api.delete(`/comments/${comment.commentIdx}`);
             
             if(response.data.success){
-                alert("댓글 삭제 성공");
                 getData(commentCount-1);
             } else{
-                alert("댓글 삭제 실패! 다시 시도해주세요.");
+                console.log("삭제 실패")
             }
             
         } catch (e) {

@@ -6,8 +6,6 @@ import CanvasSample from "../../assets/images/CanvasSample.png"
 import LikeIcon from "../../assets/images/Logo.png"
 import CommentIcon from "../../assets/images/comment.png"
 
-
-
 const UserFeeds = styled.div`
   aspect-ratio: 1/1;
   border-radius: 4px;
