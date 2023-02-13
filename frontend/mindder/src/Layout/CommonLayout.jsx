@@ -7,6 +7,9 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
+    overflow-y: scroll;
+    margin-bottom: 6vh;
 `;
 
 const Body = styled.div`
