@@ -20,7 +20,7 @@ const Nick = styled.div`
 
 const HeaderLogo = styled.img`
   width: 6rem;
-  height: 6vh;
+  height: 2.5rem;
 `;
 
 function TopBar(props) {
