@@ -5,7 +5,6 @@ import java.util.List;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
-import com.ssafy.mindder.my.model.FollowerDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 
@@ -21,7 +20,7 @@ public interface MyService {
 	public List<FeedListDto> findOthersFeeds(int userIdx) throws Exception;
 
 	// 팔로워 목록 조회
-	public List<FollowerDto> findMyFollowers(int userIdx) throws Exception;
+	public List<FollowsDto> findMyFollowers(int userIdx) throws Exception;
 
 	// 팔로잉 목록 조회
 	public List<FollowsDto> findMyFollowings(int userIdx) throws Exception;

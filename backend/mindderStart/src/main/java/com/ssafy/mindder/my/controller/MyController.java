@@ -25,11 +25,9 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.file.model.service.FileService;
 import com.ssafy.mindder.my.model.CalendarDto;
 import com.ssafy.mindder.my.model.FeedsRecentDto;
-import com.ssafy.mindder.my.model.FollowerDto;
 import com.ssafy.mindder.my.model.FollowsDto;
 import com.ssafy.mindder.my.model.UserInformationDto;
 import com.ssafy.mindder.my.model.service.MyService;
-import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.util.JwtService;
 
 import io.swagger.annotations.ApiOperation;
@@ -141,14 +139,15 @@ public class MyController {
 		}
 	}
 
-	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로워 목록을 반환한다.", response = UsersDto.class)
+	@ApiOperation(value = "팔로워 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로워 목록을 반환한다.", response = FollowsDto.class)
 	@GetMapping("/followers/{userIdx}")
 	public ApiResponse<?> myFollowerList(@RequestHeader("access_token") String accessToken,
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
 
 		logger.debug("myFollowerList - 호출 : " + userIdx);
 		try {
-			List<FollowerDto> followerList = myService.findMyFollowers(userIdx);
+			List<FollowsDto> followerList = myService.findMyFollowers(userIdx);
+			userIdx = jwtService.getUserIdx(accessToken);
 			for (int i = 0; i < followerList.size(); i++) {
 				int followerUserIdx = followerList.get(i).getUserIdx();
 				if (myService.findFollow(userIdx, followerUserIdx) != null) {
@@ -166,7 +165,7 @@ public class MyController {
 		}
 	}
 
-	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로잉 목록을 반환한다.", response = UsersDto.class)
+	@ApiOperation(value = "팔로잉 목록 조회", notes = "유저 번호에 해당하는 유저의 팔로잉 목록을 반환한다.", response = FollowsDto.class)
 	@GetMapping("/followings/{userIdx}")
 	public ApiResponse<?> myFollowingList(@RequestHeader("access_token") String accessToken,
 			@PathVariable("userIdx") @ApiParam(value = "유저 번호", required = true) int userIdx) {
@@ -174,7 +173,12 @@ public class MyController {
 		logger.debug("myFollowingList - 호출 : " + userIdx);
 		try {
 			List<FollowsDto> followingList = myService.findMyFollowings(userIdx);
+			userIdx = jwtService.getUserIdx(accessToken);
 			for (int i = 0; i < followingList.size(); i++) {
+				int followingUserIdx = followingList.get(i).getTargetUserIdx();
+				if (myService.findFollow(userIdx, followingUserIdx) != null) {
+					followingList.get(i).setFollowed(true);
+				}
 				Map<String, String> file = fileService.findFile(followingList.get(i).getFileIdx(), filePath);
 				followingList.get(i).setBase64(file.get("base64"));
 				followingList.get(i).setExtension(file.get("extension"));
