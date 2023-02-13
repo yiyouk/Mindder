@@ -170,7 +170,6 @@ public class UsersController {
 		usersDto.setPassword(SHA256.encrypt(usersDto.getPassword()));
 		try {
 			usersDto = usersService.login(usersDto);
-			System.out.println(usersDto);
 			if (usersDto != null && !usersDto.isDeleted()) {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
@@ -216,7 +215,6 @@ public class UsersController {
 			String tempPwd = usersService.findpassword(jwtService.getUserIdx(accessToken));
 
 			userDto.setPassword(SHA256.encrypt(userDto.getPassword()));
-			System.out.println(tempPwd);
 			if (userDto.getPassword().equals(tempPwd)) {
 				return ApiResponse.success(SuccessCode.READ_FIND_PWD);
 			} else {
@@ -233,13 +231,11 @@ public class UsersController {
 	@PostMapping("/join")
 	public ApiResponse<?> join(@RequestBody UsersDto usersDto) {
 		logger.debug("join - 호출");
-		System.out.println(usersDto);
 		String encryPassword = SHA256.encrypt(usersDto.getPassword());
 		try {
 			UsersDto temp = usersService.searchUser(usersDto.getEmail());
 			usersDto.setPassword(encryPassword);
 			usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-			System.out.println(temp);
 			if (temp == null) {
 				usersService.joinUser(usersDto);
 			} else if (temp.isDeleted()) {
@@ -247,7 +243,6 @@ public class UsersController {
 				usersService.deletedJoinUser(usersDto);
 
 			}
-			System.out.println(usersDto);
 
 			return ApiResponse.success(SuccessCode.CREATE_USER);
 
