@@ -194,7 +194,7 @@ export const Colors16 = [
 ]
 
 const initialState = {
-  emotagSrc:'/static/media/face16.9ddc3c40a4f252ded077.webp',
+  emotagSrc:"../../assets/images/face16.png",
   todayEmotion:null,
   todayColor:null,
   nickName:"",
@@ -223,7 +223,7 @@ const userStateSlice = createSlice({
     },
     SAVE_emotagSrc(state, action){
       state.emotagSrc = action.payload
-      console.log(`이미지src : ${state.emotagSrc}`)
+      console.log(`이미지src : 저장 성공`)
     },
     SAVE_nickName(state, action){
       state.nickName = action.payload
