@@ -75,7 +75,6 @@ public class FeedsController {
 			}
 			return ApiResponse.success(SuccessCode.READ_SEARCHE_FEED, neighborList);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
@@ -90,10 +89,13 @@ public class FeedsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
 
-			int fileIdx = feedsDto.getFileIdx();
-			if (fileIdx == 0) {
+			if (feedsDto.getFileIdx() == 0) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
 			}
+			int emoteIdx = feedsDto.getEmoteIdx();
+			int emoteColorIdx = feedsDto.getEmoteColorIdx();
+			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
+			feedsService.addCalendar(userIdx, emoteCompleteFileIdx);
 			feedsService.writeFeed(feedsDto);
 
 			// 해시태그를 작성했다면 파싱해서 넣어줘야함!

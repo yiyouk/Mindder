@@ -69,7 +69,8 @@ const PaintTool = styled.button`
     height: 25px;
     background-image:url(${(props) => (props.img)});
     border: none;
-    background-color: ${(props) => props.mode === true? '#d9ebff' : '#ffffff'};
+    background-color: white;
+    /* background-color: ${(props) => props.mode === true? '#d9ebff' : '#ffffff'}; */
     background-size: 100%;
     background-position:center;
     background-repeat: no-repeat;
@@ -131,23 +132,14 @@ function Draw({canvasRef, imageSaved}) {
     // -- 브러쉬 모드 -- //
         const brushMode = () => {
             setMode("brush")
-            setIsDrawing(true);
-            setErase(false);
-            setIsFill(false);
         }
     // -- 채우기 모드 -- //
         const fillAll = () => {
             setMode("fill")
-            setIsDrawing(false);
-            setErase(false);
-            setIsFill(true);
         }
     // -- 지우기 모드 -- //
         const eraseMode = () => {
             setMode("erase")
-            setIsDrawing(false);
-            setErase(true);
-            setIsFill(false);
         }
 
 

@@ -59,7 +59,6 @@ const X = styled.span`
 `
 
 function CommentListItem({getData, commentCount, comment, userIdx}) {
-    console.log(userIdx)
     const navigate = useNavigate();
     const MyIdx = useSelector((state)=>state.USER.myIdx);
     const [profileImg, setProfileImg] = useState(null)
@@ -68,7 +67,6 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
     const getProfile = async()=>{
         try {
             const response = await api.get(`/my/information/${userIdx}`);
-            // console.log(response.data)
             if(response.data.success){
                 setProfileImg(response.data.data.base64)
             }
