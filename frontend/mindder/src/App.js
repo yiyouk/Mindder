@@ -21,7 +21,6 @@ import PostPage from './router/PostPage';
 import UserPage from './router/UserPage';
 import FeedsPage from './router/FeedsPage';
 import SearchPage from './router/SearchPage';
-import CalendarPage from "./router/CalendarPage";
 import FeedDetailPage from "./router/FeedDetailPage";
 import FollowersPage from "./router/FollowersPage";
 import FollowingPage from "./router/FollowingPage";
@@ -86,7 +85,6 @@ function App(props) {
                         <Route path=":userId" element={<UserPage />} />
                         <Route path="feeds" element={<FeedsPage />} />
                         <Route path="search" element={<SearchPage />} />
-                        <Route path="calendar" element={<CalendarPage />} />
                         <Route path="f/:feedIdx" element={<FeedDetailPage />} />
                         <Route path=":userId/followers" element={<FollowersPage />} />
                         <Route path=":userId/following" element={<FollowingPage />} />
