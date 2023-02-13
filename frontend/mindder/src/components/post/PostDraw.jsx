@@ -38,7 +38,23 @@ const CanvasDiv = styled.div`
   background: #FFFFFF;
   border-radius: 19px;
 `
-
+const FeedInfoContainer = styled.div`
+  display:flex;
+  position:absolute;
+  top:4.2rem;
+  left:8rem;
+  width:5.5em;
+  justify-content:space-around;
+`
+const FeenInfo = styled.div`
+  background-color:rgba(119, 103, 253, 0.3);
+  /* width:3rem; */
+  text-align:center;
+  border-radius: 15px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+`
 
 function PostDraw(props){
   const {canvasRef, imageSaved} = props
@@ -71,7 +87,8 @@ function PostDraw(props){
 
   const [crawlingList, setCrawlingList] = useState([])
   const todayColor = useSelector((state)=>state.USER.todayColor)
-  console.log(todayColor)
+  const todayEmo = useSelector((state)=>state.USER.todayEmotion)
+  console.log(todayColor, todayEmo)
   //오늘의 감정 영어로 바꿔서 담은 변수
   const findEn = Colors16.find(color=>color.name===todayColor).en  
 
@@ -81,6 +98,10 @@ function PostDraw(props){
 
   return (
     <Wrapper>
+      <FeedInfoContainer>
+        <FeenInfo>{`#${todayColor}`}</FeenInfo>
+        <FeenInfo>{`#${todayEmo}`}</FeenInfo>
+      </FeedInfoContainer>
       <CrawlingsHere>
         {/* <ScrollMenu wheel={true}> 스크롤 오류나서 일단 5개만 잘라서 받아놓음 */} 
         {crawlingList.slice(0,5).map((crawlingImg, index)=>(
