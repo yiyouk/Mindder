@@ -15,12 +15,12 @@ const TodayEmotionDiv = styled.div`
 `
 
 function TodayEmotion(props){
+  const imgSrc = props.imgSrc
   return(
     <TodayEmotionDiv
-      // bgImg={props.imgSrc}
     >
       <Image
-        webp={props.imgSrc}
+        webp={imgSrc}
         style={{width:"11rem"}}
       />
     </TodayEmotionDiv>
