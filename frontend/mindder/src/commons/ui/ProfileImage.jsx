@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled, {css} from "styled-components";
 
 // 임시 user Img
-import UserImg from "../../assets/images/CanvasSample.png"
+import UserImg from "../../assets/images/default.png"
 
 const sizeStyles = css`
   /*크기*/
