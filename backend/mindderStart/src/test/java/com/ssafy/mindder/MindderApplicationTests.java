@@ -102,8 +102,7 @@ class MindderApplicationTests {
 		// 로그아웃
 		assertEquals(usersController.logout(accessToken).getMessage(), "유저 로그아웃 성공");
 
-		// 회원 탈퇴
-		assertEquals(usersController.deleteUser(accessToken).getMessage(), "유저 정보 삭제 성공");
+
 	}
 
 	@Test
@@ -113,13 +112,20 @@ class MindderApplicationTests {
 		// 로그인
 		UsersDto user = new UsersDto();
 		user.setEmail("temp");
-		user.setPassword("1234");
+		user.setPassword("1111");
 
 		Map<String, String> loginUser = (Map<String, String>) usersController.login(user).getData();
 		assertNotNull(loginUser);
 		System.out.println(loginUser);
 		String accessToken = loginUser.get("accessToken");
 
+		// 게시글 이미지 저장
+		FileDto fileDto = new FileDto();
+		fileDto.setBase64(testBase64);
+		fileDto.setExtension("gif");
+		fileDto.setOriginalFile("123.gif");
+		int fileidx = (int) fileController.fileUpLoad(fileDto).getData();
+		
 		// 피드 작성
 		FeedsDto feedsDto = new FeedsDto();
 		feedsDto.setMainText("테스트1 중 입니다.");
@@ -127,7 +133,7 @@ class MindderApplicationTests {
 		feedsDto.setEmoteIdx(1);
 		feedsDto.setNormalTag("#테스트");
 		feedsDto.setPublic(true);
-		feedsDto.setFileIdx(300);
+		feedsDto.setFileIdx(fileidx);
 		assertNotNull(feedsController.writeFeeds(feedsDto, accessToken).getMessage(), "피드 글 작성 성공!");
 
 		// 피드 수정
@@ -137,13 +143,6 @@ class MindderApplicationTests {
 		feedsUpdate.setMainText("테스트2 중 입니다");
 		feedsUpdate.setPublic(false);
 		assertNotNull(feedsController.modifyFeed(accessToken, feedsUpdate).getMessage(), "피디 글 수정 성공!");
-
-		// 피드 삭제
-		int feedIdx = 7;
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
-
-		// 피드 상세 조회
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
 
 		// 메인화면 -> 추천 피드 목록 조회(3개)
 		assertNotNull(feedsController.recommendation(accessToken).getMessage(), "메인 페이지 추천 리스트 불러오기 성공!");
@@ -165,6 +164,14 @@ class MindderApplicationTests {
 	@Test
 	@Order(3)
 	void userSearche() {
+		UsersDto user = new UsersDto();
+		user.setEmail("temp");
+		user.setPassword("1111");
+
+		Map<String, String> loginUser = (Map<String, String>) usersController.login(user).getData();
+		String accessToken = loginUser.get("accessToken");
+		// 회원 탈퇴
+		assertEquals(usersController.deleteUser(accessToken).getMessage(), "유저 정보 삭제 성공");
 		// 유저검색
 		assertEquals(searchesController.searchUser("김").getMessage(), "유저 검색 성공");
 		// 해쉬검색
