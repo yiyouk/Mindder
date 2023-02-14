@@ -71,6 +71,7 @@ function UserPage(props) {
         // 2. 유저정보랑 피드목록 불러옴.
         getUsersInfo()
         getUserFeeds()
+        // return ()=> {userCheck};
     }, [userIdx, myIdx, isMine])
     
 
