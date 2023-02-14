@@ -135,6 +135,7 @@ public class UsersController {
 		Map<String, String> userIO;
 		Map<String, String> user = new HashMap<String, String>();
 		try {
+			System.out.println("살려줘!!"+code);
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
 			UsersDto usersDto = null;
