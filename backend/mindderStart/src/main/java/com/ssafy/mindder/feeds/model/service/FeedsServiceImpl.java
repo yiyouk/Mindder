@@ -114,4 +114,20 @@ public class FeedsServiceImpl implements FeedsService {
 		return sqlSession.getMapper(FeedsMapper.class).searchesFeed(word);
 	}
 
+	@Override
+	public int getRealtimeFeedCount() throws Exception {
+		// 실시간 피드 -> count 반환
+		return sqlSession.getMapper(FeedsMapper.class).getRealtimeFeedCount();
+	}
+
+	@Override
+	public int getPopularFeedCount() throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).getPopularFeedCount();
+	}
+
+	@Override
+	public int getNeighborFeedCount(int userIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).getNeighborFeedCount(userIdx);
+	}
+
 }

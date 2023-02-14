@@ -34,6 +34,7 @@ import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsPageDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.HashParserDto;
@@ -362,8 +363,10 @@ public class FeedsController {
 				popularArticle.get(i).setBase64(file.get("base64"));
 				popularArticle.get(i).setExtension(file.get("extension"));
 			}
+
+			int total = feedsService.getPopularFeedCount();
 			page.put("feedList", popularArticle);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -381,16 +384,17 @@ public class FeedsController {
 		try {
 
 			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(pageNum);
-
 			// 이미지 set 코드 작성
 			for (int i = 0; i < realtimeFeed.size(); i++) {
 				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
 				realtimeFeed.get(i).setBase64(file.get("base64"));
 				realtimeFeed.get(i).setExtension(file.get("extension"));
 			}
+			int total = feedsService.getRealtimeFeedCount();
 			page.put("feedList", realtimeFeed);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			// System.out.println(page);
+
 			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -417,8 +421,10 @@ public class FeedsController {
 				neighborList.get(i).setExtension(file.get("extension"));
 			}
 
+			int total = feedsService.getNeighborFeedCount(userIdx);
+			System.out.println(total);
 			page.put("feedList", neighborList);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, page);
 		} catch (Exception e) {
 			e.printStackTrace();
