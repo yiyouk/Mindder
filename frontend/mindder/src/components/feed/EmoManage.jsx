@@ -32,6 +32,8 @@ const EmoteText = styled.div`
 
 //누르면 나오는거
 const DropDown = styled.button`
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
     background-color: white;
     border: none;
     outline:none;
@@ -45,7 +47,7 @@ const ListContainer = styled.div`
   background-color: #7667fd78;
   border-radius: 1rem;
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2rem;
   display:none;
   ${DropDown}:active & {
     display: block;
