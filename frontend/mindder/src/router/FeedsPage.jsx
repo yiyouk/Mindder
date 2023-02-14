@@ -106,11 +106,8 @@ function FeedsPage() {
 
             if (response.data.success){
                 setRealtimeFeeds(realtimeFeeds.concat(response.data.data.feedList));
-                setRealtimeNum(response.data.data.pageNum+1);
-                setPlus(true);
-                if(realtimeFeeds.length % 10 !== 0){
-                    setPlus(false);
-                } 
+                setRealtimeNum(response.data.data.pageNum.pageNum+1);
+                setPlus(response.data.data.pageNum.next);
             } else {
                 console.error("조회실패");
             }
@@ -128,11 +125,8 @@ function FeedsPage() {
             const response = await api.get(`/feeds/popular-feed?pageNum=${popularNum}`);
             if (response.data.success){
                 setPopularFeeds(popularFeeds.concat(response.data.data.feedList));
-                setPopularNum(response.data.data.pageNum+1);
-                setPlus(true);
-                if(popularFeeds.length % 10 !== 0){
-                    setPlus(false);
-                } 
+                setPopularNum(response.data.data.pageNum.pageNum+1);
+                setPlus(response.data.data.pageNum.next);
             } else {
                 console.error("조회실패");
             }
@@ -149,11 +143,8 @@ function FeedsPage() {
 
             if(response.data.success){
                 setNeighborFeeds(neighborFeeds.concat(response.data.data.feedList));
-                setNeighborNum(response.data.data.pageNum+1);
-                setPlus(true);
-                if (neighborFeeds.length % 10 !== 0){
-                    setPlus(false);
-                } 
+                setNeighborNum(response.data.data.pageNum.pageNum+1);
+                setPlus(response.data.data.pageNum.next);
             } else {
                 console.error("조회실패");
             }
@@ -196,7 +187,7 @@ function FeedsPage() {
     } else  if(level === 1) {
         return (
             <div>
-                <IoArrowBackCircle color="#7767FD" size="40" style={{position:"relative", top:"2rem"}} onClick={()=>{setLevel(level-1); setPlus(true);}}/>
+                <IoArrowBackCircle color="#7767FD" size="40" style={{position:"relative", top:"2rem"}} onClick={()=>{setLevel(level-1);}}/>
                 <Comment>{recentFeedsList[kind].comment}</Comment>
                 <Line/>
                 <CanvasAlbumList size="m" list={recentFeedsList[kind].data}/>
