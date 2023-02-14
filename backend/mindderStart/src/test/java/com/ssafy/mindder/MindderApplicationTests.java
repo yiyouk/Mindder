@@ -140,18 +140,25 @@ class MindderApplicationTests {
 
 		// 피드 삭제
 		int feedIdx = 7;
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피디 글 삭제 성공!");
+		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
 
 		// 피드 상세 조회
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피디 글 삭제 성공!");
+		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
 
 		// 메인화면 -> 추천 피드 목록 조회(3개)
+		assertNotNull(feedsController.recommendation(accessToken).getMessage(), "메인 페이지 추천 리스트 불러오기 성공!");
 
 		// 사용자 이웃 피드 목록 조회
+		assertNotNull(feedsController.neighborFeed(accessToken, 1).getMessage(), "팔로잉하는 유저 글 불러오기 성공!");
 
 		// 주간 인기 피드 리스트 조회
+		assertNotNull(feedsController.popularFeed(accessToken, 1).getMessage(), "주간 인기 피드 글 불러오기 성공!");
 
 		// 실시간 작성된 피드 리스트 조회
+		assertNotNull(feedsController.realtimeFeed(accessToken, 1).getMessage(), "실시간 피드 글 불러오기 성공!");
+
+		// 이미지 크롤링
+		assertNotNull(feedsController.crawling("pink").getMessage(), "이미지 크롤링 성공!");
 
 	}
 
