@@ -66,7 +66,7 @@ public class FCMService {
 	}
 
 	private String getAccessToken() throws IOException {
-		String firebaseConfigPath = "firebase/ssafy8th-mindder-firebase-adminsdk-8rjd1-0f20b4e91c.json";
+		String firebaseConfigPath = "ssafy8th-mindder-firebase-adminsdk-8rjd1-0f20b4e91c.json";
 
 		GoogleCredentials googleCredentials = GoogleCredentials
 				.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
