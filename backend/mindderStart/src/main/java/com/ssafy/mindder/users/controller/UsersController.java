@@ -135,9 +135,10 @@ public class UsersController {
 		Map<String, String> userIO;
 		Map<String, String> user = new HashMap<String, String>();
 		try {
-			System.out.println("살려줘!!"+code);
 			token = usersService.getToken(code);
+			System.out.println("살려줘!!!!!!!!!"+token);
 			userIO = usersService.getUserInfo(token.get("access_token"));
+			System.out.println("살려@@@@@@@"+userIO);
 			UsersDto usersDto = null;
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
 			usersDto.setNickname(userIO.get("nickname"));
