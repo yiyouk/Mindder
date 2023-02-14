@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { Colors16, Emoticons } from "../../redux/reducers";
 import styled from "styled-components";
 
-import LogoWW from "../../assets/images/LogoWW.png"
-
 import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
 import dayjs from 'dayjs';
 
