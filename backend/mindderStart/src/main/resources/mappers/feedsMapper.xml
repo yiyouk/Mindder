@@ -137,6 +137,7 @@
   left join feedcomment c
     on c.feed_idx=f.feed_idx
    order by f.feed_hit DESC
+   limit 3
    </select>
    
 
@@ -151,6 +152,7 @@
 		from mainfeed f join mainuser u on f.emote_color_idx=u.emote_color_idx
 		where u.user_idx=#{userIdx}) as m1
 	on f.feed_idx=m1.feed_idx
+    limit 3
    </select>
   
   
