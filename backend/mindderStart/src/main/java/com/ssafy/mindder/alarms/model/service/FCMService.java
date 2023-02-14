@@ -42,9 +42,6 @@ public class FCMService {
 		System.out.println(response.body().string());
 	}
 
-<<<<<<< HEAD
-	private String makeMessage(String targetToken, String title, String body) throws JsonProcessingException {
-=======
 	private String makeMessage(AlarmsUserDto alarmsUserDto, int alarmType) throws JsonProcessingException {
 		
 		String targetToken = alarmsUserDto.getDeviceToken();
@@ -59,7 +56,6 @@ public class FCMService {
 			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림을 좋아합니다.";
 		}
 
->>>>>>> ab054a9046c98034499dd0c8070c5c2d5471d5f9
 		MessageDto fcmMessage = MessageDto.builder()
 				.message(MessageDto.Message.builder().token(targetToken)
 						.notification(MessageDto.Notification.builder().title(title).body(body).image(null).build())
