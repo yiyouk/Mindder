@@ -19,6 +19,7 @@ public class AlarmListDto {
 	private String updateDate;
 	private int feedIdx;
 	private int likeType;
+	private boolean read;
 	private int fileIdx;
 	private String base64;
 	private String extension;
