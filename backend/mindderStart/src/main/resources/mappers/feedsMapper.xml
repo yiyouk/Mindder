@@ -163,7 +163,7 @@
 	<![CDATA[ 
 	select * 
  	from  (
-        select distinct f.feed_idx, rank() over (order by f.feed_hit DESC) as rnum,f.user_idx, f.file_idx,u.nickname,
+        select distinct f.feed_idx, ROW_NUMBER ()over (order by f.feed_hit DESC)  as rnum,f.user_idx, f.file_idx,u.nickname,
         (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
         (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
     from mainfeed f join  mainuser u on f.user_idx=u.user_idx
