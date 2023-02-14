@@ -157,6 +157,7 @@ public class UsersController {
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
+				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int useridx  = usersService.joinSocialKakaoID(usersDto);
 				String accessToken = jwtService.createAccessToken("useridx", useridx);
