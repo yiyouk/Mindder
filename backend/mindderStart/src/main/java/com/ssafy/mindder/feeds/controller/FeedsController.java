@@ -31,9 +31,9 @@ import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.feeds.model.FeedListDto;
-import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
+import com.ssafy.mindder.feeds.model.FeedsPageDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.HashParserDto;
@@ -200,7 +200,6 @@ public class FeedsController {
 	@ApiOperation(value = "메인 피드 글 상세보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = FeedsParameterDto.class)
 	@GetMapping("/{feedIdx}")
 	public ApiResponse<?> getFeed(
-//			 @Value("${file.path.upload-files}") String filePath,
 			@PathVariable("feedIdx") @ApiParam(value = "얻어올 글의 글번호.", required = true) int feedIdx,
 			@RequestHeader("access_token") String accessToken) throws Exception {
 		logger.info("getFeed - 호출 : " + feedIdx);
@@ -224,6 +223,13 @@ public class FeedsController {
 			if (Objects.isNull(feedDetail)) {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 			}
+			
+			int emoteIdx = feedDetail.getEmoteIdx();
+			int emoteColorIdx = feedDetail.getEmoteColorIdx();
+			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
+			Map<String, String> emoteFile = fileService.findFile(emoteCompleteFileIdx, filePath);
+			feedDetail.setEmoteCompleteBase64(emoteFile.get("base64"));
+			feedDetail.setEmoteCompleteExtension(emoteFile.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -276,28 +282,6 @@ public class FeedsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(" crawling- 이미지 크롤링 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
-
-	// 완성된 곰돌이 이미지 조회 -> request body
-	@ApiOperation(value = "완성된 곰돌이 이미지 조회 ", notes = "완성된 곰돌이 이미지를 조회한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@PostMapping("/emote-complete")
-	public ApiResponse<?> searchFile(
-			@RequestBody @ApiParam(value = "완성된 곰돌이 이미지 ", required = true) FeedsBearDto feedsBearDto)
-			throws Exception {
-		logger.info("searchFile - 호출");
-		try {
-
-			FeedsBearDto fileIdx = feedsService.searchFile(feedsBearDto);
-			if (fileIdx != null)
-				return ApiResponse.success(SuccessCode.READ_FIND_BEAR, fileIdx);
-			else
-				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("searchFile - 곰돌이 이미지 불러오는 중 에러 발생");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
@@ -362,8 +346,10 @@ public class FeedsController {
 				popularArticle.get(i).setBase64(file.get("base64"));
 				popularArticle.get(i).setExtension(file.get("extension"));
 			}
+
+			int total = feedsService.getPopularFeedCount();
 			page.put("feedList", popularArticle);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -381,16 +367,17 @@ public class FeedsController {
 		try {
 
 			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(pageNum);
-
 			// 이미지 set 코드 작성
 			for (int i = 0; i < realtimeFeed.size(); i++) {
 				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
 				realtimeFeed.get(i).setBase64(file.get("base64"));
 				realtimeFeed.get(i).setExtension(file.get("extension"));
 			}
+			int total = feedsService.getRealtimeFeedCount();
 			page.put("feedList", realtimeFeed);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			// System.out.println(page);
+
 			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -417,8 +404,10 @@ public class FeedsController {
 				neighborList.get(i).setExtension(file.get("extension"));
 			}
 
+			int total = feedsService.getNeighborFeedCount(userIdx);
+			System.out.println(total);
 			page.put("feedList", neighborList);
-			page.put("pageNum", pageNum);
+			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, page);
 		} catch (Exception e) {
 			e.printStackTrace();

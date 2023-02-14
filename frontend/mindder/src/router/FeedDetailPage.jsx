@@ -24,6 +24,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content: center; */
 `;
 
 //게시글 사진
@@ -101,6 +102,7 @@ function FeedDetailPage(props) {
     const [placeholder, setPlaceholder] = useState("");
     const [comment, setComment] = useState("");
     const [base64, setBase64] = useState("");
+    const [emoteBase64, setEmoteBase64] = useState("");
     const [commentCount, setCommentCount] = useState(0);
     const [likeTotalCount, setLikeTotalCount] = useState(0);
     const [likeCount, setLikeCount] = useState(0);
@@ -177,6 +179,7 @@ function FeedDetailPage(props) {
                 setMyScrap(response.data.data.myScrap);
                 setIsPublic(response.data.data.public);
                 setBase64( "data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
+                setEmoteBase64( "data:image/" + response.data.data.emoteCompleteExtension + ";base64," + response.data.data.emoteCompleteBase64);
                 await getProfile(response.data.data.userIdx)
             }  else {
                 console.log("조회 실패")
@@ -249,7 +252,7 @@ function FeedDetailPage(props) {
                 <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s" imgSrc={profileImg}/>
                 <div>
                     {isPublic ? null:<GiPadlock color=" #7767FD" size="22" style={{position:'relative', top:'3.2rem', left:'3rem'}}/>}
-                    {myIdx === postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
+                    {myIdx == postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
                 </div>
             </SideContainer>
             <CanvasImg src={base64}/>
@@ -257,7 +260,7 @@ function FeedDetailPage(props) {
                 <EmoManage getData={getData} feedIdx={feedIdx} myLikeType={myLikeType} likeCount={likeCount} cheerupCount={cheerupCount} sadCount={sadCount} likeTotalCount={likeTotalCount}/>
                 <Scraps feedIdx={feedIdx} myScrap={myScrap}/>
             </SideContainer2>
-            <Context emoteIdx={emoteIdx} emoteColorIdx={emoteColorIdx} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
+            <Context emoteBase64={emoteBase64} emoteIdx={emoteIdx} emoteColorIdx={emoteColorIdx} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
             <CommentList commentCount={commentCount} feedIdx={feedIdx} />
             <Bottom show={showCommentInput}>
                 <TexetAreaStyled className="textInput" ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>

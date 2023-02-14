@@ -64,11 +64,17 @@ public interface FeedsMapper {
 	// 주간 인기글 리스트 조회
 	public List<FeedListDto> popularFeed(int pageNum) throws SQLException;
 
+	public int getPopularFeedCount() throws SQLException;
+
 	// 실시간 작성된 인기글 리스트 조회
+	public int getRealtimeFeedCount() throws SQLException;
+
 	public List<FeedListDto> realtimeFeed(int pageNum) throws SQLException;;
 
 	// 사용자 이웃 피드 목록 조회
 	public List<FeedListDto> neighborFeed(int pageNum, int userIdx) throws SQLException;
+
+	public int getNeighborFeedCount(int userIdx) throws SQLException;
 
 	// 해시태그 -> 파싱해서 테이블에 저장
 	public int hashTagParser(List<HashParserDto> hashParser) throws SQLException;

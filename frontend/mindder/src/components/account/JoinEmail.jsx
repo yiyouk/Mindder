@@ -120,7 +120,7 @@ function JoinEmail({getData}) {
 
   //이메일 번호 인증 확인 클릭시
   const handleEmailCheck = e => {
-    if(inputCode === sendCode){
+    if(inputCode == sendCode){
       getData(email);
       Swal.fire({
         icon: 'success',               

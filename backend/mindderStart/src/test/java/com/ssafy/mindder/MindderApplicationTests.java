@@ -102,7 +102,6 @@ class MindderApplicationTests {
 		// 로그아웃
 		assertEquals(usersController.logout(accessToken).getMessage(), "유저 로그아웃 성공");
 
-
 	}
 
 	@Test
@@ -125,7 +124,7 @@ class MindderApplicationTests {
 		fileDto.setExtension("gif");
 		fileDto.setOriginalFile("123.gif");
 		int fileidx = (int) fileController.fileUpLoad(fileDto).getData();
-		
+
 		// 피드 작성
 		FeedsDto feedsDto = new FeedsDto();
 		feedsDto.setMainText("테스트1 중 입니다.");
@@ -144,13 +143,6 @@ class MindderApplicationTests {
 		feedsUpdate.setPublic(false);
 		assertNotNull(feedsController.modifyFeed(accessToken, feedsUpdate).getMessage(), "피디 글 수정 성공!");
 
-		// 피드 삭제
-		int feedIdx = 7;
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
-
-		// 피드 상세 조회
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
-
 		// 메인화면 -> 추천 피드 목록 조회(3개)
 		assertNotNull(feedsController.recommendation(accessToken).getMessage(), "메인 페이지 추천 리스트 불러오기 성공!");
 
@@ -165,6 +157,13 @@ class MindderApplicationTests {
 
 		// 이미지 크롤링
 		assertNotNull(feedsController.crawling("pink").getMessage(), "이미지 크롤링 성공!");
+
+		// 피드 상세보기
+		int feedIdx = feedsDto.getFeedIdx();
+		assertNotNull(feedsController.getFeed(feedIdx, accessToken).getMessage(), "이미지 크롤링 성공!");
+
+		// 피드 삭제하기
+		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 삭제 성공!");
 
 	}
 
