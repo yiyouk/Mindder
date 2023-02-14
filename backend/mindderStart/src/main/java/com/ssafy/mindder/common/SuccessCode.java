@@ -18,6 +18,7 @@ public enum SuccessCode {
 	CREATE_PUSH_ALARMS(SUCCESS, "푸시 알림 전송 성공"),
 	UPDATE_USER_TOKEN(SUCCESS, "fcm 토큰 등록 성공"),
 	READ_ALARM_LIST(SUCCESS, "알림 목록 조회 성공"),
+	UPDATE_ALARM(SUCCESS, "알림 읽음 처리 성공"),
 
 	// file
 	READ_FILE_IDX(SUCCESS, "파일idx 조회 성공"), READ_FILE_BEAR(SUCCESS, "곰돌이파일 조회 성공"),

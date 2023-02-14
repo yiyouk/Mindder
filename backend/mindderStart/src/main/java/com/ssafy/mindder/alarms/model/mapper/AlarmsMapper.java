@@ -27,4 +27,10 @@ public interface AlarmsMapper {
 	// 알림에 등록할 유저 프로필 이미지 조회
 	public int selectUserFileIdx(int userIdx) throws SQLException;
 
+	// 알림 읽음 처리
+	public void updateAlarm(int alarmIdx) throws SQLException;
+
+	// 알림 조회
+	public String selectAlarm(int alarmIdx) throws SQLException;
+
 }

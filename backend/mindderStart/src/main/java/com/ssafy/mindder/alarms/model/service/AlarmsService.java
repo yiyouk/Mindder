@@ -23,4 +23,10 @@ public interface AlarmsService {
 	// 알림에 등록할 유저 프로필 이미지 조회 
 	public int findUserFileIdx(int userIdx) throws Exception;
 
+	// 알림 읽음 처리
+	public void modifyAlarm(int alarmIdx) throws Exception;
+
+	// 알림 조회
+	public String findAlarm(int alarmIdx) throws Exception;
+
 }
