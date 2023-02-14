@@ -38,4 +38,7 @@ public interface AlarmsService {
 	// 알림 등록 전 중복 확인 
 	public int findAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws Exception;
 
+	// 알림 삭제
+	public void removeAlarm(int alarmIdx) throws Exception;
+
 }

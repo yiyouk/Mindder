@@ -42,4 +42,7 @@ public interface AlarmsMapper {
 	// 알림 등록 전 중복 검사
 	public int selectAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws SQLException;
 
+	// 알림 삭제 
+	public void deleteAlarm(int alarmIdx) throws SQLException;
+
 }

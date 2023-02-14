@@ -52,4 +52,8 @@
 		from mainalarm 
 		where alarm_type = #{alarmType} and send_user_idx = #{userIdx} and receive_user_idx = #{targetUserIdx};
 	</select>
+	<!-- 알림 삭제 -->
+	<delete id="deleteAlarm" parameterType="int">
+		delete from mainalarm where alarm_idx = #{alarmIdx};
+	</delete>
 </mapper>
