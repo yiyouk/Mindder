@@ -83,7 +83,7 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
 
     //댓글 삭제 물어보기
     const deleteComment = () => {
-        if(comment.userIdx === MyIdx){
+        if(comment.userIdx == MyIdx){
             if(window.confirm("댓글을 삭제하시겠습니까?")){
                 sendDelete();
             }

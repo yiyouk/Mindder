@@ -1,10 +1,8 @@
 import React from "react";
 import styled, {css} from "styled-components";
-import { Colors16, Emoticons } from "../../redux/reducers";
-import Image from "react-image-webp";
+import { Colors16 } from "../../redux/reducers";
 
 const colortyles = css`
-  /*크기*/
   ${({emoteColorIdx}) => css`
     color: ${Colors16[emoteColorIdx].code};
   `}
@@ -18,7 +16,6 @@ const Wrapper = styled.div`
     border-bottom: solid 0.6px rgb(231, 231, 231);
     padding-bottom: 0.5rem;
     margin-top: 0.5rem;
-    /* border:1px solid */
 `;
 
 const ContextStyled = styled.div`
@@ -30,7 +27,8 @@ const ContextStyled = styled.div`
 const TagStyled = styled.div`
     ${colortyles}
     font-size: 0.9rem;
-    /* margin-bottom: 0.5rem; */
+    display: flex;
+    align-items: center;
 `;
 
 const Date = styled.div`
@@ -43,19 +41,17 @@ const Line = styled.div`
     display: flex;
 `
 
-function Context({emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
-    // const E = Emoticons.find(emote=>emote.id===emoteIdx).id
-    // console.log("어쩌라구요")
-    // console.log(emoteIdx)
-    // console.log(emoteColorIdx)
-    const bear= require(`../../assets/images/mindder_bear/${Emoticons[emoteIdx].name}/${Colors16[emoteColorIdx].name}.png`)
+const Tag = styled.img`
+    width: 1.5rem;
+    height: 1.5rem;
+`
 
+function Context({emoteBase64, emoteIdx, emoteColorIdx, updateDate, mainText, normalTag}) {
     return (
         <Wrapper>
             <ContextStyled>{mainText}</ContextStyled>
             <Line>
-                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #</TagStyled>
-                <Image webp={bear} style={{width:"1.5rem"}}/>
+                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #<Tag src={emoteBase64}/></TagStyled>
             </Line>
             <Date>{updateDate}</Date>
         </Wrapper>
