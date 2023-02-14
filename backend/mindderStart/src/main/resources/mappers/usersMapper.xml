@@ -26,7 +26,7 @@
 		from mainuser
 		where social_id = #{id}
 	</select>
-	<insert id="joinSocialKakaoID" parameterType="UsersDto" useGeneratedKeys="true" keyColumn="user_idx" keyProperty="userIdx">
+	<insert id="joinSocialKakaoID" parameterMap="com.ssafy.resultmaps.user" useGeneratedKeys="true" keyColumn="user_idx" keyProperty="userIdx">
 		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag)
 		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag})
 	</insert>
