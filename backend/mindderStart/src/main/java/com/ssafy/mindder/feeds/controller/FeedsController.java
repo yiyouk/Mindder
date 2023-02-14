@@ -351,7 +351,7 @@ public class FeedsController {
 	@ApiOperation(value = "주간 인기글 리스트 조회 ", notes = "주간 인기글 리스트 조회 ", response = List.class)
 	public ApiResponse<?> popularFeed(@RequestHeader("access_token") String accessToken,
 			@RequestParam("pageNum") int pageNum) throws Exception {
-
+		Map<String, Object> page = new HashMap<>();
 		try {
 			// 페이징 처리를 위함
 			List<FeedListDto> popularArticle = feedsService.popularFeed(pageNum);
@@ -362,8 +362,9 @@ public class FeedsController {
 				popularArticle.get(i).setBase64(file.get("base64"));
 				popularArticle.get(i).setExtension(file.get("extension"));
 			}
-
-			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, popularArticle);
+			page.put("feedList", popularArticle);
+			page.put("pageNum", pageNum);
+			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("popularArticle - 주간 인기글 리스트 조회 실패");
@@ -376,7 +377,7 @@ public class FeedsController {
 	@ApiOperation(value = "실시간 작성된 피드 조회", notes = "실시간 작성된 피드 조회", response = List.class)
 	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken,
 			@RequestParam("pageNum") int pageNum) throws Exception {
-
+		Map<String, Object> page = new HashMap<>();
 		try {
 
 			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(pageNum);
@@ -387,8 +388,10 @@ public class FeedsController {
 				realtimeFeed.get(i).setBase64(file.get("base64"));
 				realtimeFeed.get(i).setExtension(file.get("extension"));
 			}
-
-			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, realtimeFeed);
+			page.put("feedList", realtimeFeed);
+			page.put("pageNum", pageNum);
+			// System.out.println(page);
+			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("realtimeFeed - 실시간 등록된 게시글 불러오기 실패 ");
@@ -414,7 +417,9 @@ public class FeedsController {
 				neighborList.get(i).setExtension(file.get("extension"));
 			}
 
-			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
+			page.put("feedList", neighborList);
+			page.put("pageNum", pageNum);
+			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, page);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
