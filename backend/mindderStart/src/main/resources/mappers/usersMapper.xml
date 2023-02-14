@@ -26,14 +26,18 @@
 		from mainuser
 		where social_id = #{id}
 	</select>
+	<insert id="joinSocialKakaoID" parameterType="UsersDto" useGeneratedKeys="true" keyColumn="user_idx" keyProperty="userIdx">
+		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag)
+		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag})
+	</insert>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
 		from mainuser
 		where nickname =#{nickname}
 	</select>
 	<insert id="joinUser" parameterType="UsersDto">
-		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag)
-		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag})
+		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag,refresh_token)
+		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag},#{refreshToken})
 	</insert>
 	<update id="addToken" parameterType="UsersDto">
 		update mainuser
