@@ -42,4 +42,14 @@ public class AlarmsServiceImpl implements AlarmsService {
 		return sqlSession.getMapper(AlarmsMapper.class).selectUserFileIdx(userIdx);
 	}
 	
+	@Override
+	public void modifyAlarm(int alarmIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).updateAlarm(alarmIdx);
+	}
+	
+	@Override
+	public String findAlarm(int alarmIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectAlarm(alarmIdx);
+	}
+	
 }
