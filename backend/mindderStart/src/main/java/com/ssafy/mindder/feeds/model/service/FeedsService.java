@@ -52,4 +52,5 @@ public interface FeedsService {
 	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception;
 
 	public void addCalendar(int userIdx, int emoteCompleteFileIdx) throws Exception;
+
 }
