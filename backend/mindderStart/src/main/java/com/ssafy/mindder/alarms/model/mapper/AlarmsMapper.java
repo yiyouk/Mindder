@@ -16,7 +16,7 @@ public interface AlarmsMapper {
 	public void updateToken(TokenUpdateDto tokenUpdateDto) throws SQLException;
 
 	// 알림을 보낸 / 받을 유저 정보 조회
-	public AlarmsUserDto selectDeviceToken(int senderUserIdx, int receiverUserIdx) throws SQLException;
+	public AlarmsUserDto selectPushInfo(int senderUserIdx, int receiverUserIdx) throws SQLException;
 
 	// 팔로우 알림 등록
 	public void insertFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws SQLException;
@@ -32,5 +32,14 @@ public interface AlarmsMapper {
 
 	// 알림 조회
 	public String selectAlarm(int alarmIdx) throws SQLException;
+
+	// 알림에 등록할 피드 작성자 idx 조회
+	public int selectUserIdx(int feedIdx) throws SQLException;
+
+	// 댓글 알림 등록
+	public void insertCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws SQLException;
+
+	// 알림 등록 전 중복 검사
+	public int selectAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws SQLException;
 
 }
