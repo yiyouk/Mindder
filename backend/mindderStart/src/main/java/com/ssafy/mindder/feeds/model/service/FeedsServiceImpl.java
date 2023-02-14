@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -25,12 +24,12 @@ public class FeedsServiceImpl implements FeedsService {
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
 	}
-	
+
 	@Override
 	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).selectFileIdx(emoteIdx, emoteColorIdx);
 	}
-	
+
 	@Override
 	public void addCalendar(int userIdx, int emoteCompleteFileIdx) throws Exception {
 		sqlSession.getMapper(FeedsMapper.class).insertCalendar(userIdx, emoteCompleteFileIdx);
@@ -54,8 +53,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> neighborFeed(int userIdx) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).neighborFeed(userIdx);
+	public List<FeedListDto> neighborFeed(int pageNum, int userIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).neighborFeed(pageNum, userIdx);
 	}
 
 	@Override
@@ -73,12 +72,12 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> recommendation1(int userIdx) {
+	public List<FeedListDto> recommendation1(int userIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).recommendation1(userIdx);
 	}
 
 	@Override
-	public List<FeedListDto> recommendation2(int userIdx) {
+	public List<FeedListDto> recommendation2(int userIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).recommendation2(userIdx);
 	}
 
@@ -88,32 +87,17 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public List<FeedListDto> realtimeFeed(Criteria criteria) {
-		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed(criteria);
+	public List<FeedListDto> realtimeFeed(int pageNum) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).realtimeFeed(pageNum);
 	}
 
 	@Override
-	public List<FeedListDto> popularFeed(Criteria criteria) {
-		return sqlSession.getMapper(FeedsMapper.class).popularFeed(criteria);
+	public List<FeedListDto> popularFeed(int pageNum) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).popularFeed(pageNum);
 	}
 
 	@Override
-	public int getTotalCount(Criteria criteria) {
-		return sqlSession.getMapper(FeedsMapper.class).getTotalCount(criteria);
-	}
-
-	@Override
-	public int neighborFeedCount(Criteria criteria) {
-		return sqlSession.getMapper(FeedsMapper.class).neighborFeedCount(criteria);
-	}
-
-	@Override
-	public int popularFeedCounting(Criteria criteria) {
-		return sqlSession.getMapper(FeedsMapper.class).popularFeedCounting(criteria);
-	}
-
-	@Override
-	public boolean hashTagParser(List<HashParserDto> hashParser) {
+	public boolean hashTagParser(List<HashParserDto> hashParser) throws Exception {
 		// 메인피드의 해시태그를 파싱해서 해시 테이블에 저장
 		return sqlSession.getMapper(FeedsMapper.class).hashTagParser(hashParser) == 1;
 
