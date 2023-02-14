@@ -154,7 +154,7 @@ public class UsersController {
 			} else {
 				logger.debug("socialLogin - 회원정보 없음");
 				usersDto = new UsersDto();
-				System.out.println("예아");
+				System.out.println("예아"+userIO.get("nickname"));
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
 				usersDto.setEmail(userIO.get("id"));
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
