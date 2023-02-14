@@ -31,4 +31,6 @@ public class FeedsParameterDto {
 	private boolean myScrap; // 나의 스크랩 여부
 	private String base64;
 	private String extension;
+	private String emoteCompleteBase64;
+	private String emoteCompleteExtension;
 }
