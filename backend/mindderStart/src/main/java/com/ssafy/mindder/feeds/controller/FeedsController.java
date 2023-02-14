@@ -357,11 +357,11 @@ public class FeedsController {
 			List<FeedListDto> popularArticle = feedsService.popularFeed(pageNum);
 
 			// 이미지 set 코드 작성
-//			for (int i = 0; i < popularArticle.size(); i++) {
-//				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
-//				popularArticle.get(i).setBase64(file.get("base64"));
-//				popularArticle.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < popularArticle.size(); i++) {
+				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
+				popularArticle.get(i).setBase64(file.get("base64"));
+				popularArticle.get(i).setExtension(file.get("extension"));
+			}
 			page.put("feedList", popularArticle);
 			page.put("pageNum", pageNum);
 			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
@@ -383,11 +383,11 @@ public class FeedsController {
 			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(pageNum);
 
 			// 이미지 set 코드 작성
-//			for (int i = 0; i < realtimeFeed.size(); i++) {
-//				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
-//				realtimeFeed.get(i).setBase64(file.get("base64"));
-//				realtimeFeed.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < realtimeFeed.size(); i++) {
+				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+				realtimeFeed.get(i).setBase64(file.get("base64"));
+				realtimeFeed.get(i).setExtension(file.get("extension"));
+			}
 			page.put("feedList", realtimeFeed);
 			page.put("pageNum", pageNum);
 			// System.out.println(page);
@@ -411,11 +411,11 @@ public class FeedsController {
 			List<FeedListDto> neighborList = feedsService.neighborFeed(pageNum, userIdx);
 
 			// 이미지 관련 코드 -> 이게 맞나,,,?
-//			for (int i = 0; i < neighborList.size(); i++) {
-//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
-//				neighborList.get(i).setBase64(file.get("base64"));
-//				neighborList.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < neighborList.size(); i++) {
+				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+				neighborList.get(i).setBase64(file.get("base64"));
+				neighborList.get(i).setExtension(file.get("extension"));
+			}
 
 			page.put("feedList", neighborList);
 			page.put("pageNum", pageNum);
