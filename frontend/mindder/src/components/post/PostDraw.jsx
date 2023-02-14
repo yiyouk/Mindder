@@ -76,7 +76,7 @@ function PostDraw(props){
       const response = await api.get(`/feeds/crawling/${todayColor}`, null)
       console.log(response.data)
   
-      if (response.data.success===true){
+      if (response.data.success){
         const imgSrc = response.data.data
         setCrawlingList(imgSrc)
       }
