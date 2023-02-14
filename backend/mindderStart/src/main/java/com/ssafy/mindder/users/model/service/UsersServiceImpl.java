@@ -145,7 +145,7 @@ public class UsersServiceImpl implements UsersService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=dc63597430966307c80d8e0e8c0d9b8a"); // TODO REST_API_KEY 입력
-			sb.append("&redirect_uri=http://localhost:8888/users/social/kakao"); // TODO 인가코드 받은 redirect_uri 입력
+			sb.append("&redirect_uri=http://mindder.me:8888/dev/users/social/kakao"); // TODO 인가코드 받은 redirect_uri 입력
 			sb.append("&code=" + code);
 			bw.write(sb.toString());
 			bw.flush();
