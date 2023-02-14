@@ -12,8 +12,21 @@
 		from mainuser
 		where user_idx = #{receiverUserIdx};
 	</select>
+	<!-- 알림에 등록할 유저 프로필 이미지 조회 -->
+	<select id="selectUserFileIdx" parameterType="int" resultType="int">
+		select file_idx from mainuser where user_idx = #{userIdx}; 
+	</select>
 	<!-- 팔로우 알림 등록 -->
 	<insert id="insertFollowAlarm" parameterType="int">
-		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx) values(1, #{userIdx} ,#{targetUserIdx});
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, file_idx) values(1, #{userIdx} ,#{targetUserIdx}, #{fileIdx});
 	</insert>
+	<!-- 알림 목록 조회 -->
+	<select id="selectAlarms" parameterType="int" resultMap="com.ssafy.resultmaps.alarmList">
+		select a.alarm_idx, a.alarm_type, a.send_user_idx, a.file_idx, a.feed_idx, a.like_type, a.update_date, u.nickname, a.read
+		from mainalarm a
+		join mainuser u
+		on a.send_user_idx = u.user_idx
+		where a.receive_user_idx = #{userIdx}
+		order by alarm_idx desc;
+	</select>
 </mapper>
