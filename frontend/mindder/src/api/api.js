@@ -47,7 +47,7 @@ instance.interceptors.request.use(
   },
 
   (error) => {
-    if(error.response.status === 401){
+    if(error.response.status == 401){
       alert("로그인 정보가 만료되었습니다. 다시 로그인 해주세요.")
       removeCookie("is_login")
       window.location.replace("/")
