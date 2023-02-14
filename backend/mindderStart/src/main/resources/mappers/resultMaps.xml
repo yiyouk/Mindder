@@ -95,4 +95,13 @@
 		<result column="receiver_nickname" property="receiveUserNickname" />
 		<result column="sender_nickname" property="senderUserNickname" />
 	</resultMap>
+	<resultMap type="AlarmListDto" id="alarmList">
+		<result column="alarm_idx" property="alarmIdx" />
+		<result column="alarm_type" property="alarmType" />
+		<result column="send_user_idx" property="sendUserIdx" />
+		<result column="update_date" property="updateDate" />
+		<result column="feed_idx" property="feedIdx" />
+		<result column="like_type" property="likeType" />
+		<result column="file_idx" property="fileIdx" />
+	</resultMap>
 </mapper>
