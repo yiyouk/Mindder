@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx } from "../../redux/reducers";
 import styled, {css} from "styled-components";
 import ProfileImage from "../../commons/ui/ProfileImage"
-import UserImg from "../../assets/images/CanvasSample.png"
 
 //비동기 동신
 import api from "../../api/api";

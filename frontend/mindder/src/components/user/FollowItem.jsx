@@ -75,7 +75,7 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
     return (
         <Wrapper>
             <Profile imgsize={"s"} namesize={"s"} name={nickname} userIdx={userIdx} imgSrc={imgSrc}/>
-            {myIdx === userIdx? 
+            {myIdx == userIdx? 
                 <div></div>
                 :
                 <FollowButton onClick={handleFollowState} active={followOrUnfollow}>
