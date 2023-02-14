@@ -109,8 +109,8 @@
    
    
    <!--완성된 곰돌이 이미지 조회 -->
-   <select id="searchFile" parameterType="FeedsBearDto" resultMap="com.ssafy.resultmaps.bear">
-   select file_idx, emote_idx, emote_color_idx
+   <select id="selectFileIdx" parameterType="int" resultType="int">
+   select file_idx
    from feedemotecomplete 
    where emote_idx=#{emoteIdx} and emote_color_idx=#{emoteColorIdx}
    </select>
@@ -232,4 +232,66 @@
     	 ]]>
    </select>
    
+   <select id ="getRealtimeFeedCount" resultType="int">
+	   select count(*) 
+		from(
+			select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
+					(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+					(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+					from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
+					WHERE f.is_deleted = 0 and f.is_public=1
+					order by f.feed_idx DESC
+        )as m;
+	</select>
+	
+	
+	
+	<select id ="getPopularFeedCount" resultType="int">
+	select count(*) 
+ 	from
+ 	(
+ 		select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
+		from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
+		WHERE f.is_deleted = 0 and f.is_public=1
+		order by f.feed_idx DESC
+    ) as m
+	</select>
+	
+	<select id ="getNeighborFeedCount"  parameterType="int" resultType="int">
+	
+	select count(*)
+			from (
+				select @rownum:=@rownum+1 as rnum, f.feed_idx,f.user_idx,f.file_idx,c.comment_count, l.like_total_count, u.nickname,f.update_date f,update_time
+			        	 from 
+			        (
+			         select m.feed_idx,m.user_idx, m.file_idx , m.update_date, m.update_time
+			         from (select @rownum:=0) rn, mainfeed m,
+			            (select  distinct target_user_idx from userfollow where userfollow.user_idx=#{userIdx}) f
+			         where f.target_user_idx = m.user_idx and m.is_deleted !=1 and m.is_public !=0 and m.user_idx!=#{userIdx}
+			      ) f 
+		      left join (
+		      select nickname, user_idx
+		      from mainuser u 
+		      ) as u
+				on f.user_idx= u.user_idx
+		         left join 
+		         (
+		         select feed_idx, count(*) as 'comment_count' 
+		          from feedcomment 
+		          where is_deleted = 0 
+		         group by feed_idx
+		      ) as c 
+		         on f.feed_idx = c.feed_idx 
+		        left join 
+		        (
+		         select feed_idx, count(*) as 'like_total_count'
+		          from feedlike
+		             group by feed_idx 
+		        ) as l
+		                on f.feed_idx = l.feed_idx 
+				order by update_date DESC, update_time DESC
+		   ) as a
+	</select>
 </mapper>

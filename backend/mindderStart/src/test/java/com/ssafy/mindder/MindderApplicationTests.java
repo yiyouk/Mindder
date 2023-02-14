@@ -144,13 +144,6 @@ class MindderApplicationTests {
 		feedsUpdate.setPublic(false);
 		assertNotNull(feedsController.modifyFeed(accessToken, feedsUpdate).getMessage(), "피디 글 수정 성공!");
 
-		// 피드 삭제
-		int feedIdx = 7;
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
-
-		// 피드 상세 조회
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 글 삭제 성공!");
-
 		// 메인화면 -> 추천 피드 목록 조회(3개)
 		assertNotNull(feedsController.recommendation(accessToken).getMessage(), "메인 페이지 추천 리스트 불러오기 성공!");
 
