@@ -1,12 +1,8 @@
 import React from "react";
-import styled, { css } from "styled-components";
-
-const BtnColor = {
-    'main' : '#7767FD'
-}
+import styled from "styled-components";
 
 const StyledFollowButton = styled.button`
-     background-color: ${({ active }) => {
+    background-color: ${({ active }) => {
         if (active) {
             return "#7767FD";
         }
@@ -18,7 +14,8 @@ const StyledFollowButton = styled.button`
         }
         return "black";
         }};
-     padding: 0.3rem 0.6rem;
+     width: 5rem;
+     font-weight: 600;
      font-size: 0.85rem;
      border-width: 1px;
      border-radius: 25px;

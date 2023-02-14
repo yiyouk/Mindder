@@ -90,4 +90,9 @@
 		<result column="update_date" property="updateDate" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
+	<resultMap type="AlarmsUserDto" id="alarmsUser">
+		<result column="device_token" property="deviceToken" />
+		<result column="receiver_nickname" property="receiveUserNickname" />
+		<result column="sender_nickname" property="senderUserNickname" />
+	</resultMap>
 </mapper>

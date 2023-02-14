@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -45,9 +44,6 @@ public interface FeedsMapper {
 	// 유사 감정 색상 태그 피드 조회
 	public List<FeedsDto> similarityColorFeed(FeedsDto boardDto) throws SQLException;
 
-	// 사용자 이웃 피드 목록 조회
-	public List<FeedListDto> neighborFeed(int userIdx) throws SQLException;
-
 	// 피드 상세 조회
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws SQLException;
 
@@ -61,25 +57,21 @@ public interface FeedsMapper {
 	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto);
 
 	// 추천 피드 목록 조회
-	public List<FeedListDto> recommendation1(int userIdx);
+	public List<FeedListDto> recommendation1(int userIdx) throws SQLException;
 
-	public List<FeedListDto> recommendation2(int userIdx);
+	public List<FeedListDto> recommendation2(int userIdx) throws SQLException;
 
 	// 주간 인기글 리스트 조회
-	public List<FeedListDto> popularFeed(Criteria criteria);
+	public List<FeedListDto> popularFeed(int pageNum) throws SQLException;
 
 	// 실시간 작성된 인기글 리스트 조회
-	public List<FeedListDto> realtimeFeed(Criteria criteria);
+	public List<FeedListDto> realtimeFeed(int pageNum) throws SQLException;;
 
-	// 페이징 처리를 위한 피드 카운트
-	public int getTotalCount(Criteria criteria);
-
-	public int neighborFeedCount(Criteria criteria);
-
-	public int popularFeedCounting(Criteria criteria);
+	// 사용자 이웃 피드 목록 조회
+	public List<FeedListDto> neighborFeed(int pageNum, int userIdx) throws SQLException;
 
 	// 해시태그 -> 파싱해서 테이블에 저장
-	public int hashTagParser(List<HashParserDto> hashParser);
+	public int hashTagParser(List<HashParserDto> hashParser) throws SQLException;
 
 	public List<FeedListDto> searchesFeed(String word) throws SQLException;
 
