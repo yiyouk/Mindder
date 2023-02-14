@@ -24,17 +24,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
-import com.ssafy.mindder.feeds.model.Criteria;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
-import com.ssafy.mindder.feeds.model.FeedsPageDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.feeds.model.HashParserDto;
@@ -75,6 +74,7 @@ public class FeedsController {
 			}
 			return ApiResponse.success(SuccessCode.READ_SEARCHE_FEED, neighborList);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
@@ -89,13 +89,10 @@ public class FeedsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsDto.setUserIdx(userIdx);
 
-			if (feedsDto.getFileIdx() == 0) {
+			int fileIdx = feedsDto.getFileIdx();
+			if (fileIdx == 0) {
 				return ApiResponse.error(ErrorCode.VALIDATION_FILEIDX_EXCEPTION);
 			}
-			int emoteIdx = feedsDto.getEmoteIdx();
-			int emoteColorIdx = feedsDto.getEmoteColorIdx();
-			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
-			feedsService.addCalendar(userIdx, emoteCompleteFileIdx);
 			feedsService.writeFeed(feedsDto);
 
 			// 해시태그를 작성했다면 파싱해서 넣어줘야함!
@@ -236,42 +233,6 @@ public class FeedsController {
 
 	}
 
-	// 팔로잉 하는 이웃의 피드 리스트 조회
-	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
-	@GetMapping("/neighbors")
-	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken
-
-	) throws Exception {
-		logger.info("userIdx - 호출");
-		Map<String, Object> page = new HashMap<>();
-		Criteria criteria = new Criteria();
-
-		try {
-			// 페이징 처리를 위함
-			int total = feedsService.neighborFeedCount(criteria);
-			int userIdx = jwtService.getUserIdx(accessToken);
-
-			List<FeedListDto> neighborList = feedsService.neighborFeed(userIdx);
-
-			// 이미지 관련 코드 -> 이게 맞나,,,?
-			for (int i = 0; i < neighborList.size(); i++) {
-				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
-				neighborList.get(i).setBase64(file.get("base64"));
-				neighborList.get(i).setExtension(file.get("extension"));
-			}
-
-			page.put("Feeds", neighborList);
-			page.put("pageMaker", new FeedsPageDto(criteria, total));
-
-			System.out.println(neighborList);
-			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, page);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
-
 	// 이미지 크롤링
 	@ApiOperation(value = "이미지 크롤링 ", notes = "이웃의 피드를 반환한다.", response = List.class)
 	@GetMapping("/crawling/{color}")
@@ -292,6 +253,7 @@ public class FeedsController {
 					+ "-draw?c3apidt=p67950521402&cr=ec&gclid=Cj0KCQiAz9ieBhCIARIsACB0oGJBB98nHvnTniAE-kjspSDdkQWfpIcWxlh0IFv7ed-Mr8cMmg1vLicaAiz5EALw_wcB&gclsrc=aw.ds&kw=%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%8B%A4%EC%9A%B4&pl=PPC_GOO_KR_IG-567002744555";
 
 			Document doc = Jsoup.connect(url).get();
+
 			List<FeedsCrawlDto> list = new ArrayList<>();
 
 			Elements links = doc.select(".mui-b5j3lh-item-sstkGridItem-item");
@@ -387,26 +349,21 @@ public class FeedsController {
 	// 주간 인기글 리스트 조회
 	@GetMapping("/popular-feed")
 	@ApiOperation(value = "주간 인기글 리스트 조회 ", notes = "주간 인기글 리스트 조회 ", response = List.class)
-	public ApiResponse<?> popularFeed(@RequestHeader("access_token") String accessToken) throws Exception {
-		Map<String, Object> page = new HashMap<>();
-		Criteria criteria = new Criteria();
+	public ApiResponse<?> popularFeed(@RequestHeader("access_token") String accessToken,
+			@RequestParam("pageNum") int pageNum) throws Exception {
+
 		try {
 			// 페이징 처리를 위함
-			int total = feedsService.popularFeedCounting(criteria);
-			List<FeedListDto> popularArticle = feedsService.popularFeed(criteria);
+			List<FeedListDto> popularArticle = feedsService.popularFeed(pageNum);
 
 			// 이미지 set 코드 작성
-			for (int i = 0; i < popularArticle.size(); i++) {
-				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
-				popularArticle.get(i).setBase64(file.get("base64"));
-				popularArticle.get(i).setExtension(file.get("extension"));
-			}
+//			for (int i = 0; i < popularArticle.size(); i++) {
+//				Map<String, String> file = fileService.findFile(popularArticle.get(i).getFileIdx(), filePath);
+//				popularArticle.get(i).setBase64(file.get("base64"));
+//				popularArticle.get(i).setExtension(file.get("extension"));
+//			}
 
-			page.put("Feeds", popularArticle);
-			page.put("pageMaker", new FeedsPageDto(criteria, total));
-
-			System.out.println(popularArticle);
-			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, page);
+			return ApiResponse.success(SuccessCode.READ_POPULAR_FEED, popularArticle);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("popularArticle - 주간 인기글 리스트 조회 실패");
@@ -417,27 +374,50 @@ public class FeedsController {
 	// 실시간 작성된 피드 조회
 	@GetMapping("/realtime-feed")
 	@ApiOperation(value = "실시간 작성된 피드 조회", notes = "실시간 작성된 피드 조회", response = List.class)
-	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken) throws Exception {
-		Map<String, Object> page = new HashMap<>();
-		Criteria criteria = new Criteria();
+	public ApiResponse<?> realtimeFeed(@RequestHeader("access_token") String accessToken,
+			@RequestParam("pageNum") int pageNum) throws Exception {
+
 		try {
 
-			int total = feedsService.getTotalCount(criteria);
-			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(criteria);
+			List<FeedListDto> realtimeFeed = feedsService.realtimeFeed(pageNum);
 
 			// 이미지 set 코드 작성
-			for (int i = 0; i < realtimeFeed.size(); i++) {
-				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
-				realtimeFeed.get(i).setBase64(file.get("base64"));
-				realtimeFeed.get(i).setExtension(file.get("extension"));
-			}
+//			for (int i = 0; i < realtimeFeed.size(); i++) {
+//				Map<String, String> file = fileService.findFile(realtimeFeed.get(i).getFileIdx(), filePath);
+//				realtimeFeed.get(i).setBase64(file.get("base64"));
+//				realtimeFeed.get(i).setExtension(file.get("extension"));
+//			}
 
-			page.put("Feeds", realtimeFeed);
-			page.put("pageMaker", new FeedsPageDto(criteria, total));
-			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
+			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, realtimeFeed);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("realtimeFeed - 실시간 등록된 게시글 불러오기 실패 ");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	// 팔로잉 하는 이웃의 피드 리스트 조회
+	@ApiOperation(value = "팔로잉 하는 이웃의 피드 조회", notes = "이웃의 피드를 반환한다.", response = List.class)
+	@GetMapping("/neighbors")
+	public ApiResponse<?> neighborFeed(@RequestHeader("access_token") String accessToken,
+			@RequestParam("pageNum") int pageNum) throws Exception {
+		Map<String, Object> page = new HashMap<>();
+		try {
+
+			int userIdx = jwtService.getUserIdx(accessToken);
+			List<FeedListDto> neighborList = feedsService.neighborFeed(pageNum, userIdx);
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+//			for (int i = 0; i < neighborList.size(); i++) {
+//				Map<String, String> file = fileService.findFile(neighborList.get(i).getFileIdx(), filePath);
+//				neighborList.get(i).setBase64(file.get("base64"));
+//				neighborList.get(i).setExtension(file.get("extension"));
+//			}
+
+			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, neighborList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
