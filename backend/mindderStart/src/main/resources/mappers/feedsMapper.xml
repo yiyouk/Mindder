@@ -150,7 +150,7 @@
 	from mainfeed f join 
 		(select f.feed_idx, f.file_idx
 		from mainfeed f join mainuser u on f.emote_color_idx=u.emote_color_idx
-		where u.user_idx=#{userIdx}) as m1
+		where u.user_idx=#{userIdx} and f.is_deleted = 0 and f.is_public = 1) as m1
 	on f.feed_idx=m1.feed_idx
     limit 3
    </select>
