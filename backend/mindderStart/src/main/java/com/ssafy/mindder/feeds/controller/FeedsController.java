@@ -224,6 +224,13 @@ public class FeedsController {
 			if (Objects.isNull(feedDetail)) {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 			}
+			
+			int emoteIdx = feedDetail.getEmoteIdx();
+			int emoteColorIdx = feedDetail.getEmoteColorIdx();
+			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
+			Map<String, String> emoteFile = fileService.findFile(emoteCompleteFileIdx, filePath);
+			feedDetail.setEmoteCompleteBase64(emoteFile.get("base64"));
+			feedDetail.setEmoteCompleteExtension(emoteFile.get("extension"));
 			return ApiResponse.success(SuccessCode.READ_DETAIL_MAIN_FEED, feedDetail);
 		} catch (Exception e) {
 			e.printStackTrace();
