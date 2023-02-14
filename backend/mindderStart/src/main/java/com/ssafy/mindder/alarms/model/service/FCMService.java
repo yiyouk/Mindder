@@ -49,11 +49,11 @@ public class FCMService {
 		String body = null;
 		
 		if (alarmType == 1) {
-			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님을 팔로우하기 시작했습니다.";
+			body = "[" + alarmsUserDto.getSenderUserNickname() + "] 님이 회원님을 팔로우하기 시작했습니다.";
 		} else if (alarmType == 2) {
-			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림에 댓글을 달았습니다.";
+			body = "[" + alarmsUserDto.getSenderUserNickname() + "] 님이 회원님의 그림에 댓글을 달았습니다.";
 		} else if (alarmType == 3) {
-			body = "(" + alarmsUserDto.getSenderUserNickname() + ") 님이 회원님의 그림을 좋아합니다.";
+			body = "[" + alarmsUserDto.getSenderUserNickname() + "] 님이 회원님의 그림에 공감했습니다.";
 		}
 
 		MessageDto fcmMessage = MessageDto.builder()
