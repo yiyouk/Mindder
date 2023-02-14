@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.mindder.feeds.model.FeedListDto;
-import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
@@ -23,11 +22,6 @@ public class FeedsServiceImpl implements FeedsService {
 	@Override
 	public boolean writeFeed(FeedsDto feedsDto) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).writeFeed(feedsDto) == 1;
-	}
-
-	@Override
-	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception {
-		return sqlSession.getMapper(FeedsMapper.class).selectFileIdx(emoteIdx, emoteColorIdx);
 	}
 
 	@Override
@@ -66,8 +60,8 @@ public class FeedsServiceImpl implements FeedsService {
 	}
 
 	@Override
-	public FeedsBearDto searchFile(FeedsBearDto feedsBearDto) {
-		return sqlSession.getMapper(FeedsMapper.class).searchFile(feedsBearDto);
+	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).selectFileIdx(emoteIdx, emoteColorIdx);
 
 	}
 
@@ -110,7 +104,6 @@ public class FeedsServiceImpl implements FeedsService {
 
 	@Override
 	public List<FeedListDto> searchesFeed(String word) throws Exception {
-		// TODO Auto-generated method stub
 		return sqlSession.getMapper(FeedsMapper.class).searchesFeed(word);
 	}
 
