@@ -238,11 +238,9 @@ public class MyController {
 			myService.addMyFollow(userIdx, targetUserIdx);
 	
 			int fileIdx = alarmsService.findUserFileIdx(userIdx);
-			int alarmIdx = alarmsService.findAlarmDuplication(1, userIdx, targetUserIdx);
 			// 알림 등록
-			if (alarmIdx == 0) {
-				alarmsService.addFollowAlarm(userIdx, targetUserIdx, fileIdx);
-			}
+			alarmsService.addFollowAlarm(userIdx, targetUserIdx, fileIdx);
+			
 			// 알림 전송
 			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
 			if (alarmsUserDto.getDeviceToken() != null) {
