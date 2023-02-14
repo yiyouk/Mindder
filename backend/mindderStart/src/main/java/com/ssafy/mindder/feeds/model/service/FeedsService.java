@@ -3,7 +3,6 @@ package com.ssafy.mindder.feeds.model.service;
 import java.util.List;
 
 import com.ssafy.mindder.feeds.model.FeedListDto;
-import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
@@ -25,9 +24,6 @@ public interface FeedsService {
 	public FeedsParameterDto getFeed(int feedIdx, int userIdx) throws Exception;
 
 	public boolean myScrap(int feedIdx, int userIdx) throws Exception;
-
-	// 완성된 곰돌이 조회
-	FeedsBearDto searchFile(FeedsBearDto feedsBearDto) throws Exception;
 
 	// 메인 추천 게시물 리스트 조회
 	public List<FeedListDto> recommendation1(int userIdx) throws Exception;
