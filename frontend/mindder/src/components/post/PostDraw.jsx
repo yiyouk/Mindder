@@ -4,7 +4,6 @@ import Canvas from "./Canvas";
 import api from '../../api/api'
 import CrawItem from "../../commons/list/CrawItem";
 import { useSelector } from "react-redux";
-import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 import { Colors16 } from "../../redux/reducers";
 import Swal from "sweetalert2";
 
@@ -80,7 +79,6 @@ function PostDraw(props){
         const imgSrc = response.data.data
         setCrawlingList(imgSrc)
       }
-  
     } catch (error) {
       
     }
