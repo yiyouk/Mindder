@@ -68,11 +68,9 @@ public class CommentsController {
 			// 알림에 등록할 피드 작성자 아이디 조희
 			int targetUserIdx = alarmsService.findUserIdx(commentsDto.getFeedIdx());
 
-			int alarmIdx = alarmsService.findAlarmDuplication(2, userIdx, targetUserIdx);
 			// 알림 등록
-			if (alarmIdx == 0) {
-				alarmsService.addCommentAlarm(userIdx, targetUserIdx, commentsDto.getFeedIdx(), fileIdx);
-			}
+			alarmsService.addCommentAlarm(userIdx, targetUserIdx, commentsDto.getFeedIdx(), fileIdx);
+			
 			// 알림 전송
 			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
 			if (alarmsUserDto.getDeviceToken() != null) {

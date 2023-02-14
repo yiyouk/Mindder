@@ -56,4 +56,9 @@
 	<delete id="deleteAlarm" parameterType="int">
 		delete from mainalarm where alarm_idx = #{alarmIdx};
 	</delete>
+	<!-- 공감 알림 등록 -->
+	<insert id="insertLikeAlarm" parameterType="int">
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, file_idx, like_type) 
+		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{fileIdx}, #{likeType});
+	</insert>
 </mapper>
