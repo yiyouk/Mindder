@@ -23,8 +23,8 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public AlarmsUserDto findDeviceToken(int senderUserIdx, int receiverUserIdx) throws Exception {
-		return sqlSession.getMapper(AlarmsMapper.class).selectDeviceToken(senderUserIdx, receiverUserIdx);
+	public AlarmsUserDto findPushInfo(int senderUserIdx, int receiverUserIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectPushInfo(senderUserIdx, receiverUserIdx);
 	}
 	
 	@Override
@@ -50,6 +50,21 @@ public class AlarmsServiceImpl implements AlarmsService {
 	@Override
 	public String findAlarm(int alarmIdx) throws Exception {
 		return sqlSession.getMapper(AlarmsMapper.class).selectAlarm(alarmIdx);
+	}
+	
+	@Override
+	public int findUserIdx(int feedIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectUserIdx(feedIdx);
+	}
+	
+	@Override
+	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertCommentAlarm(userIdx, targetUserIdx, feedIdx, fileIdx);
+	}
+	
+	@Override
+	public int findAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectAlarmDuplication(alarmType, userIdx, targetUserIdx);
 	}
 	
 }

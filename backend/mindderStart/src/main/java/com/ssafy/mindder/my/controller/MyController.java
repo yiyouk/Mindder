@@ -236,16 +236,18 @@ public class MyController {
 
 			// 팔로우 등록
 			myService.addMyFollow(userIdx, targetUserIdx);
-			// 알림 등록
+	
 			int fileIdx = alarmsService.findUserFileIdx(userIdx);
-			if (fileIdx != 0) {
+			int alarmIdx = alarmsService.findAlarmDuplication(1, userIdx, targetUserIdx);
+			// 알림 등록
+			if (alarmIdx == 0) {
 				alarmsService.addFollowAlarm(userIdx, targetUserIdx, fileIdx);
-			} else {
-				return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 			}
 			// 알림 전송
-			AlarmsUserDto alarmsUserDto = alarmsService.findDeviceToken(userIdx, targetUserIdx);
-			fcmService.sendMessageTo(alarmsUserDto, 1);
+			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
+			if (alarmsUserDto.getDeviceToken() != null) {
+				fcmService.sendMessageTo(alarmsUserDto, 1);
+			}
 
 			return ApiResponse.success(SuccessCode.CREATE_MY_FOLLOW);
 		} catch (Exception e) {
