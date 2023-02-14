@@ -6,6 +6,7 @@ import styled from "styled-components";
 import CanvasAlbumList from "../commons/list/CanvasAlbumList";
 import CanvasList from "../commons/list/CanvasList"
 import ErrorPage from "./ErrorPage";
+import {Line} from "./UserPage";
 
 import api from "../api/api";
 
@@ -13,10 +14,13 @@ import "../assets/css/main.css";
 import blank from "../assets/images/blank.png";
 import {FiPlusCircle} from "react-icons/fi";
 import {IoArrowBackCircle} from "react-icons/io5";
+import {BsFillPlusCircleFill} from "react-icons/bs";
 
 const Wrapper = styled.div`
-    /* margin: 3rem 0 0 0; */
-    /* border:1px solid; */
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin: 0.5rem 0 0 0;
 `;
 
 const Box = styled.div`
@@ -30,7 +34,6 @@ const Dum = styled.img`
     height: 8rem;
 `;
 
-
 const Container = styled.div`
     display: flex;
     color: rgb(67, 67, 67);
@@ -41,86 +44,26 @@ const Container = styled.div`
 const Comment = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0.3rem 0 1rem 0;
+    font-weight: 600;
+    color: rgb(67, 67, 67);
+    margin: 0rem 0 0.7rem 0;
 `  
 
 /////////////////////////컴포넌트 시작///////////////////////////////
 function FeedsPage() {
-    const navigate = useNavigate()
-    const [level, setLevel] = useState(0); //목록 보기 0, 자세히 보기 1
-    const [kind, setKind] = useState(1); //종류
-    
-    useEffect(()=>{
-        getRealtimeFeeds()
-        getPopularFeeds();
-        getNeighborFeeds();
-        setLevel(0);
-    }, [])
-
-    //컴포넌트 바꿔치기
-    const onClick = (id) => {
-        setLevel(level+1);
-        setKind(id);
-    }
-
-    //헌재 사용 유저 idx 꺼내기                         
+    const navigate = useNavigate()               
     const nickName = useSelector((state)=>state.USER.nickName)
     const [realtimeFeeds, setRealtimeFeeds] = useState([])
     const [popularFeeds, setPopularFeeds] = useState([])
     const [neighborFeeds, setNeighborFeeds] = useState([])
-
-    //실시간 피드 가져오기
-    const getRealtimeFeeds = async() => { 
-        try {
-            const response = await api.get(`/feeds/realtime-feed`);
-
-            if (response.data.success){
-                setRealtimeFeeds(response.data.data.Feeds);
-            } else {
-                console.error("조회실패");
-            }
-
-        } catch (e) {
-            console.error(e);
-            navigate("/error");
-        }
-    }
-
-
-    //인기 피드 가져오기
-    const getPopularFeeds = async() => { 
-        try {
-            const response = await api.get(`/feeds/popular-feed`);
-            
-            if (response.data.success){
-                setPopularFeeds(response.data.data.Feeds)
-            } else {
-                console.error("조회실패");
-            }
-        } catch (e) {
-            console.error(e);
-            navigate("/error");
-        }
-    }
-
-    //이웃 데이터 피드 가져오기
-    const getNeighborFeeds = async() => { // async, await을 사용하는 경우
-        try {
-            const response = await api.get(`/feeds/neighbors`);    
-
-            if(response.data.success){
-                setNeighborFeeds(response.data.data.Feeds)
-            } else {
-                console.error("조회실패");
-            }
-        } catch (e) {
-            console.error(e);
-            navigate("/error");
-        }
-    }
-
+    const [realtimeNum, setRealtimeNum] = useState(1)
+    const [popularNum, setPopularNum] = useState(1)
+    const [neighborNum, setNeighborNum] = useState(1)
+    const [plus, setPlus] = useState(true);
+    const [level, setLevel] = useState(0); //목록 보기 0, 자세히 보기 1
+    const [kind, setKind] = useState(1); //종류   
     const recentFeedsList = [
         {
             id: 0,
@@ -141,10 +84,99 @@ function FeedsPage() {
             data: neighborFeeds
         }
     ];
+
+    useEffect(()=>{
+        getRealtimeFeeds()
+        getPopularFeeds();
+        getNeighborFeeds();
+        setLevel(0);
+    }, [])
+
+    //컴포넌트 바꿔치기
+    const onClick = (id) => {
+        setLevel(level+1);
+        setKind(id);
+    }
+
+
+    //실시간 피드 가져오기
+    const getRealtimeFeeds = async() => {
+        try {
+            const response = await api.get(`/feeds/realtime-feed?pageNum=${realtimeNum}`);
+
+            if (response.data.success){
+                setRealtimeFeeds(realtimeFeeds.concat(response.data.data.feedList));
+                setRealtimeNum(response.data.data.pageNum+1);
+                setPlus(true);
+                if(realtimeFeeds.length % 10 !== 0){
+                    setPlus(false);
+                } 
+            } else {
+                console.error("조회실패");
+            }
+
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
+
+    //인기 피드 가져오기
+    const getPopularFeeds = async() => {
+        try {
+            const response = await api.get(`/feeds/popular-feed?pageNum=${popularNum}`);
+            if (response.data.success){
+                setPopularFeeds(popularFeeds.concat(response.data.data.feedList));
+                setPopularNum(response.data.data.pageNum+1);
+                setPlus(true);
+                if(popularFeeds.length % 10 !== 0){
+                    setPlus(false);
+                } 
+            } else {
+                console.error("조회실패");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
     
+    //이웃 데이터 피드 가져오기
+    const getNeighborFeeds = async() => { // async, await을 사용하는 경우
+        try {
+            const response = await api.get(`/feeds/neighbors?pageNum=${neighborNum}`);    
+
+            if(response.data.success){
+                setNeighborFeeds(neighborFeeds.concat(response.data.data.feedList));
+                setNeighborNum(response.data.data.pageNum+1);
+                setPlus(true);
+                if (neighborFeeds.length % 10 !== 0){
+                    setPlus(false);
+                } 
+            } else {
+                console.error("조회실패");
+            }
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
+    const clickPlus = () => {
+        if (kind === 0) {
+            getRealtimeFeeds()
+        } else if(kind === 1) {
+            getPopularFeeds();            
+        } else if(kind === 2) {
+            getNeighborFeeds();
+        }
+    }
+
+
     if(level === 0){
         return (
-            <Wrapper>   
+            <div>   
                 {recentFeedsList.map((recentFeeds, index) => {
                     return(
                         <Box key={index}>  
@@ -159,15 +191,23 @@ function FeedsPage() {
                         </Box>
                     );
                 })}
-            </Wrapper>
+            </div>
         );
     } else  if(level === 1) {
         return (
-            <Wrapper>
-                <IoArrowBackCircle color="#7767FD" size="40" onClick={()=>setLevel(level-1)}/>
+            <div>
+                <IoArrowBackCircle color="#7767FD" size="40" style={{position:"relative", top:"2rem"}} onClick={()=>{setLevel(level-1); setPlus(true);}}/>
                 <Comment>{recentFeedsList[kind].comment}</Comment>
+                <Line/>
                 <CanvasAlbumList size="m" list={recentFeedsList[kind].data}/>
-            </Wrapper>
+                { plus ?
+                    <Wrapper>
+                        <BsFillPlusCircleFill color="#7767FD" size="38" onClick={clickPlus}/>
+                    </Wrapper>
+                    :
+                    null
+                }
+            </div>
         );
     } else{
         <ErrorPage></ErrorPage>
