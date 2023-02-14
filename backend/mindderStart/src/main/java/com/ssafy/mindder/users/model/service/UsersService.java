@@ -21,4 +21,5 @@ public interface UsersService {
 	void changePassword(UsersDto usersDto) throws Exception;
 	String findUserIdx(String email) throws Exception;
 	void deletedJoinUser(UsersDto usersdto) throws Exception;
+	int joinSocialKakaoID(UsersDto usersdto) throws Exception;
 }

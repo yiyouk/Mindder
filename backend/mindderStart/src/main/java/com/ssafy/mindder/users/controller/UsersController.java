@@ -145,16 +145,25 @@ public class UsersController {
 				usersDto.setRefreshToken(token.get("refresh_token"));
 				// 회원가입 이후 DB조회 후 우리 idx로 변환
 				usersService.addToken(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", token.get("access_token"));
-				user.put("isNewUser", "false");
+				user.put("accessToken", accessToken);
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			} else {
 				logger.debug("socialLogin - 회원정보 없음");
-				user.put("isNewUser", "true");
-				user.put("accessToken", token.get("access_token"));
-				return ApiResponse.error(ErrorCode.VALIDATION_EXCEPTION);
+				usersDto.setSocialId(userIO.get("id") + "@Kakao");
+				usersDto.setEmail(userIO.get("id"));
+				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
+				usersDto.setNickname(userIO.get("nickname"));
+				usersDto.setEmoteColorIdx(1);
+				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+				int useridx  = usersService.joinSocialKakaoID(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx", useridx);
+				user.put("userIdx", useridx + "");
+				user.put("nickname", usersDto.getNickname());
+				user.put("accessToken", accessToken);
+				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
