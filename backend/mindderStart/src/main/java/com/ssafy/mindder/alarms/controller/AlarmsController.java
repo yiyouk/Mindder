@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.alarms.model.AlarmListDto;
 import com.ssafy.mindder.alarms.model.TokenUpdateDto;
 import com.ssafy.mindder.alarms.model.service.AlarmsService;
-import com.ssafy.mindder.alarms.model.service.FCMService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -44,8 +44,6 @@ public class AlarmsController {
 	private FileService fileService;
 	@Autowired
 	private AlarmsService alarmsService;
-	@Autowired
-	private FCMService fcmService;
 
 	@Value("${file.path.upload-files}")
 	private String filePath;
@@ -107,7 +105,22 @@ public class AlarmsController {
 			logger.debug("alarmModify - 알림 읽음 처리 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
+	}
+	
+	@ApiOperation(value = "알림 삭제", notes = "유저 번호에 해당하는 유저를 언팔로우한다.")
+	@DeleteMapping("/{alarmIdx}")
+	public ApiResponse<?> alarmRemove(@RequestHeader("access_token") String accessToken,
+			@PathVariable("alarmIdx") @ApiParam(value = "삭제할 알림 번호", required = true) int alarmIdx) {
 
+		logger.debug("alarmRemove - 호출 : " + alarmIdx);
+		try {
+			alarmsService.removeAlarm(alarmIdx);
+			return ApiResponse.success(SuccessCode.DELETE_ALARM);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("alarmRemove - 알림 삭제 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
 	}
 
 }
