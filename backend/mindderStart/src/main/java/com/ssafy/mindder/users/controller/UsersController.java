@@ -137,14 +137,12 @@ public class UsersController {
 		try {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
-			UsersDto usersDto = null;
+			UsersDto usersDto = new UsersDto();
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
-			if (usersDto != null && !usersDto.isDeleted()) {
-				usersDto.setRefreshToken(token.get("refresh_token"));
-				// 회원가입 이후 DB조회 후 우리 idx로 변환
-				usersService.addToken(usersDto);
+			System.out.println(usersDto);
+			if (usersDto != null) {
 				String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
@@ -152,6 +150,7 @@ public class UsersController {
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			} else {
 				logger.debug("socialLogin - 회원정보 없음");
+				usersDto = new UsersDto();
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
 				usersDto.setEmail(userIO.get("id"));
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
@@ -159,11 +158,11 @@ public class UsersController {
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-				int useridx  = usersService.joinSocialKakaoID(usersDto);
-				String accessToken = jwtService.createAccessToken("useridx", useridx);
-				user.put("userIdx", useridx + "");
+				usersDto  = usersService.joinSocialKakaoID(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
+				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
+				user.put("accessToken", userIO.get("nickname"));
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			}
 		} catch (Exception e) {
