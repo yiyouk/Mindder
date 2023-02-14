@@ -249,7 +249,7 @@ function FeedDetailPage(props) {
                 <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s" imgSrc={profileImg}/>
                 <div>
                     {isPublic ? null:<GiPadlock color=" #7767FD" size="22" style={{position:'relative', top:'3.2rem', left:'3rem'}}/>}
-                    {myIdx === postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
+                    {myIdx == postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
                 </div>
             </SideContainer>
             <CanvasImg src={base64}/>
