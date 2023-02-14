@@ -67,4 +67,9 @@ public class AlarmsServiceImpl implements AlarmsService {
 		return sqlSession.getMapper(AlarmsMapper.class).selectAlarmDuplication(alarmType, userIdx, targetUserIdx);
 	}
 	
+	@Override
+	public void removeAlarm(int alarmIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).deleteAlarm(alarmIdx);
+	}
+	
 }
