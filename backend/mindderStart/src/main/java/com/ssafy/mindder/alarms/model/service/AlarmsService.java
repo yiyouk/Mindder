@@ -12,7 +12,7 @@ public interface AlarmsService {
 	public void addToken(TokenUpdateDto tokenUpdateDto) throws Exception;
 
 	// 알림을 보낸 / 받을 유저 정보 조회
-	public AlarmsUserDto findDeviceToken(int senderUserIdx, int receiverUserIdx) throws Exception;
+	public AlarmsUserDto findPushInfo(int senderUserIdx, int receiverUserIdx) throws Exception;
 
 	// 팔로우 알림 등록
 	public void addFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws Exception;
@@ -28,5 +28,20 @@ public interface AlarmsService {
 
 	// 알림 조회
 	public String findAlarm(int alarmIdx) throws Exception;
+
+	// 알림에 등록할 피드 작성자 idx 조회
+	public int findUserIdx(int feedIdx) throws Exception;
+
+	// 댓글 알림 등록
+	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws Exception;
+
+	// 알림 등록 전 중복 확인 
+	public int findAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws Exception;
+
+	// 알림 삭제
+	public void removeAlarm(int alarmIdx) throws Exception;
+
+	// 공감 알림 등록
+	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx, int likeType) throws Exception;
 
 }

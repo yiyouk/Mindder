@@ -6,7 +6,7 @@
 		update mainuser set device_token = #{deviceToken} where user_idx = #{userIdx};
 	</update>
 	<!-- 알림을 보낸 / 받을 유저 정보 조회 -->
-	<select id="selectDeviceToken" parameterType="int" resultMap="com.ssafy.resultmaps.alarmsUser">
+	<select id="selectPushInfo" parameterType="int" resultMap="com.ssafy.resultmaps.alarmsUser">
 		select (select nickname from mainuser where user_idx = #{senderUserIdx}) as sender_nickname, 
 				nickname as receiver_nickname, device_token
 		from mainuser
@@ -37,4 +37,28 @@
 	<select id="selectAlarm" parameterType="int" resultType="String">
 		select alarm_idx from mainalarm where alarm_idx = #{alarmIdx};
 	</select>
+	<!-- 알림에 등록할 피드 작성자 idx 조회 -->
+	<select id="selectUserIdx" parameterType="int" resultType="int">
+		select user_idx from mainfeed where feed_idx = #{feedIdx}; 
+	</select>
+	<!-- 댓글 알림 등록 -->
+	<insert id="insertCommentAlarm" parameterType="int">
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, file_idx) 
+		values(2, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{fileIdx});
+	</insert>
+	<!-- 알림 등록 전 중복 검사 -->
+	<select id="selectAlarmDuplication" parameterType="int" resultType="int">
+		select alarm_idx 
+		from mainalarm 
+		where alarm_type = #{alarmType} and send_user_idx = #{userIdx} and receive_user_idx = #{targetUserIdx};
+	</select>
+	<!-- 알림 삭제 -->
+	<delete id="deleteAlarm" parameterType="int">
+		delete from mainalarm where alarm_idx = #{alarmIdx};
+	</delete>
+	<!-- 공감 알림 등록 -->
+	<insert id="insertLikeAlarm" parameterType="int">
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, file_idx, like_type) 
+		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{fileIdx}, #{likeType});
+	</insert>
 </mapper>
