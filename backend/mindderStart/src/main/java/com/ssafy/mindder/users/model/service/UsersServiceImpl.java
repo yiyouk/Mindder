@@ -144,8 +144,8 @@ public class UsersServiceImpl implements UsersService {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=0d2c29aab3ff2236ab9808ecb73e15e7"); // TODO REST_API_KEY 입력
-			sb.append("&redirect_uri=http://mindder.me:8888/dev/users/social/kakao"); // TODO 인가코드 받은 redirect_uri 입력
+			sb.append("&client_id=dc63597430966307c80d8e0e8c0d9b8a"); // TODO REST_API_KEY 입력
+			sb.append("&redirect_uri=https://mindder.me/dev/users/social/kakao"); // TODO 인가코드 받은 redirect_uri 입력
 			sb.append("&code=" + code);
 			bw.write(sb.toString());
 			bw.flush();
@@ -193,7 +193,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public int joinSocialKakaoID(UsersDto usersdto) throws Exception {
+	public UsersDto joinSocialKakaoID(UsersDto usersdto) throws Exception {
 		// TODO Auto-generated method stub
 		return usersMapper.joinSocialKakaoID(usersdto);
 	}
