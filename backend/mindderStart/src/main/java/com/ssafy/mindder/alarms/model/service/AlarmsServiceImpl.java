@@ -1,9 +1,12 @@
 package com.ssafy.mindder.alarms.model.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.alarms.model.AlarmListDto;
 import com.ssafy.mindder.alarms.model.AlarmsUserDto;
 import com.ssafy.mindder.alarms.model.TokenUpdateDto;
 import com.ssafy.mindder.alarms.model.mapper.AlarmsMapper;
@@ -25,8 +28,18 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public void addFollowAlarm(int userIdx, int targetUserIdx) throws Exception {
-		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx);
+	public void addFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx, fileIdx);
+	}
+	
+	@Override
+	public List<AlarmListDto> findAlarms(int userIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectAlarms(userIdx);
+	}
+	
+	@Override
+	public int findUserFileIdx(int userIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectUserFileIdx(userIdx);
 	}
 	
 }
