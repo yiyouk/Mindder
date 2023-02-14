@@ -41,6 +41,7 @@
 		    INNER JOIN feedemotecolor f ON f.emote_color_idx = t3.emote_color_idx) AS ec ON e.update_date = ec.update_date
 		        INNER JOIN
 		    feedemotecomplete ecp ON ec.emote_color_idx = ecp.emote_color_idx
-		        AND e.emote_idx = ecp.emote_idx;
+		        AND e.emote_idx = ecp.emote_idx
+		        ORDER BY update_date;
 	</select>
 </mapper>
