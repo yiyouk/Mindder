@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { Colors16, Emoticons } from "../../redux/reducers";
 import styled from "styled-components";
 
-import LogoWW from "../../assets/images/LogoWW.png"
-
 import TodayCanvasImg from "../../assets/images/TodayCanvas.png"
 import dayjs from 'dayjs';
 
@@ -23,13 +21,6 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     border: none;
-`;
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 `;
 
 // 영역
@@ -68,14 +59,7 @@ const Text = styled.div`
     margin-bottom: 0.01rem;
 `;
 
-const HeaderLogo = styled.img`
-  background-color:  #7767FD;
-  margin-left: 0.5rem;
-  width: 6rem;
-  height: 2.5rem;
-`;
-
-function TodayCanvas(props) {
+function TodayCanvas() {
     const navigate = useNavigate();
     const nickName = useSelector((state)=>state.USER.nickName);
     const [emoteIdx, setEmoteIdx] = useState(0);
