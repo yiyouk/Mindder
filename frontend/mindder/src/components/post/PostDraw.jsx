@@ -38,19 +38,6 @@ const CanvasDiv = styled.div`
   background: #FFFFFF;
   border-radius: 19px;
 `
-<<<<<<< HEAD
-const FeedInfoContainer = styled.div`
-  display:flex;
-  position:absolute;
-  top:4.2rem;
-  left:8rem;
-  width:5.5em;
-  justify-content:space-around;
-`
-const FeenInfo = styled.div`
-  background-color:rgba(119, 103, 253, 0.3);
-  /* width:3rem; */
-=======
 export const FeedInfoContainer = styled.div`
   display:flex;
   position:absolute;
@@ -63,7 +50,6 @@ export const FeedInfoContainer = styled.div`
 export const FeenInfo = styled.div`
   background-color:rgba(119, 103, 253, 0.3);
   width:3rem;
->>>>>>> be8a1155c19e3d4ef4d6361c93ed2bf191e0738c
   text-align:center;
   border-radius: 15px;
   font-weight: 500;
@@ -103,10 +89,6 @@ function PostDraw(props){
   const [crawlingList, setCrawlingList] = useState([])
   const todayColor = useSelector((state)=>state.USER.todayColor)
   const todayEmo = useSelector((state)=>state.USER.todayEmotion)
-<<<<<<< HEAD
-  console.log(todayColor, todayEmo)
-=======
->>>>>>> be8a1155c19e3d4ef4d6361c93ed2bf191e0738c
   //오늘의 감정 영어로 바꿔서 담은 변수
   const findEn = Colors16.find(color=>color.name===todayColor).en  
 
