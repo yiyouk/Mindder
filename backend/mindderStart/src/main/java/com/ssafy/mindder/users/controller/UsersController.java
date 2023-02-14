@@ -152,7 +152,6 @@ public class UsersController {
 			} else {
 				logger.debug("socialLogin - 회원정보 없음");
 				usersDto = new UsersDto();
-				System.out.println("예아"+userIO.get("nickname"));
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
 				usersDto.setEmail(userIO.get("id"));
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
@@ -160,7 +159,9 @@ public class UsersController {
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+				System.out.println("가기전" + usersDto);
 				usersDto  = usersService.joinSocialKakaoID(usersDto);
+				System.out.println("간후" + usersDto);
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
