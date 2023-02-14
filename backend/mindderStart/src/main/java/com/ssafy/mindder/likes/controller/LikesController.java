@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.mindder.alarms.model.AlarmsUserDto;
+import com.ssafy.mindder.alarms.model.service.AlarmsService;
+import com.ssafy.mindder.alarms.model.service.FCMService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -33,6 +36,10 @@ public class LikesController {
 	private LikesService likesService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private AlarmsService alarmsService;
+	@Autowired
+	private FCMService fcmService;
 
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
@@ -52,6 +59,21 @@ public class LikesController {
 				return ApiResponse.error(ErrorCode.VALIDATION_LIKE_TYPE_EXCEPTION);
 			}
 			likesService.addLike(likesDto);
+			
+			// 알림에 등록할 유저 프로필 이미지 조회
+			int fileIdx = alarmsService.findUserFileIdx(userIdx);
+			// 알림에 등록할 피드 작성자 아이디 조희
+			int targetUserIdx = alarmsService.findUserIdx(likesDto.getFeedIdx());
+			
+			// 알림 등록
+			alarmsService.addLikeAlarm(userIdx, targetUserIdx, likesDto.getFeedIdx(), fileIdx, likesDto.getLikeType());
+			
+			// 알림 전송
+			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
+			if (alarmsUserDto.getDeviceToken() != null) {
+				fcmService.sendMessageTo(alarmsUserDto, 3);
+			}
+			
 			return ApiResponse.success(SuccessCode.CREATE_LIKE);
 		} catch (Exception e) {
 			e.printStackTrace();
