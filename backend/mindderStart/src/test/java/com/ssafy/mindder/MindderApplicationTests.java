@@ -102,7 +102,6 @@ class MindderApplicationTests {
 		// 로그아웃
 		assertEquals(usersController.logout(accessToken).getMessage(), "유저 로그아웃 성공");
 
-
 	}
 
 	@Test
@@ -125,7 +124,7 @@ class MindderApplicationTests {
 		fileDto.setExtension("gif");
 		fileDto.setOriginalFile("123.gif");
 		int fileidx = (int) fileController.fileUpLoad(fileDto).getData();
-		
+
 		// 피드 작성
 		FeedsDto feedsDto = new FeedsDto();
 		feedsDto.setMainText("테스트1 중 입니다.");
@@ -158,6 +157,13 @@ class MindderApplicationTests {
 
 		// 이미지 크롤링
 		assertNotNull(feedsController.crawling("pink").getMessage(), "이미지 크롤링 성공!");
+
+		// 피드 상세보기
+		int feedIdx = feedsDto.getFeedIdx();
+		assertNotNull(feedsController.getFeed(feedIdx, accessToken).getMessage(), "이미지 크롤링 성공!");
+
+		// 피드 삭제하기
+		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 삭제 성공!");
 
 	}
 
