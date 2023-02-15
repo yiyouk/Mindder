@@ -117,7 +117,6 @@ public class FeedsController {
 					hashParser.add(hash);
 				}
 
-				System.out.println(hashParser);
 				// feedIdx를 기준으로 service에 요청
 				feedsService.hashTagParser(hashParser);
 
@@ -167,7 +166,6 @@ public class FeedsController {
 					hashParser.add(hash);
 				}
 
-				// System.out.println(hashParser);
 				// feedIdx를 기준으로 service에 요청
 				feedsService.hashTagParser(hashParser);
 			}
@@ -217,13 +215,12 @@ public class FeedsController {
 			Map<String, String> file = fileService.findFile(feedDetail.getFileIdx(), filePath);
 			feedDetail.setBase64(file.get("base64"));
 			feedDetail.setExtension(file.get("extension"));
-			System.out.println(feedDetail);
 
 			// 메인 피드글 여부 확인
 			if (Objects.isNull(feedDetail)) {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_FEED_EXCEPTION);
 			}
-			
+
 			int emoteIdx = feedDetail.getEmoteIdx();
 			int emoteColorIdx = feedDetail.getEmoteColorIdx();
 			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
@@ -376,7 +373,6 @@ public class FeedsController {
 			int total = feedsService.getRealtimeFeedCount();
 			page.put("feedList", realtimeFeed);
 			page.put("pageNum", new FeedsPageDto(pageNum, total));
-			// System.out.println(page);
 
 			return ApiResponse.success(SuccessCode.READ_RECENT_FEED, page);
 		} catch (Exception e) {
@@ -405,7 +401,7 @@ public class FeedsController {
 			}
 
 			int total = feedsService.getNeighborFeedCount(userIdx);
-			System.out.println(total);
+
 			page.put("feedList", neighborList);
 			page.put("pageNum", new FeedsPageDto(pageNum, total));
 			return ApiResponse.success(SuccessCode.READ_NEIGHBORS_FEED_LIST, page);
