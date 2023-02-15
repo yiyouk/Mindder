@@ -158,11 +158,11 @@ public class UsersController {
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-				usersDto  = usersService.joinSocialKakaoID(usersDto);
-				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
-				user.put("userIdx", usersDto.getUserIdx() + "");
+				int idx  = usersService.joinSocialKakaoID(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx",idx);
+				user.put("userIdx", idx + "");
 				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", userIO.get("nickname"));
+				user.put("accessToken", accessToken);
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			}
 		} catch (Exception e) {
