@@ -25,7 +25,8 @@ public enum ErrorCode {
 	NOT_FOUND_FOLLOW_EXCEPTION(NOT_FOUND, "존재하지 않는 팔로우입니다."), NOT_FOUND_ALARM_EXCEPTION(NOT_FOUND, "존재하지 않는 알림입니다. alarmIdx를 확인해주세요."),
 
 	// 500 Internal Server Exception
-	INTERNAL_SERVER_EXCEPTION(INTERNAL_SERVER, "예상치 못한 서버 에러가 발생하였습니다.");
+	INTERNAL_SERVER_EXCEPTION(INTERNAL_SERVER, "예상치 못한 서버 에러가 발생하였습니다.")
+	,NOT_TOKEN(INTERNAL_SERVER,"토큰 없음");
 
 	private final StatusCode statusCode;
 	private final String message;
