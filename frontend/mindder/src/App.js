@@ -33,6 +33,7 @@ import RemovePage from "./router/RemovePage";
 import SavedPage from "./router/SavedPage";
 import ErrorPage from "./router/ErrorPage";
 import KakaoAuthRedirect from "./social/KakaoAuthRedirect";
+import AlarmPage from "./router/AlarmPage";
 
 
 function App(props) {
@@ -93,6 +94,7 @@ function App(props) {
                         <Route path="accounts/password/change" element={<PwChangePage />} />
                         <Route path="accounts/remove" element={<RemovePage />} />
                         <Route path="saved" element={<SavedPage />} />
+                        <Route path="alarm" element={<AlarmPage />} />
                     </Route>
                     <Route path="/oauth/callback/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
