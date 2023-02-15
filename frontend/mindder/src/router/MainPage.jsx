@@ -1,4 +1,3 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
 import LoginHome from "../components/main/LoginHome";
@@ -6,6 +5,7 @@ import Home from "../components/main/Home";
 import NaviBar from '../commons/bar/NaviBar';
 import { useSelector } from "react-redux";
 import LogoWW from "../assets/images/LogoWW.png"
+
 
 const Bodysuit = styled.div`
     display: flex;
@@ -15,20 +15,12 @@ const Bodysuit = styled.div`
     height: 100vh;
 `;
 
-const Body = styled.div`
-    padding: 0 0 3em 0;
-    height: 80vh;
+const HeaderBar = styled.div`
     width: 100vw;
     display: flex;
-    justify-content: center;
-`
-
-const Wrapper = styled.div`
-    background-color: #7767FD;
     align-items: center;
-    display: flex;
     justify-content: space-between;
-    width: 100vw;
+    background-color: #7767FD;
 `;
 
 const HeaderLogo = styled.img`
@@ -48,13 +40,11 @@ function MainPage() {
     } else {
         return (
             <Bodysuit>
-                <Wrapper>
+                <HeaderBar>
                     <HeaderLogo src={LogoWW}/>
-                </Wrapper>
-                <Body>
-                    <LoginHome></LoginHome>
-                </Body>
-                <NaviBar></NaviBar>
+                </HeaderBar>
+                <LoginHome/>
+                <NaviBar/>
             </Bodysuit>
         );
     }
