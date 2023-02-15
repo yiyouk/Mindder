@@ -1,6 +1,7 @@
 package com.ssafy.mindder.searches.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -24,6 +25,7 @@ import com.ssafy.mindder.searches.model.BooksDto;
 import com.ssafy.mindder.searches.model.service.SearchesService;
 import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.UnicodeKorean;
+import java.util.Random;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -79,15 +81,25 @@ public class SearchesController {
 			doc = Jsoup.connect(url).get();
 			Elements elements = doc.select("div#Search3_Result div.ss_book_box");
 			List<BooksDto> bookList = new ArrayList<>();
-			for (int i = 0; i < 15; i++) {
+			
+			int arr[] = new int[3];
+			Random random = new Random();
+			for (int i = 0; i < 3; i++) {
+				arr[i] = random.nextInt(25);
+				for (int j = 0; j < i; j++) {
+					if (arr[i] == arr[j]) i--;
+				}
+			}
+			
+			for (int idx : arr) {
 				BooksDto booksDto = new BooksDto();
-				String title = elements.get(i).select("a.bo3").text();
-				String link = elements.get(i).select("a").attr("href");
-				String img = elements.get(i).select("img.front_cover").attr("src");
+				String title = elements.get(idx).select("a.bo3").text();
+				String link = elements.get(idx).select("a").attr("href");
+				String img = elements.get(idx).select("img.front_cover").attr("src");
 				if (img == "") {
-					img = elements.get(i).select("img.i_cover").attr("src");
+					img = elements.get(idx).select("img.i_cover").attr("src");
 					if (img == "") {
-						img = elements.get(i).select("img").attr("src");
+						img = elements.get(idx).select("img").attr("src");
 					}
 				}
 				booksDto.setTitle(title);
