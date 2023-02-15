@@ -142,31 +142,35 @@ public class UsersController {
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
 			System.out.println(usersDto);
-			if (usersDto != null&&!usersDto.isDeleted()) {
-				String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
-				user.put("userIdx", usersDto.getUserIdx() + "");
-				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
-				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
-			} else if(usersDto.isDeleted()) {
-				UsersDto temp = new UsersDto();
-				temp.setUserIdx(usersDto.getUserIdx());
-				temp.setSocialId(userIO.get("id") + "@Kakao");
-				temp.setEmail("카카오유저");
-				temp.setPassword(SHA256.encrypt(userIO.get("id")));
-				temp.setNickname(userIO.get("nickname"));
-				temp.setEmoteColorIdx(1);
-				temp.setFileIdx(305);
-				temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-				usersService.deletedJoinUser(usersDto);
-				String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
-				user.put("userIdx", usersDto.getUserIdx() + "");
-				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
-				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+			if (usersDto != null) {
+				if(!usersDto.isDeleted()) {
+					System.out.println("111111111");
+					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
+					user.put("userIdx", usersDto.getUserIdx() + "");
+					user.put("nickname", usersDto.getNickname());
+					user.put("accessToken", accessToken);
+					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+				}else {
+					System.out.println("222222");
+					UsersDto temp = new UsersDto();
+					temp.setUserIdx(usersDto.getUserIdx());
+					temp.setSocialId(userIO.get("id") + "@Kakao");
+					temp.setEmail("카카오유저");
+					temp.setPassword(SHA256.encrypt(userIO.get("id")));
+					temp.setNickname(userIO.get("nickname"));
+					temp.setEmoteColorIdx(1);
+					temp.setFileIdx(305);
+					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+					usersService.deletedJoinUser(usersDto);
+					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
+					user.put("userIdx", usersDto.getUserIdx() + "");
+					user.put("nickname", usersDto.getNickname());
+					user.put("accessToken", accessToken);
+					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+				}
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
-				
+				System.out.println("333333");
 				usersDto = new UsersDto();
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
 				usersDto.setEmail("카카오유저");
