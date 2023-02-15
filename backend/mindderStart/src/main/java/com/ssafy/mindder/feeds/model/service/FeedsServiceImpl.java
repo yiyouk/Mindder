@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.mindder.feeds.model.EmoteListDto;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
@@ -121,6 +122,11 @@ public class FeedsServiceImpl implements FeedsService {
 	@Override
 	public int getNeighborFeedCount(int userIdx) throws Exception {
 		return sqlSession.getMapper(FeedsMapper.class).getNeighborFeedCount(userIdx);
+	}
+	
+	@Override
+	public List<EmoteListDto> findEmotes() throws Exception {
+		return sqlSession.getMapper(FeedsMapper.class).selectEmotes();
 	}
 
 }
