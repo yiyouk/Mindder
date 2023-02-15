@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import api from "../api/api"
 import axios from "axios";
 
-const KakaoAuthRedirect = (props) => {
-  const dispatch = useDispatch();
+function KakaoAuthRedirect  (props) {
+  // const dispatch = useDispatch();
 
   // 인가코드
   // let code = new URL(window.location.href).searchParams.get('code')
@@ -22,10 +22,10 @@ const KakaoAuthRedirect = (props) => {
   //   }
   // }
 
-  useEffect( () => {
+  // useEffect( () => {
     // kakaoLogin()
     // getToken(code)
-  }, []);
+  // }, []);
 
   return (
     <>
