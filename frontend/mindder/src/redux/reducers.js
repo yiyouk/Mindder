@@ -206,7 +206,7 @@ const initialState = {
   userDrawing:null,
   profileImg:null,
   customTag:null,
-  profileImgFileIdx:null,
+  profileImgFileIdx:305,
 }
 
 const userStateSlice = createSlice({
