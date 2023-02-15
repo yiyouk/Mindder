@@ -238,9 +238,8 @@ public class MyController {
 			// 팔로우 등록
 			myService.addMyFollow(userIdx, targetUserIdx);
 	
-			int fileIdx = alarmsService.findUserFileIdx(userIdx);
 			// 알림 등록
-			alarmsService.addFollowAlarm(userIdx, targetUserIdx, fileIdx);
+			alarmsService.addFollowAlarm(userIdx, targetUserIdx);
 			
 			// 알림 전송
 			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);

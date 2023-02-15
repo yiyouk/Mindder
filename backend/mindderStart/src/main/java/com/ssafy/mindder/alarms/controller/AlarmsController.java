@@ -81,6 +81,7 @@ public class AlarmsController {
 				alarmList.get(i).setBase64(file.get("base64"));
 				alarmList.get(i).setExtension(file.get("extension"));
 			}
+			
 			return ApiResponse.success(SuccessCode.READ_ALARM_LIST, alarmList);
 		} catch (Exception e) {
 			e.printStackTrace();
