@@ -14,7 +14,7 @@ function Reco() {
     }, [])
 
     //최근 포스트 정보
-    async function getRecentInfo(){ // async, await을 사용하는 경우
+    async function getRecentInfo(){ 
         try {
             const response = await api.get(`/feeds/recommendation`);
             if(response.data.data !== null){
@@ -28,7 +28,7 @@ function Reco() {
 
     return (
         <div> 
-            <CanvasList size = "s" up={false} list={feeds}/> 
+            <CanvasList size = "s" up={false} list={feeds.slice(0, 3)}/> 
         </div>
     );
 }
