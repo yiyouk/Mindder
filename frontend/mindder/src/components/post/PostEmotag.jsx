@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import styled from "styled-components";
 import { useNavigate} from "react-router-dom";
 // import EmotionTag from "./EmoTagList";
@@ -8,6 +8,8 @@ import EmoTag from "./EmoTag";
 import Modal from "../../commons/ui/Modal"
 import { useSelector, useDispatch } from "react-redux";
 import { Emoticons, SAVE_customTag, SAVE_emotagSrc, SAVE_todayEmotion } from "../../redux/reducers";
+import api from '../../api/api'
+
 
 export const Wrapper = styled.div`
     width: calc(100% - 1rem) !important;
@@ -58,6 +60,7 @@ function PostEmoTag(props) {
     const [inputState, setInputState] = useState("none");
     const [userInput, setUserInput] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
+    const [gomdols, setGomdols] = useState([])
     // console.log(selectedEmo)
 
     const dispatch = useDispatch()
@@ -74,12 +77,12 @@ function PostEmoTag(props) {
         setModalOpen(false);
     };
 
-    const onClick = (e, emo) => {
+    const onClick = (e, emoname) => {
         // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
         const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
         setImgSrc(selectedSrc)
         dispatch(SAVE_emotagSrc(selectedSrc))
-        dispatch(SAVE_todayEmotion(emo.name))
+        dispatch(SAVE_todayEmotion(emoname))
         if (e.currentTarget.id==="16"){
             openModal();
         } else{
@@ -87,12 +90,27 @@ function PostEmoTag(props) {
         }
     }
 
-
     const sendTag = (text) => {
         setUserInput(text);
         setInputState("flex");
         dispatch(SAVE_customTag(text))
     }
+
+    const getGomdols = async() =>{
+        try {
+            const response = await api.get(`feeds/emotes`)
+            console.log(response.data)
+            if (response.data.success===true){
+                setGomdols(response.data.data)
+                console.log(gomdols)
+            }
+        } catch (error) {
+            
+        }
+    }
+    useEffect(()=>{
+    getGomdols()
+    },[])
 
     return (
         <Wrapper>
@@ -104,7 +122,18 @@ function PostEmoTag(props) {
             />
             <Guitar state={inputState} > {userInput} </Guitar>
             <CardContainer columnGap={0.2}>
-                {Emoticons.slice(1).map((emo)=>( 
+                {gomdols.map((gomdol,index)=>(
+                    <EmotionTag
+                        key={index} id={Emoticons[gomdol.emoteIdx].id}
+                        onClick={(e)=>{onClick(e, Emoticons[gomdol.emoteIdx].name)}}
+                    >
+                        <EmoTag
+                        key={Emoticons[gomdol.emoteIdx].id} emoId={Emoticons[gomdol.emoteIdx].id} emoName={Emoticons[gomdol.emoteIdx].name}
+                        />
+                    </EmotionTag>
+                ))}
+          
+                {/* {Emoticons.slice(1).map((emo)=>( 
                     <EmotionTag
                     key={emo.id} id={emo.id}
                     onClick={(e)=>{onClick(e, emo)}}
@@ -113,7 +142,7 @@ function PostEmoTag(props) {
                     key={emo.id} emoId={emo.id} emoName={emo.name}
                     />
                     </EmotionTag>
-                ))}
+                ))} */}
             </CardContainer>
         </Wrapper>
     );
