@@ -20,6 +20,7 @@
 		<result column="file_idx" property="fileIdx" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
+		<result column="alarm_count" property="alarmCount" />
 		<result column="follower_count" property="followerCount" />
 		<result column="following_count" property="followingCount" />
 	</resultMap>
