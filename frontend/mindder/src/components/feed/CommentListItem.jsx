@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import ProfileImage from "../../commons/ui/ProfileImage";
 
+import Swal from "sweetalert2";
 import api from "../../api/api";
 
 const Wrapper = styled.div`
@@ -84,9 +85,20 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
     //댓글 삭제 물어보기
     const deleteComment = () => {
         if(comment.userIdx == MyIdx){
-            if(window.confirm("댓글을 삭제하시겠습니까?")){
-                sendDelete();
-            }
+            Swal.fire({
+                text: "댓글을 삭제하시겠습니까?",
+                width: 300,
+                showCancelButton: true,
+                confirmButtonText: "삭제",
+                cancelButtonText: "취소"
+            }).then(function(e){
+                if(e.isConfirmed === true) {
+                    sendDelete();
+                }
+            })
+            // if(window.confirm("댓글을 삭제하시겠습니까?")){
+            //     sendDelete();
+            // }
         }
     }
     
