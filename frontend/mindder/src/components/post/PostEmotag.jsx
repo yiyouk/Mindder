@@ -77,12 +77,12 @@ function PostEmoTag(props) {
         setModalOpen(false);
     };
 
-    const onClick = (e, emoname) => {
+    const onClick = (e, emo) => {
         // currentTarget 사용하면 자식요소클릭을 막고 현재 클릭한 타겟만 안정적으로 잡아준다.
         const selectedSrc = require(`../../assets/images/face${e.currentTarget.id}.png`)
         setImgSrc(selectedSrc)
         dispatch(SAVE_emotagSrc(selectedSrc))
-        dispatch(SAVE_todayEmotion(emoname))
+        dispatch(SAVE_todayEmotion(emo.name))
         if (e.currentTarget.id==="16"){
             openModal();
         } else{
