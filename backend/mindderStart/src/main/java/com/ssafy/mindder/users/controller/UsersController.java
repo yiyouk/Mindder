@@ -142,13 +142,15 @@ public class UsersController {
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
 			System.out.println(usersDto);
-			if (usersDto != null&&!usersDto.isDeleted()) {
+			if (usersDto != null||!usersDto.isDeleted()) {
+				System.out.println("111111111");
 				String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
 				user.put("userIdx", usersDto.getUserIdx() + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", accessToken);
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			} else if(usersDto.isDeleted()) {
+				System.out.println("222222");
 				UsersDto temp = new UsersDto();
 				temp.setUserIdx(usersDto.getUserIdx());
 				temp.setSocialId(userIO.get("id") + "@Kakao");
@@ -166,7 +168,7 @@ public class UsersController {
 				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
-				
+				System.out.println("333333");
 				usersDto = new UsersDto();
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
 				usersDto.setEmail("카카오유저");
