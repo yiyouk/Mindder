@@ -30,7 +30,6 @@ function Home(props) {
     const navigate = useNavigate();
     return (
         <div id="main" className="start-screen">
-            되고있ㄴㄴ거 맞아?
             <Top className="start-screen"/>
             <div className="center-container">
                 <img className="logoText" src={LogoW}/>
@@ -43,7 +42,10 @@ function Home(props) {
                 /></div>
                 <Lnaver className="pad"/>
                 <img src={kakao_login} style={{width:"11.5rem"}} 
-                onClick={()=>{window.open("https://mindder.me/users/social/kakao", '_blank')}}/>
+                onClick={()=>{
+                    navigate("/users/social/kakao")}}
+                    // window.open("https://mindder.me/", '_blank')}}
+                    />
                 <Lnaver className="pad"/>
             </div>
             <div className="right-container">
