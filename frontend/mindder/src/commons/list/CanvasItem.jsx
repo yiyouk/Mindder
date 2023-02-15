@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {FaHeart, FaComment} from "react-icons/fa";
 import styled, { css } from "styled-components";
 
-
 //크기 디자인
 const sizeStyles = css`
   /*크기*/
@@ -91,7 +90,6 @@ const CanvaConStyle = styled.div`
     margin-right: 0.2em;
   }
 `
-
 function CanvasItem({size, list, up}) {
   const navigate = useNavigate();
 
@@ -102,7 +100,9 @@ function CanvasItem({size, list, up}) {
 
   return(
     <Wrapper onClick={onClick}>
-      <CanvaImgStyle size ={size} src={"data:image/" + list.extension + ";base64," + list.base64}/>
+      <CanvaImgStyle size ={size} 
+      src={"data:image/" + list.extension + ";base64," + list.base64}
+      />
       <CanvaConContainer>
           { up ? 
           <>
