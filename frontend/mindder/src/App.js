@@ -43,23 +43,13 @@ function App(props) {
         if (getCookie("is_login") !== undefined){
             dispatch(SET_TOKEN(getCookie("is_login")));
             setUserInfo(); //닉네임, 인덱스 번호 가져오기'
-        } else { //쿠키에 정보가 없으면 로그아웃처리
-            logout();
-        }
-    }, [])
-
-    //로그아웃
-    const logout = async() => {
-        const response = await api.get(`/users/logout`);
-        if(!response.data.success){
-                console.log("로그아웃실패")
-        } else {
+        } else { //쿠키에 정보가 없으면 강제 로그아웃처리
             dispatch(DELETE_TOKEN());
             dispatch(SAVE_nickName(""));
             dispatch(SAVE_myIdx(null));
             removeCookie("is_login");
         }
-    }
+    }, [])
 
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
