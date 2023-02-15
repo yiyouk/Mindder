@@ -21,5 +21,5 @@ public interface UsersMapper {
 	String selectUserIdx(String email) throws Exception;
 	void deletedJoinUser(UsersDto usersdto) throws Exception;
 	void deletedHard(int idx)throws Exception;
-	UsersDto joinSocialKakaoID(UsersDto usersdto) throws Exception;
+	void joinSocialKakaoID(UsersDto usersdto) throws Exception;
 }
