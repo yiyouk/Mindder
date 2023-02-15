@@ -9,7 +9,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 0.5rem;
     & > .CC {
         align-self:flex-start;
         font-size: 0.7rem;

@@ -16,24 +16,26 @@ const Text = styled.span`
 
 const Container = styled.div`
     display: flex;
+    align-items: center;
 `;
 
 //이모지
 const Emote = styled.div`
-    padding: 0.2em 0.5rem 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.2em 0.5rem 0.1rem 0.5rem;
 `;
 
 const EmoteText = styled.div`
     font-size: 0.75rem;
     font-weight: 600;
+    margin-top: 0.2rem;
     color: #ffffff;
 `;
 
-
 //누르면 나오는거
-const DropDown = styled.button`
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
+const DropDown = styled.div`
     background-color: white;
     border: none;
     outline:none;
@@ -42,17 +44,16 @@ const DropDown = styled.button`
 
 //박스 전체 컨테이너
 const ListContainer = styled.div`
-  /* height: 2.8rem; */
   padding: 0.1rem;
   background-color: #7667fd78;
   border-radius: 1rem;
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   display:none;
   ${DropDown}:active & {
     display: block;
   }
-  ${DropDown}:focus & {
+  ${DropDown}:hover & {
     display: block;
   }
 `;
@@ -140,7 +141,7 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
         if(response.data.success){
           getData(num);     
         }else{
-            console.log("다시 시도해주세요.")
+          console.log("다시 시도해주세요.")
         }
   
       } catch (e) {
@@ -152,8 +153,10 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
   return (
     <div>
       <DropDown>
-          {myLikeType !== 0 ? <FaSmile color="#7767FD" size="23" style={{position:'relative', top:'0.5rem'}}/>:<FaRegSmile color="#7767FD" size="23" style={{position:'relative', top:'0.5rem'}}/>}
-          <Text>받은 마음 {likeTotalCount}개</Text>  
+        <Container>
+            {myLikeType !== 0 ? <FaSmile color="#7767FD" size="23"/>:<FaRegSmile color="#7767FD" size="23"/>}
+            <Text>받은 마음 {likeTotalCount}개</Text>  
+        </Container>
           <ListContainer>
             <Container>
               <Emote>
