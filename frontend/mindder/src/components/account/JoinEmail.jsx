@@ -106,7 +106,7 @@ function JoinEmail({getData}) {
   }
 
     //이메일 보내기 비동기 통신
-    async function getEmailSend(){ // async, await을 사용하는 경우
+    const getEmailSend = async() => { // async, await을 사용하는 경우
       try {
           const response = await api.get(`/users/email-confirm/${email}`);
           console.log(response.data);

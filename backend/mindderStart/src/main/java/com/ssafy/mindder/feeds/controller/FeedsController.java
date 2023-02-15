@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
+import com.ssafy.mindder.feeds.model.EmoteListDto;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsCrawlDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -410,6 +411,26 @@ public class FeedsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("neighborFeed - 팔로잉 하는 이웃의 피드 글 불러오는 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "피드 작성 곰돌이 이모지 목록 조회", notes = "곰돌이 감정 번호와 이미지 파일을 반환한다.", response = EmoteListDto.class) 
+	@GetMapping("/emotes")
+	public ApiResponse<?> emoteList(@RequestHeader("access_token") String accessToken) throws Exception {
+		try {
+			List<EmoteListDto> emoteList = feedsService.findEmotes();
+
+			// 이미지 관련 코드 -> 이게 맞나,,,?
+			for (int i = 0; i < emoteList.size(); i++) {
+				Map<String, String> file = fileService.findFile(emoteList.get(i).getFileIdx(), filePath);
+				emoteList.get(i).setBase64(file.get("base64"));
+				emoteList.get(i).setExtension(file.get("extension"));
+			}
+
+			return ApiResponse.success(SuccessCode.READ_EMOTE_LIST, emoteList);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}

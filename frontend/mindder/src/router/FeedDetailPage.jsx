@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import styled, {css} from "styled-components";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 import {GiPadlock} from "react-icons/gi";
 import { FaCommentDots } from "react-icons/fa";
 
@@ -16,7 +16,6 @@ import CommentList from "../components/feed/CommentList";
 import FeedManage from "../components/feed/FeedManage";
 import EmoManage from "../components/feed/EmoManage";
 import Scraps from "../components/feed/Scraps";
-import { async } from "q";
 
 const Wrapper = styled.div`
     max-width: 21.5rem;
@@ -24,7 +23,11 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
+`;
+
+const Line = styled.div`
+    width:23rem;
+    border-top: solid 0.6px rgb(231, 231, 231);
 `;
 
 //게시글 사진
@@ -45,17 +48,18 @@ const SideContainer = styled.div`
 `;
 
 const SideContainer2 = styled.div`
-    width: 20.5em;
+    width: 20.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0.2rem 0 0.8rem 0;
+    margin: 0.8rem 0 0.8rem 0;
 `;
 
 //////댓글 작성 영역//////
 const TexetAreaStyled = styled.textarea`
-    width: 18rem;
-    height: 2rem;
+    padding: 0.2rem;
+    width: 17.6rem;
+    height: 1.6rem;
     border: none;
 `
 const InputStyled = styled.input`
@@ -65,31 +69,26 @@ const InputStyled = styled.input`
     border: none;
     background-color: #ffffff;
     color: #7767FD;
-    `
+`
 
 const Bottom = styled.div`
-    /* position:sticky; */
-    /* bottom:0rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+`
+
+const Bottom2 = styled.div`
     width: 21em;
     display: flex;
     justify-content: space-between;
-    align-items:flex-end;
-    margin-top: 3rem;
-    border-top: solid 0.6px rgb(231, 231, 231);
+    align-items: center;
     background-color: white;
-    & > .icon {
-        position:absolute;
-        bottom:5rem;
-        right:1.3rem;
-        /* position:fixed; */
-        /* left:19rem; */
-        /* bottom:0.5rem; */
-    }
 `
 
 
 ///////////////////////컴포넌트 시작/////////////////
-function FeedDetailPage(props) {
+function FeedDetailPage() {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx);
     const nickName = useSelector((state)=>state.USER.nickName);
@@ -160,8 +159,6 @@ function FeedDetailPage(props) {
    const getFeed = async() => {
         try {
             const response = await api.get(`/feeds/${feedIdx}`);
-            console.log("피드정보는 바로 -->");
-            console.log(response.data);
             if (response.data.success){
                 setNickname(response.data.data.nickname);
                 setUpdateDate(response.data.data.updateDate);
@@ -246,6 +243,7 @@ function FeedDetailPage(props) {
         setShowCommentInput((showCommentInput=>!showCommentInput))
         textareaVal.current.scrollIntoView({behavior:'smooth'})
     }
+
     return (
         <Wrapper>
             <SideContainer>
@@ -261,11 +259,15 @@ function FeedDetailPage(props) {
                 <Scraps feedIdx={feedIdx} myScrap={myScrap}/>
             </SideContainer2>
             <Context emoteBase64={emoteBase64} emoteIdx={emoteIdx} emoteColorIdx={emoteColorIdx} updateDate={updateDate} mainText ={mainText} normalTag={normalTag}/>
+            <Line/>
+            <FaCommentDots style={{position:"relative", top:"-1rem", right:"-9.5rem", margin:"0"}} color=" #7767FD" size="25" onClick={handleCommentInput}/>
             <CommentList commentCount={commentCount} feedIdx={feedIdx} />
             <Bottom show={showCommentInput}>
-                <TexetAreaStyled className="textInput" ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>
-                <InputStyled className="inputBtn" type="button" value ="게시"  onClick={uploadComment}/>
-                <FaCommentDots className="icon" color=" #7767FD" size="28" onClick={handleCommentInput}/>
+                <Line/>
+                <Bottom2>
+                    <TexetAreaStyled className="textInput" ref={textareaVal} placeholder={placeholder} value={comment} id="commentInput" onChange={handleComment}/>
+                    <InputStyled className="inputBtn" type="button" value ="게시"  onClick={uploadComment}/>
+                </Bottom2>
             </Bottom>
         </Wrapper>
     );

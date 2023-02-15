@@ -20,6 +20,7 @@
 		<result column="file_idx" property="fileIdx" />
 		<result column="emote_color_idx" property="emoteColorIdx" />
 		<result column="social_id" property="socialId" />
+		<result column="alarm_count" property="alarmCount" />
 		<result column="follower_count" property="followerCount" />
 		<result column="following_count" property="followingCount" />
 	</resultMap>
@@ -103,6 +104,10 @@
 		<result column="is_read" property="read" />
 		<result column="feed_idx" property="feedIdx" />
 		<result column="like_type" property="likeType" />
+		<result column="file_idx" property="fileIdx" />
+	</resultMap>
+	<resultMap type="EmoteListDto" id="emoteList">
+		<result column="emote_idx" property="emoteIdx" />
 		<result column="file_idx" property="fileIdx" />
 	</resultMap>
 </mapper>
