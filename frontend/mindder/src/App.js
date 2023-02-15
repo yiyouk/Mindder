@@ -61,6 +61,11 @@ function App(props) {
                 dispatch(SAVE_followerCount(response.data.data.followerCount))
                 dispatch(SAVE_followingCount(response.data.data.followingCount))
                 dispatch(SAVE_profileImg(response.data.data.base64))
+            } else{
+                dispatch(DELETE_TOKEN());
+                dispatch(SAVE_nickName(""));
+                dispatch(SAVE_myIdx(null));
+                removeCookie("is_login");
             }
         } catch (e) {
             alert("오류 발생!");
