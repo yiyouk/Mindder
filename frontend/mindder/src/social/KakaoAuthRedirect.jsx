@@ -9,18 +9,18 @@ const KakaoAuthRedirect = (props) => {
   const dispatch = useDispatch();
 
   // 인가코드
-  let code = new URL(window.location.href).searchParams.get('code')
-  console.log(code)
+  // let code = new URL(window.location.href).searchParams.get('code')
+  // console.log(code)
 
-  const kakaoLogin = async()=>{
-    try {
-      const response = await api.get(`/users/social/kakao?code=${code}`);
-      console.log(response.data)
-      // if (response.data.success)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const kakaoLogin = async()=>{
+  //   try {
+  //     const response = await api.get(`/users/social/kakao?code=${code}`);
+  //     console.log(response.data)
+  //     // if (response.data.success)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   useEffect( () => {
     // kakaoLogin()
