@@ -15,7 +15,7 @@ const colortyles = css`
   `}
 `;
 //누르면 나오는거
-const DropDown = styled.button`
+const DropDown = styled.div`
     background-color: white;
     border: none;
     outline:none;
@@ -28,13 +28,13 @@ const ListContainer = styled.span`
   border: solid 0.05rem gray;
   position: absolute;
   top:-3rem;
-  right: 0.1rem;
+  right: 4rem;
   display:none;
   ${DropDown}:active & {
     display:grid;
     grid-template-columns:repeat(4, 1fr);
   }
-  ${DropDown}:focus & {
+  ${DropDown}:hover & {
     display:grid;
     grid-template-columns:repeat(4, 1fr);
   }
