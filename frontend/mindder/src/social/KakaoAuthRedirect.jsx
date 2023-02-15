@@ -7,47 +7,49 @@ import axios from "axios";
 import { CLIENT_ID } from "./OAuth";
 
 function KakaoAuthRedirect  (props) {
-  console.log(1111)
+  // console.log(1111)
   // const dispatch = useDispatch();
 
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
   console.log(code)
 
-  const getToken = async(code)=>{
-    try {
-      axios.post(`https://kauth.kakao.com/oauth/token?
-          grant_type="authorization_code"
-          &client_id=${CLIENT_ID}
-          &redirect_uri=http://localhost:3000/oauth/callback/kakao
-          &code=${code}`
-          , {
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-      }})
-      .then((res) => {
-      console.log(res)  
-      })
-    } catch (error) {
-      
-    }
-    
-  }
-
-  // const kakaoLogin = async()=>{
+  // const getToken = async(code)=>{
   //   try {
-  //     const response = await api.get(`/users/social/kakao?code=${code}`);
-  //     console.log(response.data)
-  //     // if (response.data.success)
+  //     axios.post(`https://kauth.kakao.com/oauth/token?
+  //         grant_type="authorization_code"
+  //         &client_id=${CLIENT_ID}
+  //         &redirect_uri=http://localhost:3000/oauth/callback/kakao
+  //         &code=${code}`
+  //         , {
+  //       headers: {
+  //           'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+  //     }})
+  //     .then((res) => {
+  //     console.log(res)  
+  //     })
   //   } catch (error) {
-  //     console.log(error)
+      
   //   }
+    
   // }
+
+  const kakaoLogin = async()=>{
+    try {
+      const response = await api.get(`/users/social/kakao?code=${code}`);
+      console.log(response.data)
+      // if (response.data.success){
+
+      // }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
 
   useEffect( () => {
-    // kakaoLogin()
+    kakaoLogin()
     // getToken(code)
   }, []);
 
