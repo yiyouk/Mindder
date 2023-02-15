@@ -8,14 +8,6 @@ import axios from "axios";
 const KakaoAuthRedirect = (props) => {
   const dispatch = useDispatch();
 
-  // const requestURL = `https://kauth.kakao.com/oauth/authorize?client_id=dc63597430966307c80d8e0e8c0d9b8a&redirect_uri=https://mindder.me/dev/users/social/kakao&response_type=code`;
-
-  // const request = new XMLHttpRequest()
-  // request.open('GET', requestURL)
-  // request.responseType = 'json';
-  // request.send();
-
-  // console.log(request.response)
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
   console.log(code)
@@ -30,10 +22,9 @@ const KakaoAuthRedirect = (props) => {
     }
   }
 
-  useEffect( () => {
 
-    // 1.여기서 axios로 백엔드에 보내서 엑세스 토큰받아옴
-    // 2. 쿠키에 토큰 저장후 메인화면으로 리다이렉트
+
+  useEffect( () => {
     kakaoLogin()
     // getToken(code)
   }, []);
