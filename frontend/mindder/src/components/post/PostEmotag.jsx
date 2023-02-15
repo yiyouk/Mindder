@@ -109,7 +109,7 @@ function PostEmoTag(props) {
         }
     }
     useEffect(()=>{
-    getGomdols()
+    // getGomdols()
     },[])
 
     return (
@@ -122,7 +122,7 @@ function PostEmoTag(props) {
             />
             <Guitar state={inputState} > {userInput} </Guitar>
             <CardContainer columnGap={0.2}>
-                {gomdols.map((gomdol,index)=>(
+                {/* {gomdols.map((gomdol,index)=>(
                     <EmotionTag
                         key={index} id={Emoticons[gomdol.emoteIdx].id}
                         onClick={(e)=>{onClick(e, Emoticons[gomdol.emoteIdx].name)}}
@@ -131,9 +131,9 @@ function PostEmoTag(props) {
                         key={Emoticons[gomdol.emoteIdx].id} emoId={Emoticons[gomdol.emoteIdx].id} emoName={Emoticons[gomdol.emoteIdx].name}
                         />
                     </EmotionTag>
-                ))}
+                ))} */}
           
-                {/* {Emoticons.slice(1).map((emo)=>( 
+                {Emoticons.slice(1).map((emo)=>( 
                     <EmotionTag
                     key={emo.id} id={emo.id}
                     onClick={(e)=>{onClick(e, emo)}}
@@ -142,7 +142,7 @@ function PostEmoTag(props) {
                     key={emo.id} emoId={emo.id} emoName={emo.name}
                     />
                     </EmotionTag>
-                ))} */}
+                ))}
             </CardContainer>
         </Wrapper>
     );

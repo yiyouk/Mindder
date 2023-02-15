@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import {
     BrowserRouter,
     Routes,
@@ -16,24 +16,27 @@ import "./index.css"
 import MainLayout from './Layout/MainLayout'
 import OnlyTopBarLayout from './Layout/OnlyTopBarLayout'
 import CommonLayout from './Layout/CommonLayout'
-import MainPage from './router/MainPage';
-import PostPage from './router/PostPage';
-import UserPage from './router/UserPage';
-import FeedsPage from './router/FeedsPage';
-import SearchPage from './router/SearchPage';
-import FeedDetailPage from "./router/FeedDetailPage";
-import FollowersPage from "./router/FollowersPage";
-import FollowingPage from "./router/FollowingPage";
-import JoinPage from "./router/JoinPage";
-import LoginPage from "./router/LoginPage";
-import ModifyPage from "./router/ModifyPage";
-import PwChangePage from "./router/PwChangePage";
-import PwFindPage from "./router/PwFindPage";
-import RemovePage from "./router/RemovePage";
-import SavedPage from "./router/SavedPage";
-import ErrorPage from "./router/ErrorPage";
-import KakaoAuthRedirect from "./social/KakaoAuthRedirect";
-import AlarmPage from "./router/AlarmPage";
+import LoadingPage from "./router/LoadingPage";
+const MainPage = lazy(() => import('./router/MainPage')) ;
+const PostPage = lazy(() => import('./router/PostPage')) ;
+const UserPage = lazy(() => import('./router/UserPage')) ;
+const FeedsPage = lazy(() => import('./router/FeedsPage')) ;
+const SearchPage = lazy(() => import('./router/SearchPage')) ;
+const FeedDetailPage = lazy(() => import('./router/FeedDetailPage'));
+const FollowersPage = lazy(() => import("./router/FollowersPage")) ;
+const FollowingPage = lazy(() => import("./router/FollowingPage")) ;
+const JoinPage = lazy(() => import("./router/JoinPage")) ;
+const LoginPage = lazy(() => import("./router/LoginPage")) ;
+const ModifyPage = lazy(() => import("./router/ModifyPage")) ;
+const PwChangePage = lazy(() => import("./router/PwChangePage")) ;
+const PwFindPage = lazy(() => import("./router/PwFindPage")) ;
+const RemovePage = lazy(() => import("./router/RemovePage")) ;
+const SavedPage = lazy(() => import("./router/SavedPage")) ;
+const ErrorPage = lazy(() => import("./router/ErrorPage")) ;
+const KakaoAuthRedirect = lazy(() => import("./social/KakaoAuthRedirect")) ;
+const AlarmPage = lazy(() => import("./router/AlarmPage")) ;
+
+const renderLoader = () => <LoadingPage/>;
 
 
 function App(props) {
@@ -88,6 +91,7 @@ function App(props) {
 
     return (
         <BrowserRouter>
+            <Suspense fallback={renderLoader()}>
                 <Routes>
                     {/* 오직 홈만 */}
                     <Route element={<MainLayout/>}>
@@ -119,6 +123,7 @@ function App(props) {
                     </Route>
                     <Route path="users/social/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
+            </Suspense>
         </BrowserRouter>
     );
 
