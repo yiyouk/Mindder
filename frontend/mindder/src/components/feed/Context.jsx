@@ -13,7 +13,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: solid 0.6px rgb(231, 231, 231);
     padding-bottom: 0.5rem;
     margin-top: 0.5rem;
 `;
