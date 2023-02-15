@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 import LogoP from "../../assets/images/LogoP.png"
 
@@ -18,6 +19,10 @@ const Nick = styled.div`
     padding-right: 0.5rem;
 `;
 
+const UserWrapper = styled.div`
+    align-items: center;
+    display: flex;
+`
 const HeaderLogo = styled.img`
   width: 6rem;
   height: 2.5rem;
@@ -26,11 +31,19 @@ const HeaderLogo = styled.img`
 function TopBar(props) {
   const navigate = useNavigate();
   const NickName = useSelector((state)=>state.USER.nickName)
-
+  
   return (
     <Wrapper>
       <HeaderLogo src={LogoP} onClick={() => {navigate("/");}}/>
-      {NickName ==="" ? null : <Nick> {NickName} 님 </Nick>}
+      <UserWrapper>
+        {NickName ==="" ? null : 
+          <>
+            <Nick> {NickName} 님 
+            </Nick>
+            <IoNotificationsOutline color="#7767FD" size="20" fontWeight="bold" onClick={() => {navigate("/alarm")}}/>
+          </>
+        }
+      </UserWrapper>
     </Wrapper>
   )
 }
