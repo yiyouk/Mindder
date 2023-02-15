@@ -28,19 +28,44 @@ const HeaderLogo = styled.img`
   height: 2.5rem;
 `;
 
+const Check = styled.div`
+  padding-right: 0.5rem;
+`
+const AlarmCheck = styled.div`
+  display: flex;
+  width: 5px;
+  height: 5px;
+  background-color: #f37f58;
+  border-radius: 50%;
+  z-index: 3;
+`
+const M = styled.div`
+  width: 5px;
+  height: 5px;
+`
+
 function TopBar(props) {
   const navigate = useNavigate();
   const NickName = useSelector((state)=>state.USER.nickName)
-  
+  const AlarmCount = useSelector((state)=>state.USER.alarmCount)
+
   return (
     <Wrapper>
       <HeaderLogo src={LogoP} onClick={() => {navigate("/");}}/>
       <UserWrapper>
         {NickName ==="" ? null : 
           <>
-            <Nick> {NickName} 님 
-            </Nick>
-            <BsFillBellFill color="#7767FD" size="17"  onClick={() => {navigate("/alarm")}}/>
+            <Nick> {NickName} 님 </Nick>
+            <Check>
+                  
+              { AlarmCount !== 0 ?
+                <AlarmCheck/>
+                :
+                <M/>
+              }
+              <BsFillBellFill color="#7767FD" size="17"  onClick={() => {navigate("/alarm")}}>
+              </BsFillBellFill>
+            </Check>
           </>
         }
       </UserWrapper>

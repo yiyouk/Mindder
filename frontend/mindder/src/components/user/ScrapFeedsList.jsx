@@ -80,7 +80,7 @@ return (
                     <ScrapFeedsItemContainer key={idx}>
                         <ProfileContainer>
                             <Profile key={idx} imgsize='s' userIdx={feeds.userIdx} namesize='s' name={feeds.nickname} imgSrc={feeds.userBase64}/>
-                            <span>{dayjs(feeds.updateDate).get('year')}년 {dayjs(feeds.updateDate).get('month')}월 {dayjs(feeds.updateDate).get('date')}일</span>
+                            <span>{dayjs(feeds.updateDate).get('year')}년 {dayjs(feeds.updateDate).get('month') + 1}월 {dayjs(feeds.updateDate).get('date')}일</span>
                         </ProfileContainer>
                         <CanvasItem key={idx} size='ml' list={feeds} up={true} />
                     </ScrapFeedsItemContainer>
