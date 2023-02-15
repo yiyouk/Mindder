@@ -6,18 +6,18 @@ import styled from "styled-components";
 import dayjs from 'dayjs';
 import api from "../../api/api"
 
-//emocontainer
+//전체
 const Wrapper = styled.div`
+    margin: 0.5rem 0 0.25rem 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 21rem;
-    height: 7rem;
+    width: 21.5rem;
+    height: 5.5rem;
     background-color:  #f1efff;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 2rem;
-    border-bottom-left-radius: 1.5rem;
-    border-bottom-right-radius: 1rem;
+    border-radius: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 `;
 
 //emocontainer
@@ -28,7 +28,7 @@ const EmoContainer = styled.div`
 `;
 
 const Text  = styled.div`
-    width: 20.5rem;
+    width: 22rem;
     display: flex;
     justify-content: flex-end;
     margin-top: 0.4rem;

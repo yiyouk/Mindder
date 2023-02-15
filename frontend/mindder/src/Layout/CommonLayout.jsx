@@ -10,19 +10,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    overflow-y: scroll;
-    margin-bottom: 6vh;
 `;
 
 const Body = styled.div`
-    padding: 3vh 0 5vh 0;
-    display: flex;
-    justify-content: center;
-`
-
-const Dumm = styled.div`
-    height: 6vh;
-    width: 100vw;;
+    padding: 2vh 0 8vh 0;
 `
 
 const CommonLayout =()=>{
@@ -41,7 +32,6 @@ const CommonLayout =()=>{
             <Body>
                 <Outlet/>
             </Body>
-            <Dumm/>
             <NaviBar/>
         </Wrapper>
     )

@@ -11,16 +11,15 @@ import api from "../../api/api"
 
 // 오늘의 캔버스
 const Container = styled.div`
-    color: white;
     width: 100vw;
     height: 11em;
+    display: flex;
+    justify-content: center;
+    color: white;
     background-color:#7767FD;
+    border: none;
     border-bottom-left-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
 `;
 
 // 영역
@@ -41,6 +40,7 @@ const SmallContainer = styled.div`
 //없을때 사진
 const InitUser = styled.img`
     background-color: white;
+    border: none;
     border-radius: 1rem;
     height: 8.5rem;
     width: 8.5rem;
@@ -77,7 +77,6 @@ function TodayCanvas() {
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/feeds/recent`);
-            console.log(response)
             if(response.data.data !== null){
                 setEmoteIdx(response.data.data.emoteIdx);
                 setEmoteColorTag(response.data.data.emoteColorIdx);

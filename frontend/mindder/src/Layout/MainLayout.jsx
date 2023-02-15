@@ -9,20 +9,13 @@ const Bodysuit = styled.div`
     height: 100vh;
 `;
 
-const Bodysuit2 = styled.div`
-    width: 100vw;
-    height: 100vh;
-`;
-
 const MainLayout =()=>{
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
 
     return(
         <>
             {isLoggedIn ? 
-            <Bodysuit2>
-                <Outlet/>
-            </Bodysuit2>
+            <Outlet/>
             :
             <Bodysuit>
                 <Outlet/>
