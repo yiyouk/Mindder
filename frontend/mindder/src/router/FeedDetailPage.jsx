@@ -16,6 +16,7 @@ import CommentList from "../components/feed/CommentList";
 import FeedManage from "../components/feed/FeedManage";
 import EmoManage from "../components/feed/EmoManage";
 import Scraps from "../components/feed/Scraps";
+import loadingImg from "../assets/images/Loading.png"
 
 const Wrapper = styled.div`
     max-width: 21.5rem;
@@ -86,7 +87,6 @@ const Bottom2 = styled.div`
     background-color: white;
 `
 
-
 ///////////////////////컴포넌트 시작/////////////////
 function FeedDetailPage() {
     const navigate = useNavigate();
@@ -116,6 +116,7 @@ function FeedDetailPage() {
     const [scrollEvent, setScrollEvent] = useState(false);
     const [showCommentInput, setShowCommentInput] = useState(false)
     const [profileImg, setProfileImg] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const onScroll = () => {
         // 스크롤이 60px 이상 내려가면 트루로 바꿈
@@ -244,6 +245,11 @@ function FeedDetailPage() {
         textareaVal.current.scrollIntoView({behavior:'smooth'})
     }
 
+    // 이미지로딩 완료되면 로딩false로 변경
+    const handleOnLoad = ()=>{
+        setIsLoading(false)
+    }
+
     return (
         <Wrapper>
             <SideContainer>
@@ -253,7 +259,12 @@ function FeedDetailPage() {
                     {myIdx == postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
                 </div>
             </SideContainer>
-            <CanvasImg src={base64}/>
+            {/* 이미지 로딩 중일때 밥아저씨 보여주기 */}
+            <CanvasImg src={loadingImg} style={{ display: isLoading ? "block" : "none" }}/>
+            <CanvasImg src={base64} 
+            onLoad={handleOnLoad}
+            style={{ display: isLoading ? "none" : "block" }}
+            />
             <SideContainer2>
                 <EmoManage getData={getData} feedIdx={feedIdx} myLikeType={myLikeType} likeCount={likeCount} cheerupCount={cheerupCount} sadCount={sadCount} likeTotalCount={likeTotalCount}/>
                 <Scraps feedIdx={feedIdx} myScrap={myScrap}/>

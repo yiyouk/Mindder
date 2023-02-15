@@ -289,6 +289,7 @@ function Modify() {
                 <ProfileImage
                 imgSrc={base64.split(',')[1]}
                 size="l"
+                readOnly={true}
                 />
                 
             </div>
