@@ -30,6 +30,7 @@ function Home(props) {
     const navigate = useNavigate();
     return (
         <div id="main" className="start-screen">
+            되고있ㄴㄴ거 맞아?
             <Top className="start-screen"/>
             <div className="center-container">
                 <img className="logoText" src={LogoW}/>
