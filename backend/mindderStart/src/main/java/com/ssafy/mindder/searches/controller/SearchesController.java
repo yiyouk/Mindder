@@ -1,8 +1,8 @@
 package com.ssafy.mindder.searches.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,7 +25,6 @@ import com.ssafy.mindder.searches.model.BooksDto;
 import com.ssafy.mindder.searches.model.service.SearchesService;
 import com.ssafy.mindder.util.JwtService;
 import com.ssafy.mindder.util.UnicodeKorean;
-import java.util.Random;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
