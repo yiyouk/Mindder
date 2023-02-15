@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-    width: 22rem;
+    width: 21rem;
     height: 9rem;
 `;
 
