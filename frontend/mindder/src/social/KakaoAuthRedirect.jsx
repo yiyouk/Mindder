@@ -7,6 +7,7 @@ import axios from "axios";
 import { CLIENT_ID } from "./OAuth";
 
 function KakaoAuthRedirect  (props) {
+  console.log(1111)
   // const dispatch = useDispatch();
 
   // 인가코드
