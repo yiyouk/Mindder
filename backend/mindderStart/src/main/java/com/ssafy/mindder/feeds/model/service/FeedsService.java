@@ -2,6 +2,7 @@ package com.ssafy.mindder.feeds.model.service;
 
 import java.util.List;
 
+import com.ssafy.mindder.feeds.model.EmoteListDto;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsParameterDto;
@@ -56,5 +57,7 @@ public interface FeedsService {
 	public int findFileIdx(int emoteIdx, int emoteColorIdx) throws Exception;
 
 	public void addCalendar(int userIdx, int emoteCompleteFileIdx) throws Exception;
+
+	public List<EmoteListDto> findEmotes() throws Exception;
 
 }
