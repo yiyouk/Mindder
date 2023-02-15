@@ -7,7 +7,7 @@ import {
 
 import { getCookie, removeCookie } from "./api/cookie";
 import { useDispatch } from "react-redux";
-import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN, SAVE_followerCount, SAVE_profileImg, SAVE_followingCount } from "./redux/reducers";
+import { SAVE_myIdx, SAVE_nickName, SET_TOKEN, DELETE_TOKEN, SAVE_followerCount, SAVE_profileImg, SAVE_followingCount, SAVE_alarmCount } from "./redux/reducers";
 
 import api from "./api/api"
 import "./index.css"
@@ -77,6 +77,8 @@ function App(props) {
                 dispatch(SAVE_followerCount(response.data.data.followerCount))
                 dispatch(SAVE_followingCount(response.data.data.followingCount))
                 dispatch(SAVE_profileImg(response.data.data.base64))
+                dispatch(SAVE_alarmCount(response.data.data.alarmCount))
+
             } else{
                 dispatch(DELETE_TOKEN());
                 dispatch(SAVE_nickName(""));
