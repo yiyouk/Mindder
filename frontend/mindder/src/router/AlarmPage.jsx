@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import AlarmItem from "../commons/list/AlarmItem"
-
+import { useSelector } from "react-redux";
 import api from "../api/api";
 
 const Wrapper = styled.div`
@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 function AlarmPage(props) {
     const [ Alarms, setAlarm ] = useState([]);
     const [ alarmCount, setAlarmCount ] = useState(null);
+    const myIdx = useSelector((state)=>state.USER.myIdx);
    
     const getAlarm = async()=>{
         try {
@@ -47,9 +48,11 @@ function AlarmPage(props) {
                 ) : (
                 <>
                     {Alarms.map((alarm, idx) => {
+                        console.log(alarm.sendUserIdx)
+                        if (alarm.sendUserIdx !== myIdx){
                         return(
                                 <AlarmItem getData={getData} alarmCount={Alarms?Alarms.length:0} alarm={alarm} userIdx={alarm.sendUserIdx} key={idx}/>
-                        )
+                        )}
                         })}
                 </>
             )} 

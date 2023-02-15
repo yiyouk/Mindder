@@ -81,10 +81,6 @@ const PaintTool = styled.button`
 `
     
 function Draw({canvasRef, imageSaved}) {
-    
-    // PostPage에서 받아옴
-    // const dispatch = useDispatch()
-    // const canvasRef = useRef(null);
 
     const [ctx, setCtx] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
@@ -275,9 +271,9 @@ function Draw({canvasRef, imageSaved}) {
                         <Stroke onClick={handleStrokeWidth}><div style={{ strokeWidth: 11}}/></Stroke>                    
                         <Stroke onClick={handleStrokeWidth}><div style={{ strokeWidth: 15}}/></Stroke>  
                         <Stroke onClick={handleStrokeWidth}><div style={{ strokeWidth: 20}}/></Stroke>
-                        <PaintTool img={BrushImg} onClick={brushMode} mode={isDrawing}></PaintTool>
-                        <PaintTool img={FillImg} onClick={fillAll} mode={isFill}></PaintTool>
-                        <PaintTool img={EraserImg} onClick={eraseMode} mode={erase}></PaintTool>
+                        <PaintTool img={BrushImg} onClick={brushMode}></PaintTool>
+                        <PaintTool img={FillImg} onClick={fillAll}></PaintTool>
+                        <PaintTool img={EraserImg} onClick={eraseMode}></PaintTool>
                         <PaintTool img={UndoImg} onClick={onClickUndo}></PaintTool>
                         <PaintTool img={TrashImg} onClick={eraseAll}></PaintTool>
                     </Container>
