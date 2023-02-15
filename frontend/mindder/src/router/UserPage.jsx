@@ -84,8 +84,9 @@ function UserPage(props) {
     }
 
     const getUsersInfo = async() => {
-        const response = await api.get(`/my/information/${userIdx}`);
 
+        const response = await api.get(`/my/information/${userIdx}`);
+        console.log(response)
         setNickname(response.data.data.nickname);
         setFollowingCount(response.data.data.followingCount);
         setFollowerCount(response.data.data.followerCount);
