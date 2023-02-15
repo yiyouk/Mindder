@@ -131,15 +131,11 @@ public class UsersController {
 	@ApiOperation(value = "카카오 로그인 성공 여부를 반환한다.", response = String.class)
 	@GetMapping("/social/kakao")
 	public ApiResponse<?> social(@RequestParam String code) {
-		Map<String, String> token =null;
+		Map<String, String> token;
 		Map<String, String> userIO;
 		Map<String, String> user = new HashMap<String, String>();
 		try {
-			try {
-				token = usersService.getToken(code);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
 			UsersDto usersDto = new UsersDto();
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
