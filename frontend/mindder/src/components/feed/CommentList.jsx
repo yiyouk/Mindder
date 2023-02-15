@@ -37,7 +37,7 @@ function CommentList({feedIdx, commentCount}) {
     const getComments = async() => { // async, await을 사용하는 경우
         try {
             const response = await api.get(`/comments/${feedIdx}`);
-
+            console.log(response.data)
             if(response.data.success){
                 console.log(response.data.data);
                 setComments(response.data.data)
