@@ -31,10 +31,10 @@
 
    
    <!-- 글 작성 -> 감정 캘린더에 입력 -->
-   <insert id="writeCalendar" parameterType="FeedsDto">
+   <insert id="insertCalendar" parameterType="int">
       insert into feedcalendar 
       (calendar_date,user_idx, file_idx)
-      values(curdate(), #{userIdx}, #{fileIdx})      
+      values(curdate(), #{userIdx}, #{emoteCompleteFileIdx})      
    </insert>
    
    <!-- 피드글 삭제-->
