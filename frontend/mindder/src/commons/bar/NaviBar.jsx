@@ -12,11 +12,11 @@ import PostImg from "../../assets/images/icon5.png";
 
 const Wrapper = styled.nav`
     position: fixed;
-    bottom: 0;
-    height: 6vh;
+    bottom: 0vh;
+    height: 7vh;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    background-color:white;
+    background-color: white;
     align-items: center;
     display: flex;
     box-shadow: 0 -2px 2px 1px rgba(119, 103, 253, 0.15);
@@ -36,7 +36,7 @@ const Image = styled.img`
 function NaviBar(props) {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx);
-    // console.log(myIdx)
+
     return (
         <Wrapper>
             <NavMenu
