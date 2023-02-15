@@ -77,8 +77,10 @@ function FollowingPage(props) {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
             console.log(response.data)
-            setFollowingList(response.data.data);
-            setFollowings(response.data.data.length)
+            if (response.data.success){
+                setFollowingList(response.data.data);
+                setFollowings(response.data.data.length)
+            }
         } catch (e) {
             console.error(e);
         }
