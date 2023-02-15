@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const Line = styled.div`
-    width:100vw;
+    width:23rem;
     border-top: solid 0.6px rgb(231, 231, 231);
 `;
 
