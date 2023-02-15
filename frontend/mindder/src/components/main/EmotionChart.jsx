@@ -10,7 +10,8 @@ import api from "../../api/api"
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    width: 20.5rem;
+    justify-content: space-around;
+    width: 21rem;
     height: 7rem;
     background-color:  #f1efff;
     border-top-left-radius: 1rem;
@@ -24,15 +25,13 @@ const EmoContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
 `;
 
 const Text  = styled.div`
-    width: 19.5rem;
+    width: 20.5rem;
     display: flex;
-    margin-top: 0.4rem;
     justify-content: flex-end;
+    margin-top: 0.4rem;
     font-size: 0.4rem;
 `;
 
@@ -102,7 +101,7 @@ function EmotionChart () {
                         <Emo src={"data:image/" + info.extension + ";base64," + info.base64}></Emo>
                         <Date>#{Emoticons[info.emoteIdx].name}</Date>
                         <Date>#{Colors16[info.emoteColorIdx].name}</Date>
-                    </EmoContainer>
+                </EmoContainer>
                 );
             })}
         </Wrapper>
