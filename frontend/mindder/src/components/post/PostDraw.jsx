@@ -8,53 +8,23 @@ import { Colors16 } from "../../redux/reducers";
 import Swal from "sweetalert2";
 
 const Wrapper = styled.div`
-    /* width: calc(100% - 1rem);
-    height:31rem;
-    display: grid; */
-    /* flex-direction:column; */
-    /* justify-content:center; */
-    /* align-items:center; */
-    /* margin-top:1rem;
-    margin-right:0.5rem; */
     & > * {
       width:inherit;
     }
 `;
 
 const CrawlingsHere = styled.div`
-  height: 71px;
-  border: 1px solid #7767FD;
-  border-radius: 6px;
+  margin: 1rem 0rem 1rem 0rem;
   display:grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   align-items:center;
-  /* grid-template-rows: repeat(1, 1fr) !important; */
-  /* position:relative; */
-  /* top:-1rem; */
 `
 const CanvasDiv = styled.div`
   height: 24rem;
   background: #FFFFFF;
   border-radius: 19px;
 `
-export const FeedInfoContainer = styled.div`
-  display:flex;
-  position:absolute;
-  top:4.2rem;
-  left:3.7rem;
-  width:7em;
-  justify-content:space-around;
-  border:1px solid white;
-`
-export const FeenInfo = styled.div`
-  background-color:rgba(119, 103, 253, 0.3);
-  width:3rem;
-  text-align:center;
-  border-radius: 15px;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 20px;
-`
+
 
 function PostDraw(props){
   const {canvasRef, imageSaved} = props
@@ -96,10 +66,10 @@ function PostDraw(props){
 
   return (
     <Wrapper>
-      <FeedInfoContainer>
+      {/* <FeedInfoContainer>
         <FeenInfo>{`#${todayColor}`}</FeenInfo>
         <FeenInfo>{`#${todayEmo}`}</FeenInfo>
-      </FeedInfoContainer>
+      </FeedInfoContainer> */}
       <CrawlingsHere>
         {/* <ScrollMenu wheel={true}> 스크롤 오류나서 일단 5개만 잘라서 받아놓음 */} 
         {crawlingList.slice(0,5).map((crawlingImg, index)=>(
