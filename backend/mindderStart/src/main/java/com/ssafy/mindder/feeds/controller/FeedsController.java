@@ -422,11 +422,11 @@ public class FeedsController {
 			List<EmoteListDto> emoteList = feedsService.findEmotes();
 
 			// 이미지 관련 코드 -> 이게 맞나,,,?
-//			for (int i = 0; i < emoteList.size(); i++) {
-//				Map<String, String> file = fileService.findFile(emoteList.get(i).getFileIdx(), filePath);
-//				emoteList.get(i).setBase64(file.get("base64"));
-//				emoteList.get(i).setExtension(file.get("extension"));
-//			}
+			for (int i = 0; i < emoteList.size(); i++) {
+				Map<String, String> file = fileService.findFile(emoteList.get(i).getFileIdx(), filePath);
+				emoteList.get(i).setBase64(file.get("base64"));
+				emoteList.get(i).setExtension(file.get("extension"));
+			}
 
 			return ApiResponse.success(SuccessCode.READ_EMOTE_LIST, emoteList);
 		} catch (Exception e) {
