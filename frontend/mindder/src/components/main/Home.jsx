@@ -42,7 +42,7 @@ function Home(props) {
                 /></div>
                 <Lnaver className="pad"/>
                 <img src={kakao_login} style={{width:"11.5rem"}} 
-                onClick={()=>{window.open(KAKAO_AUTH_URL, '_blank')}}/>
+                onClick={()=>{window.open("https://mindder.me/users/social/kakao", '_blank')}}/>
                 <Lnaver className="pad"/>
             </div>
             <div className="right-container">
