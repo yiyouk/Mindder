@@ -51,6 +51,19 @@ function App(props) {
         }
     }, [])
 
+    //로그아웃
+    const logout = async() => {
+        const response = await api.get(`/users/logout`);
+        if(!response.data.success){
+                console.log("로그아웃실패")
+        } else {
+            dispatch(DELETE_TOKEN());
+            dispatch(SAVE_nickName(""));
+            dispatch(SAVE_myIdx(null));
+            removeCookie("is_login");
+        }
+    }
+
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/information`);
@@ -99,7 +112,7 @@ function App(props) {
                         <Route path="saved" element={<SavedPage />} />
                         <Route path="alarm" element={<AlarmPage />} />
                     </Route>
-                    <Route path="/oauth/callback/kakao" element={<KakaoAuthRedirect/>}/>
+                    <Route path="/users/social/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
         </BrowserRouter>
     );
