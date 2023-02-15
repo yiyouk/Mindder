@@ -40,4 +40,7 @@ public interface MyService {
 	// 최근에 쓴 피드의 감정, 색상 조회
 	public FeedsRecentDto findMyFeedsRecent(int userIdx) throws Exception;
 
+	// 안 읽은 알림 수 조회
+	public int findAlarmCount(int userIdx) throws Exception;
+
 }
