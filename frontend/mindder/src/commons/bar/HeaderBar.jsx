@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { BsFillBellFill } from "react-icons/bs";
 
 import LogoP from "../../assets/images/LogoP.png"
 
@@ -40,7 +40,7 @@ function TopBar(props) {
           <>
             <Nick> {NickName} 님 
             </Nick>
-            <IoNotificationsOutline color="#7767FD" size="20" fontWeight="bold" onClick={() => {navigate("/alarm")}}/>
+            <BsFillBellFill color="#7767FD" size="17"  onClick={() => {navigate("/alarm")}}/>
           </>
         }
       </UserWrapper>

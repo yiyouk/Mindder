@@ -33,20 +33,31 @@ const Btndiv = styled.div`
     /* border:1px solid blue; */
 `
 
-const Next = styled.div`
-    width: 42px;
-    height: 36px;
-    border: 1px solid #7767FD;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 6px;
-    /* position:relative;
-    left:7.6rem;
-    top:0.1rem; */
-    background-image:url(${NextImg});
-    background-size: 55%;
-    background-position:center;
-    background-position-x:12px;
-    background-repeat: no-repeat;
+const M = styled.div`
+    height: 35px;
+    width: 35px;
+`
+
+const FeedInfoContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+    color: #7767FD;
+    font-size: 0.7rem;
+    `
+
+const FeedInfo = styled.div`
+    margin: 0rem 0.25rem 0rem 0.25rem;
+    text-align: center;
+    align-items: center;
+    /* border: 0.02rem solid #7767FD; */
+    width: 3.5rem;
+    border-radius: 15px;
+    box-shadow: 1px 1px 2px rgba(139, 108, 139, 0.5);
+    color:#FFFFFF;
+    font-size: 0.85rem;
+    padding: 0.3rem;
+    background-color: #7767FD;
 `
 
 function PostPage(props) {
@@ -84,7 +95,8 @@ function PostPage(props) {
         console.log(image)
         dispatch(SAVE_userDrawing(image))
     }
-
+    const todayColor = useSelector((state)=>state.USER.todayColor)
+    const todayEmo = useSelector((state)=>state.USER.todayEmotion)
 
     switch (level) {
         case 1:
@@ -140,6 +152,7 @@ function PostPage(props) {
                 </Wrapper>
             )
         case 3:
+
             return(
                 <Wrapper>
                     <Btndiv>
@@ -147,7 +160,12 @@ function PostPage(props) {
                         onClick={()=>{
                             setLevel(level-1)
                         }}
-                        /><IoArrowForwardCircleSharp color="#7767FD" size="35"
+                        />
+                        <FeedInfoContainer>
+                            <FeedInfo># {todayColor}</FeedInfo>
+                            <FeedInfo># {todayEmo}</FeedInfo>
+                        </FeedInfoContainer>
+                        <IoArrowForwardCircleSharp color="#7767FD" size="35"
                         onClick={()=>{
                             setLevel(level+1)
                             imageSaved()
@@ -165,7 +183,11 @@ function PostPage(props) {
                         setLevel(level-1)
                     }}
                     />
-                    <div/>
+                    <FeedInfoContainer>
+                        <FeedInfo># {todayColor}</FeedInfo>
+                        <FeedInfo># {todayEmo}</FeedInfo>
+                    </FeedInfoContainer>
+                    <M/>
                     </Btndiv>
                     <PostCommentwrite/>
                 </Wrapper>
