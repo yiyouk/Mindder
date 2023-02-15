@@ -15,7 +15,7 @@ public interface AlarmsService {
 	public AlarmsUserDto findPushInfo(int senderUserIdx, int receiverUserIdx) throws Exception;
 
 	// 팔로우 알림 등록
-	public void addFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws Exception;
+	public void addFollowAlarm(int userIdx, int targetUserIdx) throws Exception;
 
 	// 알림 목록 조회
 	public List<AlarmListDto> findAlarms(int userIdx) throws Exception;

@@ -19,7 +19,7 @@ public interface AlarmsMapper {
 	public AlarmsUserDto selectPushInfo(int senderUserIdx, int receiverUserIdx) throws SQLException;
 
 	// 팔로우 알림 등록
-	public void insertFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws SQLException;
+	public void insertFollowAlarm(int userIdx, int targetUserIdx) throws SQLException;
 
 	// 알림 목록 조회
 	public List<AlarmListDto> selectAlarms(int userIdx) throws SQLException;

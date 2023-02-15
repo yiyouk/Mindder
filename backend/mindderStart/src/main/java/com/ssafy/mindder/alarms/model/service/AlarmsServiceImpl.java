@@ -28,8 +28,8 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public void addFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws Exception {
-		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx, fileIdx);
+	public void addFollowAlarm(int userIdx, int targetUserIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx);
 	}
 	
 	@Override
