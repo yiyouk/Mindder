@@ -17,6 +17,7 @@ import com.ssafy.mindder.feeds.model.FeedsDto;
 import com.ssafy.mindder.feeds.model.FeedsUpdateDto;
 import com.ssafy.mindder.file.controller.FileController;
 import com.ssafy.mindder.file.model.FileDto;
+import com.ssafy.mindder.my.controller.MyController;
 import com.ssafy.mindder.searches.controller.SearchesController;
 import com.ssafy.mindder.users.controller.UsersController;
 import com.ssafy.mindder.users.model.UsersDto;
@@ -38,6 +39,8 @@ class MindderApplicationTests {
 	@Autowired
 	FeedsController feedsController;
 
+	@Autowired
+	MyController myController;
 	///////////////////////////////////////////////////////////
 
 	@Autowired
@@ -104,6 +107,7 @@ class MindderApplicationTests {
 
 	}
 
+	
 	@Test
 	@Order(3)
 	void mainFeedTest() throws Exception {
@@ -133,7 +137,7 @@ class MindderApplicationTests {
 		feedsDto.setNormalTag("#테스트");
 		feedsDto.setPublic(true);
 		feedsDto.setFileIdx(fileidx);
-		assertNotNull(feedsController.writeFeeds(feedsDto, accessToken).getMessage(), "피드 글 작성 성공!");
+		assertEquals(feedsController.writeFeeds(feedsDto, accessToken).getMessage(), "메인 피드 글 등록 성공");
 
 		// 피드 수정
 		FeedsUpdateDto feedsUpdate = new FeedsUpdateDto();
@@ -141,13 +145,13 @@ class MindderApplicationTests {
 		feedsUpdate.setNormalTag("#테스트#변경");
 		feedsUpdate.setMainText("테스트2 중 입니다");
 		feedsUpdate.setPublic(false);
-		assertNotNull(feedsController.modifyFeed(accessToken, feedsUpdate).getMessage(), "피디 글 수정 성공!");
+		assertEquals(feedsController.modifyFeed(accessToken, feedsUpdate).getMessage(), "메인 피드 글 수정 성공");
 
 		// 메인화면 -> 추천 피드 목록 조회(3개)
 		assertNotNull(feedsController.recommendation(accessToken).getMessage(), "메인 페이지 추천 리스트 불러오기 성공!");
 
 		// 사용자 이웃 피드 목록 조회
-		assertNotNull(feedsController.neighborFeed(accessToken, 1).getMessage(), "팔로잉하는 유저 글 불러오기 성공!");
+		assertEquals(feedsController.neighborFeed(accessToken, 1).getMessage(), "이웃 피드 글 보기 성공");
 
 		// 주간 인기 피드 리스트 조회
 		assertNotNull(feedsController.popularFeed(accessToken, 1).getMessage(), "주간 인기 피드 글 불러오기 성공!");
@@ -156,19 +160,52 @@ class MindderApplicationTests {
 		assertNotNull(feedsController.realtimeFeed(accessToken, 1).getMessage(), "실시간 피드 글 불러오기 성공!");
 
 		// 이미지 크롤링
-		assertNotNull(feedsController.crawling("pink").getMessage(), "이미지 크롤링 성공!");
+		assertEquals(feedsController.crawling("pink").getMessage(), "이미지 크롤링 성공");
 
 		// 피드 상세보기
 		int feedIdx = feedsDto.getFeedIdx();
 		assertNotNull(feedsController.getFeed(feedIdx, accessToken).getMessage(), "이미지 크롤링 성공!");
 
 		// 피드 삭제하기
-		assertNotNull(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "피드 삭제 성공!");
+		assertEquals(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "메인 피드 글 삭제 성공");
 
 	}
-
 	@Test
-	@Order(3)
+	@Order(4)
+	void mypage() {
+		// 로그인
+		UsersDto user = new UsersDto();
+		user.setEmail("temp");
+		user.setPassword("1111");
+
+		Map<String, String> loginUser = (Map<String, String>) usersController.login(user).getData();
+		assertNotNull(loginUser);
+		System.out.println(loginUser);
+		String accessToken = loginUser.get("accessToken");
+		
+		//마이 페이지 조회
+		assertEquals(myController.myUserDetails(accessToken).getMessage(),"회원 정보 조회 성공");
+		//타인 페이지 조회
+		assertEquals(myController.otherUserDetails(40, accessToken).getMessage(),"회원 정보 조회 성공");
+		//내가 쓴 피드 목록 조회
+		assertEquals(myController.myFeedList(accessToken).getMessage(),"내가 쓴 피드 목록 조회 성공");
+		//타인이 쓴 피드 목록 조회
+		assertEquals(myController.othersFeedList(accessToken,40).getMessage(),"타인이 쓴 피드 목록 조회 성공");
+		//팔로워 목록 조회
+		assertEquals(myController.myFollowerList(accessToken, 40).getMessage(),"팔로워 목록 조회 성공");
+		//팔로잉 목록 조회
+		assertEquals(myController.myFollowingList(accessToken, 40).getMessage(),"팔로잉 목록 조회 성공");
+		//월별 캘린더 조회
+		assertNotNull(myController.myCalendarList(accessToken,2023,02));
+		//팔로우 등록
+		assertEquals(myController.followAdd(accessToken, 40).getMessage(),"팔로우 등록 성공");
+		//팔로우 취소
+		assertEquals(myController.followRemove(accessToken, 40).getMessage(),"팔로우 취소 성공");
+		//가장 최근에 쓴 피드의 감정
+		assertEquals(myController.myFeedsRecentDetails(accessToken).getMessage(),"최근 피드의 감정, 색 조회 성공");
+	}
+	@Test
+	@Order(5)
 	void userSearche() {
 		UsersDto user = new UsersDto();
 		user.setEmail("temp");

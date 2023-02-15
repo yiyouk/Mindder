@@ -152,7 +152,7 @@ public class UsersController {
 				logger.debug("socialLogin - 회원정보 없음");
 				usersDto = new UsersDto();
 				usersDto.setSocialId(userIO.get("id") + "@Kakao");
-				usersDto.setEmail(userIO.get("id"));
+				usersDto.setEmail("카카오유저");
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
