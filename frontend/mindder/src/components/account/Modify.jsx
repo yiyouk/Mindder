@@ -77,14 +77,14 @@ const PickColor = styled.div`
 function Modify() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const profileIdx = useSelector((state)=>state.USER.profileImgFileIdx)
+    // const profileIdx = useSelector((state)=>state.USER.profileImgFileIdx)
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
     const [nicknameCheck, setNicknameCheck] = useState(true);
     const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
-    const [fileIdx, setFileIdx] = useState(profileIdx);
+    const [fileIdx, setFileIdx] = useState(305);
     const [base64, setBase64] = useState("");
 
     const myIdx = useSelector((state)=>state.USER.myIdx);
