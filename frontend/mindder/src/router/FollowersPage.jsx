@@ -74,7 +74,7 @@ function FollowersPage() {
             console.error(e);
         }
     }
-
+    
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
         try{
