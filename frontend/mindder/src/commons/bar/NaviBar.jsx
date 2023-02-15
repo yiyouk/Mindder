@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // -- 아이콘 이미지 import -- 
-import SearchImg from "../../assets/images/icon1.png";
-import FeedImg from "../../assets/images/icon2.png";
-import HomeImg from "../../assets/images/icon3.png";
-import MyPageImg from "../../assets/images/icon4.png";
-import PostImg from "../../assets/images/icon5.png";
+import { BiSearch } from "react-icons/bi";
+import { MdOutlinePalette } from "react-icons/md";
+import { RiHome6Fill } from "react-icons/ri";
+import { AiOutlineUser } from "react-icons/ai";
+import { HiOutlinePlusCircle } from "react-icons/hi";
 
 const Wrapper = styled.nav`
     position: fixed;
@@ -28,11 +28,6 @@ const NavMenu = styled.div`
     text-align: center;
 `
 
-const Image = styled.img`
-    width: 1.4rem;
-    height: 1.4rem;
-`
-
 function NaviBar(props) {
     const navigate = useNavigate();
     const myIdx = useSelector((state)=>state.USER.myIdx);
@@ -43,35 +38,35 @@ function NaviBar(props) {
                 onClick={() => {
                     navigate("/search");
                 }}>
-                <Image src={SearchImg} alt="" />
+                <BiSearch color="#7767FD" size="2rem"/>
             </NavMenu>
         
             <NavMenu
                 onClick={() => {
                     navigate("/feeds");
                 }}>        
-                <Image src={FeedImg} alt="" />
+                <MdOutlinePalette color="#7767FD" size="2rem"/>
             </NavMenu>
 
             <NavMenu
                 onClick={() => {
                     navigate("/");
                 }}>
-                <Image src={HomeImg} alt="" />
+                <RiHome6Fill color="#7767FD" size="2.1rem"/>
             </NavMenu>
                         
             <NavMenu
                 onClick={() => {
                     navigate(`/${myIdx}`);
                 }}>   
-                <Image src={MyPageImg} alt="" />
+                <AiOutlineUser color="#7767FD" size="2rem"/>
             </NavMenu>
             
             <NavMenu
                 onClick={() => {
                     navigate("/post");
                 }}>
-                <Image src={PostImg} alt="" />
+                <HiOutlinePlusCircle color="#7767FD" size="2rem"/>
             </NavMenu>
         </Wrapper>
     );
