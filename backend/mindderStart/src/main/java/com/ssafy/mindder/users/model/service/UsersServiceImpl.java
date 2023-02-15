@@ -193,9 +193,9 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UsersDto joinSocialKakaoID(UsersDto usersdto) throws Exception {
-		// TODO Auto-generated method stub
-		return usersMapper.joinSocialKakaoID(usersdto);
+	public int joinSocialKakaoID(UsersDto usersdto) throws Exception {
+		usersMapper.joinSocialKakaoID(usersdto);
+		return usersdto.getUserIdx();
 	}
 
 }
