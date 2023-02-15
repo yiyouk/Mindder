@@ -69,4 +69,9 @@ public class MyServiceImpl implements MyService {
 		return sqlSession.getMapper(MyMapper.class).selectMyFeedsRecent(userIdx);
 	}
 	
+	@Override
+	public int findAlarmCount(int userIdx) throws Exception {
+		return sqlSession.getMapper(MyMapper.class).selectAlarmCount(userIdx);
+	}
+	
 }

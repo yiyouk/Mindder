@@ -73,4 +73,9 @@
 		on f.emote_color_idx = e.emote_color_idx
 		where user_idx = #{userIdx} order by feed_idx desc limit 1;
 	</select>
+	<!-- 안 읽은 알림 수 조회 -->
+	<select id="selectAlarmCount" parameterType="int" resultType="int">
+		select count(*) as alarm_count from mainalarm 
+		where receive_user_idx = #{userIdx} and is_read = 0 and send_user_idx != receive_user_idx;
+	</select>
 </mapper>
