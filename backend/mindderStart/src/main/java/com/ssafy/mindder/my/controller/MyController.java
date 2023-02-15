@@ -277,7 +277,7 @@ public class MyController {
 
 	@ApiOperation(value = "가장 최근에 쓴 피드의 감정, 색상 조회", notes = "피드의 감정과 색상을 반환한다.", response = FeedsRecentDto.class)
 	@GetMapping("/feeds/recent")
-	public ApiResponse<?> myFeedsRecentDetails(@RequestHeader("access_token") String accessToken) throws Exception {
+	public ApiResponse<?> myFeedsRecentDetails(@RequestHeader("access_token") String accessToken){
 		logger.info("myFeedsRecentDetails - 호출");
 		try {
 			int userIdx = jwtService.getUserIdx(accessToken);
