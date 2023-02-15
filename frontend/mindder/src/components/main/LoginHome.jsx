@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //섹션별로
@@ -14,24 +13,24 @@ const Wrapper = styled.div`
 `;
 
 const HeaderBar = styled.div`
-    color: #eeecff;
-    width: 7rem;
+    width: 5.5rem;
     height: 3rem;
     position: relative;
     bottom: 1.1rem;
-    left: -6.5rem;
+    right: 8rem;
     z-index: 1;
     border-radius: 1rem;
     background-color: #eeecff;
+    color: #eeecff;
 `;
 
 const HeaderText = styled.div`
+    position: relative;
+    right: 8rem;
+    z-index: 2;
     font-weight: 700;
     font-size: 1.1rem;
-    position: relative;
-    color:black;
-    z-index: 2;
-    right:120px;
+    color: black;
     margin: 0;
 `;
 

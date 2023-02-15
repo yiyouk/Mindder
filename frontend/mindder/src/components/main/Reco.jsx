@@ -27,9 +27,9 @@ function Reco() {
     }
 
     return (
-        <div> 
+        <> 
             <CanvasList size = "s" up={false} list={feeds.slice(0, 3)}/> 
-        </div>
+        </>
     );
 }
 

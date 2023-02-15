@@ -15,10 +15,14 @@
 		limit 5
 	</select>
 	<select id="selectKeyword" parameterType="int" resultType="String">
-		select e.emote_tag_kr
-		from mainfeed f
-		inner join feedemote e
-		on f.emote_idx = e.emote_idx
-		where f.user_idx = #{userIdx} order by f.feed_idx desc limit 1;
+		select emote_tag_kr 
+		from (
+			select e.emote_tag_kr
+			from mainfeed f
+			inner join feedemote e
+			on f.emote_idx = e.emote_idx
+			where f.user_idx = #{userIdx} group by e.emote_tag_kr
+		) as t
+		order by rand() limit 1;
 	</select>
 </mapper>

@@ -26,7 +26,7 @@ const CanvasDiv = styled.img`
   border-radius: 0.5rem;
 `
 const CommentDiv = styled.textarea`
-  padding: 0.3rem;
+  padding: 0.5rem;
   height: 6rem;
   width: 17.7rem;
   border: 0.01rem solid #7767FD;
@@ -34,7 +34,6 @@ const CommentDiv = styled.textarea`
   font-family: 'Inter';
   margin-top: 1rem;
   margin-bottom: 1rem;
-  ::placeholder
 `
 
 const BottomDiv = styled.div`
@@ -101,9 +100,6 @@ function PostCommentwrite(props){
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
   const emoColor = useSelector((state)=>state.USER.todayColor)
   const myIdx = useSelector((state)=>state.USER.myIdx)
-  let placeHolder = "오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#10;&#13;&#10; 안녕?"
-  const todayColor = useSelector((state)=>state.USER.todayColor)
-  const todayEmo = useSelector((state)=>state.USER.todayEmotion)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
   const clickedToggle = () => {
@@ -111,15 +107,10 @@ function PostCommentwrite(props){
   };
   const onChange = (e)=>{
     setUserComment(e.target.value)
-    // console.log(userComment.replace(/#[^\s#]+/g, ''))
-    // console.log(userComment.replace(/#[^\s#]+/g, '').split(' ').filter(function(item) {
-    //   return item !== ''}).join(' '));
-    // console.log(userComment.match(/#[^\s#]+/g).join(' '))
   }
 
 
   const writeFeed = async ()=>{
-    // console.log(userDraw.split(',')[1])
     try {
       const fileResponse = await api.post(`file`, {
         originalFile:`${Date.now()}_${myIdx}.webp`,
@@ -157,13 +148,9 @@ function PostCommentwrite(props){
 
   return (
     <Wrapper>
-      <FeedInfoContainer>
-        <FeenInfo>{`#${todayColor}`}</FeenInfo>
-        <FeenInfo>{`#${todayEmo}`}</FeenInfo>
-      </FeedInfoContainer>
       <CanvasDiv src={userDraw}>
       </CanvasDiv>
-      <CommentDiv placeholder="오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#13;&#13;#감정 #그림 #마인더" onChange={onChange}/>
+      <CommentDiv placeholder="그림과 함께 기록할 글을 남겨주세요. &#13;(#을 사용하면 태그를 남길 수 있어요!)" onChange={onChange}/>
       <BottomDiv>
         <Container>
           <Toggle onClick={clickedToggle} toggle={isPublic}>
