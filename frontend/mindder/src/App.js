@@ -109,7 +109,7 @@ function App(props) {
                         <Route path="saved" element={<SavedPage />} />
                         <Route path="alarm" element={<AlarmPage />} />
                     </Route>
-                    <Route path="/oauth/callback/kakao" element={<KakaoAuthRedirect/>}/>
+                    <Route path="/users/social/kakao" element={<KakaoAuthRedirect/>}/>
                 </Routes>
         </BrowserRouter>
     );

@@ -1,6 +1,6 @@
 // 카카오 로그인 키
 
-const CLIENT_ID = "0d2c29aab3ff2236ab9808ecb73e15e7";
-const REDIRECT_URI =  "http://localhost:3000/oauth/callback/kakao";
+const CLIENT_ID = "dc63597430966307c80d8e0e8c0d9b8a";
+const REDIRECT_URI =  "https://mindder.me/dev/users/social/kakao";
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
