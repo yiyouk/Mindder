@@ -17,38 +17,18 @@ const sizeStyles = css`
 `;
 
 const sizes = {
-
-    // 디테일 게시글
-    "l": {
-        height: '22rem',
-        width: '22rem'
-    },
-
-    // 프로필
-    "m": {
-        height: '11rem',
-        width: '11rem',
-    },
-    // 프로필
-    "ms": {
-      height: '10rem',
-      width: '10rem',
-    },
-
     // 검색창에서 사용
     "s": {
         height: '7rem',
         width: '5rem',
-        margin: '0.65rem'
+        margin: '0.8rem'
     },
-
-    // 크롤링이미지
+    // 포스트 페이지에서 사용
     "xs": {
         height: '4rem',
         width: '4rem',
     },
 };
-
 
 CrawItem.defaultProps = {
     size: "s"
