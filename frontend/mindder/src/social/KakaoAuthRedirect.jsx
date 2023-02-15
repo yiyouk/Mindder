@@ -23,7 +23,7 @@ const KakaoAuthRedirect = (props) => {
   }
 
   useEffect( () => {
-    kakaoLogin()
+    // kakaoLogin()
     // getToken(code)
   }, []);
 
