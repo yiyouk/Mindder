@@ -44,8 +44,8 @@
 	</select>
 	<!-- 댓글 알림 등록 -->
 	<insert id="insertCommentAlarm" parameterType="int">
-		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, file_idx) 
-		values(2, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{fileIdx});
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx) 
+		values(2, #{userIdx} ,#{targetUserIdx}, #{feedIdx});
 	</insert>
 	<!-- 알림 등록 전 중복 검사 -->
 	<select id="selectAlarmDuplication" parameterType="int" resultType="int">
@@ -59,7 +59,7 @@
 	</delete>
 	<!-- 공감 알림 등록 -->
 	<insert id="insertLikeAlarm" parameterType="int">
-		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, file_idx, like_type) 
-		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{fileIdx}, #{likeType});
+		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, like_type) 
+		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{likeType});
 	</insert>
 </mapper>

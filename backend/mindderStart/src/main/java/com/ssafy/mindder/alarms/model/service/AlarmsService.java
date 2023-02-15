@@ -33,7 +33,7 @@ public interface AlarmsService {
 	public int findUserIdx(int feedIdx) throws Exception;
 
 	// 댓글 알림 등록
-	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws Exception;
+	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx) throws Exception;
 
 	// 알림 등록 전 중복 확인 
 	public int findAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws Exception;
@@ -42,6 +42,6 @@ public interface AlarmsService {
 	public void removeAlarm(int alarmIdx) throws Exception;
 
 	// 공감 알림 등록
-	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx, int likeType) throws Exception;
+	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int likeType) throws Exception;
 
 }
