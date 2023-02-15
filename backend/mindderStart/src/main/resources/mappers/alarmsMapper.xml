@@ -27,6 +27,7 @@
 		join mainuser u
 		on a.send_user_idx = u.user_idx
 		where a.receive_user_idx = #{userIdx}
+		and a.send_user_idx != a.receive_user_idx
 		order by alarm_idx desc;
 	</select>
 	<!-- 알림 읽음 처리 -->
