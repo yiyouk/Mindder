@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import '../assets/css/main.css';
 import loading from "../assets/images/Loading.png"
 import { useNavigate } from "react-router-dom";
+import LoadingPage from "../router/LoadingPage";
 
 function KakaoAuthRedirect  (props) {
   const dispatch = useDispatch();
@@ -60,9 +61,9 @@ function KakaoAuthRedirect  (props) {
   }, []);
 
   return (
-    <div id="main">
-      <img className="logo" src={loading} alt="" />
-    </div>
+    <>
+      <LoadingPage/>
+    </>
   )
 };
 
