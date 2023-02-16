@@ -77,9 +77,12 @@ public class AlarmsController {
 			int userIdx = jwtService.getUserIdx(accessToken);
 			List<AlarmListDto> alarmList = alarmsService.findAlarms(userIdx);
 			for (int i = 0; i < alarmList.size(); i++) {
-				Map<String, String> file = fileService.findFile(alarmList.get(i).getFileIdx(), filePath);
-				alarmList.get(i).setBase64(file.get("base64"));
-				alarmList.get(i).setExtension(file.get("extension"));
+//				Map<String, String> file = fileService.findFile(alarmList.get(i).getFileIdx(), filePath);
+//				alarmList.get(i).setBase64(file.get("base64"));
+//				alarmList.get(i).setExtension(file.get("extension"));
+//				file = fileService.findFile(alarmList.get(i).getFeedFileIdx(), filePath);
+//				alarmList.get(i).setFeedBase64(file.get("base64"));
+//				alarmList.get(i).setFeedExtension(file.get("extension"));
 			}
 			
 			return ApiResponse.success(SuccessCode.READ_ALARM_LIST, alarmList);
