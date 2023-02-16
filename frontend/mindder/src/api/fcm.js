@@ -34,9 +34,8 @@ export const getToken = async() => {
           position: 'top-end',
           text: payload.notification.body,
           showConfirmButton: false,
-          timer: 500
+          timer: 950
         })
-        // alert(payload.notification.body);
       })
       return token;
     })
