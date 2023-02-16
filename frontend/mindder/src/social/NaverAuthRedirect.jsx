@@ -8,8 +8,6 @@ import Swal from "sweetalert2";
 import '../assets/css/main.css';
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../router/LoadingPage";
-import { NAVER_STATE_TOKEN, NAVER_ACCESSTOKEN_URL } from "./OAuth";
-import axios from "axios";
 
 
 function NaverAuthRedirect  (props) {
@@ -18,37 +16,10 @@ function NaverAuthRedirect  (props) {
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
   let state = new URL(window.location.href).searchParams.get('state')
-  console.log(state)
-
-  const requestValidator = ()=>{
-    if (state !== NAVER_STATE_TOKEN){
-      return {
-              "status": 401,
-              "success": false,
-              "message": "unauthorized",
-              }
-    } else {
-      return {
-              "status": 200,
-              "success": true,
-              "message": "success",
-              }
-    }
-  }
-  
-  const TOKEN_URL = NAVER_ACCESSTOKEN_URL(code)
-  console.log(TOKEN_URL)
-  const getToken = ()=>{
-    try {
-      const response = axios.get(TOKEN_URL)
-      console.log(response)
-    } catch (error) {
-      
-    }
-  }
+  console.log(code)
 
   useEffect( () => {
-    getToken()
+    
   }, []);
 
   return (
