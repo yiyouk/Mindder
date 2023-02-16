@@ -24,6 +24,7 @@
 		<result column="alarm_count" property="alarmCount" />
 		<result column="follower_count" property="followerCount" />
 		<result column="following_count" property="followingCount" />
+		<result column="push_alarm_agree" property="pushAlarmAgree"/>
 	</resultMap>
 	<resultMap type="FeedsParameterDto" id="feed">
 		<result column="my_scrap" property="myScrap" />

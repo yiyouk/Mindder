@@ -23,6 +23,7 @@ public class UserInformationDto {
 	private int followingCount;
 	private boolean followed;
 	private int alarmCount;
+	private boolean pushAlarmAgree;
 	private String base64;
 	private String extension;
 	
