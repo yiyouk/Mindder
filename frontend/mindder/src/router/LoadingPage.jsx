@@ -8,13 +8,14 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: 8.5rem;
     & > div {
         margin: 1rem;
         color:grey;
         font-weight: bold;
     }
+    height:15rem;
 `
 const Button = styled.button`
     font-weight: bold;
