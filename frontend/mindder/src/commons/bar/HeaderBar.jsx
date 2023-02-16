@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -31,23 +31,24 @@ const HeaderLogo = styled.img`
 const Check = styled.div`
   padding-right: 0.3rem;
 `
-const AlarmCheck = styled.div`
+export const AlarmCheck = styled.div`
   display: flex;
+  justify-content: end;
+  position: absolute;
   width:  0.3rem;
   height:  0.3rem;
   background-color: #f37f58;
   border-radius: 50%;
-  z-index: 3;
-`
-const M = styled.div`
-  width:  0.3rem;
-  height:  0.3rem;
 `
 
 function TopBar(props) {
   const navigate = useNavigate();
   const NickName = useSelector((state)=>state.USER.nickName)
   const AlarmCount = useSelector((state)=>state.USER.alarmCount)
+  useEffect(()=>{
+    console.log("헤더바 렌더됨")
+    console.log(AlarmCount)
+  }, [AlarmCount])
 
   return (
     <Wrapper>
@@ -61,7 +62,7 @@ function TopBar(props) {
               { AlarmCount !== 0 ?
                 <AlarmCheck/>
                 :
-                <M/>
+                null
               }
               <BsFillBellFill color="#7767FD" size="20"  onClick={() => {navigate("/alarm")}}/>
             </Check>
