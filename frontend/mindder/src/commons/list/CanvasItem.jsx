@@ -59,11 +59,8 @@ CanvasItem.defaultProps = {
 //////////////
 
 const Wrapper = styled.div`
-  border: 0.02rem solid rgba(219, 219, 219, 0.3);
-  border-radius: 4px;
   position: relative;
   cursor: pointer;
-  box-shadow: 0.1rem 0.1rem 0.1rem rgba(194, 194, 194, 0.3);
   margin: 0.2rem;
 `
 
@@ -77,10 +74,15 @@ const CanvaConContainer = styled.div`
 
 const CanvaImgStyle = styled.img`
   ${sizeStyles}
-  `
+  margin: 0.2rem;
+  border: 0.02rem solid rgba(219, 219, 219, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.1rem rgba(219, 219, 219, 0.3);
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+`
 
 const CanvaConStyle = styled.div`
-  width: 100%; 
   display: flex;
   align-items: center;
   color: grey;
@@ -103,20 +105,20 @@ function CanvasItem({size, list, up}) {
       <CanvaImgStyle size ={size} 
       src={"data:image/" + list.extension + ";base64," + list.base64}
       />
-      <CanvaConContainer>
-          { up ? 
-          <>
-            <CanvaConStyle>
-              <FaHeart color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
-              {list.likeTotalCount}
-            </CanvaConStyle>
-            <CanvaConStyle>
-              <FaComment color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
-              {list.commentCount}
-            </CanvaConStyle>
-          </>
-          : null}
-      </CanvaConContainer>
+        <CanvaConContainer>
+            { up ? 
+            <>
+              <CanvaConStyle>
+                <FaHeart color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
+                {list.likeTotalCount}
+              </CanvaConStyle>
+              <CanvaConStyle>
+                <FaComment color="#fc805d" style={{position:'relative', right:'0.2rem'}}/>
+                {list.commentCount}
+              </CanvaConStyle>
+            </>
+            : null}
+        </CanvaConContainer>
     </Wrapper>
   )
 }
