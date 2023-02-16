@@ -92,4 +92,9 @@ public class AlarmsServiceImpl implements AlarmsService {
 		return sqlSession.getMapper(AlarmsMapper.class).selectAlarmIdxList(userIdx, feedIdx);
 	}
 	
+	@Override
+	public List<Integer> findAlarmIdxList2(int alarmType, int sendUserIdx, int receiveUserIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectAlarmIdxList2(alarmType, sendUserIdx, receiveUserIdx);
+	}
+	
 }

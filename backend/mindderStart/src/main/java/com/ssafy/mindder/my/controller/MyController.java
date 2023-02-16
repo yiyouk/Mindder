@@ -267,6 +267,10 @@ public class MyController {
 				return ApiResponse.error(ErrorCode.NOT_FOUND_FOLLOW_EXCEPTION);
 			}
 			myService.removeMyFollow(userIdx, targetUserIdx);
+			List<Integer> alarmIdxList = alarmsService.findAlarmIdxList2(1, userIdx, targetUserIdx);
+			for (int i = 0; i < alarmIdxList.size(); i++) {
+				alarmsService.removeAlarm(alarmIdxList.get(i));
+			}
 			return ApiResponse.success(SuccessCode.DELETE_MY_FOLLOW);
 		} catch (Exception e) {
 			e.printStackTrace();
