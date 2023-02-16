@@ -82,6 +82,26 @@ public class FileController {
 		// return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
 
+	@GetMapping("/test/{fileIdx}")
+	public File testFile(@PathVariable("fileIdx") int fileIdx) {
+		Map<String, String> tp = null;
+		File file = null;
+		try {
+			FileDto temp = fileService.testfile(fileIdx);
+			String saveFolder = temp.getSaveFolder(); // 파일 경로
+			String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
+			String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
+			file = new File(filePath + saveFolder, saveFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return file;
+		// return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
+	}
+
 	@GetMapping("/normal-bear")
 	public ApiResponse<?> normalBear() {
 		Map<String, Integer> map = new HashMap<>();

@@ -39,6 +39,9 @@ public class FileServiceImpl implements FileService{
 		t.put("extension", FilenameUtils.getExtension(file.getName()));
 		return t;
 	}
+	public FileDto testfile(int fileIdx)throws Exception{
+		return fileMapper.findFile(fileIdx);
+	}
 	@Override
 	public List<FileDto> findNormalBear(Map<String, Integer> map) throws Exception {
 		return fileMapper.findNormalBear(map);
