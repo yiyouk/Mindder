@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import LogoWW from "../assets/images/LogoWW.png"
 
 import { BsFillBellFill } from "react-icons/bs";
+
+import api from "../api/api";
 
 const Bodysuit = styled.div`
     display: flex;
@@ -50,9 +52,37 @@ const M = styled.div`
 
 function MainPage() {
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
-    const AlarmCount = useSelector((state)=>state.USER.alarmCount)
+    const AlarmCount = useSelector((state)=>state.USER.alarmCount);
+    const firebaseCode = useSelector((state)=>state.USER.firebaseCode);
+    const pushAlarmAgree = useSelector((state)=>state.USER.pushAlarmAgree);
     const navigate = useNavigate();
     
+    //토큰 발급 및 전송
+    useEffect(()=>{
+        if(isLoggedIn){
+            if(pushAlarmAgree){
+                sendToken();
+            }
+        }
+    }, [firebaseCode])
+
+        //토큰 보내기
+    const  sendToken = async () => {
+        try{
+            const response = await api.post(`/alarms`, {
+                deviceToken: firebaseCode
+            })
+            
+            if(response.data.success){
+                console.log(response);
+            }
+
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
     if(!isLoggedIn){
         return (
             <Home></Home>

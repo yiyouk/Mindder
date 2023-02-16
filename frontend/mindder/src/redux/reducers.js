@@ -208,7 +208,9 @@ const initialState = {
   customTag:null,
   profileImgFileIdx:305,
   alarmCount:null,
-  postNum:0
+  postNum:0,
+  firebaseCode:null,
+  pushAlarmAgree:false
 }
 
 const userStateSlice = createSlice({
@@ -274,6 +276,14 @@ const userStateSlice = createSlice({
     SAVE_postNum(state, action){
       state.postNum = action.payload
       console.log(`글,작성성공 : ${state.postNum}`)
+    },
+    SAVE_firebaseCode(state, action){
+      state.firebaseCode = action.payload
+      console.log(`글,작성성공 : ${state.firebaseCode}`)
+    },
+    SAVE_pushAlarmAgree(state, action){
+      state.pushAlarmAgree = action.payload
+      console.log(`pushAlarmAgree,작성성공 : ${state.pushAlarmAgree}`)
     }
   }
 })
@@ -311,5 +321,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_postNum, SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx, SAVE_alarmCount } = userStateSlice.actions;
+export const {SAVE_pushAlarmAgree, SAVE_firebaseCode, SAVE_postNum, SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx, SAVE_alarmCount } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;
