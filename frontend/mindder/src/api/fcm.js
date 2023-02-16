@@ -1,8 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/messaging';
 import 'firebase/messaging';
-
-
+import Swal from "sweetalert2";
 const firebaseConfig  = {
   apiKey: "AIzaSyDdczTYVRjb1CzRl5AIFG1b4DkE_vdrkK8",
   authDomain: "ssafy8th-mindder.firebaseapp.com",
@@ -19,7 +18,6 @@ if(!firebase.apps.length) {
   firebase.app()
 }
 
-
 firebase.initializeApp(firebaseConfig );
 
 //////메세지 호출 & 토큰발급
@@ -31,7 +29,14 @@ export const getToken = async() => {
     })
     .then(function (token) {
       messaging.onMessage(payload => {
-        alert(payload.notification.body);
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          text: payload.notification.body,
+          showConfirmButton: false,
+          timer: 500
+        })
+        // alert(payload.notification.body);
       })
       return token;
     })
