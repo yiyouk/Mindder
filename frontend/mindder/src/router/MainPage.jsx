@@ -1,11 +1,13 @@
-// 라우터 폴더는 uri기준으로 각각 파일 작성
 import React from "react";
 import styled from "styled-components";
 import LoginHome from "../components/main/LoginHome";
 import Home from "../components/main/Home";
 import NaviBar from '../commons/bar/NaviBar';
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import LogoWW from "../assets/images/LogoWW.png"
+
+import { BsFillBellFill } from "react-icons/bs";
 
 const Bodysuit = styled.div`
     display: flex;
@@ -15,20 +17,12 @@ const Bodysuit = styled.div`
     height: 100vh;
 `;
 
-const Body = styled.div`
-    padding: 0 0 3em 0;
-    height: 80vh;
+const HeaderBar = styled.div`
     width: 100vw;
     display: flex;
-    justify-content: center;
-`
-
-const Wrapper = styled.div`
-    background-color: #7767FD;
     align-items: center;
-    display: flex;
     justify-content: space-between;
-    width: 100vw;
+    background-color: #7767FD;
 `;
 
 const HeaderLogo = styled.img`
@@ -38,9 +32,27 @@ const HeaderLogo = styled.img`
     padding-left: 0.5rem;
 `;
 
+const Check = styled.div`
+  padding-right: 0.8rem;
+`
+const AlarmCheck = styled.div`
+  display: flex;
+  width: 0.3rem;
+  height:  0.3rem;
+  background-color: #f37f58;
+  border-radius: 50%;
+  z-index: 3;
+`
+const M = styled.div`
+  width: 0.3rem;
+  height:  0.3rem;
+`
+
 function MainPage() {
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
-
+    const AlarmCount = useSelector((state)=>state.USER.alarmCount)
+    const navigate = useNavigate();
+    
     if(!isLoggedIn){
         return (
             <Home></Home>
@@ -48,13 +60,19 @@ function MainPage() {
     } else {
         return (
             <Bodysuit>
-                <Wrapper>
+                <HeaderBar>
                     <HeaderLogo src={LogoWW}/>
-                </Wrapper>
-                <Body>
-                    <LoginHome></LoginHome>
-                </Body>
-                <NaviBar></NaviBar>
+                    <Check>
+                        { AlarmCount !== 0 ?
+                            <AlarmCheck/>
+                            :
+                            <M/>
+                        }
+                        <BsFillBellFill color="#ffffff" size="20" onClick={() => {navigate("/alarm")}}/>
+                    </Check>
+                </HeaderBar>
+                <LoginHome/>
+                <NaviBar/>
             </Bodysuit>
         );
     }

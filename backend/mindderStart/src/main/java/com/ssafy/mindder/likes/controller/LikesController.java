@@ -60,18 +60,18 @@ public class LikesController {
 			}
 			likesService.addLike(likesDto);
 			
-			// 알림에 등록할 유저 프로필 이미지 조회
-			int fileIdx = alarmsService.findUserFileIdx(userIdx);
 			// 알림에 등록할 피드 작성자 아이디 조희
 			int targetUserIdx = alarmsService.findUserIdx(likesDto.getFeedIdx());
 			
-			// 알림 등록
-			alarmsService.addLikeAlarm(userIdx, targetUserIdx, likesDto.getFeedIdx(), fileIdx, likesDto.getLikeType());
-			
-			// 알림 전송
-			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
-			if (alarmsUserDto.getDeviceToken() != null) {
-				fcmService.sendMessageTo(alarmsUserDto, 3);
+			if (userIdx != targetUserIdx) {
+				// 알림 등록
+				alarmsService.addLikeAlarm(userIdx, targetUserIdx, likesDto.getFeedIdx(), likesDto.getLikeType());
+				
+				// 알림 전송
+				AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
+				if (alarmsUserDto.getDeviceToken() != null) {
+					fcmService.sendMessageTo(alarmsUserDto, 3);
+				}
 			}
 			
 			return ApiResponse.success(SuccessCode.CREATE_LIKE);

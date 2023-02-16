@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from '../../api/api'
 
-import {Emoticons} from "../../redux/reducers";
+import {Emoticons, SAVE_postNum} from "../../redux/reducers";
 import {Colors16} from "../../redux/reducers";
-
-import { FeedInfoContainer, FeenInfo } from "./PostDraw";
 
 const Wrapper = styled.div`
     display: flex;
@@ -26,7 +24,7 @@ const CanvasDiv = styled.img`
   border-radius: 0.5rem;
 `
 const CommentDiv = styled.textarea`
-  padding: 0.3rem;
+  padding: 0.5rem;
   height: 6rem;
   width: 17.7rem;
   border: 0.01rem solid #7767FD;
@@ -34,7 +32,6 @@ const CommentDiv = styled.textarea`
   font-family: 'Inter';
   margin-top: 1rem;
   margin-bottom: 1rem;
-  ::placeholder
 `
 
 const BottomDiv = styled.div`
@@ -66,18 +63,24 @@ const Toggle = styled.button`
   justify-content: flex-start;
   align-items: center;
   transition: all 0.5s ease-in-out;
-  background: #FFFFFF;
+  background: #7767FD;
   border: 1px solid #7767FD;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 48px;
   margin-left: 0.2rem;
   margin-right: 0.5rem;
+  ${(props) =>
+    props.toggle &&
+    `
+    background:white;
+    `
+    }
 `;
 
 const Circle = styled.div`
   width: 1rem;
   height: 1rem;
-  background: #7767FD;
+  background: white;
   border-radius: 50px;
   transition: all 0.5s ease-in-out;
   ${(props) =>
@@ -85,6 +88,7 @@ const Circle = styled.div`
     `
       transform: translate(20px, 0);
       transition: all 0.5s ease-in-out;
+      background: #7767FD;
     `}
 `;
 
@@ -95,31 +99,27 @@ const Container = styled.div`
   padding-left: 1rem;
 `
 
-function PostCommentwrite(props){
+function PostCommentwrite(){
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userDraw = useSelector((state)=>state.USER.userDrawing)
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
   const emoColor = useSelector((state)=>state.USER.todayColor)
   const myIdx = useSelector((state)=>state.USER.myIdx)
-  let placeHolder = "오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#10;&#13;&#10; 안녕?"
-  const todayColor = useSelector((state)=>state.USER.todayColor)
-  const todayEmo = useSelector((state)=>state.USER.todayEmotion)
+  const postNum = useSelector((state)=>state.USER.postNum)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
+
   const clickedToggle = () => {
     setIsPublic((prev) => !prev);
   };
+
   const onChange = (e)=>{
     setUserComment(e.target.value)
-    // console.log(userComment.replace(/#[^\s#]+/g, ''))
-    // console.log(userComment.replace(/#[^\s#]+/g, '').split(' ').filter(function(item) {
-    //   return item !== ''}).join(' '));
-    // console.log(userComment.match(/#[^\s#]+/g).join(' '))
   }
 
 
   const writeFeed = async ()=>{
-    // console.log(userDraw.split(',')[1])
     try {
       const fileResponse = await api.post(`file`, {
         originalFile:`${Date.now()}_${myIdx}.webp`,
@@ -142,28 +142,23 @@ function PostCommentwrite(props){
         normalTag : normalTag,
         public : isPublic,
       }
-      console.log(requests)
-      const response = await api.post(`/feeds`, requests)
-      console.log(response.data)
+      await api.post(`/feeds`, requests)
+      dispatch(SAVE_postNum(postNum+1))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
-  const onClick = ()=>{
-    writeFeed()
-    navigate('/feeds')
+  const onClick = () =>{
+    writeFeed();
+    navigate('/');
   }
 
   return (
     <Wrapper>
-      <FeedInfoContainer>
-        <FeenInfo>{`#${todayColor}`}</FeenInfo>
-        <FeenInfo>{`#${todayEmo}`}</FeenInfo>
-      </FeedInfoContainer>
       <CanvasDiv src={userDraw}>
       </CanvasDiv>
-      <CommentDiv placeholder="오늘의 감정과 함께 기록할 코멘트를 남겨주세요. (선택)&#13;&#13;&#13;#감정 #그림 #마인더" onChange={onChange}/>
+      <CommentDiv placeholder="그림과 함께 기록할 글을 남겨주세요. &#13;(#을 사용하면 태그를 남길 수 있어요!)" onChange={onChange}/>
       <BottomDiv>
         <Container>
           <Toggle onClick={clickedToggle} toggle={isPublic}>

@@ -74,13 +74,13 @@ function FollowersPage() {
             console.error(e);
         }
     }
-
+    
     // 내 팔로워 목록 조회
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
             console.log(response.data)
-            if (response.data){
+            if (response.data.success){
                 setFollowerList(response.data.data);
                 setFollowers(response.data.data.length)
                 dispatch(SAVE_followerCount(response.data.data.length))
@@ -93,8 +93,10 @@ function FollowersPage() {
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
-            // console.log(response.data)
-            setFollowings(response.data.data.length);
+            console.log(response.data)
+            if (response.data.success){
+                setFollowings(response.data.data.length);
+            }
         } catch (e) {
             console.error(e);
         }

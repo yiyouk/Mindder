@@ -5,6 +5,7 @@ import { CgMenuRight } from "react-icons/cg";
 import styled from "styled-components";
 import Modal from "./ModifyModal";
 
+import Swal from "sweetalert2";
 import api from "../../api/api"
 
 
@@ -71,13 +72,21 @@ function FeedManage({normalTag, mainText, feedIdx, isPublic}) {
 
     //글 삭제하기
     const deletePost = () => {
-       if(window.confirm("게시글을 삭제하시겠습니까?")){
-            sendDelete();
-       }
+        Swal.fire({
+            text: "게시글을 삭제하시겠습니까?",
+            width: 300,
+            showCancelButton: true,
+            confirmButtonText: "삭제",
+            cancelButtonText: "취소"
+        }).then(function(e){
+            if(e.isConfirmed === true) {
+                sendDelete();
+            }
+        })
     }
 
     //글 삭제 비동기 통신
-    const sendDelete = async() => { // async, await을 사용하는 경우
+    const sendDelete = async() => {
         try {
             const response = await api.delete(`feeds/${feedIdx}`);
             

@@ -294,4 +294,7 @@
 				order by update_date DESC, update_time DESC
 		   ) as a
 	</select>
+	<select id="selectEmotes" resultMap="com.ssafy.resultmaps.emoteList">
+		select emote_idx, file_idx from feedemote;
+	</select>
 </mapper>

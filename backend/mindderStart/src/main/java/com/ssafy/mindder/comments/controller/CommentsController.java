@@ -63,19 +63,20 @@ public class CommentsController {
 			commentsDto.setUserIdx(userIdx);
 			commentsService.writeComment(commentsDto);
 
-			// 알림에 등록할 유저 프로필 이미지 조회
-			int fileIdx = alarmsService.findUserFileIdx(userIdx);
 			// 알림에 등록할 피드 작성자 아이디 조희
 			int targetUserIdx = alarmsService.findUserIdx(commentsDto.getFeedIdx());
-
-			// 알림 등록
-			alarmsService.addCommentAlarm(userIdx, targetUserIdx, commentsDto.getFeedIdx(), fileIdx);
 			
-			// 알림 전송
-			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
-			if (alarmsUserDto.getDeviceToken() != null) {
-				fcmService.sendMessageTo(alarmsUserDto, 2);
+			if (userIdx != targetUserIdx) {
+				// 알림 등록
+				alarmsService.addCommentAlarm(userIdx, targetUserIdx, commentsDto.getFeedIdx());
+				
+				// 알림 전송
+				AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);
+				if (alarmsUserDto.getDeviceToken() != null) {
+					fcmService.sendMessageTo(alarmsUserDto, 2);
+				}
 			}
+			
 			return ApiResponse.success(SuccessCode.CREATE_COMMENT);
 		} catch (Exception e) {
 			e.printStackTrace();

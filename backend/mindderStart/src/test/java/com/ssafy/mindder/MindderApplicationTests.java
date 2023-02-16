@@ -217,9 +217,9 @@ class MindderApplicationTests {
 		// 회원 탈퇴
 		assertEquals(usersController.deleteUser(accessToken).getMessage(), "유저 정보 삭제 성공");
 		// 유저검색
-		assertEquals(searchesController.searchUser("김").getMessage(), "유저 검색 성공");
+		assertEquals(searchesController.searchUser(accessToken,"김").getMessage(), "유저 검색 성공");
 		// 해쉬검색
-		assertEquals(searchesController.searchHash("#d").getMessage(), "해쉬 검색 성공");
+		assertEquals(searchesController.searchHash(accessToken,"#d").getMessage(), "해쉬 검색 성공");
 
 		// 피드검색-> 리눅스 서버 이미지를 못 가져옴
 		assertNotNull(feedsController.searchesFeed("#김민식").getMessage());
