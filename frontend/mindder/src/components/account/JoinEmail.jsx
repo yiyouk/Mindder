@@ -162,9 +162,9 @@ function JoinEmail({getData}) {
               <div className="logo-container">
                   <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}/>
                   {emailCheck ?
-                    <input className="white-black-line-btn" type="button" value="전송 요청" onClick={handleEmailSend}/>
-                    :
-                    <input className="white-black-line-btn" type="button" value="중복 확인" onClick={handleCheckEmail}/>
+                  <input className="white-black-line-btn" type="button" value="전송 요청" onClick={handleEmailSend}/>
+                  :
+                  <input className="white-black-line-btn" type="button" value="중복 확인" onClick={handleCheckEmail}/>
                   }
               </div>
         </form>

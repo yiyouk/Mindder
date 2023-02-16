@@ -1,5 +1,5 @@
 // 소셜로그인 시 리다이렉트될 화면 컴포넌트
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import api from "../api/api"
 import {getCookie, setCookie, removeCookie} from "../api/cookie";
@@ -13,6 +13,8 @@ import LoadingPage from "../router/LoadingPage";
 function KakaoAuthRedirect  (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const [isNewbie, SetIsNewbie] = useState(null)
+
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
 
