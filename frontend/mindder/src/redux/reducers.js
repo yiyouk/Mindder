@@ -210,7 +210,7 @@ const initialState = {
   alarmCount:0,
   postNum:0,
   firebaseCode:null,
-  pushAlarmAgree:false
+  pushAlarmAgree:true,
 }
 
 const userStateSlice = createSlice({
@@ -267,7 +267,7 @@ const userStateSlice = createSlice({
     },
     SAVE_profileImgFileIdx(state, action){
       state.profileImgFileIdx = action.payload
-      console.log(`프로필 이미지 저장성공 : ${state.profileImgFileIdx}`)
+      console.log(`프로필 이미지 파일IDX : ${state.profileImgFileIdx}`)
     },
     SAVE_alarmCount(state, action){
       state.alarmCount = action.payload
