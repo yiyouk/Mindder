@@ -159,6 +159,7 @@ function PostPage(props) {
                         <IoArrowBackCircleSharp color="#7767FD" size="35"
                         onClick={()=>{
                             setLevel(level-1)
+                            imageSaved()
                         }}
                         />
                         <FeedInfoContainer>
