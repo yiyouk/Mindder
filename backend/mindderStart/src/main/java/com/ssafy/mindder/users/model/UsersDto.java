@@ -22,4 +22,5 @@ public class UsersDto {
 	int emoteColorIdx;
 	int fileIdx;
 	String findTag;
+	boolean pushAlarmAgree;
 }
