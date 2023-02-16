@@ -77,4 +77,9 @@ public class AlarmsServiceImpl implements AlarmsService {
 		sqlSession.getMapper(AlarmsMapper.class).insertLikeAlarm(userIdx, targetUserIdx, feedIdx, likeType);
 	}
 	
+	@Override
+	public void removeAllAlarm(int userIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).deleteAllAlarm(userIdx);
+	}
+	
 }

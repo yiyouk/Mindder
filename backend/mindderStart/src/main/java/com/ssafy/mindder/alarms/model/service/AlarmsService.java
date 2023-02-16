@@ -44,4 +44,7 @@ public interface AlarmsService {
 	// 공감 알림 등록
 	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int likeType) throws Exception;
 
+	// 알림 전체 삭제
+	public void removeAllAlarm(int userIdx) throws Exception;
+
 }

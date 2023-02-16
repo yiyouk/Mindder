@@ -48,4 +48,7 @@ public interface AlarmsMapper {
 	// 공감 알림 등록
 	public void insertLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int likeType) throws SQLException;
 
+	// 알림 전체 삭제
+	public void deleteAllAlarm(int userIdx) throws SQLException;
+
 }
