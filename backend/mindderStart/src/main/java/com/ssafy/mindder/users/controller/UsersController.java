@@ -158,7 +158,6 @@ public class UsersController {
 					temp.setNickname(userIO.get("nickname"));
 					temp.setEmoteColorIdx(1);
 					temp.setFileIdx(305);
-					temp.setPushAlarmAgree(true);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
 					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
@@ -176,7 +175,6 @@ public class UsersController {
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
-				usersDto.setPushAlarmAgree(true);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int idx = usersService.joinSocialKakaoID(usersDto);
 				String accessToken = jwtService.createAccessToken("useridx", idx);
@@ -221,7 +219,6 @@ public class UsersController {
 					temp.setNickname(userIO.get("nickname"));
 					temp.setEmoteColorIdx(1);
 					temp.setFileIdx(305);
-					temp.setPushAlarmAgree(true);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
 					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
@@ -239,7 +236,6 @@ public class UsersController {
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
-				usersDto.setPushAlarmAgree(true);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int idx  = usersService.joinSocialKakaoID(usersDto);
 				String accessToken = jwtService.createAccessToken("useridx",idx);
