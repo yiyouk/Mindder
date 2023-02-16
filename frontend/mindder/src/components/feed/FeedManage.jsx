@@ -83,13 +83,10 @@ function FeedManage({normalTag, mainText, feedIdx, isPublic}) {
                 sendDelete();
             }
         })
-    //    if(window.confirm("게시글을 삭제하시겠습니까?")){
-    //         sendDelete();
-    //    }
     }
 
     //글 삭제 비동기 통신
-    const sendDelete = async() => { // async, await을 사용하는 경우
+    const sendDelete = async() => {
         try {
             const response = await api.delete(`feeds/${feedIdx}`);
             

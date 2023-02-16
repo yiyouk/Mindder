@@ -77,7 +77,6 @@ const PickColor = styled.div`
 function Modify() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const profileIdx = useSelector((state)=>state.USER.profileImgFileIdx)
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
