@@ -33,7 +33,7 @@ function PostEmocolor(props){
       <Guitar state={true} > {tagCheck==="기타"? userInput:null} </Guitar>
       <CardContainer columnGap={1}>
         {Colors16.slice(1).map((color)=>(
-          <div onClick={(e)=>{onClick(e)}} id={color.name} key={color.id}>
+          <div onClick={(e)=>{onClick(e)}} id={color.name} key={color.id} colorCode={color.code}>
             <EmoColors
             key={color.id} colorCode={color.code} colorName={color.name}
             />

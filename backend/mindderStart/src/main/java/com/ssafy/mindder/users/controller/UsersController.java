@@ -133,12 +133,77 @@ public class UsersController {
 	public ApiResponse<?> social(@RequestParam String code) {
 		Map<String, String> token;
 		Map<String, String> userIO;
-		Map<String, String> user = new HashMap<String, String>();
+		LoginResponseDto user = new LoginResponseDto();
 		try {
 			token = usersService.getToken(code);
 			userIO = usersService.getUserInfo(token.get("access_token"));
 			UsersDto usersDto = new UsersDto();
 			usersDto.setSocialId(userIO.get("id") + "@Kakao");
+			usersDto.setNickname(userIO.get("nickname"));
+			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
+			System.out.println(usersDto);
+			if (usersDto != null) {
+				if (!usersDto.isDeleted()) {
+					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
+					user.setUserIdx(usersDto.getUserIdx());
+					user.setNickname(usersDto.getNickname());
+					user.setAccessToken(accessToken);
+					user.setPushAlarmAgree(usersDto.isPushAlarmAgree());
+					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+				} else {
+					UsersDto temp = new UsersDto();
+					temp.setUserIdx(usersDto.getUserIdx());
+					temp.setSocialId(userIO.get("id") + "@Kakao");
+					temp.setEmail("카카오유저");
+					temp.setPassword(SHA256.encrypt(userIO.get("id")));
+					temp.setNickname(userIO.get("nickname"));
+					temp.setEmoteColorIdx(7);
+					temp.setFileIdx(305);
+					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+					usersService.deletedJoinUser(usersDto);
+					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
+					user.setUserIdx(usersDto.getUserIdx());
+					user.setNickname(usersDto.getNickname());
+					user.setAccessToken(accessToken);
+					user.setPushAlarmAgree(usersDto.isPushAlarmAgree());
+					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+				}
+			} else {
+				logger.debug("socialLogin - 회원정보 없음");
+				usersDto = new UsersDto();
+				usersDto.setSocialId(userIO.get("id") + "@Kakao");
+				usersDto.setEmail("카카오유저");
+				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
+				usersDto.setNickname(userIO.get("nickname"));
+				usersDto.setEmoteColorIdx(7);
+				usersDto.setFileIdx(305);
+				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
+				int idx = usersService.joinSocialKakaoID(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx", idx);
+				user.setUserIdx(usersDto.getUserIdx());
+				user.setNickname(usersDto.getNickname());
+				user.setAccessToken(accessToken);
+				user.setPushAlarmAgree(usersDto.isPushAlarmAgree());
+				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("socialLogin - 로그인 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+
+	@ApiOperation(value = "네이버 로그인 성공 여부를 반환한다.", response = String.class)
+	@GetMapping("/social/naver")
+	public ApiResponse<?> socialNaver(@RequestParam String code) {
+		Map<String, String> token;
+		Map<String, String> userIO;
+		Map<String, String> user = new HashMap<String, String>();
+		try {
+			token = usersService.getNaverToken(code);
+			userIO = usersService.getNaverUserInfo(token.get("access_token"));
+			UsersDto usersDto = new UsersDto();
+			usersDto.setSocialId(userIO.get("id") + "@Naver");
 			usersDto.setNickname(userIO.get("nickname"));
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
 			System.out.println(usersDto);
@@ -152,8 +217,8 @@ public class UsersController {
 				} else {
 					UsersDto temp = new UsersDto();
 					temp.setUserIdx(usersDto.getUserIdx());
-					temp.setSocialId(userIO.get("id") + "@Kakao");
-					temp.setEmail("카카오유저");
+					temp.setSocialId(userIO.get("id") + "@Naver");
+					temp.setEmail("네이버유저");
 					temp.setPassword(SHA256.encrypt(userIO.get("id")));
 					temp.setNickname(userIO.get("nickname"));
 					temp.setEmoteColorIdx(1);
@@ -169,8 +234,8 @@ public class UsersController {
 			} else {
 				logger.debug("socialLogin - 회원정보 없음");
 				usersDto = new UsersDto();
-				usersDto.setSocialId(userIO.get("id") + "@Kakao");
-				usersDto.setEmail("카카오유저");
+				usersDto.setSocialId(userIO.get("id") + "@Naver");
+				usersDto.setEmail("네이버유저");
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
@@ -189,67 +254,7 @@ public class UsersController {
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}
-	@ApiOperation(value = "네이버 로그인 성공 여부를 반환한다.", response = String.class)
-	@GetMapping("/social/naver")
-	public ApiResponse<?> socialNaver(@RequestParam String code) {
-		Map<String, String> token;
-		Map<String, String> userIO;
-		Map<String, String> user = new HashMap<String, String>();
-		try {
-			token = usersService.getNaverToken(code);
-			userIO = usersService.getNaverUserInfo(token.get("access_token"));
-			UsersDto usersDto = new UsersDto();
-			usersDto.setSocialId(userIO.get("id") + "@Naver");
-			usersDto.setNickname(userIO.get("nickname"));
-			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
-			System.out.println(usersDto);
-			if (usersDto != null) {
-				if(!usersDto.isDeleted()) {
-					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
-					user.put("userIdx", usersDto.getUserIdx() + "");
-					user.put("nickname", usersDto.getNickname());
-					user.put("accessToken", accessToken);
-					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
-				}else {
-					UsersDto temp = new UsersDto();
-					temp.setUserIdx(usersDto.getUserIdx());
-					temp.setSocialId(userIO.get("id") + "@Naver");
-					temp.setEmail("네이버유저");
-					temp.setPassword(SHA256.encrypt(userIO.get("id")));
-					temp.setNickname(userIO.get("nickname"));
-					temp.setEmoteColorIdx(1);
-					temp.setFileIdx(305);
-					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-					usersService.deletedJoinUser(usersDto);
-					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
-					user.put("userIdx", usersDto.getUserIdx() + "");
-					user.put("nickname", usersDto.getNickname());
-					user.put("accessToken", accessToken);
-					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
-				}
-			}else {
-				logger.debug("socialLogin - 회원정보 없음");
-				usersDto = new UsersDto();
-				usersDto.setSocialId(userIO.get("id") + "@Naver");
-				usersDto.setEmail("네이버유저");
-				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
-				usersDto.setNickname(userIO.get("nickname"));
-				usersDto.setEmoteColorIdx(1);
-				usersDto.setFileIdx(305);
-				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-				int idx  = usersService.joinSocialKakaoID(usersDto);
-				String accessToken = jwtService.createAccessToken("useridx",idx);
-				user.put("userIdx", idx + "");
-				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
-				return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.debug("socialLogin - 로그인 중 에러");
-			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
-		}
-	}
+
 	@ApiOperation(value = "로그인 성공 여부를 반환한다.", response = String.class)
 	@PostMapping("/login")
 	public ApiResponse<?> login(@RequestBody UsersDto usersDto) {
