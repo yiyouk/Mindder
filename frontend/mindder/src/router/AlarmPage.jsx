@@ -18,6 +18,8 @@ const DelBtn = styled.div`
     color: #7767FD;
     align-self: end;
     font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
 `;
 
 function AlarmPage(props) {
@@ -33,6 +35,8 @@ function AlarmPage(props) {
             const response = await api.get(`/alarms`);
             if(response.data.success){
                 setAlarm(response.data.data)
+                
+                setAlarmCount()
                 console.log(response.data.data);
             }
         } catch(err) {
@@ -42,19 +46,23 @@ function AlarmPage(props) {
 
     const getData = (number) => {
         setAlarmCount(number);
+        dispatch(SAVE_alarmCount(number))
     }
 
     //정보 가져오기
     useEffect(()=>{
         getAlarm()
-        dispatch(SAVE_alarmCount(0))
+        console.log(alarmCount)
     }, [alarmCount])
 
     const AlarmDelete = async() => {
         try {
+            console.log("전체삭제")
             const response = await api.delete(`/alarms/all`);
             if(response.data.success){
-                // console.log("전체삭제~")
+                console.log("성공")
+                setAlarmCount(0)
+                dispatch(SAVE_alarmCount(0))
             } else {
             }
         } catch (e) {

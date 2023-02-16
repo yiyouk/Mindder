@@ -7,6 +7,7 @@ import EraserImg from "../../assets/images/eraser.png"
 import FillImg from "../../assets/images/paint.png"
 import UndoImg from "../../assets/images/undo.png"
 import { useSelector } from "react-redux";
+import { Colors16 } from "../../redux/reducers";
 // import { SAVE_userDrawing } from "../../redux/reducers";
 
 
@@ -81,16 +82,20 @@ const PaintTool = styled.button`
 `
     
 function Draw({canvasRef, imageSaved}) {
+    const todaycolor = useSelector((state)=>state.USER.todayColor)
+    const initColor = Colors16.find((color)=>color.name===todaycolor).code
 
     const [ctx, setCtx] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [erase, setErase] = useState(false);
     const [mode, setMode] = useState("brush");
-    const [color, setColor] = useState("black");
-    const [stroke, setStroke] = useState(1);
+    const [color, setColor] = useState(initColor || "black");
+    const [stroke, setStroke] = useState(15);
     const [prev, setPrev] = useState([]);
     const prevCanva = useSelector((state)=>state.USER.userDrawing)
-    
+    // console.log(initColor)
+
+
     // -- 캔버스 생성 -- //
         useEffect(() => {
             const canvas = canvasRef.current;
