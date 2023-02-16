@@ -33,14 +33,14 @@
 
 # 서비스 개요
 
-1. 문제인식
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+1. 문제인식 <br>
+        <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500" height="300">
     
     [https://www.seoul.co.kr/news/newsView.php?id=20210825017006](https://www.seoul.co.kr/news/newsView.php?id=20210825017006)
     
     - 현대인들 심리적 피로도가 매우 높다 → 우리 모두가 공유하고 있는 문제
     
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
+        <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500">
     
     [https://www.donga.com/news/Economy/article/all/20210308/105765714/1](https://www.donga.com/news/Economy/article/all/20210308/105765714/1)
     
@@ -55,22 +55,21 @@
     - 많은 사람들은 감정을 억압하고 있다
     - 감정을 직접드러내지 않고 감성콘텐츠를 소비하며 표현한다.
     <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F91430db4-ec49-4fd2-a017-31ce983179db%2FUntitled.png?id=1f68b9e5-5e86-4200-8afd-c28eb92b02bf&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="180" height="250">
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5edc23fb-cb5f-4df8-91d3-bb459a0348cd%2FUntitled.png?id=4f8c2e83-8d8c-477c-b9e8-cdbf21bc3885&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2">
-    
+
     [https://m.hankookilbo.com/News/Read/A2020102213120003759](https://m.hankookilbo.com/News/Read/A2020102213120003759)
-    
+    - “감정들은 실체가 없다고도 할 수 있지만, 우리의 삶에 큰 영향을 미치는 힘이다. 우리는 이 감정들을  **온전히 꺼내어 똑바로 바라볼** 필요가 있다. 꾹꾹 눌러 두고 어딘가 치워두려고만 해서는 병이 된다.”
     - 감정(마음)을 표현하고 이를 바라보는 것의 중요성
 
 1. 솔루션
     - 일상생활에서 쉽고 자연스럽게 감정을 표현하고 공유하고 공감받을 수 있다면 도움이 될 것이다.
-    - 그림은 감정을 자연스럽게 표현하는 데 가장 효과적인 수단이다.
+    - **색과 그림**은 감정을 자연스럽게 표현하는 데 가장 효과적인 수단이다.
         
     <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F1a6fafd2-3817-422d-8f5b-3fe9bed27b00%2FUntitled.png?id=64ff6b0b-a707-4e3b-be66-6f5a282712fc&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="180" height="250">
     
     <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F88de42d1-2664-43ca-92bf-487c455b1514%2FUntitled.png?id=1451ec7d-8716-4ac3-ae55-23a5077e964c&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="300" height="250">
     
     - 그림을 통해 감정을 표현하고 공유하는 서비스
-    - mind draw together MINDDER~
+    - mind draw together **MINDDER**
 
 1. 솔루션의 이유
     - 그림으로 감정을 표현하는 것의 효과는 입증되어 있지만 일상생활에서 쉽게 접할 기회가 적다.

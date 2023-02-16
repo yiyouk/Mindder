@@ -207,7 +207,7 @@ const initialState = {
   profileImg:null,
   customTag:null,
   profileImgFileIdx:305,
-  alarmCount:null,
+  alarmCount:0,
   postNum:0,
   firebaseCode:null,
   pushAlarmAgree:false

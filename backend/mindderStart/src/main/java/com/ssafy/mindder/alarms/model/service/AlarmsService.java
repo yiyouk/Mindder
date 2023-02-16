@@ -54,5 +54,5 @@ public interface AlarmsService {
 	public List<Integer> findAlarmIdxList(int userIdx, int feedIdx) throws Exception;
 	
 	// 팔로우 취소 시 알림 삭제를 위한 alarmIdx 리스트 조회
-
+	public List<Integer> findAlarmIdxList2(int alarmType, int sendUserIdx, int receiveUserIdx) throws Exception;
 }

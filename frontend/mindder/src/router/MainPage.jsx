@@ -6,7 +6,7 @@ import NaviBar from '../commons/bar/NaviBar';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LogoWW from "../assets/images/LogoWW.png"
-
+import { AlarmCheck } from "../commons/bar/HeaderBar"
 import { BsFillBellFill } from "react-icons/bs";
 
 import api from "../api/api";
@@ -37,18 +37,7 @@ const HeaderLogo = styled.img`
 const Check = styled.div`
   padding-right: 0.8rem;
 `
-const AlarmCheck = styled.div`
-  display: flex;
-  width: 0.3rem;
-  height:  0.3rem;
-  background-color: #f37f58;
-  border-radius: 50%;
-  z-index: 3;
-`
-const M = styled.div`
-  width: 0.3rem;
-  height:  0.3rem;
-`
+
 
 function MainPage() {
     const isLoggedIn = useSelector((state)=>state.TOKEN.authenticated);
@@ -62,7 +51,6 @@ function MainPage() {
         console.log(firebaseCode)
         if(isLoggedIn){
             if(pushAlarmAgree){
-                console.log("보냄 ㄷ");
                 sendToken();
             }
         }
@@ -98,7 +86,7 @@ function MainPage() {
                         { AlarmCount !== 0 ?
                             <AlarmCheck/>
                             :
-                            <M/>
+                            null
                         }
                         <BsFillBellFill color="#ffffff" size="20" onClick={() => {navigate("/alarm")}}/>
                     </Check>
