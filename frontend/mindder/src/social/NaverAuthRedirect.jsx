@@ -1,26 +1,24 @@
 // 소셜로그인 시 리다이렉트될 화면 컴포넌트
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import api from "../api/api"
 import {getCookie, setCookie, removeCookie} from "../api/cookie";
 import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
 import Swal from "sweetalert2";
 import '../assets/css/main.css';
-import loading from "../assets/images/Loading.png"
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../router/LoadingPage";
 
-function KakaoAuthRedirect  (props) {
+
+function NaverAuthRedirect  (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [isNewbie, SetIsNewbie] = useState(null)
-
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
 
-  const kakaoLogin = async()=>{
+  const NaverLogin = async()=>{
     try {
-      const response = await api.get(`/users/social/kakao?code=${code}`);
+      const response = await api.get(`/users/social/naver?code=${code}`);
       console.log(response.data)
       if (response.data.success===true){
         const accessToken = response.data.data.accessToken;
@@ -59,7 +57,7 @@ function KakaoAuthRedirect  (props) {
   }
 
   useEffect( () => {
-    kakaoLogin()
+    NaverLogin()
   }, []);
 
   return (
@@ -69,4 +67,4 @@ function KakaoAuthRedirect  (props) {
   )
 };
 
-export default KakaoAuthRedirect;
+export default NaverAuthRedirect;
