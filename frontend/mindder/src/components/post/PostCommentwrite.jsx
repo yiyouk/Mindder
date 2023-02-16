@@ -142,24 +142,16 @@ function PostCommentwrite(){
         normalTag : normalTag,
         public : isPublic,
       }
-      const response = await api.post(`/feeds`, requests)
-<<<<<<< HEAD
+      await api.post(`/feeds`, requests)
       dispatch(SAVE_postNum(postNum+1))
-      console.log(response.data)
-=======
->>>>>>> 48dac470247709a13026496b0bfac29fa68775fc
     } catch (error) {
       console.error(error)
     }
   }
 
   const onClick = () =>{
-    writeFeed()
-<<<<<<< HEAD
-    navigate('/')
-=======
-    window.location.replace('/feeds')
->>>>>>> 48dac470247709a13026496b0bfac29fa68775fc
+    writeFeed();
+    navigate('/');
   }
 
   return (
