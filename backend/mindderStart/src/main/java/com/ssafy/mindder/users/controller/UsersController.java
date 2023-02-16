@@ -157,7 +157,7 @@ public class UsersController {
 					temp.setEmail("카카오유저");
 					temp.setPassword(SHA256.encrypt(userIO.get("id")));
 					temp.setNickname(userIO.get("nickname"));
-					temp.setEmoteColorIdx(1);
+					temp.setEmoteColorIdx(7);
 					temp.setFileIdx(305);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
@@ -175,7 +175,7 @@ public class UsersController {
 				usersDto.setEmail("카카오유저");
 				usersDto.setPassword(SHA256.encrypt(userIO.get("id")));
 				usersDto.setNickname(userIO.get("nickname"));
-				usersDto.setEmoteColorIdx(1);
+				usersDto.setEmoteColorIdx(7);
 				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int idx = usersService.joinSocialKakaoID(usersDto);
