@@ -61,12 +61,13 @@ function MainPage() {
     useEffect(()=>{
         if(isLoggedIn){
             if(pushAlarmAgree){
+                console.log("보냄 ㄷ");
                 sendToken();
             }
         }
     }, [firebaseCode])
 
-        //토큰 보내기
+    //토큰 보내기
     const  sendToken = async () => {
         try{
             const response = await api.post(`/alarms`, {
