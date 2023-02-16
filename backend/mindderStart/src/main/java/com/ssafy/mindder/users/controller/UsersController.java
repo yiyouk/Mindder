@@ -115,7 +115,6 @@ public class UsersController {
 	@PatchMapping
 	public ApiResponse<?> updateUser(@RequestHeader("access_token") String accessToken,
 			@RequestBody UsersDto usersDto) {
-		Map<String, String> user = new HashMap<String, String>();
 		try {
 			int idx = jwtService.getUserIdx(accessToken);
 			usersDto.setUserIdx(idx);
