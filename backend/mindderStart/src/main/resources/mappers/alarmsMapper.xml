@@ -26,11 +26,10 @@
 		from mainalarm a
 		join mainuser u
 		on a.send_user_idx = u.user_idx
-        left join mainfeed f
+        left join (select feed_idx, file_idx from mainfeed where user_idx = #{userIdx}) as f
         on a.feed_idx = f.feed_idx
 		where a.receive_user_idx = #{userIdx}
 		and a.send_user_idx != a.receive_user_idx
-		and f.is_deleted = 0
 		order by alarm_idx desc;
 	</select>
 	<!-- 알림 읽음 처리 -->
