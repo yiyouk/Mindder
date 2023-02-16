@@ -14,7 +14,7 @@ import api from '../../api/api'
 export const Wrapper = styled.div`
     width: calc(100% - 1rem) !important;
     height:31rem;
-    display: grid;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -31,6 +31,7 @@ export const CardContainer = styled.div`
   padding:0.7rem;
   column-gap:${(customProps)=>`${customProps.columnGap}rem`};
   /* border: 1px solid black; */
+  /* width:inherit; */
 `
 
 export const EmotionTag = styled.div`
