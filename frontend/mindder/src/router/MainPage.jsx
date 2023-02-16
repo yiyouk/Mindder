@@ -61,7 +61,6 @@ function MainPage() {
     useEffect(()=>{
         if(isLoggedIn){
             if(pushAlarmAgree){
-                console.log("보냄 ㄷ");
                 sendToken();
             }
         }
