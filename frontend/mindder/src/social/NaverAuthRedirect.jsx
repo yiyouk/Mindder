@@ -46,9 +46,10 @@ function NaverAuthRedirect  (props) {
             icon: 'warning',               
             width: 300,
             iconColor: '#7767FD',
-            text: '로그인 정보를 다시 확인해주세요.', 
+            text: '네이버로그인은 아직 검수 중이에요ㅠ_ㅠ ', 
             confirmButtonColor: '#7767FD',
             confirmButtonText: '확인',})
+        navigate("/");
     }
     } catch (error) {
       console.log(error)
