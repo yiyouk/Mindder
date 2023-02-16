@@ -87,4 +87,9 @@ public class AlarmsServiceImpl implements AlarmsService {
 		return sqlSession.getMapper(AlarmsMapper.class).selectUserPushAlarmAgree(userIdx) == 1;
 	}
 	
+	@Override
+	public List<Integer> findAlarmIdxList(int userIdx, int feedIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectAlarmIdxList(userIdx, feedIdx);
+	}
+	
 }

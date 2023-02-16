@@ -72,4 +72,8 @@
 	<select id="selectUserPushAlarmAgree" parameterType="int" resultType="int">
 		select push_alarm_agree from mainuser where user_idx = #{userIdx};
 	</select>
+	<!-- 피드 삭제 시 알림 삭제를 위한 alarmIdx 리스트 조회 -->
+	<select id="selectAlarmIdxList" parameterType="int" resultType="int">
+		select alarm_idx from mainalarm where receive_user_idx = #{userIdx} and feed_idx = #{feedIdx};
+	</select>
 </mapper>
