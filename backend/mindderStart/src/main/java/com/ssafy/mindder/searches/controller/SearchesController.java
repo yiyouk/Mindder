@@ -38,7 +38,7 @@ public class SearchesController {
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
 	@GetMapping("/users/{word}")
-	public ApiResponse<?> searchUser(@PathVariable("word") String word) {
+	public ApiResponse<?> searchUser(@RequestHeader("access_token") String accessToken,@PathVariable("word") String word) {
 
 		try {
 			return ApiResponse.success(SuccessCode.READ_SEARCHES_USER,
@@ -50,7 +50,7 @@ public class SearchesController {
 	}
 
 	@GetMapping("/hash/{word}")
-	public ApiResponse<?> searchHash(@PathVariable("word") String word) {
+	public ApiResponse<?> searchHash(@RequestHeader("access_token") String accessToken,@PathVariable("word") String word) {
 
 		try {
 			return ApiResponse.success(SuccessCode.READ_SEARCHES_HASH,
