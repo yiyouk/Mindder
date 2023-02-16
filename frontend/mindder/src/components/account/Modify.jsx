@@ -77,13 +77,14 @@ const PickColor = styled.div`
 function Modify() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const myFileIdx = useSelector((state)=>state.USER.profileImgFileIdx)
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
     const [nicknameOrigin, setnicknameOrigin] = useState("");
     const [nicknameCheck, setNicknameCheck] = useState(true);
     const [myColor, setMyColor] = useState(1);
     const [socialId, setSocialId] = useState("");
-    const [fileIdx, setFileIdx] = useState(305);
+    const [fileIdx, setFileIdx] = useState(myFileIdx);
     const [base64, setBase64] = useState("");
     const [isChecked, setIsChecked] = useState(false);
     const myIdx = useSelector((state)=>state.USER.myIdx);
@@ -240,7 +241,7 @@ function Modify() {
                 firebaseMessageToken();              
             } 
 
-            navigate(`/`)
+            navigate(`/${myIdx}`)
              
         } catch (e) {
             console.error(e);
@@ -292,7 +293,7 @@ function Modify() {
 
 //사진 프로필 삭제하기
     const handleProfileDelete = e => {
-        setFileIdx(305);
+        setFileIdx();
     }
 
     return(
