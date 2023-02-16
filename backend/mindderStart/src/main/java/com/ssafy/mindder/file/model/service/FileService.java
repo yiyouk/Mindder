@@ -10,6 +10,5 @@ public interface FileService {
 	int addFile(FileDto fileDto) throws Exception;
 	Map<String, String> findFile(int fileIdx, String filePath) throws Exception;
 	Map<String, String> findCompleteBear(Map<String, Integer> map, String filePath) throws Exception;
-	public FileDto testfile(int fileIdx)throws Exception;
 }
 
