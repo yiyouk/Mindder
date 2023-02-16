@@ -30,10 +30,11 @@ export const getToken = async() => {
     .then(function (token) {
       messaging.onMessage(payload => {
         Swal.fire({
+          toast: true,
           position: 'top-end',
           text: payload.notification.body,
           showConfirmButton: false,
-          timer: 1000
+          timer: 500
         })
         // alert(payload.notification.body);
       })
