@@ -55,6 +55,7 @@ const Comment = styled.div`
 function FeedsPage() {
     const navigate = useNavigate()               
     const nickName = useSelector((state)=>state.USER.nickName)
+    const followingCount = useSelector((state)=>state.USER.followingCount)
     const [realtimeFeeds, setRealtimeFeeds] = useState([])
     const [popularFeeds, setPopularFeeds] = useState([])
     const [neighborFeeds, setNeighborFeeds] = useState([])
@@ -90,7 +91,7 @@ function FeedsPage() {
         getPopularFeeds();
         getNeighborFeeds();
         setLevel(0);
-    }, [])
+    }, [followingCount])
 
     //컴포넌트 바꿔치기
     const onClick = (id) => {
