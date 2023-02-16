@@ -35,19 +35,14 @@ const Sns = styled.div`
     justify-content: center;
 `;
 
-const Profile = styled.img`
-    width: 4rem;
-    height: 4rem;
-    border: 0.05rem solid #c0c0c0;
-    border-radius: 100%;
-`;
 
 //누르면 나오는거
-const DropDown = styled.button`
+const DropDown = styled.div`
     background-color: white;
     border: none;
     outline:none;
     position: relative;
+
 `;
 
 const ListContainer = styled.span`
@@ -60,7 +55,7 @@ const ListContainer = styled.span`
     display:grid;
     grid-template-columns:repeat(4, 1fr);
   }
-  ${DropDown}:focus & {
+  ${DropDown}:hover & {
     display:grid;
     grid-template-columns:repeat(4, 1fr);
   }
@@ -68,11 +63,12 @@ const ListContainer = styled.span`
 
 const PickColor = styled.div`
     ${colortyles}
-    margin-top: 1rem;
     width: 2rem;
     height: 2rem;
+    margin-bottom: 0.7rem;
     border: solid 0.01rem rgb(231, 231, 231);
 `;
+
 
 function Modify() {
     const navigate = useNavigate();
@@ -289,8 +285,7 @@ function Modify() {
                 imgSrc={base64.split(',')[1]}
                 size="l"
                 readOnly={true}
-                />
-                
+                />                
             </div>
             <div className="logo-container">
                 <input className="white-black-line-btn" type="button" value="수정" onClick={handleButtonClick}/>
@@ -301,13 +296,15 @@ function Modify() {
         </div>
         <div className="col-12">
                 <label className="form-label"> 이메일</label>
-                <p className="email-Text"> {email} </p>
+                <div className="email-Text"> {email} </div>
         </div>
+        <div className="col-12">
             <label htmlFor="nickname" className="form-label"> 닉네임</label>
             <div className="logo-container">
                 <input value={nickname|| ''} type="text" name="nickname" id="nickname" placeholder=" 닉네임" onChange={handleNickname}/>
                 <input className="white-black-line-btn" type="button" value="중복 확인" onClick={handleCheckNick}/>
             </div>
+        </div>
         {
         (socialId === "@mindder")? 
         <div className="col-12">

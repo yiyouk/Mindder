@@ -114,7 +114,7 @@ function AlarmItem({alarm, userIdx, getData, alarmCount}) {
 
                     <Main>
                         <SideContainer>
-                                <Date>{dayjs(alarm.updateDate).get('year')}년 {dayjs(alarm.updateDate).get('month')}월 {dayjs(alarm.updateDate).get('date')}일</Date>
+                                <Date>{dayjs(alarm.updateDate).get('year')}년 {dayjs(alarm.updateDate).get('month') + 1}월 {dayjs(alarm.updateDate).get('date')}일</Date>
                         </SideContainer>
                         {{ 
                             1:<ContentText>{alarm.nickname}님이 회원님을 팔로우합니다.</ContentText>,
