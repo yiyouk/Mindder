@@ -47,4 +47,7 @@ public interface AlarmsService {
 	// 알림 전체 삭제
 	public void removeAllAlarm(int userIdx) throws Exception;
 
+	// 푸시 알림 수신 여부 조회
+	public boolean findUserPushAlarmAgree(int userIdx) throws Exception;
+
 }
