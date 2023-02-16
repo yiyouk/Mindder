@@ -28,8 +28,8 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public void addFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws Exception {
-		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx, fileIdx);
+	public void addFollowAlarm(int userIdx, int targetUserIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertFollowAlarm(userIdx, targetUserIdx);
 	}
 	
 	@Override
@@ -58,8 +58,8 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws Exception {
-		sqlSession.getMapper(AlarmsMapper.class).insertCommentAlarm(userIdx, targetUserIdx, feedIdx, fileIdx);
+	public void addCommentAlarm(int userIdx, int targetUserIdx, int feedIdx) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertCommentAlarm(userIdx, targetUserIdx, feedIdx);
 	}
 	
 	@Override
@@ -73,8 +73,8 @@ public class AlarmsServiceImpl implements AlarmsService {
 	}
 	
 	@Override
-	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx, int likeType) throws Exception {
-		sqlSession.getMapper(AlarmsMapper.class).insertLikeAlarm(userIdx, targetUserIdx, feedIdx, fileIdx, likeType);
+	public void addLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int likeType) throws Exception {
+		sqlSession.getMapper(AlarmsMapper.class).insertLikeAlarm(userIdx, targetUserIdx, feedIdx, likeType);
 	}
 	
 }

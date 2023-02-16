@@ -44,4 +44,7 @@ public interface MyMapper {
 	// 최근에 쓴 피드의 감정, 색상 조회
 	public FeedsRecentDto selectMyFeedsRecent(int userIdx) throws SQLException;
 
+	// 안 읽은 알림 수 조회
+	public int selectAlarmCount(int userIdx) throws SQLException;
+
 }

@@ -11,16 +11,15 @@ import api from "../../api/api"
 
 // 오늘의 캔버스
 const Container = styled.div`
-    color: white;
     width: 100vw;
     height: 11em;
+    display: flex;
+    justify-content: center;
+    color: white;
     background-color:#7767FD;
+    border: none;
     border-bottom-left-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
 `;
 
 // 영역
@@ -41,6 +40,7 @@ const SmallContainer = styled.div`
 //없을때 사진
 const InitUser = styled.img`
     background-color: white;
+    border: none;
     border-radius: 1rem;
     height: 8.5rem;
     width: 8.5rem;
@@ -62,6 +62,7 @@ const Text = styled.div`
 function TodayCanvas() {
     const navigate = useNavigate();
     const nickName = useSelector((state)=>state.USER.nickName);
+    const postNum = useSelector((state)=>state.USER.postNum);
     const [emoteIdx, setEmoteIdx] = useState(0);
     const [emoteColorTag, setEmoteColorTag] = useState(0);
     const [updateDate, setUpdateDate] = useState("");
@@ -71,13 +72,12 @@ function TodayCanvas() {
   //정보 가져오기
     useEffect(()=>{
         getRecentInfo();
-    }, [])
+    }, [postNum])
 
     //최근 포스트 정보
     async function getRecentInfo(){ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/feeds/recent`);
-            console.log(response)
             if(response.data.data !== null){
                 setEmoteIdx(response.data.data.emoteIdx);
                 setEmoteColorTag(response.data.data.emoteColorIdx);

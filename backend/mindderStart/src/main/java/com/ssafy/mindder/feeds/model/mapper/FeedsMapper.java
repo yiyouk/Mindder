@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.mindder.feeds.model.EmoteListDto;
 import com.ssafy.mindder.feeds.model.FeedListDto;
 import com.ssafy.mindder.feeds.model.FeedsBearDto;
 import com.ssafy.mindder.feeds.model.FeedsDto;
@@ -80,5 +81,7 @@ public interface FeedsMapper {
 	public int hashTagParser(List<HashParserDto> hashParser) throws SQLException;
 
 	public List<FeedListDto> searchesFeed(String word) throws SQLException;
+
+	public List<EmoteListDto> selectEmotes() throws SQLException;
 
 }

@@ -70,7 +70,8 @@ public class MyController {
 			Map<String, String> file = fileService.findFile(userDto.getFileIdx(), filePath);
 			userDto.setBase64(file.get("base64"));
 			userDto.setExtension(file.get("extension"));
-			System.out.println("userDto" + userDto);
+			int alarmCount = myService.findAlarmCount(userIdx);
+			userDto.setAlarmCount(alarmCount);
 			return ApiResponse.success(SuccessCode.READ_CHECK_USER, userDto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -237,9 +238,8 @@ public class MyController {
 			// 팔로우 등록
 			myService.addMyFollow(userIdx, targetUserIdx);
 	
-			int fileIdx = alarmsService.findUserFileIdx(userIdx);
 			// 알림 등록
-			alarmsService.addFollowAlarm(userIdx, targetUserIdx, fileIdx);
+			alarmsService.addFollowAlarm(userIdx, targetUserIdx);
 			
 			// 알림 전송
 			AlarmsUserDto alarmsUserDto = alarmsService.findPushInfo(userIdx, targetUserIdx);

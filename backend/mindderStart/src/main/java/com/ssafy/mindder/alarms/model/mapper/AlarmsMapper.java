@@ -19,7 +19,7 @@ public interface AlarmsMapper {
 	public AlarmsUserDto selectPushInfo(int senderUserIdx, int receiverUserIdx) throws SQLException;
 
 	// 팔로우 알림 등록
-	public void insertFollowAlarm(int userIdx, int targetUserIdx, int fileIdx) throws SQLException;
+	public void insertFollowAlarm(int userIdx, int targetUserIdx) throws SQLException;
 
 	// 알림 목록 조회
 	public List<AlarmListDto> selectAlarms(int userIdx) throws SQLException;
@@ -37,7 +37,7 @@ public interface AlarmsMapper {
 	public int selectUserIdx(int feedIdx) throws SQLException;
 
 	// 댓글 알림 등록
-	public void insertCommentAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx) throws SQLException;
+	public void insertCommentAlarm(int userIdx, int targetUserIdx, int feedIdx) throws SQLException;
 
 	// 알림 등록 전 중복 검사
 	public int selectAlarmDuplication(int alarmType, int userIdx, int targetUserIdx) throws SQLException;
@@ -46,6 +46,6 @@ public interface AlarmsMapper {
 	public void deleteAlarm(int alarmIdx) throws SQLException;
 
 	// 공감 알림 등록
-	public void insertLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int fileIdx, int likeType) throws SQLException;
+	public void insertLikeAlarm(int userIdx, int targetUserIdx, int feedIdx, int likeType) throws SQLException;
 
 }

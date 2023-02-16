@@ -59,12 +59,14 @@ ProfileImage.defaultProps = {
     size: "m",
   };
 
-function ProfileImage({size, userIdx, imgSrc}) {
-    // console.log(imgSrc)
-    const profileImg = useSelector((state)=>state.USER.profileImg)
+function ProfileImage({size, userIdx, imgSrc, readOnly}) {
+    // 클릭 시 네비게이트 안시킬거면 readOnly=true로 설정.
+    // const profileImg = useSelector((state)=>state.USER.profileImg)
     const navigate = useNavigate();
     const onClick = () => {
-      navigate(`/${userIdx}`);
+        if(!readOnly){
+            navigate(`/${userIdx}`);
+        }
     };
     const src = imgSrc? `data:image/png;base64,${imgSrc}` : UserImg
     return (

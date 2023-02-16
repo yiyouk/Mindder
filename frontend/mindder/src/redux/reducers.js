@@ -206,7 +206,9 @@ const initialState = {
   userDrawing:null,
   profileImg:null,
   customTag:null,
-  profileImgFileIdx:null,
+  profileImgFileIdx:305,
+  alarmCount:null,
+  postNum:0
 }
 
 const userStateSlice = createSlice({
@@ -265,6 +267,14 @@ const userStateSlice = createSlice({
       state.profileImgFileIdx = action.payload
       console.log(`프로필 이미지 저장성공 : ${state.profileImgFileIdx}`)
     },
+    SAVE_alarmCount(state, action){
+      state.alarmCount = action.payload
+      console.log(`읽지 않은 알림 개수 : ${state.alarmCount}`)
+    },
+    SAVE_postNum(state, action){
+      state.postNum = action.payload
+      console.log(`글,작성성공 : ${state.postNum}`)
+    }
   }
 })
 
@@ -301,5 +311,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx } = userStateSlice.actions;
+export const {SAVE_postNum, SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx, SAVE_alarmCount } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;
