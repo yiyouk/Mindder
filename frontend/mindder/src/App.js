@@ -55,18 +55,6 @@ function App(props) {
         }
     }, [])
 
-    //로그아웃
-    const logout = async() => {
-        const response = await api.get(`/users/logout`);
-        if(!response.data.success){
-                console.log("로그아웃실패")
-        } else {
-            dispatch(DELETE_TOKEN());
-            dispatch(SAVE_nickName(""));
-            dispatch(SAVE_myIdx(null));
-            removeCookie("is_login");
-        }
-    }
 
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
@@ -79,7 +67,6 @@ function App(props) {
                 dispatch(SAVE_followingCount(response.data.data.followingCount))
                 dispatch(SAVE_profileImg(response.data.data.base64))
                 dispatch(SAVE_alarmCount(response.data.data.alarmCount))
-
             } else{
                 dispatch(DELETE_TOKEN());
                 dispatch(SAVE_nickName(""));
