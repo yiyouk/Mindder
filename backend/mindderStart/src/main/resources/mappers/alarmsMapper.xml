@@ -69,4 +69,8 @@
 	<delete id="deleteAllAlarm" parameterType="int">
 		delete from mainalarm where receive_user_idx = #{userIdx};
 	</delete>
+	<!-- 푸시 알림 수신 여부 조회 -->
+	<select id="selectUserPushAlarmAgree" parameterType="int" resultType="int">
+		select push_alarm_agree from mainuser where user_idx = #{userIdx};
+	</select>
 </mapper>

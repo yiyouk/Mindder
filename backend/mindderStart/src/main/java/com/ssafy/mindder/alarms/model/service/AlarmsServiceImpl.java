@@ -82,4 +82,9 @@ public class AlarmsServiceImpl implements AlarmsService {
 		sqlSession.getMapper(AlarmsMapper.class).deleteAllAlarm(userIdx);
 	}
 	
+	@Override
+	public boolean findUserPushAlarmAgree(int userIdx) throws Exception {
+		return sqlSession.getMapper(AlarmsMapper.class).selectUserPushAlarmAgree(userIdx) == 1;
+	}
+	
 }

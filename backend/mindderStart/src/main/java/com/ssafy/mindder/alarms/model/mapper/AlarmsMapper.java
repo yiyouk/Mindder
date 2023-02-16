@@ -51,4 +51,7 @@ public interface AlarmsMapper {
 	// 알림 전체 삭제
 	public void deleteAllAlarm(int userIdx) throws SQLException;
 
+	// 푸시 알림 수신 여부 조회
+	public int selectUserPushAlarmAgree(int userIdx) throws SQLException;
+
 }
