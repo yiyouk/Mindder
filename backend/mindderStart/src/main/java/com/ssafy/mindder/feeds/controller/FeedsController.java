@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.mindder.alarms.model.service.AlarmsService;
 import com.ssafy.mindder.common.ErrorCode;
 import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
@@ -57,6 +58,9 @@ public class FeedsController {
 	private JwtService jwtService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private AlarmsService alarmsService;
+	
 	private UnicodeKorean unicodeKorean = new UnicodeKorean();
 	private static final Logger logger = LoggerFactory.getLogger(FeedsController.class);
 
@@ -189,7 +193,12 @@ public class FeedsController {
 		logger.info("deleteFeed - 호출");
 
 		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
 			feedsService.deleteFeed(feedIdx);
+			List<Integer> alarmIdxList = alarmsService.findAlarmIdxList(userIdx, feedIdx);
+			for (int i = 0; i < alarmIdxList.size(); i++) {
+				alarmsService.removeAlarm(alarmIdxList.get(i));
+			}
 			return ApiResponse.success(SuccessCode.DELETE_MAIN_FEED);
 		} catch (Exception e) {
 			e.printStackTrace();

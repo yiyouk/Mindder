@@ -54,4 +54,7 @@ public interface AlarmsMapper {
 	// 푸시 알림 수신 여부 조회
 	public int selectUserPushAlarmAgree(int userIdx) throws SQLException;
 
+	// 피드 삭제 시 알림 삭제를 위한 alarmIdx 리스트 조회
+	public List<Integer> selectAlarmIdxList(int userIdx, int feedIdx) throws SQLException;
+
 }
