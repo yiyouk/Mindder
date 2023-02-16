@@ -28,7 +28,7 @@
 	</select>
 	<insert id="joinSocialKakaoID" parameterType="UsersDto" useGeneratedKeys="true" keyColumn="user_idx" keyProperty="userIdx">
 		insert into mainuser(email,nickname,password,create_date,emote_color_idx,social_id,find_tag,push_alarm_agree)
-		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag},#{pushAlarmAgree})
+		value(#{email},#{nickname},#{password},now(),#{emoteColorIdx},#{socialId},#{findTag},1)
 	</insert>
 	<select id="checkNickname" parameterType="String" resultType="int">
 		select count(nickname)
