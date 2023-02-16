@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx } from "../../redux/reducers";
+import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx, SAVE_firebaseCode } from "../../redux/reducers";
 import styled, {css} from "styled-components";
 import ProfileImage from "../../commons/ui/ProfileImage"
+import {getToken} from "../../api/fcm";
 
 //비동기 동신
 import api from "../../api/api";
@@ -214,6 +215,17 @@ function Modify() {
         }
     }
 
+        //토든 발급하기
+    const firebaseMessageToken = async () => {
+        try{
+            const token = await getToken();
+            dispatch(SAVE_firebaseCode(token))
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
     //정보 수정하기
     const sendInfo = async() => {
         console.log(fileIdx)
@@ -225,8 +237,11 @@ function Modify() {
                 pushAlarmAgree: isChecked
             });
             
+            if(isChecked){
+                firebaseMessageToken();              
+            }
             // window.location.replace("/accounts/edit")
-            navigate(`/${myIdx}`)
+            navigate(`/`)
              
         } catch (e) {
             console.error(e);
