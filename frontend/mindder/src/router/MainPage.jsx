@@ -66,7 +66,7 @@ function MainPage() {
         }
     }, [firebaseCode])
 
-        //토큰 보내기
+    //토큰 보내기
     const  sendToken = async () => {
         try{
             const response = await api.post(`/alarms`, {
