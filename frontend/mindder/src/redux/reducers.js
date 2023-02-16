@@ -210,7 +210,7 @@ const initialState = {
   alarmCount:0,
   postNum:0,
   firebaseCode:null,
-  pushAlarmAgree:false
+  pushAlarmAgree:true,
 }
 
 const userStateSlice = createSlice({
