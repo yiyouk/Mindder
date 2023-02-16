@@ -185,9 +185,10 @@ input {
 
 .logo-container{
     display: flex;
-    align-items: center;
+    align-items: flex;
     justify-content: space-around;
     margin-bottom: 0.7rem;
+    /* border: 1px solid; */
 }
 
 
