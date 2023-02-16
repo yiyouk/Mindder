@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.users.model.mapper.UsersMapper;
+import com.ssafy.mindder.util.NaverUtil;
 
 @Service
 public class UsersServiceImpl implements UsersService {
 
+	NaverUtil naverUtil = new NaverUtil();
 	@Autowired
 	UsersMapper usersMapper;
 
@@ -87,44 +89,24 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public Map<String, String> getUserInfo(String access_token) throws IOException {
-		String host = "https://kapi.kakao.com/v2/user/me";
-		Map<String, String> result = new HashMap<>();
-		try {
-			URL url = new URL(host);
-
-			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			urlConnection.setRequestProperty("Authorization", "Bearer " + access_token);
-			urlConnection.setRequestMethod("GET");
-
-			int responseCode = urlConnection.getResponseCode();
-			System.out.println("responseCode = " + responseCode);
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-			String line = "";
-			String res = "";
-			while ((line = br.readLine()) != null) {
-				res += line;
-			}
-
-			System.out.println("res = " + res);
-
-			Gson gson = new Gson();
-			Map<String, Object> obj = gson.fromJson(res, Map.class);
-			Map<String, Object> kakao_account = gson.fromJson(obj.get("kakao_account").toString(), Map.class);
-			Map<String, Object> properties = gson.fromJson(obj.get("properties").toString(), Map.class);
-
-			result.put("id", obj.get("id").toString());
-			result.put("nickname", properties.get("nickname").toString());
-
-			br.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return result;
+	public String findUserIdx(String email) throws Exception {
+		return usersMapper.selectUserIdx(email);
 	}
+
+	@Override
+	public void deletedJoinUser(UsersDto usersdto) throws Exception {
+		usersMapper.deletedJoinUser(usersdto);
+		
+	}
+
+	@Override
+	public int joinSocialKakaoID(UsersDto usersdto) throws Exception {
+		usersMapper.joinSocialKakaoID(usersdto);
+		return usersdto.getUserIdx();
+	}
+
+
+	
 
 	@Override
 	public Map<String, String> getToken(String code) throws Exception {
@@ -181,22 +163,100 @@ public class UsersServiceImpl implements UsersService {
 
 		return rt;
 	}
-
 	@Override
-	public String findUserIdx(String email) throws Exception {
-		return usersMapper.selectUserIdx(email);
+	public Map<String, String> getUserInfo(String access_token) throws IOException {
+		String host = "https://kapi.kakao.com/v2/user/me";
+		Map<String, String> result = new HashMap<>();
+		try {
+			URL url = new URL(host);
+
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setRequestProperty("Authorization", "Bearer " + access_token);
+			urlConnection.setRequestMethod("GET");
+
+			int responseCode = urlConnection.getResponseCode();
+			System.out.println("responseCode = " + responseCode);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+			String line = "";
+			String res = "";
+			while ((line = br.readLine()) != null) {
+				res += line;
+			}
+
+			System.out.println("res = " + res);
+
+			Gson gson = new Gson();
+			Map<String, Object> obj = gson.fromJson(res, Map.class);
+			Map<String, Object> kakao_account = gson.fromJson(obj.get("kakao_account").toString(), Map.class);
+			Map<String, Object> properties = gson.fromJson(obj.get("properties").toString(), Map.class);
+
+			result.put("id", obj.get("id").toString());
+			result.put("nickname", properties.get("nickname").toString());
+
+			br.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	@Override
+	public Map<String, String> getNaverUserInfo(String token) throws Exception{
+		String header = "Bearer " + token; 
+        String apiURL = "https://openapi.naver.com/v1/nid/me";
+        Map<String, String> result = new HashMap<>();
+        Map<String, String> requestHeaders = new HashMap<>();
+        requestHeaders.put("Authorization", header);
+        String responseBody = naverUtil.get(apiURL,requestHeaders);
+		Gson gson = new Gson();
+        Map<String, Object> obj = gson.fromJson(responseBody, Map.class);
+		System.out.println(obj);
+        Map<String, Object> naver_account = gson.fromJson(obj.get("response").toString(), Map.class);
+		System.out.println(naver_account);
+		result.put("id", naver_account.get("id").toString());
+		result.put("email", naver_account.get("email").toString());
+		result.put("nickname", naver_account.get("nickname").toString());
+		//result.put("nickname", properties.get("nickname").toString());
+
+        return result;
 	}
 
 	@Override
-	public void deletedJoinUser(UsersDto usersdto) throws Exception {
-		usersMapper.deletedJoinUser(usersdto);
-		
-	}
+	public Map<String, String> getNaverToken(String code) throws Exception {
+		String NAVER_CLIENT_ID = "Q7bNqWul_gXvDgRiM_3g";
+		String NAVER_CLIENT_SECRET = "UGUTNXiZIo";
+		String access_Token = "";
+		String refresh_Token = "";
+		String reqURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id="+NAVER_CLIENT_ID+"&client_secret="+NAVER_CLIENT_SECRET+"&code="+code;
+		Map<String, String> rt = new HashMap<>();
+		try {
+			URL url = new URL(reqURL);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-	@Override
-	public int joinSocialKakaoID(UsersDto usersdto) throws Exception {
-		usersMapper.joinSocialKakaoID(usersdto);
-		return usersdto.getUserIdx();
+			conn.setRequestMethod("GET");
+
+
+			// 결과 코드가 200이라면 성공
+			int responseCode = conn.getResponseCode();
+			String result = naverUtil.readBody(conn.getInputStream());
+			System.out.println(result);
+			Gson gson = new Gson();
+			Map<String, Object> map = gson.fromJson(result, Map.class);
+			access_Token = (String) map.get("access_token");
+			refresh_Token = (String) map.get("refresh_token");
+			System.out.println("access_token : " + access_Token);
+			System.out.println("refresh_token : " + refresh_Token);
+			rt.put("access_token", access_Token);
+			rt.put("refresh_token", refresh_Token);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return rt;
 	}
+	
 
 }
