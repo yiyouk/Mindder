@@ -4,6 +4,10 @@ body {
   font-family: 'SUIT-Regular';
 }
 
+button{
+  cursor:pointer
+}
+
 @media (min-width: 650px) {
   .App {
     width: 360px;
