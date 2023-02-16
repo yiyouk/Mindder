@@ -75,6 +75,10 @@ function App(props) {
                 removeCookie("is_login");
             }
         } catch (e) {
+            dispatch(DELETE_TOKEN());
+            dispatch(SAVE_nickName(""));
+            dispatch(SAVE_myIdx(null));
+            removeCookie("is_login");
             alert("오류 발생!");
             console.error(e);
         }

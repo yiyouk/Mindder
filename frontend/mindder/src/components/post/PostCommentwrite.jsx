@@ -142,17 +142,16 @@ function PostCommentwrite(){
         normalTag : normalTag,
         public : isPublic,
       }
-      await api.post(`/feeds`, requests)
+      const response = await api.post(`/feeds`, requests)
       dispatch(SAVE_postNum(postNum+1))
+
+      navigate(`/f/${response.data.data}`);
+
     } catch (error) {
       console.error(error)
     }
   }
 
-  const onClick = () =>{
-    writeFeed();
-    navigate('/');
-  }
 
   return (
     <Wrapper>
@@ -166,7 +165,7 @@ function PostCommentwrite(){
           </Toggle>
           <h4>{isPublic ? "공 개" : "비공개"}</h4>
         </Container>
-        <PostBtn onClick={onClick}>작 성</PostBtn>
+        <PostBtn onClick={writeFeed}>작 성</PostBtn>
       </BottomDiv>
     </Wrapper>
   );
