@@ -1,6 +1,7 @@
 import React from "react";
 import styled, {css} from "styled-components";
 import { Colors16 } from "../../redux/reducers";
+import loadingGomdol from "../../assets/images/face16.png"
 
 const colortyles = css`
   ${({emoteColorIdx}) => css`
@@ -68,7 +69,7 @@ function Context({emoteBase64, emoteColorIdx, updateDate, mainText, normalTag}) 
         <Wrapper>
             <ContextStyled>{mainText}</ContextStyled>
             <Line>
-                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #<Tag src={emoteBase64}/></TagStyled>
+                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #<Tag src={emoteBase64? emoteBase64 : loadingGomdol}/></TagStyled>
             </Line>
             <Date>{updateDate}</Date>
         </Wrapper>
