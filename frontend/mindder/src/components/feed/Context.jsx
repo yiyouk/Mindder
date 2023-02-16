@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled, {css} from "styled-components";
 import { Colors16 } from "../../redux/reducers";
 import loadingGomdol from "../../assets/images/face16.png"
@@ -47,6 +47,7 @@ const Tag = styled.img`
 `
 
 function Context({emoteBase64, emoteColorIdx, updateDate, mainText, normalTag}) {
+    const [isLoading, setIsLoading] = useState(true) 
     // var date = new Date(this.HeaderData.createdDate); // 작성시간
     // var now = new Date(); // 현재시간(-9시간 되어있음)
     // this.date = new Date(date.getTime() - date.getTimezoneOffset()*60000) // 현재시간에 9시간 더함
@@ -64,12 +65,22 @@ function Context({emoteBase64, emoteColorIdx, updateDate, mainText, normalTag}) 
     //     this.date = parseInt(diffTime/ 1440) + "일 전"
     //     }
     // }
+    const handleOnLoad = ()=>{
+        setIsLoading(false)
+    }
 
     return (
         <Wrapper>
             <ContextStyled>{mainText}</ContextStyled>
             <Line>
-                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #<Tag src={emoteBase64? emoteBase64 : loadingGomdol}/></TagStyled>
+                <TagStyled emoteColorIdx={emoteColorIdx}> {normalTag} #
+                
+                <Tag src={emoteBase64} style={{ display: isLoading ? "none" : "block" }}
+                onLoad={handleOnLoad}
+                />
+                <Tag src={loadingGomdol} style={{ display: isLoading ? "block" : "none" }}/>
+                
+                </TagStyled>
             </Line>
             <Date>{updateDate}</Date>
         </Wrapper>
