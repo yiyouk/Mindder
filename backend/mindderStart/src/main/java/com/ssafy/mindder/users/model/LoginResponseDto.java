@@ -11,16 +11,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsersDto {
+public class LoginResponseDto {
 	int userIdx;
-	String socialId = null;
-	String email;
-	String password;
 	String nickname;
-	String refreshToken;
-	boolean isDeleted;
-	int emoteColorIdx;
-	int fileIdx;
-	String findTag;
+	String accessToken;
 	boolean pushAlarmAgree;
 }
