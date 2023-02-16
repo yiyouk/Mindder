@@ -7,6 +7,7 @@ import EmailImg from "../../assets/images/email.png"
 import api from "../../api/api";
 import Swal from "sweetalert2";
 
+
 function JoinEmail({getData}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -160,7 +161,8 @@ function JoinEmail({getData}) {
         <p className="form-label-center"> 이메일 인증</p>
         <form>
               <div className="logo-container">
-                  <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}/>
+                  <input value={email} type="text" name="email" id="email" placeholder=" 이메일" onChange={handleChangeEmail}
+                  />
                   {emailCheck ?
                   <input className="white-black-line-btn" type="button" value="전송 요청" onClick={handleEmailSend}/>
                   :

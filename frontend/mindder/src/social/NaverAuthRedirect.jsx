@@ -15,16 +15,53 @@ function NaverAuthRedirect  (props) {
   const navigate = useNavigate()
   // 인가코드
   let code = new URL(window.location.href).searchParams.get('code')
-  let state = new URL(window.location.href).searchParams.get('state')
-  console.log(code)
+
+  const NaverLogin = async()=>{
+    try {
+      const response = await api.get(`/users/social/naver?code=${code}`);
+      console.log(response.data)
+      if (response.data.success===true){
+        const accessToken = response.data.data.accessToken;
+        const nickname = response.data.data.nickname;
+        const userIdx = response.data.data.userIdx;
+        if(!getCookie("is_login")){
+          //쿠키 삭제
+          //전역 변수 삭제
+          dispatch(DELETE_TOKEN())
+          dispatch(SAVE_nickName(""))
+          dispatch(SAVE_myIdx(null))
+
+          removeCookie("is_login")
+        }
+        //쿠키 새롭게 세팅
+        setCookie("is_login", accessToken);
+
+        //전역 변수 세팅
+        dispatch(SET_TOKEN("is_login", accessToken));
+        dispatch(SAVE_nickName(nickname))
+        dispatch(SAVE_myIdx(userIdx))
+        navigate("/");
+      } else {
+        Swal.fire({
+            icon: 'warning',               
+            width: 300,
+            iconColor: '#7767FD',
+            text: '로그인 정보를 다시 확인해주세요.', 
+            confirmButtonColor: '#7767FD',
+            confirmButtonText: '확인',})
+    }
+    } catch (error) {
+      console.log(error)
+      navigate("/error");
+    }
+  }
 
   useEffect( () => {
-    
+    NaverLogin()
   }, []);
 
   return (
     <>
-      <h1>여기는 네이버다</h1>
       <LoadingPage/>
     </>
   )
