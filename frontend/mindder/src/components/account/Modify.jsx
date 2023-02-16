@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx, SAVE_firebaseCode } from "../../redux/reducers";
+import { Colors16, SAVE_nickName, SAVE_profileImgFileIdx, SAVE_firebaseCode, SAVE_pushAlarmAgree } from "../../redux/reducers";
 import styled, {css} from "styled-components";
 import ProfileImage from "../../commons/ui/ProfileImage"
 import {getToken} from "../../api/fcm";
@@ -197,8 +197,6 @@ function Modify() {
     const getUserInfo = async() => { // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/information`);
-            console.log("getUserInfo")
-            console.log(response)
             if(response.data.data !== null){
                 setEmail(response.data.data.email);
                 setNickname(response.data.data.nickname);
@@ -228,7 +226,6 @@ function Modify() {
 
     //정보 수정하기
     const sendInfo = async() => {
-        console.log(fileIdx)
         try {
             const response = await api.patch(`/users`, {
                 nickname: nickname,
@@ -237,10 +234,12 @@ function Modify() {
                 pushAlarmAgree: isChecked
             });
             
+            dispatch(SAVE_pushAlarmAgree(isChecked));
+
             if(isChecked){
                 firebaseMessageToken();              
-            }
-            // window.location.replace("/accounts/edit")
+            } 
+
             navigate(`/`)
              
         } catch (e) {
@@ -263,7 +262,6 @@ function Modify() {
         const reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onloadend = function(){
-            console.log('result', reader.result)
             const base64 = reader.result
             setBase64(base64)
             fileUpload(base64)
@@ -280,13 +278,9 @@ function Modify() {
             });
             
             if(response.data.success){
-                console.log("통신성공?")
-                console.log(response.data)
                 setFileIdx(response.data.data)
                 dispatch(SAVE_profileImgFileIdx(response.data.data))
-            } else{
-                console.log("실패했지렁")
-            }
+            } 
              
         } catch (e) {
             console.error(e);
