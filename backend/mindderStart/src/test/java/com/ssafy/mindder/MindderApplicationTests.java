@@ -166,7 +166,7 @@ class MindderApplicationTests {
 		// 피드 상세보기 -> 리눅스 서버 이미지를 못 가져옴
 		int feedIdx = feedsDto.getFeedIdx();
 		assertNotNull(feedsController.getFeed(feedIdx, accessToken).getMessage(), "이미지 크롤링 성공!");
-
+	
 		// 피드 삭제하기
 		assertEquals(feedsController.deleteFeed(accessToken, feedIdx).getMessage(), "메인 피드 글 삭제 성공");
 
