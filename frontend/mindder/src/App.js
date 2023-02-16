@@ -17,6 +17,7 @@ import MainLayout from './Layout/MainLayout'
 import OnlyTopBarLayout from './Layout/OnlyTopBarLayout'
 import CommonLayout from './Layout/CommonLayout'
 import LoadingPage from "./router/LoadingPage";
+import NaverAuthRedirect from "./social/NaverAuthRedirect";
 const MainPage = lazy(() => import('./router/MainPage')) ;
 const PostPage = lazy(() => import('./router/PostPage')) ;
 const UserPage = lazy(() => import('./router/UserPage')) ;
@@ -124,6 +125,7 @@ function App(props) {
                         <Route path="alarm" element={<AlarmPage />} />
                     </Route>
                     <Route path="users/social/kakao" element={<KakaoAuthRedirect/>}/>
+                    <Route path="users/social/naver" element={<NaverAuthRedirect/>}/>
                 </Routes>
             </Suspense>
         </BrowserRouter>

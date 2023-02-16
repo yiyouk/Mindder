@@ -8,7 +8,7 @@ import "../../assets/css/main.css"
 import naver_login from "../../assets/images/naver_login.png";
 import kakao_login from "../../assets/images/kakao_login.png";
 
-import { KAKAO_AUTH_URL } from "../../social/OAuth";
+import { KAKAO_AUTH_URL, NAVER_AUTH_URL } from "../../social/OAuth";
 
 const Top = styled.div`
     width: 22rem;
@@ -39,11 +39,11 @@ function Home(props) {
                 <div className="login-btn" onClick={() => {navigate("/login");}}>로그인</div>
                 <Lnaver className="pad"/>
                 <div className="naver"><img src={naver_login} style={{width:"10.5rem"}}
+                onClick={()=>{window.location.replace(NAVER_AUTH_URL)}}
                 /></div>
                 <Lnaver className="pad"/>
                 <img src={kakao_login} style={{width:"11.5rem"}} 
                 onClick={()=>{
-                    // navigate(KAKAO_AUTH_URL)}}
                     window.location.replace(KAKAO_AUTH_URL)}}
                     />
                 <Lnaver className="pad"/>
