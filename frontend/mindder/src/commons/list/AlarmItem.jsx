@@ -36,6 +36,7 @@ const ContentText = styled.div`
     font-size: 0.75rem;
     padding: 0rem 0.2rem 0rem 0rem;
     display:flex;
+    justify-content: space-between;
 `;
 const TextDeco = styled.span`
     font-weight: bold;
