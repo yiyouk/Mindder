@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { BsFillBellFill } from "react-icons/bs";
 
+import { BsFillBellFill } from "react-icons/bs";
 import LogoP from "../../assets/images/LogoP.png"
 
 const Wrapper = styled.div`
@@ -29,19 +29,19 @@ const HeaderLogo = styled.img`
 `;
 
 const Check = styled.div`
-  padding-right: 0.5rem;
+  padding-right: 0.3rem;
 `
 const AlarmCheck = styled.div`
   display: flex;
-  width: 5px;
-  height: 5px;
+  width:  0.3rem;
+  height:  0.3rem;
   background-color: #f37f58;
   border-radius: 50%;
   z-index: 3;
 `
 const M = styled.div`
-  width: 5px;
-  height: 5px;
+  width:  0.3rem;
+  height:  0.3rem;
 `
 
 function TopBar(props) {
@@ -63,8 +63,7 @@ function TopBar(props) {
                 :
                 <M/>
               }
-              <BsFillBellFill color="#7767FD" size="17"  onClick={() => {navigate("/alarm")}}>
-              </BsFillBellFill>
+              <BsFillBellFill color="#7767FD" size="20"  onClick={() => {navigate("/alarm")}}/>
             </Check>
           </>
         }

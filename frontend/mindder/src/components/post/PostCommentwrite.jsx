@@ -7,8 +7,6 @@ import api from '../../api/api'
 import {Emoticons} from "../../redux/reducers";
 import {Colors16} from "../../redux/reducers";
 
-import { FeedInfoContainer, FeenInfo } from "./PostDraw";
-
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -94,7 +92,7 @@ const Container = styled.div`
   padding-left: 1rem;
 `
 
-function PostCommentwrite(props){
+function PostCommentwrite(){
   const navigate = useNavigate()
   const userDraw = useSelector((state)=>state.USER.userDrawing)
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
@@ -102,9 +100,11 @@ function PostCommentwrite(props){
   const myIdx = useSelector((state)=>state.USER.myIdx)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
+
   const clickedToggle = () => {
     setIsPublic((prev) => !prev);
   };
+
   const onChange = (e)=>{
     setUserComment(e.target.value)
   }
@@ -133,17 +133,15 @@ function PostCommentwrite(props){
         normalTag : normalTag,
         public : isPublic,
       }
-      console.log(requests)
       const response = await api.post(`/feeds`, requests)
-      console.log(response.data)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   const onClick = ()=>{
     writeFeed()
-    navigate('/feeds')
+    window.location.replace('/feeds')
   }
 
   return (
