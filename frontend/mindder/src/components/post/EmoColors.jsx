@@ -12,8 +12,8 @@ import styled from "styled-components";
   `
 
 function EmotionColorList(props){
-  // console.log(props)
   const colorCode = props.colorCode
+  
   
   return (
     <>
