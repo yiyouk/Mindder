@@ -22,12 +22,15 @@
 	</insert>
 	<!-- 알림 목록 조회 -->
 	<select id="selectAlarms" parameterType="int" resultMap="com.ssafy.resultmaps.alarmList">
-		select a.alarm_idx, a.alarm_type, a.send_user_idx, a.feed_idx, u.file_idx, a.like_type, a.update_date, u.nickname, a.is_read
+		select a.alarm_idx, a.alarm_type, a.send_user_idx, a.feed_idx, u.file_idx, a.like_type, a.update_date, u.nickname, a.is_read, f.file_idx as feed_file_idx
 		from mainalarm a
 		join mainuser u
 		on a.send_user_idx = u.user_idx
+        left join mainfeed f
+        on a.feed_idx = f.feed_idx
 		where a.receive_user_idx = #{userIdx}
 		and a.send_user_idx != a.receive_user_idx
+		and f.is_deleted = 0
 		order by alarm_idx desc;
 	</select>
 	<!-- 알림 읽음 처리 -->
@@ -62,4 +65,8 @@
 		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, like_type) 
 		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{likeType});
 	</insert>
+	<!-- 알림 전체 삭제 -->
+	<delete id="deleteAllAlarm" parameterType="int">
+		delete from mainalarm where receive_user_idx = #{userIdx};
+	</delete>
 </mapper>

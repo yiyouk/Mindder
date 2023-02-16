@@ -105,6 +105,7 @@
 		<result column="feed_idx" property="feedIdx" />
 		<result column="like_type" property="likeType" />
 		<result column="file_idx" property="fileIdx" />
+		<result column="feed_file_idx" property="feedFileIdx" />
 	</resultMap>
 	<resultMap type="EmoteListDto" id="emoteList">
 		<result column="emote_idx" property="emoteIdx" />
