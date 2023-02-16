@@ -17,7 +17,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,25 +85,6 @@ public class FileController {
 		// return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
 	}
 
-	@GetMapping("/test/{fileIdx}")
-	public ResponseEntity<?> testFile(@PathVariable("fileIdx") int fileIdx) throws Exception {
-			FileDto temp = fileService.testfile(fileIdx);
-			String saveFolder = temp.getSaveFolder(); // 파일 경로
-			String originalFile = temp.getOriginalFile(); // 원본 파일명(화면에 표시될 파일 이름)
-			String saveFile = temp.getSaveFile(); // 암호화된 파일명(실제 저장된 파일 이름)
-			File file = new File(filePath + saveFolder, saveFile);
-			ResponseEntity<String> result = null;
-			try {
-				HttpHeaders headers = new HttpHeaders();
-				headers.add("Content-Type", Files.probeContentType(file.toPath()));
-				result = new ResponseEntity<String>(Base64.getEncoder().encodeToString(FileUtils.readFileToByteArray(file)), headers, HttpStatus.OK);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return result;
-			//return new ResponseEntity<String>(file.toPath().toString(), HttpStatus.OK);
-		}
-	}
 	@GetMapping("/normal-bear")
 	public ApiResponse<?> normalBear() {
 		Map<String, Integer> map = new HashMap<>();
