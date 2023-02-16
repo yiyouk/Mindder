@@ -92,7 +92,7 @@ const Container = styled.div`
   padding-left: 1rem;
 `
 
-function PostCommentwrite(props){
+function PostCommentwrite(){
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const userDraw = useSelector((state)=>state.USER.userDrawing)
@@ -102,9 +102,11 @@ function PostCommentwrite(props){
   const postNum = useSelector((state)=>state.USER.postNum)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
+
   const clickedToggle = () => {
     setIsPublic((prev) => !prev);
   };
+
   const onChange = (e)=>{
     setUserComment(e.target.value)
   }
@@ -134,16 +136,23 @@ function PostCommentwrite(props){
         public : isPublic,
       }
       const response = await api.post(`/feeds`, requests)
+<<<<<<< HEAD
       dispatch(SAVE_postNum(postNum+1))
       console.log(response.data)
+=======
+>>>>>>> 48dac470247709a13026496b0bfac29fa68775fc
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
   const onClick = () =>{
     writeFeed()
+<<<<<<< HEAD
     navigate('/')
+=======
+    window.location.replace('/feeds')
+>>>>>>> 48dac470247709a13026496b0bfac29fa68775fc
   }
 
   return (
