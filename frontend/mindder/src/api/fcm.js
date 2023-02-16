@@ -1,5 +1,4 @@
 import firebase from 'firebase/compat/app';
-// import 'firebase/compat/auth';
 import 'firebase/compat/messaging';
 import 'firebase/messaging';
 
@@ -24,25 +23,19 @@ if(!firebase.apps.length) {
 firebase.initializeApp(firebaseConfig );
 
 //////메세지 호출 & 토큰발급
-export async function getToken() {
-  if(firebase.messaging.isSupported() === false){
-      console.log("isSupported: ",  firebase.messaging.isSupported())
+export const getToken = async() => {
+  const messaging = firebase.messaging();
+  const token = await Notification.requestPermission()
+    .then(function () {
+      return messaging.getToken();
+    })
+    .then(function (token) {
+      return token;
+    })
+    .catch(function (err) {
+      console.debug("에러 : ", err);
       return null;
-  }
-
-  const messaging = firebase.messaging()
-  const token = await messaging.requestPermission()
-      .then(function() {
-          return messaging.getToken()
-      })
-      .then(function(token) {
-          return token;
-      })
-      .catch(function(err) {
-          console.debug('에러 : ', err);
-          return null;
-      })
-
-  console.log("token: ", token)
+    });
+  console.log("token: ", token);
   return token;
 }

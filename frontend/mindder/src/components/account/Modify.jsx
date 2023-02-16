@@ -9,6 +9,9 @@ import ProfileImage from "../../commons/ui/ProfileImage"
 import api from "../../api/api";
 import Swal from "sweetalert2";
 import '../../assets/css/main.css';
+import {ImCheckboxChecked} from "react-icons/im"
+import {ImCheckboxUnchecked} from "react-icons/im"
+
 
 const colortyles = css`
   ${({mypick}) => css`
@@ -81,13 +84,20 @@ function Modify() {
     const [socialId, setSocialId] = useState("");
     const [fileIdx, setFileIdx] = useState(305);
     const [base64, setBase64] = useState("");
-
+    const [isChecked, setIsChecked] = useState(false);
     const myIdx = useSelector((state)=>state.USER.myIdx);
 
     //정보 가져오기
     useEffect(()=>{
         getUserInfo();
     }, [])
+
+
+    //푸시 알람 선택하기
+    const handleChecked = (e) =>{
+        setIsChecked((prev)=>!prev)
+    }
+
 
     //닉네임 입력중
     const handleNickname = e => {
@@ -195,6 +205,7 @@ function Modify() {
                 setMyColor(response.data.data.emoteColorIdx);
                 setSocialId(response.data.data.socialId);
                 setBase64("data:image/" + response.data.data.extension + ";base64," + response.data.data.base64);
+                setIsChecked(response.data.data.pushAlarmAgree)
             }
             
         } catch (e) {
@@ -210,7 +221,8 @@ function Modify() {
             const response = await api.patch(`/users`, {
                 nickname: nickname,
                 emoteColorIdx : myColor,
-                fileIdx: fileIdx
+                fileIdx: fileIdx,
+                pushAlarmAgree: isChecked
             });
             
             // window.location.replace("/accounts/edit")
@@ -319,6 +331,13 @@ function Modify() {
         :
         null
         }
+        <div className="col-12">
+            <label htmlFor="checkbox" className="form-label">
+            Push 알림 동의
+            </label>
+            <ImCheckboxChecked color="#7767FD" size="25" style={{display: !isChecked? "none" : "block"}} onClick={handleChecked}/>
+            <ImCheckboxUnchecked color="#7767FD" size="25" style={{display: isChecked? "none" : "block"}} onClick={handleChecked}/>
+        </div>
         <div className="col-12">  
             <label className="form-label">나의 색</label>
             <DropDown>

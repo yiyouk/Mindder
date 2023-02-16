@@ -1,8 +1,10 @@
 // 회원가입-정보 등록
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, {css} from "styled-components";
 import { Colors16 } from "../../redux/reducers";
+import {ImCheckboxChecked} from "react-icons/im"
+import {ImCheckboxUnchecked} from "react-icons/im"
 
 //비동기 동신
 import api from "../../api/api";
@@ -62,6 +64,7 @@ function JoinRegister({email}) {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [nicknameCheck, setNicknameCheck] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [myColor, setMyColor] = useState(1);
@@ -84,11 +87,15 @@ function JoinRegister({email}) {
   const handlePasswordCheck = e => {
     setPasswordCheck(e.target.value)
   }
-
     
-     //색 선택하기
-     const handlePickColor = (e) =>{
+//색 선택하기
+    const handlePickColor = (e) =>{
         setMyColor(e);
+    }
+
+//푸시 알람 선택하기
+    const handleChecked = (e) =>{
+        setIsChecked((prev)=>!prev)
     }
 
   //닉네임 중복 확인
@@ -108,7 +115,7 @@ function JoinRegister({email}) {
   }
 
   //닉네임 중복 확인 비동기 통신
-  async function getNick(){ // async, await을 사용하는 경우
+  async function getNick(){ 
     try {
         const response = await api.get(`/users/check-nickname/${nickname}`, null);
         if(response.data.data.available){
@@ -175,8 +182,7 @@ function JoinRegister({email}) {
     }
   }
 
-    //회원가입 비동기 통신
-    const getjoin = async() => { // async, await을 사용하는 경우
+    const getjoin = async() => { 
         try {
             const response = await api.post(`/users/join`,
             {   
@@ -185,9 +191,9 @@ function JoinRegister({email}) {
                 password: password,
                 emoteColorIdx: myColor,
                 socialId: "@mindder",
-                fileIdx:305
+                fileIdx:305,
+                pushAlarmAgree:isChecked
             });
-            
             
             if(response.data.success){
                 Swal.fire({
@@ -236,6 +242,13 @@ function JoinRegister({email}) {
                 <label htmlFor="passwordCheck" className="form-label">비밀번호 확인</label>
                 <input value = {passwordCheck}  type="password" name="passwordCheck" id="passwordCheck" placeholder=" 비밀번호 확인" onChange={handlePasswordCheck}/>
                 {/* {passwordCheckB ? null : <label className="warning">비밀번호를 확인하세요.</label>} */}
+            </div>
+            <div className="col-12">
+            <label htmlFor="checkbox" className="form-label">
+            Push 알림 동의
+            </label>
+            <ImCheckboxChecked color="#7767FD" size="25" style={{display: !isChecked? "none" : "block"}} onClick={handleChecked}/>
+            <ImCheckboxUnchecked color="#7767FD" size="25" style={{display: isChecked? "none" : "block"}} onClick={handleChecked}/>
             </div>
             <div className="col-12">
                 <label className="form-label">나의 색</label>
