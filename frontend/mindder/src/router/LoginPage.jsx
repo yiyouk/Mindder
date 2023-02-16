@@ -11,7 +11,7 @@ import api from "../api/api";
 import {getToken} from "../api/fcm";
 import Swal from "sweetalert2";
 import '../assets/css/main.css';
-import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN, SAVE_firebaseCode } from "../redux/reducers";
+import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN, SAVE_firebaseCode, SAVE_pushAlarmAgree } from "../redux/reducers";
 
 function LoginPage(props) {
     const navigate = useNavigate();
@@ -104,6 +104,7 @@ function LoginPage(props) {
                 if(pushAlarmAgree){
                     firebaseMessageToken();              
                 }
+                dispatch(SAVE_pushAlarmAgree(pushAlarmAgree));
                 
                 navigate("/");
             } else{
