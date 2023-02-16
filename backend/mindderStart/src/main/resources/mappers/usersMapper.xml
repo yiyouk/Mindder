@@ -57,7 +57,7 @@
 	</update>
 	<update id="deleteUser" parameterType="int">
 		update mainuser 
-		set  is_deleted = 1, update_date = now()
+		set  is_deleted = 1, update_date = now(), device_token = null
 		where user_idx = #{userIdx};
 		update mainfeed 
 		set  is_deleted = 1, update_date = now()
