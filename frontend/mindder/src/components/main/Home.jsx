@@ -4,7 +4,7 @@ import LogoW from "../../assets/images/MainLogo.png"
 import Logo from "../../assets/images/Logo.png";
 
 import styled from "styled-components";
-
+import "../../assets/css/main.css"
 import naver_login from "../../assets/images/naver_login.png";
 import kakao_login from "../../assets/images/kakao_login.png";
 
