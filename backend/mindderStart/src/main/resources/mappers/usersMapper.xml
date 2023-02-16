@@ -72,7 +72,7 @@
 	</delete>
 	<update id="logout" parameterType="int">
 		update mainuser
-		set refresh_token=null
+		set refresh_token = null, device_token = null
 		where user_idx = #{userIdx}
 	</update>
 	<select id="selectUserIdx" parameterType="String" resultType="String">

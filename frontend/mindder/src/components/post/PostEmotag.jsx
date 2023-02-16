@@ -70,12 +70,12 @@ function PostEmoTag(props) {
 
     //모달창 열기
     const openModal = () => {
-        setModalOpen(true);
+        setModalOpen((prev)=>!prev);
     };
       
     //모달창 닫기
     const closeModal = () => {
-        setModalOpen(false);
+        setModalOpen((prev)=>!prev);
     };
 
     const onClick = (e, emo) => {
@@ -112,15 +112,20 @@ function PostEmoTag(props) {
     useEffect(()=>{
     // getGomdols()
     },[])
+    console.log(modalOpen)
 
+    const nothing = () =>{
+        return
+    }
     return (
         <Wrapper>
-            <Modal sendTag={sendTag} open={modalOpen} close={closeModal}/> 
+            
             <EmoHeader text="오늘의 감정은 어떤가요?"/>
             <TodayEmotion
             imgSrc={imgSrc}
 
             />
+            <Modal sendTag={sendTag} open={modalOpen} close={closeModal}/> 
             <Guitar state={inputState} > {userInput} </Guitar>
             <CardContainer columnGap={0.2}>
                 {/* {gomdols.map((gomdol,index)=>(
@@ -137,7 +142,7 @@ function PostEmoTag(props) {
                 {Emoticons.slice(1).map((emo)=>( 
                     <EmotionTag
                     key={emo.id} id={emo.id}
-                    onClick={(e)=>{onClick(e, emo)}}
+                    onClick={(e)=>{modalOpen? nothing() : onClick(e, emo)}}
                     >
                     <EmoTag
                     key={emo.id} emoId={emo.id} emoName={emo.name}
