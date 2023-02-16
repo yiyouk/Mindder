@@ -2,9 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;
-    z-index: 99;
-    background-color: rgba(41, 40, 40, 0.033);
+    width: 50vw;
+    height: 5rem;
+    z-index: -1;
+    background-color: transparent;
+    position: absolute;
+    /* border: 1px solid; */
   }
 
   .modal button {
@@ -20,11 +23,15 @@
     border-radius: 0.3rem;
     font-size: 0.8rem;
     margin: 0 0.5rem;
+    height: 2rem;
+    width: 3rem;
   }
 
   .modal.openModal {
     /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-bg-show 0.3s;
+    background-color: fff(41, 40, 40, 0.033);
+    z-index: 99;
   }
 
   footer {
