@@ -65,18 +65,24 @@ const Toggle = styled.button`
   justify-content: flex-start;
   align-items: center;
   transition: all 0.5s ease-in-out;
-  background: #FFFFFF;
+  background: #7767FD;
   border: 1px solid #7767FD;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 48px;
   margin-left: 0.2rem;
   margin-right: 0.5rem;
+  ${(props) =>
+    props.toggle &&
+    `
+    background:white;
+    `
+    }
 `;
 
 const Circle = styled.div`
   width: 1rem;
   height: 1rem;
-  background: #7767FD;
+  background: white;
   border-radius: 50px;
   transition: all 0.5s ease-in-out;
   ${(props) =>
@@ -84,6 +90,7 @@ const Circle = styled.div`
     `
       transform: translate(20px, 0);
       transition: all 0.5s ease-in-out;
+      background: #7767FD;
     `}
 `;
 
