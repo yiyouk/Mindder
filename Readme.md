@@ -33,14 +33,14 @@
 
 # 서비스 개요
 
-1. 문제인식
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500" height="300">
+1. 문제인식 <br>
+        <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F63aebdc4-1ec4-43ae-aace-55ffcd54fd16%2FUntitled.png?id=d7915b0e-8ed8-4f21-a0aa-90dac7568897&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500" height="300">
     
     [https://www.seoul.co.kr/news/newsView.php?id=20210825017006](https://www.seoul.co.kr/news/newsView.php?id=20210825017006)
     
     - 현대인들 심리적 피로도가 매우 높다 → 우리 모두가 공유하고 있는 문제
     
-    <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500">
+        <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb43e38c3-1d4e-442e-aca1-8a739e417c86%2FUntitled.png?id=9e767c95-60b9-4fd8-a454-4efa07bee81f&table=block&spaceId=fa16d34c-752f-4e68-befa-9e3aa9d11260&width=1920&userId=c238b7de-2cf9-40b3-b7eb-0d50dfa016c7&cache=v2" width="500">
     
     [https://www.donga.com/news/Economy/article/all/20210308/105765714/1](https://www.donga.com/news/Economy/article/all/20210308/105765714/1)
     
