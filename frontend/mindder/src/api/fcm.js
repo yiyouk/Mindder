@@ -30,6 +30,9 @@ export const getToken = async() => {
       return messaging.getToken();
     })
     .then(function (token) {
+      messaging.onMessage(payload => {
+        alert(payload.notification.body);
+      })
       return token;
     })
     .catch(function (err) {
