@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import TrashImg from "../../assets/images/trash.png"
@@ -6,7 +6,7 @@ import BrushImg from "../../assets/images/brush.png"
 import EraserImg from "../../assets/images/eraser.png"
 import FillImg from "../../assets/images/paint.png"
 import UndoImg from "../../assets/images/undo.png"
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 // import { SAVE_userDrawing } from "../../redux/reducers";
 
 
@@ -85,18 +85,28 @@ function Draw({canvasRef, imageSaved}) {
     const [ctx, setCtx] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [erase, setErase] = useState(false);
-    const [isFill, setIsFill] = useState(false)
     const [mode, setMode] = useState("brush");
     const [color, setColor] = useState("black");
     const [stroke, setStroke] = useState(1);
     const [prev, setPrev] = useState([]);
-
-
+    const prevCanva = useSelector((state)=>state.USER.userDrawing)
+    
     // -- 캔버스 생성 -- //
         useEffect(() => {
             const canvas = canvasRef.current;
+            const context = canvas.getContext("2d");
             canvas.width = 335;
             canvas.height = 335;
+
+            // 그린 그림 있을 경우 가져오기 //
+            if (prevCanva !== null) {
+                let prevCanvaData = new Image();
+                prevCanvaData.src = prevCanva;
+                prevCanvaData.onload = () => {
+                    saveCanva()
+                    context.drawImage(prevCanvaData, 0, 0)
+                }
+            }
         }, []);
 
 
@@ -171,9 +181,12 @@ function Draw({canvasRef, imageSaved}) {
         }
 
     // -- 마우스 클릭 -- //
-        const initDraw = () => {
+        const initDraw = ({nativeEvent}) => {
             saveCanva()
-            if(mode === "brush"){              
+            const {offsetX, offsetY} = nativeEvent;
+            if(mode === "brush"){         
+                ctx.beginPath();     
+                ctx.moveTo(offsetX, offsetY);
                 setErase(check => !check);
                 setIsDrawing(check => !check);
             } else if (mode === "erase"){
