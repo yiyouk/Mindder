@@ -5,11 +5,13 @@ import {getCookie, setCookie, removeCookie} from "../api/cookie";
 //로그인 유지
 import { useDispatch} from "react-redux";
 
+
 //비동기 동신
 import api from "../api/api";
+import {getToken} from "../api/fcm";
 import Swal from "sweetalert2";
 import '../assets/css/main.css';
-import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN } from "../redux/reducers";
+import {SAVE_nickName, SAVE_myIdx, DELETE_TOKEN, SET_TOKEN, SAVE_firebaseCode } from "../redux/reducers";
 
 function LoginPage(props) {
     const navigate = useNavigate();
@@ -51,6 +53,18 @@ function LoginPage(props) {
         }
     }
 
+    //토든 발급하기
+    const firebaseMessageToken = async () => {
+        try{
+            const token = await getToken();
+            // console.log(token)
+            dispatch(SAVE_firebaseCode(token))
+        } catch (e) {
+            console.error(e);
+            navigate("/error");
+        }
+    }
+
     //로그인 비동기 통신
     const getUser = async() => {
         try {
@@ -65,6 +79,7 @@ function LoginPage(props) {
                 const accessToken = response.data.data.accessToken;
                 const nickname = response.data.data.nickname;
                 const userIdx = response.data.data.userIdx;
+                const pushAlarmAgree =  response.data.data.pushAlarmAgree;
 
                 //원래 쿠키가 있다면?
                 if(!getCookie("is_login")){
@@ -76,14 +91,20 @@ function LoginPage(props) {
 
                     removeCookie("is_login")
                 }
-                        
+                
                 //쿠키 새롭게 세팅
                 setCookie("is_login", accessToken);
-
+                
                 //전역 변수 세팅
                 dispatch(SET_TOKEN("is_login", accessToken));
                 dispatch(SAVE_nickName(nickname))
                 dispatch(SAVE_myIdx(userIdx))
+                
+                //푸시알림 토큰 발급
+                if(pushAlarmAgree){
+                    firebaseMessageToken();              
+                }
+                
                 navigate("/");
             } else{
                 Swal.fire({
