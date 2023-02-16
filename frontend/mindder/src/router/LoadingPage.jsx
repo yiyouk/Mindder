@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import loadingImg from "../assets/images/Loading.png"
+import Spinner from "../assets/images/Spinner.gif"
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,9 +37,8 @@ function LoadingPage(props) {
 
     return (
         <Wrapper>
-            <img src={loadingImg}/>
-            <div>로딩페이지 디자인 해줘</div>
-            <M/>
+            <img src={Spinner}/>
+            <h3>잠시만 기다려 달라곰!</h3>
         </Wrapper>
     );
 }
