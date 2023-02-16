@@ -12,6 +12,7 @@
 		<result column="social_id" property="socialId" />
 		<result column="file_idx" property="fileIdx" />
 		<result column="find_tag" property="findTag" />
+		<result column="push_alarm_agree" property="pushAlarmAgree"/>
 	</resultMap>
 	<resultMap type="UserInformationDto" id="userInformation">
 		<result column="user_idx" property="userIdx" />

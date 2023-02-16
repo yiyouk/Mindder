@@ -25,6 +25,7 @@ import com.ssafy.mindder.common.SuccessCode;
 import com.ssafy.mindder.common.dto.ApiResponse;
 import com.ssafy.mindder.email.model.EmailService;
 import com.ssafy.mindder.file.model.service.FileService;
+import com.ssafy.mindder.users.model.LoginResponseDto;
 import com.ssafy.mindder.users.model.UsersDto;
 import com.ssafy.mindder.users.model.service.UsersService;
 import com.ssafy.mindder.util.JwtService;
@@ -143,14 +144,14 @@ public class UsersController {
 			usersDto = usersService.findSocialKakaoID(usersDto.getSocialId());
 			System.out.println(usersDto);
 			if (usersDto != null) {
-				if(!usersDto.isDeleted()) {
+				if (!usersDto.isDeleted()) {
 					System.out.println("111111111");
-					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
+					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 					user.put("userIdx", usersDto.getUserIdx() + "");
 					user.put("nickname", usersDto.getNickname());
 					user.put("accessToken", accessToken);
 					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
-				}else {
+				} else {
 					System.out.println("222222");
 					UsersDto temp = new UsersDto();
 					temp.setUserIdx(usersDto.getUserIdx());
@@ -162,13 +163,13 @@ public class UsersController {
 					temp.setFileIdx(305);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
-					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
+					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 					user.put("userIdx", usersDto.getUserIdx() + "");
 					user.put("nickname", usersDto.getNickname());
 					user.put("accessToken", accessToken);
 					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 				}
-			}else {
+			} else {
 				logger.debug("socialLogin - 회원정보 없음");
 				System.out.println("333333");
 				usersDto = new UsersDto();
@@ -179,8 +180,8 @@ public class UsersController {
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
-				int idx  = usersService.joinSocialKakaoID(usersDto);
-				String accessToken = jwtService.createAccessToken("useridx",idx);
+				int idx = usersService.joinSocialKakaoID(usersDto);
+				String accessToken = jwtService.createAccessToken("useridx", idx);
 				user.put("userIdx", idx + "");
 				user.put("nickname", usersDto.getNickname());
 				user.put("accessToken", accessToken);
@@ -204,10 +205,8 @@ public class UsersController {
 				String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
 				usersDto.setRefreshToken(jwtService.createRefreshToken("useridx", usersDto.getUserIdx()));
 				usersService.addToken(usersDto);
-				Map<String, String> user = new HashMap<String, String>();
-				user.put("userIdx", usersDto.getUserIdx() + "");
-				user.put("nickname", usersDto.getNickname());
-				user.put("accessToken", accessToken);
+				LoginResponseDto user = new LoginResponseDto(usersDto.getUserIdx(), usersDto.getNickname(), accessToken,
+						usersDto.isPushAlarmAgree());
 
 				return ApiResponse.success(SuccessCode.READ_LOGIN, user);
 			} else {
