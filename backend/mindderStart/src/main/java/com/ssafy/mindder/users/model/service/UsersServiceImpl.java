@@ -217,7 +217,6 @@ public class UsersServiceImpl implements UsersService {
         Map<String, Object> naver_account = gson.fromJson(obj.get("response").toString(), Map.class);
 		System.out.println(naver_account);
 		result.put("id", naver_account.get("id").toString());
-		result.put("email", naver_account.get("email").toString());
 		result.put("nickname", naver_account.get("nickname").toString());
 		//result.put("nickname", properties.get("nickname").toString());
 
