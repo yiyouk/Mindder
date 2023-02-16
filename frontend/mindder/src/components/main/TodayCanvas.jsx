@@ -62,6 +62,7 @@ const Text = styled.div`
 function TodayCanvas() {
     const navigate = useNavigate();
     const nickName = useSelector((state)=>state.USER.nickName);
+    const postNum = useSelector((state)=>state.USER.postNum);
     const [emoteIdx, setEmoteIdx] = useState(0);
     const [emoteColorTag, setEmoteColorTag] = useState(0);
     const [updateDate, setUpdateDate] = useState("");
@@ -71,7 +72,7 @@ function TodayCanvas() {
   //정보 가져오기
     useEffect(()=>{
         getRecentInfo();
-    }, [])
+    }, [postNum])
 
     //최근 포스트 정보
     async function getRecentInfo(){ // async, await을 사용하는 경우

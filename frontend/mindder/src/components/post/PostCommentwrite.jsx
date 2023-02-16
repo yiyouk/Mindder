@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from '../../api/api'
 
-import {Emoticons} from "../../redux/reducers";
+import {Emoticons, SAVE_postNum} from "../../redux/reducers";
 import {Colors16} from "../../redux/reducers";
 
 const Wrapper = styled.div`
@@ -92,19 +92,19 @@ const Container = styled.div`
   padding-left: 1rem;
 `
 
-function PostCommentwrite(){
+function PostCommentwrite(props){
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const userDraw = useSelector((state)=>state.USER.userDrawing)
   const emoTag = useSelector((state)=>state.USER.todayEmotion)
   const emoColor = useSelector((state)=>state.USER.todayColor)
   const myIdx = useSelector((state)=>state.USER.myIdx)
+  const postNum = useSelector((state)=>state.USER.postNum)
   const [userComment, setUserComment] = useState('')
   const [isPublic, setIsPublic] = useState(true);
-
   const clickedToggle = () => {
     setIsPublic((prev) => !prev);
   };
-
   const onChange = (e)=>{
     setUserComment(e.target.value)
   }
@@ -134,14 +134,16 @@ function PostCommentwrite(){
         public : isPublic,
       }
       const response = await api.post(`/feeds`, requests)
+      dispatch(SAVE_postNum(postNum+1))
+      console.log(response.data)
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 
-  const onClick = ()=>{
+  const onClick = () =>{
     writeFeed()
-    window.location.replace('/feeds')
+    navigate('/')
   }
 
   return (
