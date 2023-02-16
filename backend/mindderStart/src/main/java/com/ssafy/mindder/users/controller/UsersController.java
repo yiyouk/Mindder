@@ -158,6 +158,7 @@ public class UsersController {
 					temp.setNickname(userIO.get("nickname"));
 					temp.setEmoteColorIdx(1);
 					temp.setFileIdx(305);
+					temp.setPushAlarmAgree(true);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
 					String accessToken = jwtService.createAccessToken("useridx", usersDto.getUserIdx());
@@ -175,6 +176,7 @@ public class UsersController {
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
+				usersDto.setPushAlarmAgree(true);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int idx = usersService.joinSocialKakaoID(usersDto);
 				String accessToken = jwtService.createAccessToken("useridx", idx);
@@ -205,14 +207,12 @@ public class UsersController {
 			System.out.println(usersDto);
 			if (usersDto != null) {
 				if(!usersDto.isDeleted()) {
-					System.out.println("111111111");
 					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
 					user.put("userIdx", usersDto.getUserIdx() + "");
 					user.put("nickname", usersDto.getNickname());
 					user.put("accessToken", accessToken);
 					return ApiResponse.success(SuccessCode.READ_KAKAO_LOGIN, user);
 				}else {
-					System.out.println("222222");
 					UsersDto temp = new UsersDto();
 					temp.setUserIdx(usersDto.getUserIdx());
 					temp.setSocialId(userIO.get("id") + "@Naver");
@@ -221,6 +221,7 @@ public class UsersController {
 					temp.setNickname(userIO.get("nickname"));
 					temp.setEmoteColorIdx(1);
 					temp.setFileIdx(305);
+					temp.setPushAlarmAgree(true);
 					temp.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 					usersService.deletedJoinUser(usersDto);
 					String accessToken = jwtService.createAccessToken("useridx",  usersDto.getUserIdx());
@@ -231,7 +232,6 @@ public class UsersController {
 				}
 			}else {
 				logger.debug("socialLogin - 회원정보 없음");
-				System.out.println("333333");
 				usersDto = new UsersDto();
 				usersDto.setSocialId(userIO.get("id") + "@Naver");
 				usersDto.setEmail("네이버유저");
@@ -239,6 +239,7 @@ public class UsersController {
 				usersDto.setNickname(userIO.get("nickname"));
 				usersDto.setEmoteColorIdx(1);
 				usersDto.setFileIdx(305);
+				usersDto.setPushAlarmAgree(true);
 				usersDto.setFindTag(unicodeKorean.KtoE(usersDto.getNickname()));
 				int idx  = usersService.joinSocialKakaoID(usersDto);
 				String accessToken = jwtService.createAccessToken("useridx",idx);
