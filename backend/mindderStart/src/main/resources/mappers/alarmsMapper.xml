@@ -65,4 +65,8 @@
 		insert into mainalarm(alarm_type, send_user_idx, receive_user_idx, feed_idx, like_type) 
 		values(3, #{userIdx} ,#{targetUserIdx}, #{feedIdx}, #{likeType});
 	</insert>
+	<!-- 알림 전체 삭제 -->
+	<delete id="deleteAllAlarm" parameterType="int">
+		delete from mainalarm where receive_user_idx = #{userIdx};
+	</delete>
 </mapper>
