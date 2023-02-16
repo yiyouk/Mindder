@@ -80,6 +80,9 @@ public class AlarmsController {
 				Map<String, String> file = fileService.findFile(alarmList.get(i).getFileIdx(), filePath);
 				alarmList.get(i).setBase64(file.get("base64"));
 				alarmList.get(i).setExtension(file.get("extension"));
+				file = fileService.findFile(alarmList.get(i).getFeedFileIdx(), filePath);
+				alarmList.get(i).setFeedBase64(file.get("base64"));
+				alarmList.get(i).setFeedExtension(file.get("extension"));
 			}
 			
 			return ApiResponse.success(SuccessCode.READ_ALARM_LIST, alarmList);
@@ -108,7 +111,7 @@ public class AlarmsController {
 		}
 	}
 	
-	@ApiOperation(value = "알림 삭제", notes = "유저 번호에 해당하는 유저를 언팔로우한다.")
+	@ApiOperation(value = "알림 삭제", notes = "alarm Idx에 해당하는 알림을 삭제한다.")
 	@DeleteMapping("/{alarmIdx}")
 	public ApiResponse<?> alarmRemove(@RequestHeader("access_token") String accessToken,
 			@PathVariable("alarmIdx") @ApiParam(value = "삭제할 알림 번호", required = true) int alarmIdx) {
@@ -120,6 +123,22 @@ public class AlarmsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("alarmRemove - 알림 삭제 중 에러");
+			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
+		}
+	}
+	
+	@ApiOperation(value = "알림 전체 삭제", notes = "로그인한 유저의 모든 알림을 삭제한다.")
+	@DeleteMapping("/all")
+	public ApiResponse<?> alarmAllRemove(@RequestHeader("access_token") String accessToken) {
+
+		logger.debug("alarmAllRemove - 호출");
+		try {
+			int userIdx = jwtService.getUserIdx(accessToken);
+			alarmsService.removeAllAlarm(userIdx);
+			return ApiResponse.success(SuccessCode.DELETE_ALL_ALARM);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug("alarmAllRemove - 알림 전체 삭제 중 에러");
 			return ApiResponse.error(ErrorCode.INTERNAL_SERVER_EXCEPTION);
 		}
 	}

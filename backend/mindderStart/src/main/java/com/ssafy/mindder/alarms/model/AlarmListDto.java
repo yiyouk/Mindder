@@ -23,4 +23,7 @@ public class AlarmListDto {
 	private int fileIdx;
 	private String base64;
 	private String extension;
+	private int feedFileIdx;
+	private String feedBase64;
+	private String feedExtension;
 }
