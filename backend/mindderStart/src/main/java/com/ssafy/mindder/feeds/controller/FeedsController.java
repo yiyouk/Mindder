@@ -101,10 +101,10 @@ public class FeedsController {
 			int emoteCompleteFileIdx = feedsService.findFileIdx(emoteIdx, emoteColorIdx);
 			feedsService.addCalendar(userIdx, emoteCompleteFileIdx);
 			feedsService.writeFeed(feedsDto);
-
+			int feedIdx = 0;
 			// 해시태그를 작성했다면 파싱해서 넣어줘야함!
 			if (feedsDto.getNormalTag() != null) {
-				int feedIdx = feedsDto.getFeedIdx();
+				feedIdx = feedsDto.getFeedIdx();
 				List<HashParserDto> hashParser = new ArrayList<>();
 
 				// #을 기준으로 파싱
@@ -129,7 +129,7 @@ public class FeedsController {
 
 			}
 
-			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED);
+			return ApiResponse.success(SuccessCode.CREATE_MAIN_FEED, feedIdx);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug("writeFeeds - 메인 피드 등록 중 에러 발생");
