@@ -59,6 +59,7 @@ function MainPage() {
     
     //토큰 발급 및 전송
     useEffect(()=>{
+        console.log(firebaseCode)
         if(isLoggedIn){
             if(pushAlarmAgree){
                 console.log("보냄 ㄷ");
