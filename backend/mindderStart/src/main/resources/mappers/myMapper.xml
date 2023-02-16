@@ -5,7 +5,8 @@
 	<select id="selectUser" parameterType="int" resultMap="com.ssafy.resultmaps.userInformation">
 		select user_idx, email, nickname, file_idx, emote_color_idx, social_id, 
 				(select count(*) from userfollow where user_idx = #{userIdx}) as following_count,
-				(select count(*) from userfollow where target_user_idx = #{userIdx}) as follower_count
+				(select count(*) from userfollow where target_user_idx = #{userIdx}) as follower_count,
+				push_alarm_agree
 		from mainuser
 		where user_idx = #{userIdx} and is_deleted = 0;
 	</select>
