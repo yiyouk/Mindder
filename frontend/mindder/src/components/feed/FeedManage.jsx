@@ -100,7 +100,7 @@ function FeedManage({normalTag, mainText, feedIdx, isPublic}) {
             navigate("/error");
         }
     }
-
+    
     return (
         <>
         <Modal normalTag={normalTag} isPublic={isPublic} feedIdx={feedIdx} mainText={mainText} open={modalOpen} close={closeModal}></Modal>
