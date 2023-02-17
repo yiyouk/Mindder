@@ -30,7 +30,7 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
             const response = await api.get(`/my/followings/${myIdx}`);
             setFollowingList(response.data.data)
         } catch(e) {
-            console.error(e)
+            // console.error(e)
         }
     }
 
@@ -40,31 +40,31 @@ function FollowItem({userIdx, followStatus, nickname, imgSrc, followerCount, fol
             setfollowOrUnfollow((followStatus) => !followStatus);
             setFollowers(followers+1)
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
       });
 
     const unFollowAPI = useCallback(async () => {
         try {
             const response = await api.delete(`/my/follows/${userIdx}`);
-            // console.log(response.data)
+            // // console.log(response.data)
             setfollowOrUnfollow((followStatus) => !followStatus);
             setFollowers(followers-1)
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     })
 
     const handleFollowState = () => {
         if (followOrUnfollow) {
           unFollowAPI();
-          console.log("언팔로우 시도")
+          // console.log("언팔로우 시도")
           if (followChange){
             followChange(followingCount-1)
           }
         } else {
           followAPI();
-          console.log("팔로우 시도")
+          // console.log("팔로우 시도")
         if (followChange){
             followChange(followingCount+1)
         }

@@ -37,15 +37,15 @@ function CommentList({feedIdx, commentCount}) {
     const getComments = async() => { // async, await을 사용하는 경우
         try {
             const response = await api.get(`/comments/${feedIdx}`);
-            console.log(response.data)
+            // console.log(response.data)
             if(response.data.success){
-                console.log(response.data.data);
+                // console.log(response.data.data);
                 setComments(response.data.data)
             } else {
-                console.log("조회 실패")
+                // console.log("조회 실패")
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

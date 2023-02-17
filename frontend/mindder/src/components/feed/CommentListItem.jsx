@@ -72,7 +72,7 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
                 setProfileImg(response.data.data.base64)
             }
         } catch(err) {
-            console.log(err)
+            // console.log(err)
         }
     }
     getProfile()
@@ -110,11 +110,11 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
             if(response.data.success){
                 getData(commentCount-1);
             } else{
-                console.log("삭제 실패")
+                // console.log("삭제 실패")
             }
             
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

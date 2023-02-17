@@ -25,13 +25,13 @@ function ModifyPage(props) {
     const logout = async() => {
         const response = await api.get(`/users/logout`);
         if(!response.data.success){
-            console.log("로그아웃실패")
+            // console.log("로그아웃실패")
         } else {
             dispatch(DELETE_TOKEN());
             dispatch(SAVE_nickName(""));
             dispatch(SAVE_myIdx(null));
             removeCookie("is_login");
-            console.log(getCookie("is_login"))
+            // console.log(getCookie("is_login"))
             navigate('/')
         }
     }

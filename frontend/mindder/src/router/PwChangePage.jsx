@@ -68,7 +68,7 @@ function PwChangePage(props) {
       password : passwordNow
     });
 
-    console.log(response.data)
+    // console.log(response.data)
     if(!response.data.success){
       Swal.fire({
         icon: 'warning',               

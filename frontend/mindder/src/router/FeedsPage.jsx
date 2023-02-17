@@ -110,11 +110,11 @@ function FeedsPage() {
                 setRealtimeNum(response.data.data.pageNum.pageNum+1);
                 setPlus(response.data.data.pageNum.next);
             } else {
-                console.error("조회실패");
+                // console.error("조회실패");
             }
 
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -129,10 +129,10 @@ function FeedsPage() {
                 setPopularNum(response.data.data.pageNum.pageNum+1);
                 setPlus(response.data.data.pageNum.next);
             } else {
-                console.error("조회실패");
+                // console.error("조회실패");
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -147,10 +147,10 @@ function FeedsPage() {
                 setNeighborNum(response.data.data.pageNum.pageNum+1);
                 setPlus(response.data.data.pageNum.next);
             } else {
-                console.error("조회실패");
+                // console.error("조회실패");
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
