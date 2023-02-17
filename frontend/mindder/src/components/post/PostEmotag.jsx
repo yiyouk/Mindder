@@ -62,7 +62,7 @@ function PostEmoTag(props) {
     const [userInput, setUserInput] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [gomdols, setGomdols] = useState([])
-    // console.log(selectedEmo)
+    // // console.log(selectedEmo)
 
     const dispatch = useDispatch()
 
@@ -100,10 +100,10 @@ function PostEmoTag(props) {
     const getGomdols = async() =>{
         try {
             const response = await api.get(`feeds/emotes`)
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data.success===true){
                 setGomdols(response.data.data)
-                console.log(gomdols)
+                // console.log(gomdols)
             }
         } catch (error) {
             
@@ -112,7 +112,7 @@ function PostEmoTag(props) {
     useEffect(()=>{
     // getGomdols()
     },[])
-    console.log(modalOpen)
+    // console.log(modalOpen)
 
     const nothing = () =>{
         return

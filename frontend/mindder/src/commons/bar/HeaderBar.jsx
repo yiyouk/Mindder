@@ -46,8 +46,8 @@ function TopBar(props) {
   const NickName = useSelector((state)=>state.USER.nickName)
   const AlarmCount = useSelector((state)=>state.USER.alarmCount)
   useEffect(()=>{
-    // console.log("헤더바 렌더됨")
-    // console.log(AlarmCount)
+    // // console.log("헤더바 렌더됨")
+    // // console.log(AlarmCount)
   }, [AlarmCount])
 
   return (

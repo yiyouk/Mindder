@@ -134,7 +134,7 @@ function FeedDetailPage() {
                 setProfileImg(response.data.data.base64)
             }
         } catch(err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 
@@ -180,11 +180,11 @@ function FeedDetailPage() {
                 setEmoteBase64( "data:image/" + response.data.data.emoteCompleteExtension + ";base64," + response.data.data.emoteCompleteBase64);
                 await getProfile(response.data.data.userIdx)
             }  else {
-                console.log("조회 실패")
+                // console.log("조회 실패")
                 navigate("/");
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -219,18 +219,18 @@ function FeedDetailPage() {
                 feedComment: comment
             });
     
-            console.log(response);
+            // console.log(response);
    
             if (response.data.success){
                 getFeed();
                 setComment("");
             } else {
-                console.log("작성 실패")
+                // console.log("작성 실패")
     
             }
 
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

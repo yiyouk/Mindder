@@ -125,7 +125,7 @@ function PostCommentwrite(){
         originalFile:`${Date.now()}_${myIdx}.webp`,
         base64:userDraw.split(',')[1],
       })
-      console.log(fileResponse)
+      // console.log(fileResponse)
       const fileIdx = fileResponse.data.data;
       const getNormalTag = userComment.match(/#[^\s#]+/g)
       const normalTag = getNormalTag ? getNormalTag.join('') : getNormalTag
@@ -145,7 +145,7 @@ function PostCommentwrite(){
       await api.post(`/feeds`, requests)
       dispatch(SAVE_postNum(postNum+1))
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   }
 

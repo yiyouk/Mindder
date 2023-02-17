@@ -161,7 +161,7 @@ function Modify() {
             }
             
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
   }
@@ -209,7 +209,7 @@ function Modify() {
             }
             
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -220,7 +220,7 @@ function Modify() {
             const token = await getToken();
             dispatch(SAVE_firebaseCode(token))
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -244,7 +244,7 @@ function Modify() {
             navigate(`/${myIdx}`)
              
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -284,7 +284,7 @@ function Modify() {
             } 
              
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
