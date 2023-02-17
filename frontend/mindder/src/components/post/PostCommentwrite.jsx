@@ -55,7 +55,7 @@ const PostBtn = styled.button`
   margin-right: 1.2rem;
   background-color: #7767FD;
 `
-const Toggle = styled.button`
+export const Toggle = styled.button`
   width: 3.1rem;
   height: 1.5rem;
   cursor: pointer;
@@ -77,7 +77,7 @@ const Toggle = styled.button`
     }
 `;
 
-const Circle = styled.div`
+export const Circle = styled.div`
   width: 1rem;
   height: 1rem;
   background: white;
