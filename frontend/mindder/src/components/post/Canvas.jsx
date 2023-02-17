@@ -93,7 +93,7 @@ function Draw({canvasRef, imageSaved}) {
     const [stroke, setStroke] = useState(15);
     const [prev, setPrev] = useState([]);
     const prevCanva = useSelector((state)=>state.USER.userDrawing)
-    // console.log(initColor)
+    // // console.log(initColor)
 
 
     // -- 캔버스 생성 -- //

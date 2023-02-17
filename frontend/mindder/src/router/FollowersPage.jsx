@@ -71,7 +71,7 @@ function FollowersPage() {
                 setPageNickName(response.data.data.nickname);
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
     
@@ -79,26 +79,26 @@ function FollowersPage() {
     const getFollowerInfo = async() => {
         try{
             const response = await api.get(`/my/followers/${userIdx}`);
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data.success){
                 setFollowerList(response.data.data);
                 setFollowers(response.data.data.length)
                 dispatch(SAVE_followerCount(response.data.data.length))
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
     
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data.success){
                 setFollowings(response.data.data.length);
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
 
@@ -112,7 +112,7 @@ function FollowersPage() {
     }
 
     const handleFollowChange = (followCount)=>{
-        console.log(isMine)
+        // console.log(isMine)
         if (isMine){
             setFollowings(followCount)
         }

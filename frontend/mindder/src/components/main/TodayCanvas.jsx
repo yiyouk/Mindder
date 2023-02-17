@@ -86,7 +86,7 @@ function TodayCanvas() {
                 setExtension(response.data.data.extension);
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

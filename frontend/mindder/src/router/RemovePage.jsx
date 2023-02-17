@@ -26,7 +26,7 @@ function RemovePage(props) {
                 navigate("/error"); 
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

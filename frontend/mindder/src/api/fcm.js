@@ -40,9 +40,9 @@ export const getToken = async() => {
       return token;
     })
     .catch(function (err) {
-      console.debug("에러 : ", err);
+      // console.debug("에러 : ", err);
       return null;
     });
-  console.log("token: ", token);
+  // console.log("token: ", token);
   return token;
 }

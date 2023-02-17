@@ -86,7 +86,7 @@ function UserPage(props) {
     const getUsersInfo = async() => {
 
         const response = await api.get(`/my/information/${userIdx}`);
-        console.log(response)
+        // console.log(response)
         setNickname(response.data.data.nickname);
         setFollowingCount(response.data.data.followingCount);
         setFollowerCount(response.data.data.followerCount);
@@ -105,7 +105,7 @@ function UserPage(props) {
                     setUserFeeds(userFeedList);
                 } 
             } catch (e) {
-                console.error(e);
+                // console.error(e);
                 navigate("/error");
             }
         } else if (isMine) {
@@ -117,11 +117,11 @@ function UserPage(props) {
                     setUserFeeds(userFeedList);
                 } 
             } catch (e) {
-                console.error(e);
+                // console.error(e);
                 navigate("/error");
             }
         } else {
-            console.log("아직 유저확인이 안됐다!")
+            // console.log("아직 유저확인이 안됐다!")
         }
     }
 

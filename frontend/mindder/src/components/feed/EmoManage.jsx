@@ -92,10 +92,10 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
       if(response.data.success){
         getData(0);      
       } else{
-          console.log("다시 시도해주세요.")
+          // console.log("다시 시도해주세요.")
       }
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
@@ -121,11 +121,11 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
       if(response.data.success){
         getData(num);
       }else{
-          console.log("다시 시도해주세요.")
+          // console.log("다시 시도해주세요.")
       }
 
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
@@ -141,11 +141,11 @@ function EmoManage({getData, feedIdx, myLikeType, likeCount, cheerupCount, sadCo
         if(response.data.success){
           getData(num);     
         }else{
-          console.log("다시 시도해주세요.")
+          // console.log("다시 시도해주세요.")
         }
   
       } catch (e) {
-          console.error(e);
+          // console.error(e);
           navigate("/error");
       }
     }
