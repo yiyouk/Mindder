@@ -112,11 +112,13 @@ function FeedDetailPage() {
     const [emoteColorIdx, setEmoteColorIdx] = useState(0);
     const [emoteIdx, setEmoteIdx] = useState(0);
     const [myScrap, setMyScrap] = useState(false);
-    const [isPublic, setIsPublic] = useState(false);
+    const [isPublic, setIsPublic] = useState(true);
     const [scrollEvent, setScrollEvent] = useState(false);
     const [showCommentInput, setShowCommentInput] = useState(false)
     const [profileImg, setProfileImg] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+
+    const render = useSelector((state)=>state.USER.feedDetailRender)
 
     const onScroll = () => {
         // 스크롤이 60px 이상 내려가면 트루로 바꿈
@@ -147,7 +149,7 @@ function FeedDetailPage() {
         return ()=>{
             window.removeEventListener('scroll', onScroll)
         }
-    }, [myLikeType])
+    }, [myLikeType, render])
 
 
     //댓글 작성시 입력 ~
@@ -161,6 +163,7 @@ function FeedDetailPage() {
         try {
             const response = await api.get(`/feeds/${feedIdx}`);
             if (response.data.success){
+                // console.log(response.data)
                 setNickname(response.data.data.nickname);
                 setUpdateDate(response.data.data.updateDate);
                 setCommentCount(response.data.data.commentCount);
@@ -256,6 +259,7 @@ function FeedDetailPage() {
                 <Profile userIdx={postUserIdx} imgsize="s" name={nickname} namesize="s" imgSrc={profileImg}/>
                 <div>
                     {isPublic ? null:<GiPadlock color=" #7767FD" size="22" style={{position:'relative', top:'3.2rem', left:'3rem'}}/>}
+
                     {myIdx == postUserIdx ? <FeedManage normalTag={normalTag} isPublic ={isPublic} mainText={mainText} feedIdx={feedIdx}/> : null}
                 </div>
             </SideContainer>
