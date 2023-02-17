@@ -164,7 +164,7 @@
 	select * 
  	from  (
         select distinct f.feed_idx, ROW_NUMBER ()over (order by f.feed_hit DESC)  as rnum,f.user_idx, f.file_idx,u.nickname,
-        (select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+        (select count(*) from feedcomment c where c.feed_idx = f.feed_idx and c.is_deleted = 0) as 'comment_count',
         (select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
     from mainfeed f join  mainuser u on f.user_idx=u.user_idx
     WHERE f.update_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() and f.is_deleted = 0 and f.is_public=1 
@@ -182,7 +182,7 @@
  	from
  	(
  		select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
-		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx and c.is_deleted = 0) as 'comment_count',
 		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
 		from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
 		WHERE f.is_deleted = 0 and f.is_public=1
@@ -236,7 +236,7 @@
 	   select count(*) 
 		from(
 			select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
-					(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+					(select count(*) from feedcomment c where c.feed_idx = f.feed_idx and c.is_deleted = 0) as 'comment_count',
 					(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
 					from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
 					WHERE f.is_deleted = 0 and f.is_public=1
@@ -251,7 +251,7 @@
  	from
  	(
  		select distinct f.feed_idx, @rownum:=@rownum+1 as rnum, f.user_idx, f.file_idx,u.nickname,
-		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx) as 'comment_count',
+		(select count(*) from feedcomment c where c.feed_idx = f.feed_idx and c.is_deleted = 0) as 'comment_count',
 		(select count(*) from feedlike l where l.feed_idx=f.feed_idx) as 'like_total_count'
 		from  (select @rownum:=0) rn, mainfeed f join  mainuser u on f.user_idx=u.user_idx
 		WHERE f.is_deleted = 0 and f.is_public=1

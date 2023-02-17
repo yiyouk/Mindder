@@ -211,6 +211,7 @@ const initialState = {
   postNum:0,
   firebaseCode:null,
   pushAlarmAgree:true,
+  commentNum:0
 }
 
 const userStateSlice = createSlice({
@@ -321,5 +322,5 @@ export const rootReducer = combineReducers(
   }
 )
 
-export const {SAVE_pushAlarmAgree, SAVE_firebaseCode, SAVE_postNum, SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx, SAVE_alarmCount } = userStateSlice.actions;
+export const {SAVE_commentNum, SAVE_pushAlarmAgree, SAVE_firebaseCode, SAVE_postNum, SAVE_todayEmotion, SAVE_todayColor, SAVE_emotagSrc, SAVE_nickName, SAVE_myIdx, SAVE_otherUserIdx, SAVE_userDrawing, SAVE_followerCount, SAVE_followingCount, SAVE_profileImg, SAVE_followingList,SAVE_customTag, SAVE_profileImgFileIdx, SAVE_alarmCount } = userStateSlice.actions;
 export const {SET_TOKEN, DELETE_TOKEN} = tokenSlice.actions;

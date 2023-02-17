@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+import {SAVE_commentNum} from "../../redux/reducers";
+
 
 import ProfileImage from "../../commons/ui/ProfileImage";
 
@@ -61,6 +64,7 @@ const X = styled.span`
 
 function CommentListItem({getData, commentCount, comment, userIdx}) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const MyIdx = useSelector((state)=>state.USER.myIdx);
     const [profileImg, setProfileImg] = useState(null)
 
@@ -96,19 +100,17 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
                     sendDelete();
                 }
             })
-            // if(window.confirm("댓글을 삭제하시겠습니까?")){
-            //     sendDelete();
-            // }
         }
     }
     
     //댓글 삭제 비동기 통신
-    const sendDelete = async() => { // async, await을 사용하는 경우
+    const sendDelete = async() => { 
         try {
             const response = await api.delete(`/comments/${comment.commentIdx}`);
             
             if(response.data.success){
                 getData(commentCount-1);
+                dispatch(SAVE_commentNum((arr)=>arr+1));
             } else{
                 // console.log("삭제 실패")
             }
@@ -130,7 +132,7 @@ function CommentListItem({getData, commentCount, comment, userIdx}) {
                             <NickName onClick={onClick}>{comment.nickname}</NickName>
                             <Date>{comment.updateDate}</Date>
                         </CommentInfo>
-                        {comment.userIdx === MyIdx? <X onClick={deleteComment}> 삭제 </X> : null}
+                        {comment.userIdx == MyIdx? <X onClick={deleteComment}> 삭제 </X> : null}
                     </SideContainer>
                     <ContentText>{comment.feedComment}</ContentText>
                 </Main>

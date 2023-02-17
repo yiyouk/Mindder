@@ -16,7 +16,6 @@ const Wrapper = styled.div`
         color: gray;
         margin-bottom: 1rem;
     }
-    /* border:1px solid; */
 `;
 
 function CommentList({feedIdx, commentCount}) {
@@ -34,7 +33,7 @@ function CommentList({feedIdx, commentCount}) {
     }
 
     //댓글 데이터 가져오기
-    const getComments = async() => { // async, await을 사용하는 경우
+    const getComments = async() => {
         try {
             const response = await api.get(`/comments/${feedIdx}`);
             // console.log(response.data)

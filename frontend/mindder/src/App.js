@@ -59,7 +59,7 @@ function App(props) {
     const setUserInfo = async () =>{ // async, await을 사용하는 경우
         try {
             const response = await api.get(`/my/information`);
-            // // console.log(response.data)
+            // console.log(response.data)
             if (response.data.data !== null) {
                 dispatch(SAVE_myIdx(response.data.data.userIdx))
                 dispatch(SAVE_nickName(response.data.data.nickname))
@@ -75,6 +75,10 @@ function App(props) {
                 removeCookie("is_login");
             }
         } catch (e) {
+            dispatch(DELETE_TOKEN());
+            dispatch(SAVE_nickName(""));
+            dispatch(SAVE_myIdx(null));
+            removeCookie("is_login");
             alert("오류 발생!");
             // console.error(e);
         }
