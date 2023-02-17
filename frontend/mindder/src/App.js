@@ -80,7 +80,7 @@ function App(props) {
             dispatch(SAVE_myIdx(null));
             removeCookie("is_login");
             alert("오류 발생!");
-            console.error(e);
+            // console.error(e);
         }
     }
 

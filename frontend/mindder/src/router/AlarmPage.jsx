@@ -37,10 +37,10 @@ function AlarmPage(props) {
                 setAlarm(response.data.data)
                 
                 setAlarmCount()
-                console.log(response.data.data);
+                // console.log(response.data.data);
             }
         } catch(err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 
@@ -52,21 +52,21 @@ function AlarmPage(props) {
     //정보 가져오기
     useEffect(()=>{
         getAlarm()
-        console.log(alarmCount)
+        // console.log(alarmCount)
     }, [alarmCount])
 
     const AlarmDelete = async() => {
         try {
-            console.log("전체삭제")
+            // console.log("전체삭제")
             const response = await api.delete(`/alarms/all`);
             if(response.data.success){
-                console.log("성공")
+                // console.log("성공")
                 setAlarmCount(0)
                 dispatch(SAVE_alarmCount(0))
             } else {
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

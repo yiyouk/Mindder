@@ -30,14 +30,14 @@ function SearchCanvas ({keyword}){
 
   const searchCanvas = async() => {
     try {
-      console.log(keyword)
+      // console.log(keyword)
       const response = await api.get(`/feeds/searches/%23${keyword.substr(1)}`);
-      console.log(response)
+      // console.log(response)
       if (response.data.success){
           setResult(response.data.data);
       }  
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
