@@ -6,36 +6,10 @@ import api from "../../api/api"
 import styled from "styled-components";
 import '../../assets/css/modal.css';
 
+import { Toggle, Circle } from '../post/PostCommentwrite';
+import { useDispatch } from 'react-redux';
+import { SAVE_feedDetailRender } from '../../redux/reducers';
 
-const Toggle = styled.button`
-  width: 3rem;
-  height: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  transition: all 0.5s ease-in-out;
-  background: #FFFFFF;
-  border: 1px solid #7767FD;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 48px;
-  margin-left: 0.2rem;
-  margin-right: 0.5rem;
-`;
-
-const Circle = styled.div`
-  width: 1rem;
-  height: 1rem;
-  background: #7767FD;
-  border-radius: 50px;
-  transition: all 0.5s ease-in-out;
-  ${(props) =>
-    props.toggle &&
-    `
-      transform: translate(20px, 0);
-      transition: all 0.5s ease-in-out;
-    `}
-`;
 
 const Container = styled.div`
   display:flex;
@@ -51,6 +25,9 @@ const Side = styled.div`
 
 
 const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
+  // console.log(isPublic)
+  const dispatch = useDispatch()
+  
   const navigate = useNavigate();
   const [Text, setText] = useState("")
   const [toggle, setToggle] = useState(isPublic);
@@ -63,6 +40,7 @@ const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
 
   //현재 글
   useEffect(()=>{
+      setToggle(isPublic)
       if(normalTag===null){
         setText(mainText);
       }else{
@@ -94,7 +72,8 @@ const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
         });
         
         if(response.data.success){
-            window.location.replace(`/f/${feedIdx}`)
+            dispatch(SAVE_feedDetailRender())
+            navigate(`/f/${feedIdx}`)
         } else{ 
           // console.log("수정 실패")
       }
