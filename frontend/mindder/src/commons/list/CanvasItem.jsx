@@ -40,8 +40,8 @@ const sizes = {
 
     // 추천피드
     "s": {
-        height: '6.5em',
-        width: '6.5em',
+        height: '6.25em',
+        width: '6.25em',
     },
 
     // 크롤링이미지
@@ -74,7 +74,6 @@ const CanvaConContainer = styled.div`
 
 const CanvaImgStyle = styled.img`
   ${sizeStyles}
-  margin: 0.2rem;
   border: 0.02rem solid rgba(219, 219, 219, 0.3);
   box-shadow: 0.1rem 0.1rem 0.1rem rgba(219, 219, 219, 0.3);
   border-radius: 4px;
