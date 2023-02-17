@@ -130,7 +130,7 @@
          select emote_color_idx
          from mainfeed 
          where user_idx= #{userIdx} and is_deleted = 0 and is_public=1
-         order by update_date DESC
+         order by feed_idx DESC
          limit 1
          ) = emote_color_idx and user_idx != #{userIdx} and is_deleted = 0 and is_public=1
     ) as f 
