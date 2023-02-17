@@ -68,7 +68,7 @@ function FollowingPage(props) {
                     setPageNickName(response.data.data.nickname);
                 }
             } catch (e) {
-                console.error(e);
+                // console.error(e);
             }
         }
     
@@ -76,16 +76,16 @@ function FollowingPage(props) {
     const getFollowingInfo = async() => {
         try{
             const response = await api.get(`/my/followings/${userIdx}`);
-            console.log(response.data)
+            // console.log(response.data)
             if (response.data.success){
                 setFollowingList(response.data.data);
                 setFollowings(response.data.data.length)
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
-    // console.log(followingList)
+    // // console.log(followingList)
 
     const onClick = (path) => {
         if (isMine) {
@@ -99,7 +99,7 @@ function FollowingPage(props) {
     const handleFollowChange = (followCount)=>{
         if (isMine){
             setFollowings(followCount)
-            console.log(followCount)
+            // console.log(followCount)
         }
     }
 

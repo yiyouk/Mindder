@@ -16,21 +16,21 @@ function Cal() {
     const getEmoDay = useCallback(async() => {
         const year = value.getFullYear()
         const month = value.getMonth() + 1
-        console.log(year, month)
+        // console.log(year, month)
        
         try {
             const response = await api.get(`/my/calendars?year=${year}&month=${month}`);
             // setEmoDay(await response.data.data)
-            console.log(response)
+            // console.log(response)
             const emoDate = response.data.data
             for (const key in emoDate) {
                 emoDay[emoDate[key].calendarDate] = `data:image/${emoDate[key].extension};base64,${emoDate[key].base64}`
             }
             setLoding(true);
-            // console.log(emoDay)
+            // // console.log(emoDay)
             // for (const key in emoDay)
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             navigate("/error");
         }
     })

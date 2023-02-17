@@ -83,7 +83,7 @@ function PwFindPage(props) {
         text: '올바른 이메일 형식이 아닙니다.', 
         confirmButtonColor: '#7767FD',
         confirmButtonText: '확인',})
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
@@ -126,7 +126,7 @@ function PwFindPage(props) {
               confirmButtonText: '확인',}) 
           }
       } catch (e) {
-          console.error(e);
+          // console.error(e);
           navigate("/error");
       }
     }

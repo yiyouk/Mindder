@@ -43,7 +43,7 @@ function PostDraw(props){
     
     try {
       const response = await api.get(`/feeds/crawling/${todayColor}`, null)
-      console.log(response.data)
+      // console.log(response.data)
   
       if (response.data.success){
         const imgSrc = response.data.data

@@ -31,7 +31,7 @@ function LoginPage(props) {
 
     //로그인 시도했을때
     const handleSubmit = e => {
-        console.log("로그인 시도")
+        // console.log("로그인 시도")
         if(email === ""){
             Swal.fire({
                 icon: 'warning',               
@@ -57,10 +57,10 @@ function LoginPage(props) {
     const firebaseMessageToken = async () => {
         try{
             const token = await getToken();
-            // console.log(token)
+            // // console.log(token)
             dispatch(SAVE_firebaseCode(token))
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }
@@ -118,7 +118,7 @@ function LoginPage(props) {
             }
             
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

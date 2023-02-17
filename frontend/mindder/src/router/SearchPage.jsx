@@ -105,7 +105,7 @@ function SearchPage (){
                     setNickNameRes(response.data.data);
                 }  
             } catch (e) {
-                console.error(e);
+                // console.error(e);
                 navigate("/error");
             }
         } else {
@@ -123,7 +123,7 @@ function SearchPage (){
                     setTagRes(response.data.data);
                 } 
             } catch (e) {
-                console.error(e);
+                // console.error(e);
                 navigate("/error");
             }
         } else{
