@@ -96,11 +96,11 @@ const Modal = ({normalTag, open, close, mainText, feedIdx, isPublic}) => {
         if(response.data.success){
             window.location.replace(`/f/${feedIdx}`)
         } else{ 
-          console.log("수정 실패")
+          // console.log("수정 실패")
       }
         
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
 }

@@ -19,7 +19,7 @@ function NaverAuthRedirect  (props) {
   const NaverLogin = async()=>{
     try {
       const response = await api.get(`/users/social/naver?code=${code}`);
-      console.log(response.data)
+      // console.log(response.data)
       if (response.data.success===true){
         const accessToken = response.data.data.accessToken;
         const nickname = response.data.data.nickname;
@@ -52,7 +52,7 @@ function NaverAuthRedirect  (props) {
         navigate("/");
     }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       navigate("/error");
     }
   }

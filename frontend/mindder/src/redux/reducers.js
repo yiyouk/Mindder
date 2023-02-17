@@ -220,75 +220,71 @@ const userStateSlice = createSlice({
   reducers:{
     SAVE_todayEmotion(state, action){
       state.todayEmotion = action.payload
-      console.log(`오늘의 감정 : ${state.todayEmotion}`)
+      // console.log(`오늘의 감정 : ${state.todayEmotion}`)
     },
     SAVE_todayColor(state, action){
       state.todayColor = action.payload
-      console.log(`오늘의 감정색 : ${state.todayColor}`)
+      // console.log(`오늘의 감정색 : ${state.todayColor}`)
     },
     SAVE_emotagSrc(state, action){
       state.emotagSrc = action.payload
-      console.log(`이미지src : 저장 성공`)
+      // console.log(`이미지src : 저장 성공`)
     },
     SAVE_nickName(state, action){
       state.nickName = action.payload
-      console.log(`nickName : ${state.nickName}`)
+      // console.log(`nickName : ${state.nickName}`)
     },
     SAVE_myIdx(state, action){
       state.myIdx = action.payload
-      console.log(`myIdx : ${state.myIdx}`)
+      // console.log(`myIdx : ${state.myIdx}`)
     },
     SAVE_otherUserIdx(state, action){
       state.otherUserIdx = action.payload
-      console.log(`otherUserIdx : ${state.otherUserIdx}`)
+      // console.log(`otherUserIdx : ${state.otherUserIdx}`)
     },
     SAVE_followingList(state, action){
       state.followingList.push(action.payload) 
-      console.log(`followingList : ${state.followingList}`)
+      // console.log(`followingList : ${state.followingList}`)
     },
     SAVE_profileImg(state, action){
       state.profileImg = action.payload
-      console.log(`profileImg : 저장 성공`)
+      // console.log(`profileImg : 저장 성공`)
     },
     SAVE_followingCount(state, action){
       state.followingCount = action.payload
-      console.log(`followingCount : ${state.followingCount}`)
+      // console.log(`followingCount : ${state.followingCount}`)
     },
     SAVE_followerCount(state, action){
       state.followerCount = action.payload
-      console.log(`followerCount : ${state.followerCount}`)
+      // console.log(`followerCount : ${state.followerCount}`)
     },
     SAVE_userDrawing(state, action){
       state.userDrawing = action.payload
-      console.log(`유저가 그린 그림 : 저장 성공`)
+      // console.log(`유저가 그린 그림 : 저장 성공`)
     },
     SAVE_customTag(state, action){
       state.customTag = action.payload
-      console.log(`기타 감정 : ${state.customTag}`)
+      // console.log(`기타 감정 : ${state.customTag}`)
     },
     SAVE_profileImgFileIdx(state, action){
       state.profileImgFileIdx = action.payload
-      console.log(`프로필 이미지 파일IDX : ${state.profileImgFileIdx}`)
+      // console.log(`프로필 이미지 파일IDX : ${state.profileImgFileIdx}`)
     },
     SAVE_alarmCount(state, action){
       state.alarmCount = action.payload
-      console.log(`읽지 않은 알림 개수 : ${state.alarmCount}`)
+      // console.log(`읽지 않은 알림 개수 : ${state.alarmCount}`)
     },
     SAVE_postNum(state, action){
       state.postNum = action.payload
-      console.log(`글,작성성공 : ${state.postNum}`)
+      // console.log(`글,작성성공 : ${state.postNum}`)
     },
     SAVE_firebaseCode(state, action){
       state.firebaseCode = action.payload
-      console.log(`글,작성성공 : ${state.firebaseCode}`)
+      // console.log(`글,작성성공 : ${state.firebaseCode}`)
     },
     SAVE_pushAlarmAgree(state, action){
       state.pushAlarmAgree = action.payload
-      console.log(`pushAlarmAgree,작성성공 : ${state.pushAlarmAgree}`)
-    },
-    SAVE_commentNum(state, action){
-      state.commentNum = action.payload
-      console.log(`pushAlarmAgree,작성성공 : ${state.commentNum}`)
+      // console.log(`pushAlarmAgree,작성성공 : ${state.pushAlarmAgree}`)
     }
   }
 })
@@ -305,13 +301,13 @@ const tokenSlice = createSlice({
 
     reducers: {
         SET_TOKEN(state, action){
-            console.log(`SET_TOKEN : ${state}`)
+            // console.log(`SET_TOKEN : ${state}`)
             state.authenticated = true;
             state.accessToken = action.payload;
             state.expireTime = new Date().getTime() + TOKEN_TIME_OUT;
         },
         DELETE_TOKEN(state, action){
-            console.log(`DELETE_TOKEN : ${state}`)
+            // console.log(`DELETE_TOKEN : ${state}`)
             state.authenticated = false;
             state.accessToken = null;
             state.expireTime = null;

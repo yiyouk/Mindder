@@ -53,16 +53,16 @@ function ScrapFeedsList(props){
   const getScrapFeeds = async() => {
       try {
           const response = await api.get(`/scraps/my`);
-          console.log(response.data)
+          // console.log(response.data)
           if(response.data.success){
-              console.log(response.data.data);
+              // console.log(response.data.data);
               setScrapFeeds(response.data.data)
           } else {
-                console.log('조회 실패')
+                // console.log('조회 실패')
           }
 
       } catch (e) {
-          console.error(e);
+          // console.error(e);
           navigate("/error");
       }
     }

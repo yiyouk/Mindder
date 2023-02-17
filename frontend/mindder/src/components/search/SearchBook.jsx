@@ -45,7 +45,7 @@ function SearchBook (){
                 setCraw(response.data.data)
             } 
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

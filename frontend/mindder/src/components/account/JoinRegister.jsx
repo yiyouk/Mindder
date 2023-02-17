@@ -100,7 +100,7 @@ function JoinRegister({email}) {
 
   //닉네임 중복 확인
   const handleCheckNick = e => {
-    // console.log(email);
+    // // console.log(email);
     if(nickname === ""){
         Swal.fire({
             icon: 'warning',               
@@ -138,7 +138,7 @@ function JoinRegister({email}) {
         }
         
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
@@ -216,7 +216,7 @@ function JoinRegister({email}) {
             }
             
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
       }

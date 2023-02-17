@@ -93,10 +93,10 @@ function FeedManage({normalTag, mainText, feedIdx, isPublic}) {
             if(response.data.success){
                 navigate(`/${myIdx}`);
             } else{
-                console.log('삭제 실패')
+                // console.log('삭제 실패')
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

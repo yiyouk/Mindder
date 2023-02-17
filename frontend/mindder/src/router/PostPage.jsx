@@ -83,16 +83,16 @@ function PostPage(props) {
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
     const checkUserState = useSelector((state)=>state.USER)
-    // console.log(checkUserState)
+    // // console.log(checkUserState)
 
 
     const dispatch = useDispatch()
     const canvasRef = useRef(null);
     const imageSaved = () => {
         const canvas = canvasRef.current;
-        console.log(canvas)
+        // console.log(canvas)
         const image = canvas.toDataURL('image/webp', 0.5);
-        console.log(image)
+        // console.log(image)
         dispatch(SAVE_userDrawing(image))
     }
     const todayColor = useSelector((state)=>state.USER.todayColor)
