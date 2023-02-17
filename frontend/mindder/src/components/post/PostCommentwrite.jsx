@@ -125,7 +125,7 @@ function PostCommentwrite(){
         originalFile:`${Date.now()}_${myIdx}.webp`,
         base64:userDraw.split(',')[1],
       })
-      console.log(fileResponse)
+      // console.log(fileResponse)
       const fileIdx = fileResponse.data.data;
       const getNormalTag = userComment.match(/#[^\s#]+/g)
       const normalTag = getNormalTag ? getNormalTag.join('') : getNormalTag
@@ -148,7 +148,7 @@ function PostCommentwrite(){
       navigate(`/f/${response.data.data}`);
 
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   }
 

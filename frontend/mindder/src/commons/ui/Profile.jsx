@@ -15,7 +15,7 @@ const M = styled.div`
 `;
 
 function Profile({imgsize, namesize, name, userIdx, imgSrc}) {
-    // console.log(imgSrc)
+    // // console.log(imgSrc)
     return (
         <Wrapper>
             <ProfileImage userIdx={userIdx} size={imgsize} imgSrc={imgSrc}/>

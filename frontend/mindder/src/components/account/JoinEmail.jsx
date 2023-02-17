@@ -79,7 +79,7 @@ function JoinEmail({getData}) {
         }
         
     } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/error");
     }
   }
@@ -110,10 +110,10 @@ function JoinEmail({getData}) {
     const getEmailSend = async() => { // async, await을 사용하는 경우
       try {
           const response = await api.get(`/users/email-confirm/${email}`);
-          console.log(response.data);
+          // console.log(response.data);
           setSendCode(response.data.data);   
       } catch (e) {
-          console.error(e);
+          // console.error(e);
           navigate("/error");
       }
     }

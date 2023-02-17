@@ -62,7 +62,7 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
             setFollowing((following) => !following);
             setFollowers(followers+1)
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
       });
 
@@ -72,7 +72,7 @@ function UserFollow({isMine, followerCount, followingCount, isfollowing}) {
             setFollowing((following) => !following);
             setFollowers(followers-1)
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     })
     

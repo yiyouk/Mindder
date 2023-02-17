@@ -48,7 +48,7 @@ function MainPage() {
     
     //토큰 발급 및 전송
     useEffect(()=>{
-        console.log(firebaseCode)
+        // console.log(firebaseCode)
         if(isLoggedIn){
             if(pushAlarmAgree){
                 sendToken();
@@ -64,11 +64,11 @@ function MainPage() {
             })
             
             if(response.data.success){
-                console.log(response);
+                // console.log(response);
             }
 
         } catch (e) {
-            console.error(e);
+            // console.error(e);
             navigate("/error");
         }
     }

@@ -18,7 +18,7 @@ function JoinPage(props) {
         if(number >= 1) navigate("/login");
             
     }
-    console.log(email)
+    // console.log(email)
     if(number === 0){
         return (
             <div id ="main">

@@ -16,31 +16,31 @@ function Scraps({myScrap, feedIdx}) {
   //스크랩등록
   const scrapRegister = async() => {
     try {
-      console.log(feedIdx)
+      // console.log(feedIdx)
       const response = await api.post(`/scraps/${feedIdx}`);
       
       if(response.data.success){
         setScrap(!scrap);
-        console.log(response);
+        // console.log(response);
       }
       
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       navigate("/error");
     }
   }
 
   //스크랩 삭제
   const scrapDelete = async() => {
-    console.log(feedIdx)
+    // console.log(feedIdx)
     try {
       const response = await api.delete(`/scraps/${feedIdx}`);
       if(response.data.success){
         setScrap(!scrap);
-        console.log(response);
+        // console.log(response);
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       navigate("/error");
     }
   }

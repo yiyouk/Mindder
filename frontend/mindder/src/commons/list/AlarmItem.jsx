@@ -83,10 +83,10 @@ function AlarmItem({alarm, userIdx, getData, alarmCount}) {
             const response = await api.patch(`/alarms/${alarm.alarmIdx}`)
             
             if(response.data.success){
-                console.log(response)
+                // console.log(response)
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
 
@@ -98,7 +98,7 @@ function AlarmItem({alarm, userIdx, getData, alarmCount}) {
                 getData(alarmCount-1)
             }
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     }
 
